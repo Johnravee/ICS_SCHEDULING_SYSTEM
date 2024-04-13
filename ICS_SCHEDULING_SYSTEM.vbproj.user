@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="addNewInstructor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="adminRegistration.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AllRoomsform.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CreateScheduleForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Dashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Authentication_Form.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="allInstructor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FacilityListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="InstructorListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ManagementScheduleForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="rfidandPinRegistrationforinstructors.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SchedListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SchedulePopupForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SchedulesTable.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SectionListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
