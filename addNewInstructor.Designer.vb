@@ -24,311 +24,70 @@ Partial Class addNewInstructor
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(addNewInstructor))
         Panel1 = New Panel()
+        ManualBackBtn = New PictureBox()
         Label14 = New Label()
-        Button17 = New Button()
-        txtfirstname = New TextBox()
-        Panel2 = New Panel()
-        Label1 = New Label()
-        Label2 = New Label()
-        Panel3 = New Panel()
-        txtMiddlename = New TextBox()
-        Label3 = New Label()
-        Panel4 = New Panel()
-        txtSurname = New TextBox()
-        Label5 = New Label()
-        Panel5 = New Panel()
-        txtSuffix = New ComboBox()
-        Label7 = New Label()
-        Panel8 = New Panel()
-        txtWorkStatus = New ComboBox()
-        Label8 = New Label()
-        Panel9 = New Panel()
-        txtemailGmailText = New TextBox()
-        txtEmail = New TextBox()
-        AddInstructorBtn = New Button()
         logo = New PictureBox()
         OpenFileDialog = New OpenFileDialog()
+        Label8 = New Label()
+        Panel6 = New Panel()
+        cbworkstatus = New ComboBox()
+        addbtn = New Button()
+        Label5 = New Label()
+        Label4 = New Label()
+        Label3 = New Label()
+        Label2 = New Label()
+        Label1 = New Label()
+        Panel9 = New Panel()
+        txtemail = New TextBox()
+        Panel4 = New Panel()
+        cbsuffix = New ComboBox()
+        Panel5 = New Panel()
+        txtsurname = New TextBox()
+        Panel3 = New Panel()
+        txtmname = New TextBox()
+        Panel2 = New Panel()
+        txtfname = New TextBox()
         Panel1.SuspendLayout()
-        Panel2.SuspendLayout()
-        Panel3.SuspendLayout()
+        CType(ManualBackBtn, ComponentModel.ISupportInitialize).BeginInit()
+        CType(logo, ComponentModel.ISupportInitialize).BeginInit()
+        Panel6.SuspendLayout()
+        Panel9.SuspendLayout()
         Panel4.SuspendLayout()
         Panel5.SuspendLayout()
-        Panel8.SuspendLayout()
-        Panel9.SuspendLayout()
-        CType(logo, ComponentModel.ISupportInitialize).BeginInit()
+        Panel3.SuspendLayout()
+        Panel2.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
+        Panel1.Controls.Add(ManualBackBtn)
         Panel1.Controls.Add(Label14)
-        Panel1.Controls.Add(Button17)
         Panel1.Location = New Point(0, -1)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1483, 74)
+        Panel1.Size = New Size(1483, 42)
         Panel1.TabIndex = 0
+        ' 
+        ' ManualBackBtn
+        ' 
+        ManualBackBtn.Image = CType(resources.GetObject("ManualBackBtn.Image"), Image)
+        ManualBackBtn.Location = New Point(12, 8)
+        ManualBackBtn.Name = "ManualBackBtn"
+        ManualBackBtn.Size = New Size(35, 29)
+        ManualBackBtn.SizeMode = PictureBoxSizeMode.Zoom
+        ManualBackBtn.TabIndex = 54
+        ManualBackBtn.TabStop = False
         ' 
         ' Label14
         ' 
         Label14.AutoSize = True
-        Label14.Font = New Font("Calibri", 26.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label14.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label14.ForeColor = Color.WhiteSmoke
-        Label14.Location = New Point(93, 19)
+        Label14.Location = New Point(541, 8)
         Label14.Name = "Label14"
-        Label14.Size = New Size(286, 42)
+        Label14.Size = New Size(172, 26)
         Label14.TabIndex = 39
         Label14.Text = "NEW INSTRUCTOR"
-        ' 
-        ' Button17
-        ' 
-        Button17.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
-        Button17.BackgroundImage = My.Resources.Resources.backBtn_removebg_preview
-        Button17.BackgroundImageLayout = ImageLayout.Stretch
-        Button17.FlatStyle = FlatStyle.Flat
-        Button17.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
-        Button17.Location = New Point(12, 12)
-        Button17.Margin = New Padding(3, 2, 3, 2)
-        Button17.Name = "Button17"
-        Button17.Size = New Size(54, 49)
-        Button17.TabIndex = 74
-        Button17.UseVisualStyleBackColor = False
-        ' 
-        ' txtfirstname
-        ' 
-        txtfirstname.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        txtfirstname.BorderStyle = BorderStyle.None
-        txtfirstname.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtfirstname.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtfirstname.Location = New Point(13, 14)
-        txtfirstname.Name = "txtfirstname"
-        txtfirstname.Size = New Size(189, 26)
-        txtfirstname.TabIndex = 1
-        ' 
-        ' Panel2
-        ' 
-        Panel2.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel2.BorderStyle = BorderStyle.FixedSingle
-        Panel2.Controls.Add(txtfirstname)
-        Panel2.Location = New Point(377, 172)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(207, 52)
-        Panel2.TabIndex = 2
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.BackColor = Color.Transparent
-        Label1.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label1.Location = New Point(377, 158)
-        Label1.Margin = New Padding(0)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(99, 25)
-        Label1.TabIndex = 4
-        Label1.Text = "Firstname"
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.BackColor = Color.Transparent
-        Label2.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label2.Location = New Point(649, 158)
-        Label2.Margin = New Padding(0)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(123, 25)
-        Label2.TabIndex = 6
-        Label2.Text = "Middlename"
-        ' 
-        ' Panel3
-        ' 
-        Panel3.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel3.BorderStyle = BorderStyle.FixedSingle
-        Panel3.Controls.Add(txtMiddlename)
-        Panel3.Location = New Point(649, 172)
-        Panel3.Name = "Panel3"
-        Panel3.Size = New Size(207, 52)
-        Panel3.TabIndex = 5
-        ' 
-        ' txtMiddlename
-        ' 
-        txtMiddlename.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        txtMiddlename.BorderStyle = BorderStyle.None
-        txtMiddlename.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtMiddlename.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtMiddlename.Location = New Point(12, 14)
-        txtMiddlename.Name = "txtMiddlename"
-        txtMiddlename.Size = New Size(190, 26)
-        txtMiddlename.TabIndex = 1
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.BackColor = Color.Transparent
-        Label3.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label3.Location = New Point(926, 158)
-        Label3.Margin = New Padding(0)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(92, 25)
-        Label3.TabIndex = 8
-        Label3.Text = "Surname"
-        ' 
-        ' Panel4
-        ' 
-        Panel4.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel4.BorderStyle = BorderStyle.FixedSingle
-        Panel4.Controls.Add(txtSurname)
-        Panel4.Location = New Point(926, 172)
-        Panel4.Name = "Panel4"
-        Panel4.Size = New Size(207, 52)
-        Panel4.TabIndex = 7
-        ' 
-        ' txtSurname
-        ' 
-        txtSurname.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        txtSurname.BorderStyle = BorderStyle.None
-        txtSurname.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSurname.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtSurname.Location = New Point(11, 14)
-        txtSurname.Name = "txtSurname"
-        txtSurname.Size = New Size(191, 26)
-        txtSurname.TabIndex = 1
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.BackColor = Color.Transparent
-        Label5.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(1203, 158)
-        Label5.Margin = New Padding(0)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(65, 25)
-        Label5.TabIndex = 12
-        Label5.Text = "Suffix"
-        ' 
-        ' Panel5
-        ' 
-        Panel5.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel5.BorderStyle = BorderStyle.FixedSingle
-        Panel5.Controls.Add(txtSuffix)
-        Panel5.Location = New Point(1203, 172)
-        Panel5.Name = "Panel5"
-        Panel5.Size = New Size(207, 52)
-        Panel5.TabIndex = 11
-        ' 
-        ' txtSuffix
-        ' 
-        txtSuffix.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        txtSuffix.FlatStyle = FlatStyle.Flat
-        txtSuffix.Font = New Font("Calibri", 12.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSuffix.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtSuffix.FormattingEnabled = True
-        txtSuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
-        txtSuffix.Location = New Point(11, 11)
-        txtSuffix.Name = "txtSuffix"
-        txtSuffix.Size = New Size(190, 29)
-        txtSuffix.TabIndex = 0
-        ' 
-        ' Label7
-        ' 
-        Label7.AutoSize = True
-        Label7.BackColor = Color.Transparent
-        Label7.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label7.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label7.Location = New Point(377, 247)
-        Label7.Margin = New Padding(0)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(121, 25)
-        Label7.TabIndex = 18
-        Label7.Text = "Work Status"
-        ' 
-        ' Panel8
-        ' 
-        Panel8.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel8.BorderStyle = BorderStyle.FixedSingle
-        Panel8.Controls.Add(txtWorkStatus)
-        Panel8.Location = New Point(377, 261)
-        Panel8.Name = "Panel8"
-        Panel8.Size = New Size(479, 52)
-        Panel8.TabIndex = 17
-        ' 
-        ' txtWorkStatus
-        ' 
-        txtWorkStatus.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        txtWorkStatus.FlatStyle = FlatStyle.Flat
-        txtWorkStatus.Font = New Font("Calibri", 12.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtWorkStatus.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtWorkStatus.FormattingEnabled = True
-        txtWorkStatus.Items.AddRange(New Object() {"Part-Timer", "Full-Timer"})
-        txtWorkStatus.Location = New Point(11, 11)
-        txtWorkStatus.Name = "txtWorkStatus"
-        txtWorkStatus.Size = New Size(460, 29)
-        txtWorkStatus.TabIndex = 0
-        ' 
-        ' Label8
-        ' 
-        Label8.AutoSize = True
-        Label8.BackColor = Color.Transparent
-        Label8.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label8.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label8.Location = New Point(926, 247)
-        Label8.Margin = New Padding(0)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(59, 25)
-        Label8.TabIndex = 20
-        Label8.Text = "Email"
-        ' 
-        ' Panel9
-        ' 
-        Panel9.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel9.BorderStyle = BorderStyle.FixedSingle
-        Panel9.Controls.Add(txtemailGmailText)
-        Panel9.Controls.Add(txtEmail)
-        Panel9.Location = New Point(926, 261)
-        Panel9.Name = "Panel9"
-        Panel9.Size = New Size(484, 52)
-        Panel9.TabIndex = 19
-        ' 
-        ' txtemailGmailText
-        ' 
-        txtemailGmailText.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        txtemailGmailText.BorderStyle = BorderStyle.None
-        txtemailGmailText.Cursor = Cursors.No
-        txtemailGmailText.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtemailGmailText.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtemailGmailText.Location = New Point(362, 14)
-        txtemailGmailText.Name = "txtemailGmailText"
-        txtemailGmailText.ReadOnly = True
-        txtemailGmailText.Size = New Size(120, 26)
-        txtemailGmailText.TabIndex = 21
-        txtemailGmailText.Text = "@gmail.com"
-        ' 
-        ' txtEmail
-        ' 
-        txtEmail.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        txtEmail.BorderStyle = BorderStyle.None
-        txtEmail.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtEmail.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtEmail.Location = New Point(13, 14)
-        txtEmail.Name = "txtEmail"
-        txtEmail.Size = New Size(343, 26)
-        txtEmail.TabIndex = 1
-        ' 
-        ' AddInstructorBtn
-        ' 
-        AddInstructorBtn.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
-        AddInstructorBtn.FlatStyle = FlatStyle.Flat
-        AddInstructorBtn.Font = New Font("Calibri", 26.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        AddInstructorBtn.ForeColor = Color.WhiteSmoke
-        AddInstructorBtn.Location = New Point(1329, 350)
-        AddInstructorBtn.Name = "AddInstructorBtn"
-        AddInstructorBtn.Size = New Size(80, 70)
-        AddInstructorBtn.TabIndex = 28
-        AddInstructorBtn.Text = "➤"
-        AddInstructorBtn.TextImageRelation = TextImageRelation.ImageBeforeText
-        AddInstructorBtn.UseVisualStyleBackColor = False
         ' 
         ' logo
         ' 
@@ -344,26 +103,223 @@ Partial Class addNewInstructor
         ' 
         OpenFileDialog.FileName = "OpenFileDialog1"
         ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label8.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label8.Location = New Point(421, 261)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(106, 23)
+        Label8.TabIndex = 53
+        Label8.Text = "Work Status"
+        ' 
+        ' Panel6
+        ' 
+        Panel6.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel6.Controls.Add(cbworkstatus)
+        Panel6.Location = New Point(420, 287)
+        Panel6.Name = "Panel6"
+        Panel6.Size = New Size(277, 42)
+        Panel6.TabIndex = 52
+        ' 
+        ' cbworkstatus
+        ' 
+        cbworkstatus.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cbworkstatus.FlatStyle = FlatStyle.Flat
+        cbworkstatus.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cbworkstatus.FormattingEnabled = True
+        cbworkstatus.Items.AddRange(New Object() {"FULL-TIMER", "PART-TIMER"})
+        cbworkstatus.Location = New Point(17, 7)
+        cbworkstatus.Name = "cbworkstatus"
+        cbworkstatus.Size = New Size(244, 27)
+        cbworkstatus.TabIndex = 6
+        ' 
+        ' addbtn
+        ' 
+        addbtn.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
+        addbtn.FlatStyle = FlatStyle.Popup
+        addbtn.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        addbtn.ForeColor = Color.WhiteSmoke
+        addbtn.Location = New Point(585, 370)
+        addbtn.Name = "addbtn"
+        addbtn.Size = New Size(113, 43)
+        addbtn.TabIndex = 7
+        addbtn.Text = "ADD"
+        addbtn.UseVisualStyleBackColor = False
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label5.Location = New Point(421, 178)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(53, 23)
+        Label5.TabIndex = 50
+        Label5.Text = "Email"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label4.Location = New Point(421, 89)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(54, 23)
+        Label4.TabIndex = 49
+        Label4.Text = "Suffix"
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label3.Location = New Point(28, 261)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(80, 23)
+        Label3.TabIndex = 48
+        Label3.Text = "Surname"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label2.Location = New Point(28, 178)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(111, 23)
+        Label2.TabIndex = 47
+        Label2.Text = "Middlename"
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label1.Location = New Point(28, 89)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(90, 23)
+        Label1.TabIndex = 46
+        Label1.Text = "Firstname"
+        ' 
+        ' Panel9
+        ' 
+        Panel9.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel9.Controls.Add(txtemail)
+        Panel9.Location = New Point(421, 204)
+        Panel9.Name = "Panel9"
+        Panel9.Size = New Size(277, 42)
+        Panel9.TabIndex = 43
+        ' 
+        ' txtemail
+        ' 
+        txtemail.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        txtemail.BorderStyle = BorderStyle.None
+        txtemail.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtemail.Location = New Point(17, 11)
+        txtemail.Name = "txtemail"
+        txtemail.Size = New Size(244, 20)
+        txtemail.TabIndex = 5
+        ' 
+        ' Panel4
+        ' 
+        Panel4.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel4.Controls.Add(cbsuffix)
+        Panel4.Location = New Point(421, 115)
+        Panel4.Name = "Panel4"
+        Panel4.Size = New Size(277, 42)
+        Panel4.TabIndex = 42
+        ' 
+        ' cbsuffix
+        ' 
+        cbsuffix.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cbsuffix.FlatStyle = FlatStyle.Flat
+        cbsuffix.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cbsuffix.FormattingEnabled = True
+        cbsuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
+        cbsuffix.Location = New Point(17, 7)
+        cbsuffix.Name = "cbsuffix"
+        cbsuffix.Size = New Size(244, 27)
+        cbsuffix.TabIndex = 4
+        ' 
+        ' Panel5
+        ' 
+        Panel5.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel5.Controls.Add(txtsurname)
+        Panel5.Location = New Point(28, 287)
+        Panel5.Name = "Panel5"
+        Panel5.Size = New Size(277, 42)
+        Panel5.TabIndex = 41
+        ' 
+        ' txtsurname
+        ' 
+        txtsurname.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        txtsurname.BorderStyle = BorderStyle.None
+        txtsurname.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtsurname.Location = New Point(17, 11)
+        txtsurname.Name = "txtsurname"
+        txtsurname.Size = New Size(244, 20)
+        txtsurname.TabIndex = 3
+        ' 
+        ' Panel3
+        ' 
+        Panel3.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel3.Controls.Add(txtmname)
+        Panel3.Location = New Point(28, 204)
+        Panel3.Name = "Panel3"
+        Panel3.Size = New Size(277, 42)
+        Panel3.TabIndex = 40
+        ' 
+        ' txtmname
+        ' 
+        txtmname.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        txtmname.BorderStyle = BorderStyle.None
+        txtmname.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtmname.Location = New Point(17, 11)
+        txtmname.Name = "txtmname"
+        txtmname.Size = New Size(244, 20)
+        txtmname.TabIndex = 2
+        ' 
+        ' Panel2
+        ' 
+        Panel2.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel2.Controls.Add(txtfname)
+        Panel2.Location = New Point(28, 115)
+        Panel2.Name = "Panel2"
+        Panel2.Size = New Size(277, 42)
+        Panel2.TabIndex = 39
+        ' 
+        ' txtfname
+        ' 
+        txtfname.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        txtfname.BorderStyle = BorderStyle.None
+        txtfname.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtfname.Location = New Point(17, 11)
+        txtfname.Name = "txtfname"
+        txtfname.Size = New Size(244, 20)
+        txtfname.TabIndex = 1
+        ' 
         ' addNewInstructor
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
-        ClientSize = New Size(1483, 475)
-        Controls.Add(logo)
-        Controls.Add(AddInstructorBtn)
+        ClientSize = New Size(725, 438)
         Controls.Add(Label8)
-        Controls.Add(Panel9)
-        Controls.Add(Label7)
-        Controls.Add(Panel8)
+        Controls.Add(Panel6)
+        Controls.Add(addbtn)
         Controls.Add(Label5)
-        Controls.Add(Panel5)
+        Controls.Add(Label4)
         Controls.Add(Label3)
-        Controls.Add(Panel4)
         Controls.Add(Label2)
-        Controls.Add(Panel3)
         Controls.Add(Label1)
+        Controls.Add(Panel9)
+        Controls.Add(Panel4)
+        Controls.Add(Panel5)
+        Controls.Add(Panel3)
         Controls.Add(Panel2)
+        Controls.Add(logo)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
         Name = "addNewInstructor"
@@ -371,44 +327,46 @@ Partial Class addNewInstructor
         Text = "addNewInstructor"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
-        Panel2.ResumeLayout(False)
-        Panel2.PerformLayout()
-        Panel3.ResumeLayout(False)
-        Panel3.PerformLayout()
-        Panel4.ResumeLayout(False)
-        Panel4.PerformLayout()
-        Panel5.ResumeLayout(False)
-        Panel8.ResumeLayout(False)
+        CType(ManualBackBtn, ComponentModel.ISupportInitialize).EndInit()
+        CType(logo, ComponentModel.ISupportInitialize).EndInit()
+        Panel6.ResumeLayout(False)
         Panel9.ResumeLayout(False)
         Panel9.PerformLayout()
-        CType(logo, ComponentModel.ISupportInitialize).EndInit()
+        Panel4.ResumeLayout(False)
+        Panel5.ResumeLayout(False)
+        Panel5.PerformLayout()
+        Panel3.ResumeLayout(False)
+        Panel3.PerformLayout()
+        Panel2.ResumeLayout(False)
+        Panel2.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
 
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Button17 As Button
-    Friend WithEvents txtfirstname As TextBox
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Panel3 As Panel
-    Friend WithEvents txtMiddlename As TextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Panel4 As Panel
-    Friend WithEvents txtSurname As TextBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Panel5 As Panel
-    Friend WithEvents txtSuffix As ComboBox
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Panel8 As Panel
-    Friend WithEvents txtWorkStatus As ComboBox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Panel9 As Panel
-    Friend WithEvents txtEmail As TextBox
-    Friend WithEvents txtemailGmailText As TextBox
     Friend WithEvents AddInstructorBtn As Button
     Friend WithEvents logo As PictureBox
     Friend WithEvents Label14 As Label
     Friend WithEvents OpenFileDialog As OpenFileDialog
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents cbworkstatus As ComboBox
+    Friend WithEvents addbtn As Button
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Panel9 As Panel
+    Friend WithEvents txtemail As TextBox
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents cbsuffix As ComboBox
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents txtsurname As TextBox
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents txtmname As TextBox
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents txtfname As TextBox
+    Friend WithEvents ManualBackBtn As PictureBox
 End Class

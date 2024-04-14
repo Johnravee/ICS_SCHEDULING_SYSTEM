@@ -151,17 +151,17 @@ Public Class rfidandPinRegistrationforinstructors
             If ex.Number = 1062 Then
                 If ex.Message.Contains("instructor_rfid_unique") Then
                     MessageBox.Show("Duplicate RFID! This RFID already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    BackToWhatForm()
+
                 ElseIf ex.Message.Contains("instructor_email_unique") Then
                     MessageBox.Show("Duplicate email address! This email already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    BackToWhatForm()
+
                 Else
                     MessageBox.Show("Duplicate entry error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    BackToWhatForm()
+
                 End If
             Else
                 MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                BackToWhatForm()
+
             End If
 
         Finally
@@ -171,16 +171,7 @@ Public Class rfidandPinRegistrationforinstructors
 
     End Sub
 
-    Private Sub BackToWhatForm()
-        If jobPosisyon = "INSTRUCTOR" Then
-            Me.Hide()
-            addNewInstructor.Show()
-        Else
-            Me.Hide()
-            adminRegistration.Show()
 
-        End If
-    End Sub
 
 
 End Class

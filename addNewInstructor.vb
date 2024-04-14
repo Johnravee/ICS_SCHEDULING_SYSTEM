@@ -1,134 +1,57 @@
-﻿Imports System.IO
+﻿
 Imports MySql.Data.MySqlClient
-Imports Mysqlx.Notice
-Imports System.Runtime.Intrinsics.Arm
-Imports K4os.Compression.LZ4.Streams
-Imports System.Net
+
 
 Public Class addNewInstructor
-    Dim imageBytes() As Byte
-    Dim emailFormat As String
 
 
-
-
-
-    'Save button
-    Private Sub AddInstructorBtn_Click(sender As Object, e As EventArgs) Handles AddInstructorBtn.Click
-        Me.Hide()
-
-        If imageBytes Is Nothing Then
-            MessageBox.Show("Please upload a profile image.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Me.Show()
-            Return
-        End If
-
-        'If walang error/no empty fields
-        If CheckEmptyFields() Then
-            insertData()
-        End If
-
-
-    End Sub
-
-    'Ayusin pa tong age base on birthdate
-
-
-    'Evaluate every input boxes.
-    Private Sub insertData()
-        Dim firstName As String, middleName As String, surname As String, suffix As String,
-    age As String, sex As String, contact As String, jobPosition As String, workStatus As String
-        'instance
-        Dim rfidandpinreg As New rfidandPinRegistrationforinstructors()
-
+    Private Sub AddInstructor()
         'Sanitize inputs
-        firstName = ReplaceSpecialCharacters(UCase(txtfirstname.Text))
-        middleName = ReplaceSpecialCharacters(UCase(txtMiddlename.Text))
-        surname = ReplaceSpecialCharacters(UCase(txtSurname.Text))
-        suffix = ReplaceSpecialCharacters(UCase(txtSuffix.SelectedItem?.ToString()))
-        workStatus = ReplaceSpecialCharacters(UCase(txtWorkStatus.SelectedItem?.ToString()))
+        If EmailValidation(txtemail.Text) Then
 
+            txtfname.Text = ReplaceSpecialCharacters(UCase(txtfname.Text))
+            txtmname.Text = ReplaceSpecialCharacters(UCase(txtmname.Text))
+            txtsurname.Text = ReplaceSpecialCharacters(UCase(txtsurname.Text))
+            cbsuffix.SelectedItem = ReplaceSpecialCharacters(UCase(cbsuffix.SelectedItem))
+            cbworkstatus.SelectedItem = ReplaceSpecialCharacters(UCase(cbworkstatus.SelectedItem))
 
-
-
-        If txtEmail.Text.Contains("@gmail.com") Then
-            emailFormat = txtEmail.Text
-        ElseIf Not txtEmail.Text.Contains("@gmail.com") Then
-            emailFormat = txtEmail.Text & "@gmail.com"
-        End If
-
-
-
-        If EmailValidation(emailFormat) Then
-            'pass data
-            'rfidandpinreg.instructorDataConstructor(imageBytes, firstName, middleName, surname, suffix, age,
-            '                           sex, contact, jobPosition, emailFormat, workStatus,
-            '                           department, birthdate.Value.ToString("MM-dd-yyyy"))
-            'rfidandpinreg.Show()
-
-            If jobPosition = "INSTRUCTOR" Then
+            Try
                 DBCon()
+                cmd.Connection = con
+                cmd.CommandText = "INSERT INTO instructor (Firstname, MiddleName, Surname, Suffix, Position ,WorkStatus, email) VALUES(@fname, @mname, @surname, @suffix, @position, @workstatus, @email)"
 
-                If con.State = ConnectionState.Open Then
-                    cmd.CommandText = "INSERT INTO instructor (ProfileImage, Firtname, MiddleName, Surname, Suffix, age, birthdate, Position, WorkStatus, email, Contact, Sex) VALUES (@profileimage, @fname, @mname, @surname, @suffix, @age, @bdate, @position, @workstats, @email, @contact, @sx)"
+                cmd.Parameters.Clear()
+                cmd.Parameters.AddWithValue("@fname", txtfname.Text)
+                cmd.Parameters.AddWithValue("@mname", txtmname.Text)
+                cmd.Parameters.AddWithValue("@surname", txtsurname.Text)
+                cmd.Parameters.AddWithValue("@suffix", cbsuffix.SelectedItem)
+                cmd.Parameters.AddWithValue("@position", "INSTRUCTOR")
+                cmd.Parameters.AddWithValue("@workstatus", cbworkstatus.SelectedItem)
+                cmd.Parameters.AddWithValue("@email", txtemail.Text)
 
-
-                    cmd.Parameters.Clear()
-                    cmd.Connection = con
-
-                    cmd.Parameters.Add("@profileimage", MySqlDbType.Blob).Value = imageBytes
-                    cmd.Parameters.AddWithValue("@fname", firstName)
-                    cmd.Parameters.AddWithValue("@mname", middleName)
-                    cmd.Parameters.AddWithValue("@surname", surname)
-                    cmd.Parameters.AddWithValue("@suffix", suffix)
-                    cmd.Parameters.AddWithValue("@age", age)
-
-                    cmd.Parameters.AddWithValue("@position", jobPosition)
-                    cmd.Parameters.AddWithValue("@workstats", workStatus)
-                    cmd.Parameters.AddWithValue("@email", emailFormat)
-                    cmd.Parameters.AddWithValue("@contact", contact)
-                    cmd.Parameters.AddWithValue("@sx", sex)
-
-
-                    cmd.ExecuteNonQuery()
-
-                    MessageBox.Show("Instructor account created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Me.Show()
-
-                    con.Close()
+                cmd.ExecuteNonQuery()
+                MessageBox.Show("Account inserted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ClearFields()
+                con.Close()
+            Catch ex As MySqlException
+                If ex.Number = 1062 Then
+                    ' MySQL error number 1062 indicates a duplicate entry (e.g., unique key constraint violation)
+                    MessageBox.Show("Account insertion failed: Duplicate entry found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
-                    MsgBox("Connection lost.")
+                    ' Display a generic error message for other MySQL exceptions
+                    MessageBox.Show("Account insertion failed: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
-            Else
 
-                rfidandpinreg.Show()
-            End If
+            End Try
+
         Else
-            MessageBox.Show("Your email is invalid", "Invalid email", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Me.Show()
+            MessageBox.Show("Invalid Email", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
-        'clear fields
-        Array.Clear(imageBytes, 0, imageBytes.Length)
-        txtfirstname.Clear()
-        txtMiddlename.Clear()
-        txtMiddlename.Clear()
-        txtSurname.Clear()
-        txtSuffix.Text = ""
 
-
-        txtEmail.Clear()
-        txtWorkStatus.Text = ""
 
 
     End Sub
-
-    Private Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click
-        Me.Hide()
-        Dashboard.Show()
-    End Sub
-
 
 
 
@@ -138,11 +61,11 @@ Public Class addNewInstructor
 
 
 
-        If String.IsNullOrEmpty(txtfirstname.Text) Then
+        If String.IsNullOrEmpty(txtfname.Text) Then
             errorMessage &= "- First Name" & vbCrLf
         End If
 
-        If String.IsNullOrEmpty(txtMiddlename.Text) Then
+        If String.IsNullOrEmpty(txtmname.Text) Then
             errorMessage &= "- Middle Name" & vbCrLf
         End If
 
@@ -150,12 +73,12 @@ Public Class addNewInstructor
             errorMessage &= "- Surname" & vbCrLf
         End If
 
-        If String.IsNullOrEmpty(txtSuffix.SelectedItem) Then
+        If String.IsNullOrEmpty(cbsuffix.SelectedItem) Then
             errorMessage &= "- Suffix" & vbCrLf
         End If
 
 
-        If String.IsNullOrEmpty(txtWorkStatus.SelectedItem) Then
+        If String.IsNullOrEmpty(cbworkstatus.SelectedItem) Then
             errorMessage &= "- Work Status" & vbCrLf
         End If
 
@@ -164,11 +87,6 @@ Public Class addNewInstructor
         If String.IsNullOrEmpty(txtEmail.Text) Then
             errorMessage &= "- Email" & vbCrLf
         End If
-
-
-
-
-
 
 
         If errorMessage <> "Please fill in the following fields:" & vbCrLf Then
@@ -180,4 +98,26 @@ Public Class addNewInstructor
     End Function
 
 
+    Private Sub ClearFields()
+        txtemail.Clear()
+        txtfname.Clear()
+        txtmname.Clear()
+        txtsurname.Clear()
+        cbsuffix.SelectedIndex = -1
+        cbworkstatus.SelectedIndex = -1
+
+    End Sub
+
+    Private Sub ManualBackBtn_Click(sender As Object, e As EventArgs) Handles ManualBackBtn.Click
+        Me.Hide()
+        Dashboard.Show()
+    End Sub
+
+    Private Sub addbtn_Click(sender As Object, e As EventArgs) Handles addbtn.Click
+        'If walang error/no empty fields
+        If CheckEmptyFields() Then
+            AddInstructor()
+        End If
+
+    End Sub
 End Class

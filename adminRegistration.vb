@@ -3,12 +3,17 @@
     'Pass data when field is poluted
     Private Sub nextbtn_Click(sender As Object, e As EventArgs) Handles nextbtn.Click
         If CheckEmptyFields() Then
-            Dim rfidscanForm As New rfidandPinRegistrationforinstructors
-            rfidscanForm.instructorDataConstructor(txtfname.Text, txtmname.Text, txtsurname.Text, cbsuffix.SelectedItem, cbRole.SelectedItem, txtemail.Text, cbworkstatus.SelectedItem)
+            If EmailValidation(txtemail.Text) Then
+                Dim rfidscanForm As New rfidandPinRegistrationforinstructors
+                rfidscanForm.instructorDataConstructor(txtfname.Text, txtmname.Text, txtsurname.Text, cbsuffix.SelectedItem, cbRole.SelectedItem, txtemail.Text, cbworkstatus.SelectedItem)
 
 
-            rfidscanForm.Show()
-            Me.Hide()
+                rfidscanForm.Show()
+                Me.Hide()
+            Else
+                MessageBox.Show("Invalid Email", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ClearFields()
+            End If
 
         End If
     End Sub
@@ -56,5 +61,18 @@
         End If
     End Function
 
+    Private Sub ManualBackBtn_Click(sender As Object, e As EventArgs) Handles ManualBackBtn.Click
+        Me.Hide()
+        Authentication_Form.Show()
+    End Sub
 
+    Private Sub ClearFields()
+        txtemail.Clear()
+        txtfname.Clear()
+        txtmname.Clear()
+        txtsurname.Clear()
+        cbsuffix.SelectedIndex = -1
+        cbworkstatus.SelectedIndex = -1
+
+    End Sub
 End Class

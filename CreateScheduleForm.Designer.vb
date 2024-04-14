@@ -58,8 +58,7 @@ Partial Class CreateScheduleForm
         Label1 = New Label()
         Button2 = New Button()
         Button1 = New Button()
-        closeBtn = New PictureBox()
-        minimizeBtn = New PictureBox()
+        Label9 = New Label()
         Panel1.SuspendLayout()
         Panel6.SuspendLayout()
         Panel4.SuspendLayout()
@@ -71,8 +70,6 @@ Partial Class CreateScheduleForm
         GroupBox2.SuspendLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
-        CType(closeBtn, ComponentModel.ISupportInitialize).BeginInit()
-        CType(minimizeBtn, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Panel1
@@ -467,35 +464,22 @@ Partial Class CreateScheduleForm
         Button1.BackgroundImageLayout = ImageLayout.Stretch
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
-        Button1.Location = New Point(0, 0)
+        Button1.Location = New Point(11, 0)
         Button1.Name = "Button1"
         Button1.Size = New Size(43, 38)
         Button1.TabIndex = 0
         Button1.UseVisualStyleBackColor = False
         ' 
-        ' closeBtn
+        ' Label9
         ' 
-        closeBtn.BackColor = Color.Transparent
-        closeBtn.BackgroundImage = CType(resources.GetObject("closeBtn.BackgroundImage"), Image)
-        closeBtn.BackgroundImageLayout = ImageLayout.Stretch
-        closeBtn.Cursor = Cursors.Hand
-        closeBtn.Location = New Point(1554, 0)
-        closeBtn.Name = "closeBtn"
-        closeBtn.Size = New Size(22, 21)
-        closeBtn.TabIndex = 3
-        closeBtn.TabStop = False
-        ' 
-        ' minimizeBtn
-        ' 
-        minimizeBtn.BackColor = Color.Transparent
-        minimizeBtn.BackgroundImage = CType(resources.GetObject("minimizeBtn.BackgroundImage"), Image)
-        minimizeBtn.BackgroundImageLayout = ImageLayout.Stretch
-        minimizeBtn.Cursor = Cursors.Hand
-        minimizeBtn.Location = New Point(1535, 0)
-        minimizeBtn.Name = "minimizeBtn"
-        minimizeBtn.Size = New Size(22, 21)
-        minimizeBtn.TabIndex = 4
-        minimizeBtn.TabStop = False
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1394, 7)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(164, 24)
+        Label9.TabIndex = 1
+        Label9.Text = "CREATE SCHEDULE"
         ' 
         ' CreateScheduleForm
         ' 
@@ -503,8 +487,7 @@ Partial Class CreateScheduleForm
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
         ClientSize = New Size(1577, 757)
-        Controls.Add(minimizeBtn)
-        Controls.Add(closeBtn)
+        Controls.Add(Label9)
         Controls.Add(Panel1)
         Controls.Add(Button1)
         FormBorderStyle = FormBorderStyle.None
@@ -525,9 +508,8 @@ Partial Class CreateScheduleForm
         GroupBox2.PerformLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).EndInit()
         CType(logo, ComponentModel.ISupportInitialize).EndInit()
-        CType(closeBtn, ComponentModel.ISupportInitialize).EndInit()
-        CType(minimizeBtn, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents Panel1 As Panel
@@ -535,8 +517,6 @@ Partial Class CreateScheduleForm
     Friend WithEvents Button2 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents logo As PictureBox
-    Friend WithEvents closeBtn As PictureBox
-    Friend WithEvents minimizeBtn As PictureBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label11 As Label
@@ -564,4 +544,5 @@ Partial Class CreateScheduleForm
     Friend WithEvents cb_day As ComboBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents cb_subject As ComboBox
+    Friend WithEvents Label9 As Label
 End Class

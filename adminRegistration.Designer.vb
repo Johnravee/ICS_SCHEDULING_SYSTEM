@@ -22,9 +22,10 @@ Partial Class adminRegistration
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(adminRegistration))
         Panel1 = New Panel()
+        ManualBackBtn = New PictureBox()
         Label7 = New Label()
-        Button2 = New Button()
         txtfname = New TextBox()
         Panel2 = New Panel()
         Panel3 = New Panel()
@@ -48,6 +49,7 @@ Partial Class adminRegistration
         Panel6 = New Panel()
         cbworkstatus = New ComboBox()
         Panel1.SuspendLayout()
+        CType(ManualBackBtn, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         Panel3.SuspendLayout()
         Panel5.SuspendLayout()
@@ -60,37 +62,34 @@ Partial Class adminRegistration
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
+        Panel1.Controls.Add(ManualBackBtn)
         Panel1.Controls.Add(Label7)
-        Panel1.Controls.Add(Button2)
         Panel1.Dock = DockStyle.Top
         Panel1.Location = New Point(0, 0)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(734, 42)
         Panel1.TabIndex = 0
         ' 
+        ' ManualBackBtn
+        ' 
+        ManualBackBtn.Image = CType(resources.GetObject("ManualBackBtn.Image"), Image)
+        ManualBackBtn.Location = New Point(10, 8)
+        ManualBackBtn.Name = "ManualBackBtn"
+        ManualBackBtn.Size = New Size(35, 29)
+        ManualBackBtn.SizeMode = PictureBoxSizeMode.Zoom
+        ManualBackBtn.TabIndex = 15
+        ManualBackBtn.TabStop = False
+        ' 
         ' Label7
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label7.ForeColor = Color.WhiteSmoke
-        Label7.Location = New Point(582, 9)
+        Label7.Location = New Point(513, 9)
         Label7.Name = "Label7"
-        Label7.Size = New Size(140, 26)
+        Label7.Size = New Size(209, 26)
         Label7.TabIndex = 2
-        Label7.Text = "REGISTRATION"
-        ' 
-        ' Button2
-        ' 
-        Button2.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
-        Button2.BackgroundImage = My.Resources.Resources.backBtn_removebg_preview
-        Button2.BackgroundImageLayout = ImageLayout.Stretch
-        Button2.FlatStyle = FlatStyle.Flat
-        Button2.Location = New Point(12, 6)
-        Button2.Margin = New Padding(3, 2, 3, 2)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(39, 30)
-        Button2.TabIndex = 1
-        Button2.UseVisualStyleBackColor = False
+        Label7.Text = "ADMIN REGISTRATION"
         ' 
         ' txtfname
         ' 
@@ -200,7 +199,7 @@ Partial Class adminRegistration
         cbsuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
         cbsuffix.Location = New Point(17, 7)
         cbsuffix.Name = "cbsuffix"
-        cbsuffix.Size = New Size(244, 27)
+        cbsuffix.Size = New Size(257, 27)
         cbsuffix.TabIndex = 4
         ' 
         ' txtemail
@@ -231,7 +230,7 @@ Partial Class adminRegistration
         cbRole.Items.AddRange(New Object() {"DEAN", "BSIT PROGRAM HEAD", "BScPE PROGRAM HEAD"})
         cbRole.Location = New Point(17, 7)
         cbRole.Name = "cbRole"
-        cbRole.Size = New Size(244, 27)
+        cbRole.Size = New Size(257, 27)
         cbRole.TabIndex = 6
         ' 
         ' Panel8
@@ -306,7 +305,7 @@ Partial Class adminRegistration
         Panel6.Controls.Add(cbworkstatus)
         Panel6.Location = New Point(27, 352)
         Panel6.Name = "Panel6"
-        Panel6.Size = New Size(277, 42)
+        Panel6.Size = New Size(278, 42)
         Panel6.TabIndex = 16
         ' 
         ' cbworkstatus
@@ -318,7 +317,7 @@ Partial Class adminRegistration
         cbworkstatus.Items.AddRange(New Object() {"FULL-TIMER", "PART-TIMER"})
         cbworkstatus.Location = New Point(17, 7)
         cbworkstatus.Name = "cbworkstatus"
-        cbworkstatus.Size = New Size(244, 27)
+        cbworkstatus.Size = New Size(258, 27)
         cbworkstatus.TabIndex = 6
         ' 
         ' adminRegistration
@@ -349,6 +348,7 @@ Partial Class adminRegistration
         Text = "adminRegistration"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(ManualBackBtn, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
         Panel3.ResumeLayout(False)
@@ -384,9 +384,9 @@ Partial Class adminRegistration
     Friend WithEvents Label6 As Label
     Friend WithEvents nextbtn As Button
     Friend WithEvents Label7 As Label
-    Friend WithEvents Button2 As Button
     Friend WithEvents cbsuffix As ComboBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Panel6 As Panel
     Friend WithEvents cbworkstatus As ComboBox
+    Friend WithEvents ManualBackBtn As PictureBox
 End Class

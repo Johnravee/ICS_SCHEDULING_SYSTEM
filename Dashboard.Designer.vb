@@ -24,7 +24,6 @@ Partial Class Dashboard
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Dashboard))
         Panel1 = New Panel()
-        ProfileBtn = New Button()
         LogoutBtn = New Button()
         PictureBox1 = New PictureBox()
         Panel2 = New Panel()
@@ -32,14 +31,14 @@ Partial Class Dashboard
         closeBtn = New PictureBox()
         Label1 = New Label()
         Panel3 = New Panel()
-        Button8 = New Button()
-        Button7 = New Button()
-        Button6 = New Button()
-        Button5 = New Button()
-        Button4 = New Button()
-        Button3 = New Button()
-        Button2 = New Button()
-        Button1 = New Button()
+        btnManagement = New Button()
+        btnViewSummary = New Button()
+        btnViewSubject = New Button()
+        btnViewSection = New Button()
+        btnViewInstructor = New Button()
+        btnViewFacilities = New Button()
+        btnNewSched = New Button()
+        btnNewInstructor = New Button()
         Panel1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
@@ -51,7 +50,6 @@ Partial Class Dashboard
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(0), CByte(51), CByte(38))
-        Panel1.Controls.Add(ProfileBtn)
         Panel1.Controls.Add(LogoutBtn)
         Panel1.Controls.Add(PictureBox1)
         Panel1.Dock = DockStyle.Left
@@ -59,24 +57,6 @@ Partial Class Dashboard
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(79, 756)
         Panel1.TabIndex = 0
-        ' 
-        ' ProfileBtn
-        ' 
-        ProfileBtn.BackColor = Color.Transparent
-        ProfileBtn.BackgroundImage = CType(resources.GetObject("ProfileBtn.BackgroundImage"), Image)
-        ProfileBtn.BackgroundImageLayout = ImageLayout.Zoom
-        ProfileBtn.Cursor = Cursors.Hand
-        ProfileBtn.FlatAppearance.BorderColor = Color.FromArgb(CByte(1), CByte(47), CByte(31))
-        ProfileBtn.FlatAppearance.BorderSize = 0
-        ProfileBtn.FlatAppearance.CheckedBackColor = Color.FromArgb(CByte(29), CByte(53), CByte(50))
-        ProfileBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(29), CByte(53), CByte(50))
-        ProfileBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(29), CByte(53), CByte(50))
-        ProfileBtn.FlatStyle = FlatStyle.Flat
-        ProfileBtn.Location = New Point(12, 611)
-        ProfileBtn.Name = "ProfileBtn"
-        ProfileBtn.Size = New Size(48, 44)
-        ProfileBtn.TabIndex = 2
-        ProfileBtn.UseVisualStyleBackColor = False
         ' 
         ' LogoutBtn
         ' 
@@ -125,7 +105,7 @@ Partial Class Dashboard
         minimizeBtn.BackgroundImage = CType(resources.GetObject("minimizeBtn.BackgroundImage"), Image)
         minimizeBtn.BackgroundImageLayout = ImageLayout.Stretch
         minimizeBtn.Cursor = Cursors.Hand
-        minimizeBtn.Location = New Point(1351, 3)
+        minimizeBtn.Location = New Point(1360, 3)
         minimizeBtn.Name = "minimizeBtn"
         minimizeBtn.Size = New Size(22, 21)
         minimizeBtn.TabIndex = 3
@@ -137,7 +117,7 @@ Partial Class Dashboard
         closeBtn.BackgroundImage = CType(resources.GetObject("closeBtn.BackgroundImage"), Image)
         closeBtn.BackgroundImageLayout = ImageLayout.Stretch
         closeBtn.Cursor = Cursors.Hand
-        closeBtn.Location = New Point(1370, 3)
+        closeBtn.Location = New Point(1379, 3)
         closeBtn.Name = "closeBtn"
         closeBtn.Size = New Size(22, 21)
         closeBtn.TabIndex = 2
@@ -157,171 +137,171 @@ Partial Class Dashboard
         ' 
         ' Panel3
         ' 
-        Panel3.Controls.Add(Button8)
-        Panel3.Controls.Add(Button7)
-        Panel3.Controls.Add(Button6)
-        Panel3.Controls.Add(Button5)
-        Panel3.Controls.Add(Button4)
-        Panel3.Controls.Add(Button3)
-        Panel3.Controls.Add(Button2)
-        Panel3.Controls.Add(Button1)
+        Panel3.Controls.Add(btnManagement)
+        Panel3.Controls.Add(btnViewSummary)
+        Panel3.Controls.Add(btnViewSubject)
+        Panel3.Controls.Add(btnViewSection)
+        Panel3.Controls.Add(btnViewInstructor)
+        Panel3.Controls.Add(btnViewFacilities)
+        Panel3.Controls.Add(btnNewSched)
+        Panel3.Controls.Add(btnNewInstructor)
         Panel3.Dock = DockStyle.Fill
         Panel3.Location = New Point(79, 61)
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(1404, 695)
         Panel3.TabIndex = 2
         ' 
-        ' Button8
+        ' btnManagement
         ' 
-        Button8.AutoSize = True
-        Button8.BackColor = Color.LightYellow
-        Button8.Cursor = Cursors.Hand
-        Button8.FlatAppearance.BorderColor = Color.Khaki
-        Button8.FlatStyle = FlatStyle.Flat
-        Button8.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button8.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button8.Image = CType(resources.GetObject("Button8.Image"), Image)
-        Button8.Location = New Point(736, 507)
-        Button8.Name = "Button8"
-        Button8.Size = New Size(591, 122)
-        Button8.TabIndex = 15
-        Button8.Text = "    Management"
-        Button8.TextAlign = ContentAlignment.MiddleRight
-        Button8.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button8.UseVisualStyleBackColor = False
+        btnManagement.AutoSize = True
+        btnManagement.BackColor = Color.LightYellow
+        btnManagement.Cursor = Cursors.Hand
+        btnManagement.FlatAppearance.BorderColor = Color.Khaki
+        btnManagement.FlatStyle = FlatStyle.Flat
+        btnManagement.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnManagement.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnManagement.Image = CType(resources.GetObject("btnManagement.Image"), Image)
+        btnManagement.Location = New Point(736, 507)
+        btnManagement.Name = "btnManagement"
+        btnManagement.Size = New Size(591, 122)
+        btnManagement.TabIndex = 15
+        btnManagement.Text = "    Management"
+        btnManagement.TextAlign = ContentAlignment.MiddleRight
+        btnManagement.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnManagement.UseVisualStyleBackColor = False
         ' 
-        ' Button7
+        ' btnViewSummary
         ' 
-        Button7.AutoSize = True
-        Button7.BackColor = Color.LightYellow
-        Button7.Cursor = Cursors.Hand
-        Button7.FlatAppearance.BorderColor = Color.Khaki
-        Button7.FlatStyle = FlatStyle.Flat
-        Button7.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button7.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button7.Image = CType(resources.GetObject("Button7.Image"), Image)
-        Button7.Location = New Point(68, 507)
-        Button7.Name = "Button7"
-        Button7.Size = New Size(591, 122)
-        Button7.TabIndex = 15
-        Button7.Text = "    Summary"
-        Button7.TextAlign = ContentAlignment.MiddleRight
-        Button7.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button7.UseVisualStyleBackColor = False
+        btnViewSummary.AutoSize = True
+        btnViewSummary.BackColor = Color.LightYellow
+        btnViewSummary.Cursor = Cursors.Hand
+        btnViewSummary.FlatAppearance.BorderColor = Color.Khaki
+        btnViewSummary.FlatStyle = FlatStyle.Flat
+        btnViewSummary.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnViewSummary.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnViewSummary.Image = CType(resources.GetObject("btnViewSummary.Image"), Image)
+        btnViewSummary.Location = New Point(68, 507)
+        btnViewSummary.Name = "btnViewSummary"
+        btnViewSummary.Size = New Size(591, 122)
+        btnViewSummary.TabIndex = 15
+        btnViewSummary.Text = "    Summary"
+        btnViewSummary.TextAlign = ContentAlignment.MiddleRight
+        btnViewSummary.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnViewSummary.UseVisualStyleBackColor = False
         ' 
-        ' Button6
+        ' btnViewSubject
         ' 
-        Button6.AutoSize = True
-        Button6.BackColor = Color.LightYellow
-        Button6.Cursor = Cursors.Hand
-        Button6.FlatAppearance.BorderColor = Color.Khaki
-        Button6.FlatStyle = FlatStyle.Flat
-        Button6.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button6.Image = CType(resources.GetObject("Button6.Image"), Image)
-        Button6.Location = New Point(736, 350)
-        Button6.Name = "Button6"
-        Button6.Size = New Size(591, 103)
-        Button6.TabIndex = 14
-        Button6.Text = "    Subjects"
-        Button6.TextAlign = ContentAlignment.MiddleRight
-        Button6.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button6.UseVisualStyleBackColor = False
+        btnViewSubject.AutoSize = True
+        btnViewSubject.BackColor = Color.LightYellow
+        btnViewSubject.Cursor = Cursors.Hand
+        btnViewSubject.FlatAppearance.BorderColor = Color.Khaki
+        btnViewSubject.FlatStyle = FlatStyle.Flat
+        btnViewSubject.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnViewSubject.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnViewSubject.Image = CType(resources.GetObject("btnViewSubject.Image"), Image)
+        btnViewSubject.Location = New Point(736, 350)
+        btnViewSubject.Name = "btnViewSubject"
+        btnViewSubject.Size = New Size(591, 103)
+        btnViewSubject.TabIndex = 14
+        btnViewSubject.Text = "    Subjects"
+        btnViewSubject.TextAlign = ContentAlignment.MiddleRight
+        btnViewSubject.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnViewSubject.UseVisualStyleBackColor = False
         ' 
-        ' Button5
+        ' btnViewSection
         ' 
-        Button5.AutoSize = True
-        Button5.BackColor = Color.LightYellow
-        Button5.Cursor = Cursors.Hand
-        Button5.FlatAppearance.BorderColor = Color.Khaki
-        Button5.FlatStyle = FlatStyle.Flat
-        Button5.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button5.Image = CType(resources.GetObject("Button5.Image"), Image)
-        Button5.Location = New Point(68, 350)
-        Button5.Name = "Button5"
-        Button5.Size = New Size(591, 103)
-        Button5.TabIndex = 13
-        Button5.Text = "    Sections"
-        Button5.TextAlign = ContentAlignment.MiddleRight
-        Button5.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button5.UseVisualStyleBackColor = False
+        btnViewSection.AutoSize = True
+        btnViewSection.BackColor = Color.LightYellow
+        btnViewSection.Cursor = Cursors.Hand
+        btnViewSection.FlatAppearance.BorderColor = Color.Khaki
+        btnViewSection.FlatStyle = FlatStyle.Flat
+        btnViewSection.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnViewSection.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnViewSection.Image = CType(resources.GetObject("btnViewSection.Image"), Image)
+        btnViewSection.Location = New Point(68, 350)
+        btnViewSection.Name = "btnViewSection"
+        btnViewSection.Size = New Size(591, 103)
+        btnViewSection.TabIndex = 13
+        btnViewSection.Text = "    Sections"
+        btnViewSection.TextAlign = ContentAlignment.MiddleRight
+        btnViewSection.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnViewSection.UseVisualStyleBackColor = False
         ' 
-        ' Button4
+        ' btnViewInstructor
         ' 
-        Button4.AutoSize = True
-        Button4.BackColor = Color.LightYellow
-        Button4.Cursor = Cursors.Hand
-        Button4.FlatAppearance.BorderColor = Color.Khaki
-        Button4.FlatStyle = FlatStyle.Flat
-        Button4.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button4.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button4.Image = CType(resources.GetObject("Button4.Image"), Image)
-        Button4.Location = New Point(736, 204)
-        Button4.Name = "Button4"
-        Button4.Size = New Size(591, 103)
-        Button4.TabIndex = 12
-        Button4.Text = "    Instructors"
-        Button4.TextAlign = ContentAlignment.MiddleRight
-        Button4.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button4.UseVisualStyleBackColor = False
+        btnViewInstructor.AutoSize = True
+        btnViewInstructor.BackColor = Color.LightYellow
+        btnViewInstructor.Cursor = Cursors.Hand
+        btnViewInstructor.FlatAppearance.BorderColor = Color.Khaki
+        btnViewInstructor.FlatStyle = FlatStyle.Flat
+        btnViewInstructor.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnViewInstructor.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnViewInstructor.Image = CType(resources.GetObject("btnViewInstructor.Image"), Image)
+        btnViewInstructor.Location = New Point(736, 204)
+        btnViewInstructor.Name = "btnViewInstructor"
+        btnViewInstructor.Size = New Size(591, 103)
+        btnViewInstructor.TabIndex = 12
+        btnViewInstructor.Text = "    Instructors"
+        btnViewInstructor.TextAlign = ContentAlignment.MiddleRight
+        btnViewInstructor.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnViewInstructor.UseVisualStyleBackColor = False
         ' 
-        ' Button3
+        ' btnViewFacilities
         ' 
-        Button3.AutoSize = True
-        Button3.BackColor = Color.LightYellow
-        Button3.Cursor = Cursors.Hand
-        Button3.FlatAppearance.BorderColor = Color.Khaki
-        Button3.FlatStyle = FlatStyle.Flat
-        Button3.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button3.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button3.Image = CType(resources.GetObject("Button3.Image"), Image)
-        Button3.Location = New Point(68, 204)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(591, 103)
-        Button3.TabIndex = 11
-        Button3.Text = "    Facilities"
-        Button3.TextAlign = ContentAlignment.MiddleRight
-        Button3.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button3.UseVisualStyleBackColor = False
+        btnViewFacilities.AutoSize = True
+        btnViewFacilities.BackColor = Color.LightYellow
+        btnViewFacilities.Cursor = Cursors.Hand
+        btnViewFacilities.FlatAppearance.BorderColor = Color.Khaki
+        btnViewFacilities.FlatStyle = FlatStyle.Flat
+        btnViewFacilities.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnViewFacilities.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnViewFacilities.Image = CType(resources.GetObject("btnViewFacilities.Image"), Image)
+        btnViewFacilities.Location = New Point(68, 204)
+        btnViewFacilities.Name = "btnViewFacilities"
+        btnViewFacilities.Size = New Size(591, 103)
+        btnViewFacilities.TabIndex = 11
+        btnViewFacilities.Text = "    Facilities"
+        btnViewFacilities.TextAlign = ContentAlignment.MiddleRight
+        btnViewFacilities.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnViewFacilities.UseVisualStyleBackColor = False
         ' 
-        ' Button2
+        ' btnNewSched
         ' 
-        Button2.AutoSize = True
-        Button2.BackColor = Color.LightYellow
-        Button2.Cursor = Cursors.Hand
-        Button2.FlatAppearance.BorderColor = Color.Khaki
-        Button2.FlatStyle = FlatStyle.Flat
-        Button2.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button2.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button2.Image = CType(resources.GetObject("Button2.Image"), Image)
-        Button2.Location = New Point(736, 51)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(591, 103)
-        Button2.TabIndex = 10
-        Button2.Text = "    New Schedule"
-        Button2.TextAlign = ContentAlignment.MiddleRight
-        Button2.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button2.UseVisualStyleBackColor = False
+        btnNewSched.AutoSize = True
+        btnNewSched.BackColor = Color.LightYellow
+        btnNewSched.Cursor = Cursors.Hand
+        btnNewSched.FlatAppearance.BorderColor = Color.Khaki
+        btnNewSched.FlatStyle = FlatStyle.Flat
+        btnNewSched.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnNewSched.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnNewSched.Image = CType(resources.GetObject("btnNewSched.Image"), Image)
+        btnNewSched.Location = New Point(736, 51)
+        btnNewSched.Name = "btnNewSched"
+        btnNewSched.Size = New Size(591, 103)
+        btnNewSched.TabIndex = 10
+        btnNewSched.Text = "    New Schedule"
+        btnNewSched.TextAlign = ContentAlignment.MiddleRight
+        btnNewSched.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnNewSched.UseVisualStyleBackColor = False
         ' 
-        ' Button1
+        ' btnNewInstructor
         ' 
-        Button1.AutoSize = True
-        Button1.BackColor = Color.LightYellow
-        Button1.Cursor = Cursors.Hand
-        Button1.FlatAppearance.BorderColor = Color.Khaki
-        Button1.FlatStyle = FlatStyle.Flat
-        Button1.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button1.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Button1.Image = CType(resources.GetObject("Button1.Image"), Image)
-        Button1.Location = New Point(68, 51)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(591, 103)
-        Button1.TabIndex = 9
-        Button1.Text = "    New Instructor"
-        Button1.TextAlign = ContentAlignment.MiddleRight
-        Button1.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button1.UseVisualStyleBackColor = False
+        btnNewInstructor.AutoSize = True
+        btnNewInstructor.BackColor = Color.LightYellow
+        btnNewInstructor.Cursor = Cursors.Hand
+        btnNewInstructor.FlatAppearance.BorderColor = Color.Khaki
+        btnNewInstructor.FlatStyle = FlatStyle.Flat
+        btnNewInstructor.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnNewInstructor.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        btnNewInstructor.Image = CType(resources.GetObject("btnNewInstructor.Image"), Image)
+        btnNewInstructor.Location = New Point(68, 51)
+        btnNewInstructor.Name = "btnNewInstructor"
+        btnNewInstructor.Size = New Size(591, 103)
+        btnNewInstructor.TabIndex = 9
+        btnNewInstructor.Text = "    New Instructor"
+        btnNewInstructor.TextAlign = ContentAlignment.MiddleRight
+        btnNewInstructor.TextImageRelation = TextImageRelation.ImageBeforeText
+        btnNewInstructor.UseVisualStyleBackColor = False
         ' 
         ' Dashboard
         ' 
@@ -355,18 +335,17 @@ Partial Class Dashboard
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents LogoutBtn As Button
-    Friend WithEvents ProfileBtn As Button
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents minimizeBtn As PictureBox
     Friend WithEvents closeBtn As PictureBox
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents Button7 As Button
-    Friend WithEvents Button6 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button8 As Button
+    Friend WithEvents btnViewSummary As Button
+    Friend WithEvents btnViewSubject As Button
+    Friend WithEvents btnViewSection As Button
+    Friend WithEvents btnViewInstructor As Button
+    Friend WithEvents btnViewFacilities As Button
+    Friend WithEvents btnNewSched As Button
+    Friend WithEvents btnNewInstructor As Button
+    Friend WithEvents btnManagement As Button
 
 End Class

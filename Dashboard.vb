@@ -7,12 +7,22 @@
         Me.WindowState = FormWindowState.Minimized
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
 
+
+    Private Sub btnNewSched_Click(sender As Object, e As EventArgs) Handles btnNewSched.Click
+        CreateScheduleForm.Show()
+        Me.Hide()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        CreateScheduleForm.Show()
+    Private Sub btnNewInstructor_Click(sender As Object, e As EventArgs) Handles btnNewInstructor.Click
+        addNewInstructor.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        SaveUserData(Nothing)
+
+        Authentication_Form.Show()
         Me.Hide()
     End Sub
 End Class

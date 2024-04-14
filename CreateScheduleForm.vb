@@ -71,15 +71,15 @@ Public Class CreateScheduleForm
             cmd.Parameters.AddWithValue("@RoomNumber", cb_room.SelectedItem)
             cmd.Parameters.AddWithValue("@Building", cb_building.SelectedItem)
 
-            ' Open connection and execute the command
+
             DBCon()
             cmd.ExecuteNonQuery()
             getSchedules()
 
-            ' Close the connection
+
             con.Close()
 
-            ' Clear input fields after successful insertion
+
             cb_instructor.Text = ""
             cb_section.Text = ""
             cb_subject.Text = ""
@@ -89,7 +89,7 @@ Public Class CreateScheduleForm
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
-            ' Ensure connection is always closed, even if an exception occurs
+
             If con.State = ConnectionState.Open Then
                 con.Close()
             End If
@@ -119,7 +119,7 @@ Public Class CreateScheduleForm
         cmd.Connection = con
         cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND TimeDuration = @TimeDuration AND Day = @Day"
 
-        ' Clear existing parameters before adding new ones
+
         cmd.Parameters.Clear()
 
         cmd.Parameters.AddWithValue("@TimeDuration", timeDuration)
@@ -141,13 +141,13 @@ Public Class CreateScheduleForm
         Dim startTimeSpan As TimeSpan = startTime.TimeOfDay
         Dim endTimeSpan As TimeSpan = endTime.TimeOfDay
 
-        ' Query to check if any schedule overlaps with the given time range
+
         Dim query As String = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND (" &
                               "((SUBSTRING_INDEX(TimeDuration, ' ', -1) >= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) <= @EndTime) OR " &
                               "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @EndTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @StartTime)) OR " &
                               "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @EndTime))"
 
-        ' Open connection
+
         DBCon()
         cmd.Connection = con
         cmd.CommandText = query
@@ -162,7 +162,7 @@ Public Class CreateScheduleForm
         ' Execute query to count overlapping schedules
         Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
-        ' If count is greater than 0, it means there is an overlapping schedule
+
         If count > 0 Then
             exists = True
         End If
@@ -349,7 +349,7 @@ Public Class CreateScheduleForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select CONCAT(room_number, ' ', building) AS Room from rooms"
+            cmd.CommandText = "Select room_number AS Room from rooms"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -358,20 +358,14 @@ Public Class CreateScheduleForm
 
             ' Add each FullName value to the ComboBox
             For Each row As DataRow In newtable.Rows
-                cb_room.Items.Add(row("Room").ToString())
+                cb_room.Items.Add(row("room_number").ToString())
             Next
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
     End Sub
 
-    Private Sub minimizeBtn_Click(sender As Object, e As EventArgs) Handles minimizeBtn.Click
-        Me.WindowState = FormWindowState.Minimized
-    End Sub
 
-    Private Sub closeBtn_Click(sender As Object, e As EventArgs) Handles closeBtn.Click
-        Me.Close()
-    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dashboard.Show()

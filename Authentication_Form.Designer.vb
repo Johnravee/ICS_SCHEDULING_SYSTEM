@@ -25,6 +25,7 @@ Partial Class Authentication_Form
         components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Authentication_Form))
         Scan_AuthForm = New Panel()
+        lk1register = New LinkLabel()
         Panel1 = New Panel()
         logo = New PictureBox()
         RFIDBOX_Scan = New TextBox()
@@ -37,6 +38,9 @@ Partial Class Authentication_Form
         ScanMinimize = New PictureBox()
         ScanClose = New PictureBox()
         ManualLoginForm = New Panel()
+        lk2register = New LinkLabel()
+        Label4 = New Label()
+        lkForgot = New LinkLabel()
         Panel5 = New Panel()
         Panel4 = New Panel()
         PictureBox3 = New PictureBox()
@@ -44,12 +48,13 @@ Partial Class Authentication_Form
         PictureBox4 = New PictureBox()
         ManualMinimize = New PictureBox()
         ManualClose = New PictureBox()
-        ManualLoginBtn = New Button()
+        loginBtn = New Button()
         Label2 = New Label()
         Panel2 = New Panel()
-        TextBox1 = New TextBox()
+        txtEmail = New TextBox()
         PictureBox1 = New PictureBox()
         PinLoginForm = New Panel()
+        delBtn = New PictureBox()
         Panel7 = New Panel()
         PictureBox5 = New PictureBox()
         PictureBox7 = New PictureBox()
@@ -59,7 +64,6 @@ Partial Class Authentication_Form
         PinClose = New PictureBox()
         Label3 = New Label()
         Button13 = New Button()
-        Button12 = New Button()
         Button9 = New Button()
         Button10 = New Button()
         Button11 = New Button()
@@ -69,13 +73,14 @@ Partial Class Authentication_Form
         Button5 = New Button()
         Button4 = New Button()
         Button3 = New Button()
-        TextBox5 = New TextBox()
-        TextBox4 = New TextBox()
-        TextBox3 = New TextBox()
-        TextBox2 = New TextBox()
+        txtpin4 = New TextBox()
+        txtpin3 = New TextBox()
+        txtpin2 = New TextBox()
+        txtpin1 = New TextBox()
         PictureBox2 = New PictureBox()
         timer = New Timer(components)
         Panel3 = New Panel()
+        clearInputs = New Timer(components)
         Scan_AuthForm.SuspendLayout()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
         CType(Granted_Access_Logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -93,6 +98,7 @@ Partial Class Authentication_Form
         Panel2.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         PinLoginForm.SuspendLayout()
+        CType(delBtn, ComponentModel.ISupportInitialize).BeginInit()
         Panel7.SuspendLayout()
         CType(PictureBox5, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox7, ComponentModel.ISupportInitialize).BeginInit()
@@ -104,7 +110,8 @@ Partial Class Authentication_Form
         ' 
         ' Scan_AuthForm
         ' 
-        Scan_AuthForm.BackColor = Color.Beige
+        Scan_AuthForm.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
+        Scan_AuthForm.Controls.Add(lk1register)
         Scan_AuthForm.Controls.Add(Panel1)
         Scan_AuthForm.Controls.Add(logo)
         Scan_AuthForm.Controls.Add(RFIDBOX_Scan)
@@ -114,19 +121,29 @@ Partial Class Authentication_Form
         Scan_AuthForm.Controls.Add(Scan_Denied_Logo)
         Scan_AuthForm.Controls.Add(ScanRFID_Logo)
         Scan_AuthForm.Controls.Add(Scan_Label)
-        Scan_AuthForm.Location = New Point(2, 2)
+        Scan_AuthForm.Location = New Point(0, 0)
         Scan_AuthForm.Name = "Scan_AuthForm"
         Scan_AuthForm.RightToLeft = RightToLeft.No
-        Scan_AuthForm.Size = New Size(431, 480)
+        Scan_AuthForm.Size = New Size(436, 485)
         Scan_AuthForm.TabIndex = 0
+        ' 
+        ' lk1register
+        ' 
+        lk1register.AutoSize = True
+        lk1register.Location = New Point(192, 430)
+        lk1register.Name = "lk1register"
+        lk1register.Size = New Size(49, 15)
+        lk1register.TabIndex = 16
+        lk1register.TabStop = True
+        lk1register.Text = "Register"
         ' 
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(10), CByte(55), CByte(39))
         Panel1.Dock = DockStyle.Bottom
-        Panel1.Location = New Point(0, 448)
+        Panel1.Location = New Point(0, 453)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(431, 32)
+        Panel1.Size = New Size(436, 32)
         Panel1.TabIndex = 15
         ' 
         ' logo
@@ -150,7 +167,7 @@ Partial Class Authentication_Form
         ' 
         ManualLogin_Link.AutoSize = True
         ManualLogin_Link.Font = New Font("Calibri", 9.75F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        ManualLogin_Link.Location = New Point(239, 411)
+        ManualLogin_Link.Location = New Point(244, 399)
         ManualLogin_Link.Name = "ManualLogin_Link"
         ManualLogin_Link.Size = New Size(62, 15)
         ManualLogin_Link.TabIndex = 6
@@ -161,7 +178,7 @@ Partial Class Authentication_Form
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(123, 411)
+        Label1.Location = New Point(128, 399)
         Label1.Name = "Label1"
         Label1.Size = New Size(120, 15)
         Label1.TabIndex = 5
@@ -203,6 +220,7 @@ Partial Class Authentication_Form
         ' 
         Scan_Label.AutoSize = True
         Scan_Label.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Scan_Label.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
         Scan_Label.Location = New Point(114, 180)
         Scan_Label.Name = "Scan_Label"
         Scan_Label.Size = New Size(202, 29)
@@ -215,7 +233,7 @@ Partial Class Authentication_Form
         ScanMinimize.BackgroundImage = CType(resources.GetObject("ScanMinimize.BackgroundImage"), Image)
         ScanMinimize.BackgroundImageLayout = ImageLayout.Stretch
         ScanMinimize.Cursor = Cursors.Hand
-        ScanMinimize.Location = New Point(387, 3)
+        ScanMinimize.Location = New Point(395, 3)
         ScanMinimize.Name = "ScanMinimize"
         ScanMinimize.Size = New Size(22, 21)
         ScanMinimize.TabIndex = 14
@@ -227,7 +245,7 @@ Partial Class Authentication_Form
         ScanClose.BackgroundImage = CType(resources.GetObject("ScanClose.BackgroundImage"), Image)
         ScanClose.BackgroundImageLayout = ImageLayout.Stretch
         ScanClose.Cursor = Cursors.Hand
-        ScanClose.Location = New Point(406, 3)
+        ScanClose.Location = New Point(414, 3)
         ScanClose.Name = "ScanClose"
         ScanClose.Size = New Size(22, 21)
         ScanClose.TabIndex = 13
@@ -235,12 +253,15 @@ Partial Class Authentication_Form
         ' 
         ' ManualLoginForm
         ' 
-        ManualLoginForm.BackColor = Color.Beige
+        ManualLoginForm.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
+        ManualLoginForm.Controls.Add(lk2register)
+        ManualLoginForm.Controls.Add(Label4)
+        ManualLoginForm.Controls.Add(lkForgot)
         ManualLoginForm.Controls.Add(Panel5)
         ManualLoginForm.Controls.Add(Panel4)
         ManualLoginForm.Controls.Add(ManualMinimize)
         ManualLoginForm.Controls.Add(ManualClose)
-        ManualLoginForm.Controls.Add(ManualLoginBtn)
+        ManualLoginForm.Controls.Add(loginBtn)
         ManualLoginForm.Controls.Add(Label2)
         ManualLoginForm.Controls.Add(Panel2)
         ManualLoginForm.Controls.Add(PictureBox1)
@@ -249,6 +270,37 @@ Partial Class Authentication_Form
         ManualLoginForm.Size = New Size(431, 480)
         ManualLoginForm.TabIndex = 1
         ManualLoginForm.Visible = False
+        ' 
+        ' lk2register
+        ' 
+        lk2register.AutoSize = True
+        lk2register.Location = New Point(193, 426)
+        lk2register.Name = "lk2register"
+        lk2register.Size = New Size(49, 15)
+        lk2register.TabIndex = 27
+        lk2register.TabStop = True
+        lk2register.Text = "Register"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Calibri Light", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(72, 312)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(154, 14)
+        Label4.TabIndex = 26
+        Label4.Text = "Please input registered email."
+        ' 
+        ' lkForgot
+        ' 
+        lkForgot.AutoSize = True
+        lkForgot.Font = New Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lkForgot.Location = New Point(164, 399)
+        lkForgot.Name = "lkForgot"
+        lkForgot.Size = New Size(110, 15)
+        lkForgot.TabIndex = 25
+        lkForgot.TabStop = True
+        lkForgot.Text = "Forgot your Email?"
         ' 
         ' Panel5
         ' 
@@ -329,48 +381,51 @@ Partial Class Authentication_Form
         ManualClose.TabIndex = 12
         ManualClose.TabStop = False
         ' 
-        ' ManualLoginBtn
+        ' loginBtn
         ' 
-        ManualLoginBtn.BackColor = Color.FromArgb(CByte(0), CByte(51), CByte(38))
-        ManualLoginBtn.Cursor = Cursors.Hand
-        ManualLoginBtn.FlatStyle = FlatStyle.Flat
-        ManualLoginBtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        ManualLoginBtn.ForeColor = Color.WhiteSmoke
-        ManualLoginBtn.Location = New Point(141, 370)
-        ManualLoginBtn.Name = "ManualLoginBtn"
-        ManualLoginBtn.Size = New Size(153, 44)
-        ManualLoginBtn.TabIndex = 11
-        ManualLoginBtn.Text = "LOGIN"
-        ManualLoginBtn.UseVisualStyleBackColor = False
+        loginBtn.BackColor = Color.FromArgb(CByte(0), CByte(51), CByte(38))
+        loginBtn.Cursor = Cursors.Hand
+        loginBtn.FlatStyle = FlatStyle.Flat
+        loginBtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        loginBtn.ForeColor = Color.WhiteSmoke
+        loginBtn.Location = New Point(141, 348)
+        loginBtn.Name = "loginBtn"
+        loginBtn.Size = New Size(153, 44)
+        loginBtn.TabIndex = 11
+        loginBtn.Text = "LOGIN"
+        loginBtn.UseVisualStyleBackColor = False
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
         Label2.Location = New Point(72, 232)
         Label2.Name = "Label2"
-        Label2.Size = New Size(53, 26)
+        Label2.Size = New Size(59, 26)
         Label2.TabIndex = 10
-        Label2.Text = "RFID"
+        Label2.Text = "Email"
         ' 
         ' Panel2
         ' 
-        Panel2.BackColor = Color.White
+        Panel2.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel2.BorderStyle = BorderStyle.FixedSingle
-        Panel2.Controls.Add(TextBox1)
+        Panel2.Controls.Add(txtEmail)
         Panel2.Location = New Point(72, 261)
         Panel2.Name = "Panel2"
         Panel2.Size = New Size(291, 48)
         Panel2.TabIndex = 9
         ' 
-        ' TextBox1
+        ' txtEmail
         ' 
-        TextBox1.BorderStyle = BorderStyle.None
-        TextBox1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        TextBox1.Location = New Point(17, 10)
-        TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(257, 26)
-        TextBox1.TabIndex = 8
+        txtEmail.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        txtEmail.BorderStyle = BorderStyle.None
+        txtEmail.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtEmail.Location = New Point(16, 13)
+        txtEmail.Name = "txtEmail"
+        txtEmail.PasswordChar = "•"c
+        txtEmail.Size = New Size(257, 20)
+        txtEmail.TabIndex = 8
         ' 
         ' PictureBox1
         ' 
@@ -385,6 +440,7 @@ Partial Class Authentication_Form
         ' PinLoginForm
         ' 
         PinLoginForm.BackColor = Color.Beige
+        PinLoginForm.Controls.Add(delBtn)
         PinLoginForm.Controls.Add(Panel7)
         PinLoginForm.Controls.Add(Panel6)
         PinLoginForm.Controls.Add(PinMinimize)
@@ -392,7 +448,6 @@ Partial Class Authentication_Form
         PinLoginForm.Controls.Add(PinClose)
         PinLoginForm.Controls.Add(Label3)
         PinLoginForm.Controls.Add(Button13)
-        PinLoginForm.Controls.Add(Button12)
         PinLoginForm.Controls.Add(Button9)
         PinLoginForm.Controls.Add(Button10)
         PinLoginForm.Controls.Add(Button11)
@@ -402,16 +457,27 @@ Partial Class Authentication_Form
         PinLoginForm.Controls.Add(Button5)
         PinLoginForm.Controls.Add(Button4)
         PinLoginForm.Controls.Add(Button3)
-        PinLoginForm.Controls.Add(TextBox5)
-        PinLoginForm.Controls.Add(TextBox4)
-        PinLoginForm.Controls.Add(TextBox3)
-        PinLoginForm.Controls.Add(TextBox2)
+        PinLoginForm.Controls.Add(txtpin4)
+        PinLoginForm.Controls.Add(txtpin3)
+        PinLoginForm.Controls.Add(txtpin2)
+        PinLoginForm.Controls.Add(txtpin1)
         PinLoginForm.Controls.Add(PictureBox2)
         PinLoginForm.Location = New Point(925, 41)
         PinLoginForm.Name = "PinLoginForm"
         PinLoginForm.Size = New Size(431, 480)
         PinLoginForm.TabIndex = 12
         PinLoginForm.Visible = False
+        ' 
+        ' delBtn
+        ' 
+        delBtn.Cursor = Cursors.Hand
+        delBtn.Image = CType(resources.GetObject("delBtn.Image"), Image)
+        delBtn.Location = New Point(261, 348)
+        delBtn.Name = "delBtn"
+        delBtn.Size = New Size(78, 50)
+        delBtn.SizeMode = PictureBoxSizeMode.CenterImage
+        delBtn.TabIndex = 28
+        delBtn.TabStop = False
         ' 
         ' Panel7
         ' 
@@ -516,21 +582,6 @@ Partial Class Authentication_Form
         Button13.TabIndex = 22
         Button13.Text = "0"
         Button13.UseVisualStyleBackColor = False
-        ' 
-        ' Button12
-        ' 
-        Button12.BackColor = Color.Beige
-        Button12.Cursor = Cursors.Hand
-        Button12.FlatAppearance.BorderSize = 0
-        Button12.FlatStyle = FlatStyle.Flat
-        Button12.Font = New Font("Calibri", 15.75F, FontStyle.Bold)
-        Button12.Image = CType(resources.GetObject("Button12.Image"), Image)
-        Button12.Location = New Point(261, 348)
-        Button12.Margin = New Padding(0)
-        Button12.Name = "Button12"
-        Button12.Size = New Size(78, 58)
-        Button12.TabIndex = 21
-        Button12.UseVisualStyleBackColor = False
         ' 
         ' Button9
         ' 
@@ -667,49 +718,57 @@ Partial Class Authentication_Form
         Button3.Text = "1"
         Button3.UseVisualStyleBackColor = False
         ' 
-        ' TextBox5
+        ' txtpin4
         ' 
-        TextBox5.BackColor = Color.White
-        TextBox5.Cursor = Cursors.No
-        TextBox5.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        TextBox5.Location = New Point(301, 101)
-        TextBox5.Name = "TextBox5"
-        TextBox5.ReadOnly = True
-        TextBox5.Size = New Size(50, 47)
-        TextBox5.TabIndex = 11
+        txtpin4.BackColor = Color.White
+        txtpin4.Cursor = Cursors.No
+        txtpin4.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtpin4.Location = New Point(301, 101)
+        txtpin4.Name = "txtpin4"
+        txtpin4.PasswordChar = "•"c
+        txtpin4.ReadOnly = True
+        txtpin4.Size = New Size(50, 47)
+        txtpin4.TabIndex = 11
+        txtpin4.TextAlign = HorizontalAlignment.Center
         ' 
-        ' TextBox4
+        ' txtpin3
         ' 
-        TextBox4.BackColor = Color.White
-        TextBox4.Cursor = Cursors.No
-        TextBox4.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        TextBox4.Location = New Point(234, 101)
-        TextBox4.Name = "TextBox4"
-        TextBox4.ReadOnly = True
-        TextBox4.Size = New Size(50, 47)
-        TextBox4.TabIndex = 10
+        txtpin3.BackColor = Color.White
+        txtpin3.Cursor = Cursors.No
+        txtpin3.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtpin3.Location = New Point(234, 101)
+        txtpin3.Name = "txtpin3"
+        txtpin3.PasswordChar = "•"c
+        txtpin3.ReadOnly = True
+        txtpin3.Size = New Size(50, 47)
+        txtpin3.TabIndex = 10
+        txtpin3.TextAlign = HorizontalAlignment.Center
         ' 
-        ' TextBox3
+        ' txtpin2
         ' 
-        TextBox3.BackColor = Color.White
-        TextBox3.Cursor = Cursors.No
-        TextBox3.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        TextBox3.Location = New Point(167, 101)
-        TextBox3.Name = "TextBox3"
-        TextBox3.ReadOnly = True
-        TextBox3.Size = New Size(50, 47)
-        TextBox3.TabIndex = 9
+        txtpin2.BackColor = Color.White
+        txtpin2.Cursor = Cursors.No
+        txtpin2.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtpin2.Location = New Point(167, 101)
+        txtpin2.Name = "txtpin2"
+        txtpin2.PasswordChar = "•"c
+        txtpin2.ReadOnly = True
+        txtpin2.Size = New Size(50, 47)
+        txtpin2.TabIndex = 9
+        txtpin2.TextAlign = HorizontalAlignment.Center
         ' 
-        ' TextBox2
+        ' txtpin1
         ' 
-        TextBox2.BackColor = Color.White
-        TextBox2.Cursor = Cursors.No
-        TextBox2.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        TextBox2.Location = New Point(97, 101)
-        TextBox2.Name = "TextBox2"
-        TextBox2.ReadOnly = True
-        TextBox2.Size = New Size(50, 47)
-        TextBox2.TabIndex = 8
+        txtpin1.BackColor = Color.White
+        txtpin1.Cursor = Cursors.No
+        txtpin1.Font = New Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtpin1.Location = New Point(97, 101)
+        txtpin1.Name = "txtpin1"
+        txtpin1.PasswordChar = "•"c
+        txtpin1.ReadOnly = True
+        txtpin1.Size = New Size(50, 47)
+        txtpin1.TabIndex = 8
+        txtpin1.TextAlign = HorizontalAlignment.Center
         ' 
         ' PictureBox2
         ' 
@@ -733,15 +792,19 @@ Partial Class Authentication_Form
         Panel3.Dock = DockStyle.Top
         Panel3.Location = New Point(0, 0)
         Panel3.Name = "Panel3"
-        Panel3.Size = New Size(431, 32)
+        Panel3.Size = New Size(435, 32)
         Panel3.TabIndex = 16
+        ' 
+        ' clearInputs
+        ' 
+        clearInputs.Interval = 1000
         ' 
         ' Authentication_Form
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.FromArgb(CByte(0), CByte(51), CByte(38))
-        ClientSize = New Size(431, 480)
+        BackColor = Color.White
+        ClientSize = New Size(435, 485)
         Controls.Add(Panel3)
         Controls.Add(PinLoginForm)
         Controls.Add(ManualLoginForm)
@@ -773,6 +836,7 @@ Partial Class Authentication_Form
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         PinLoginForm.ResumeLayout(False)
         PinLoginForm.PerformLayout()
+        CType(delBtn, ComponentModel.ISupportInitialize).EndInit()
         Panel7.ResumeLayout(False)
         CType(PictureBox5, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox7, ComponentModel.ISupportInitialize).EndInit()
@@ -792,17 +856,16 @@ Partial Class Authentication_Form
     Friend WithEvents ManualLogin_Link As LinkLabel
     Friend WithEvents Label1 As Label
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents ManualLoginBtn As Button
+    Friend WithEvents txtEmail As TextBox
+    Friend WithEvents loginBtn As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents PinLoginForm As Panel
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtpin3 As TextBox
+    Friend WithEvents txtpin2 As TextBox
+    Friend WithEvents txtpin1 As TextBox
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Button13 As Button
-    Friend WithEvents Button12 As Button
     Friend WithEvents Button9 As Button
     Friend WithEvents Button10 As Button
     Friend WithEvents Button11 As Button
@@ -812,7 +875,7 @@ Partial Class Authentication_Form
     Friend WithEvents Button5 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Button3 As Button
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents txtpin4 As TextBox
     Friend WithEvents logo As PictureBox
     Friend WithEvents RFIDBOX_Scan As TextBox
     Friend WithEvents Forgot_PIN_Link As LinkLabel
@@ -835,4 +898,10 @@ Partial Class Authentication_Form
     Friend WithEvents PictureBox5 As PictureBox
     Friend WithEvents PictureBox7 As PictureBox
     Friend WithEvents Panel6 As Panel
+    Friend WithEvents Label4 As Label
+    Friend WithEvents lkForgot As LinkLabel
+    Friend WithEvents lk1register As LinkLabel
+    Friend WithEvents lk2register As LinkLabel
+    Friend WithEvents delBtn As PictureBox
+    Friend WithEvents clearInputs As Timer
 End Class
