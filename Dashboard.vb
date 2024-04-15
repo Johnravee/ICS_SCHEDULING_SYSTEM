@@ -25,4 +25,19 @@
         Authentication_Form.Show()
         Me.Hide()
     End Sub
+
+    Private Sub btnViewFacilities_Click(sender As Object, e As EventArgs) Handles btnViewFacilities.Click
+        Me.Hide()
+        viewRooms.Show()
+    End Sub
+
+    Private Sub btnViewSection_Click(sender As Object, e As EventArgs) Handles btnViewSection.Click
+        Me.Hide()
+        viewSection.Show()
+    End Sub
+
+    Private Sub btnViewInstructor_Click(sender As Object, e As EventArgs) Handles btnViewInstructor.Click
+        Me.Hide()
+        viewInstructors.Show()
+    End Sub
 End Class

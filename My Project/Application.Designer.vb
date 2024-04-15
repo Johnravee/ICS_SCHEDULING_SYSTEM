@@ -37,8 +37,13 @@ Namespace My
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+        Protected Overrides Sub OnCreateSplashScreen()
+            Me.SplashScreen = Global.ICS_SCHEDULING_SYSTEM.ApplicationStartUp
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Function OnInitialize(ByVal commandLineArgs As System.Collections.ObjectModel.ReadOnlyCollection(Of String)) As Boolean
-            Me.MinimumSplashScreenDisplayTime = 0
+            Me.MinimumSplashScreenDisplayTime = 5000
             Return MyBase.OnInitialize(commandLineArgs)
         End Function
     End Class

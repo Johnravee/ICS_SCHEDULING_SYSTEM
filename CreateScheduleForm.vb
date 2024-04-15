@@ -349,7 +349,7 @@ Public Class CreateScheduleForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select room_number AS Room from rooms"
+            cmd.CommandText = "Select room_number from rooms"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 

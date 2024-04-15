@@ -10,6 +10,9 @@
     <Compile Update="AllRoomsform.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ApplicationStartUp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="CreateScheduleForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -28,6 +31,9 @@
     <Compile Update="InstructorListForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="instructorSched.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ManagementScheduleForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -40,10 +46,22 @@
     <Compile Update="SchedulePopupForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SchedulesTable.vb">
+    <Compile Update="roomSchedule.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SectionListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="sectionSched.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="viewInstructors.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="viewRooms.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="viewSection.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
