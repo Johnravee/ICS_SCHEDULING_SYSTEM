@@ -7,7 +7,7 @@ Public Class Authentication_Form
 
 
     Private Sub Authentication_Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        DBCon()
         Scan_AuthForm.Dock = DockStyle.Fill
         ManualLoginForm.Dock = DockStyle.Fill
         PinLoginForm.Dock = DockStyle.Fill

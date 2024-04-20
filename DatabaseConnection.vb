@@ -6,7 +6,7 @@ Module DatabaseConnection
     Public dataReader As New MySqlDataAdapter(cmd)
     Public table As New DataTable
     Public con As New MySqlConnection("server=192.168.0.112;username=2d;password=johnrave29;database=ics_scheduling_db")
-    
+
     Public Sub DBCon()
         Try
             If con.State = ConnectionState.Closed Then
