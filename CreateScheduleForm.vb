@@ -7,21 +7,28 @@ Public Class CreateScheduleForm
 
     Private Sub CreateScheduleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         StartTime.Format = DateTimePickerFormat.Time
-        StartTime.CustomFormat = "hh:mm tt"
+        StartTime.CustomFormat = "hh:mm"
 
         EndTIme.Format = DateTimePickerFormat.Time
-        EndTIme.CustomFormat = "hh:mm tt"
+        EndTIme.CustomFormat = "hh:mm"
 
-        getSchedules()
-        GetInstructor()
-        GetSection()
-        GetSubject()
-        GetRoom()
+        Try
+            getSchedules()
+            GetInstructor()
+            GetSection()
+            GetSubject()
+            GetRoom()
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        Finally
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+        End Try
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Try
-            ' Check if any ComboBox is empty
             If String.IsNullOrEmpty(cb_building.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
@@ -32,53 +39,36 @@ Public Class CreateScheduleForm
             End If
 
             ' Check if start time and end time are the same
-            If StartTime.Value.ToString("hh:mm tt") = EndTIme.Value.ToString("hh:mm tt") Then
+            If StartTime.Value.ToString("hh:mm") = EndTIme.Value.ToString("hh:mm") Then
                 MessageBox.Show("Same Start and End time is not applicable", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
-            ' Check if the schedule exists in the time range
-            If ScheduleExistsInTimeRange(cb_day.SelectedItem, StartTime.Value, EndTIme.Value, cb_room.SelectedItem) Then
-                Dim conflictingRoom As String = GetConflictingRoom(cb_day.SelectedItem, StartTime.Value, EndTIme.Value, cb_room.SelectedItem)
-                Dim conflictingSchedule As String = GetConflictingScheduleDetails(cb_day.SelectedItem, StartTime.Value, EndTIme.Value, cb_room.SelectedItem)
-                MessageBox.Show("There is an existing schedule for the same time, day, and room." & vbCrLf &
-                                "Room: " & conflictingRoom & vbCrLf &
-                                "Schedule: " & conflictingSchedule,
-                                "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
-            End If
-
-            ' Construct the time duration string
-            timeDuration = StartTime.Value.ToString("hh:mm tt") & "-" & EndTIme.Value.ToString("hh:mm tt")
-
             ' Check if the schedule already exists
-            If ScheduleExists(cb_day.SelectedItem, timeDuration, cb_room.SelectedItem) Then
-                MessageBox.Show("Schedule is not available. Another schedule already exists for the same time, day, building, and room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm")) Then
+                MessageBox.Show("Schedule is not available. Another schedule already exists for the same day and room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
             ' Insert the schedule into the database
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `Day`, `TimeDuration`, `RoomNumber`, `Building`) VALUES (@InstructorName, @Section, @Subject, @Day, @timeDuration, @RoomNumber, @Building)"
+            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`, `Building`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @Building)"
 
             ' Clear the parameters collection before adding new parameters
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@InstructorName", cb_instructor.SelectedItem)
             cmd.Parameters.AddWithValue("@Section", cb_section.SelectedItem)
             cmd.Parameters.AddWithValue("@Subject", cb_subject.SelectedItem)
+            cmd.Parameters.AddWithValue("@StartTime", StartTime.Value)
+            cmd.Parameters.AddWithValue("@EndTime", EndTIme.Value)
             cmd.Parameters.AddWithValue("@Day", cb_day.SelectedItem)
-            cmd.Parameters.AddWithValue("@timeDuration", timeDuration)
             cmd.Parameters.AddWithValue("@RoomNumber", cb_room.SelectedItem)
             cmd.Parameters.AddWithValue("@Building", cb_building.SelectedItem)
-
 
             DBCon()
             cmd.ExecuteNonQuery()
             getSchedules()
-
-
             con.Close()
-
 
             cb_instructor.Text = ""
             cb_section.Text = ""
@@ -89,7 +79,6 @@ Public Class CreateScheduleForm
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
-
             If con.State = ConnectionState.Open Then
                 con.Close()
             End If
@@ -97,163 +86,92 @@ Public Class CreateScheduleForm
     End Sub
 
     Private Sub getSchedules()
-        DBCon()
-        cmd.Connection = con
-        cmd.CommandText = "SELECT * FROM schedules ORDER BY ScheduleID DESC"
-        cmd.ExecuteNonQuery()
-        dataReader.SelectCommand = cmd
-        dataReader.Fill(table)
-        dgvSchedule.DataSource = table
+        Try
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "SELECT * FROM schedules ORDER BY ScheduleID DESC"
 
-        dgvSchedule.Columns("ScheduleID").Visible = False
 
-        dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
-        dgvSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-        dgvSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True
-        con.Close()
+            table.Clear()
+
+
+            dataReader.SelectCommand = cmd
+            dataReader.Fill(table)
+
+            ' Add new columns only if they don't already exist
+            If Not table.Columns.Contains("Start Time") Then
+                table.Columns.Add("Start Time", GetType(String))
+            End If
+
+            If Not table.Columns.Contains("End Time") Then
+                table.Columns.Add("End Time", GetType(String))
+            End If
+
+
+            For Each row As DataRow In table.Rows
+                Dim startTime As TimeSpan = DirectCast(row("StartTime"), TimeSpan)
+                Dim endTime As TimeSpan = DirectCast(row("EndTime"), TimeSpan)
+
+                Dim startDateTime As DateTime = DateTime.Today.Add(startTime)
+                Dim endDateTime As DateTime = DateTime.Today.Add(endTime)
+
+
+                row("Start Time") = startDateTime.ToString("hh:mm tt")
+                row("End Time") = endDateTime.ToString("hh:mm tt")
+            Next
+
+            dgvSchedule.DataSource = table
+
+            ' Optionally, hide the ScheduleID column
+            dgvSchedule.Columns("ScheduleID").Visible = False
+            dgvSchedule.Columns("StartTime").Visible = False
+            dgvSchedule.Columns("EndTime").Visible = False
+
+            ' Set auto-sizing and wrap mode for better display
+            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
+            dgvSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            dgvSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        Finally
+            con.Close()
+        End Try
     End Sub
 
-    Private Function ScheduleExists(day As String, timeDuration As String, room As String) As Boolean
-        Dim exists As Boolean = False
-        con.Open()
-        cmd.Connection = con
-        cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND TimeDuration = @TimeDuration AND Day = @Day"
-
-
-        cmd.Parameters.Clear()
-
-        cmd.Parameters.AddWithValue("@TimeDuration", timeDuration)
-        cmd.Parameters.AddWithValue("@RoomNumber", room)
-        cmd.Parameters.AddWithValue("@Day", day)
-
-        Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-        If count > 0 Then
-            exists = True
-        End If
-        con.Close()
-        Return exists
-    End Function
-
-    Private Function ScheduleExistsInTimeRange(day As String, startTime As DateTime, endTime As DateTime, room As String) As Boolean
+    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String) As Boolean
         Dim exists As Boolean = False
 
-        ' Convert start and end times to TimeSpan
-        Dim startTimeSpan As TimeSpan = startTime.TimeOfDay
-        Dim endTimeSpan As TimeSpan = endTime.TimeOfDay
+        Try
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
 
+            cmd.Connection = con
+            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))"
 
-        Dim query As String = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND (" &
-                              "((SUBSTRING_INDEX(TimeDuration, ' ', -1) >= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) <= @EndTime) OR " &
-                              "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @EndTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @StartTime)) OR " &
-                              "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @EndTime))"
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@RoomNumber", room)
+            cmd.Parameters.AddWithValue("@Day", day)
+            cmd.Parameters.AddWithValue("@starttime", StartTime)
+            cmd.Parameters.AddWithValue("@endtime", EndTime)
 
-
-        DBCon()
-        cmd.Connection = con
-        cmd.CommandText = query
-
-        ' Clear existing parameters before adding new ones
-        cmd.Parameters.Clear()
-        cmd.Parameters.AddWithValue("@RoomNumber", room)
-        cmd.Parameters.AddWithValue("@Day", day)
-        cmd.Parameters.AddWithValue("@StartTime", startTimeSpan.ToString())
-        cmd.Parameters.AddWithValue("@EndTime", endTimeSpan.ToString())
-
-        ' Execute query to count overlapping schedules
-        Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-
-
-        If count > 0 Then
-            exists = True
-        End If
-
-        ' Close connection
-        con.Close()
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+            If count > 0 Then
+                exists = True
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        Finally
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+        End Try
 
         Return exists
-    End Function
-
-    Private Function GetConflictingRoom(day As String, startTime As DateTime, endTime As DateTime, room As String) As String
-        Dim conflictingRoom As String = ""
-
-        ' Convert start and end times to TimeSpan
-        Dim startTimeSpan As TimeSpan = startTime.TimeOfDay
-        Dim endTimeSpan As TimeSpan = endTime.TimeOfDay
-
-        ' Query to retrieve conflicting room number
-        Dim query As String = "SELECT RoomNumber FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND (" &
-                              "((SUBSTRING_INDEX(TimeDuration, ' ', -1) >= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) <= @EndTime) OR " &
-                              "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @EndTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @StartTime)) OR " &
-                              "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @EndTime))"
-
-        ' Open connection
-        DBCon()
-        cmd.Connection = con
-        cmd.CommandText = query
-
-        ' Clear existing parameters before adding new ones
-        cmd.Parameters.Clear()
-        cmd.Parameters.AddWithValue("@RoomNumber", room)
-        cmd.Parameters.AddWithValue("@Day", day)
-        cmd.Parameters.AddWithValue("@StartTime", startTimeSpan.ToString())
-        cmd.Parameters.AddWithValue("@EndTime", endTimeSpan.ToString())
-
-        ' Execute query to get conflicting room number
-        Dim conflictingRoomObject As Object = cmd.ExecuteScalar()
-
-        ' If conflictingRoomObject is not Nothing, it means there is a conflicting schedule
-        If conflictingRoomObject IsNot Nothing Then
-            conflictingRoom = conflictingRoomObject.ToString()
-        End If
-
-        ' Close connection
-        con.Close()
-
-        Return conflictingRoom
-    End Function
-
-    Private Function GetConflictingScheduleDetails(day As String, startTime As DateTime, endTime As DateTime, room As String) As String
-        Dim conflictingScheduleDetails As String = ""
-
-        ' Convert start and end times to TimeSpan
-        Dim startTimeSpan As TimeSpan = startTime.TimeOfDay
-        Dim endTimeSpan As TimeSpan = endTime.TimeOfDay
-
-        ' Query to retrieve conflicting schedule details
-        Dim query As String = "SELECT TimeDuration, Day FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND (" &
-                              "((SUBSTRING_INDEX(TimeDuration, ' ', -1) >= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) <= @EndTime) OR " &
-                              "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @EndTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @StartTime)) OR " &
-                              "(SUBSTRING_INDEX(TimeDuration, ' ', -1) <= @StartTime AND SUBSTRING_INDEX(TimeDuration, ' ', 1) >= @EndTime))"
-
-        ' Open connection
-        DBCon()
-        cmd.Connection = con
-        cmd.CommandText = query
-
-        ' Clear existing parameters before adding new ones
-        cmd.Parameters.Clear()
-        cmd.Parameters.AddWithValue("@RoomNumber", room)
-        cmd.Parameters.AddWithValue("@Day", day)
-        cmd.Parameters.AddWithValue("@StartTime", startTimeSpan.ToString())
-        cmd.Parameters.AddWithValue("@EndTime", endTimeSpan.ToString())
-
-        ' Execute query to get conflicting schedule details
-        Dim reader As MySqlDataReader = cmd.ExecuteReader()
-        While reader.Read()
-            Dim timeDuration As String = reader("TimeDuration").ToString()
-            Dim conflictingDay As String = reader("Day").ToString()
-            conflictingScheduleDetails &= "Day: " & conflictingDay & ", Time: " & timeDuration & vbCrLf
-        End While
-
-        ' Close reader and connection
-        reader.Close()
-        con.Close()
-
-        Return conflictingScheduleDetails
     End Function
 
     Private Sub txt_search_TextChanged(sender As Object, e As EventArgs) Handles txt_search.TextChanged
-        ' Get the search query from the text box
+
         Dim searchQuery As String = txt_search.Text.Trim()
 
         ' Filter the data in the table based on the search query
@@ -273,10 +191,10 @@ Public Class CreateScheduleForm
                 Next
             Next
 
-            ' Update the DataGridView with the filtered data
+
             dgvSchedule.DataSource = filteredData
         Else
-            ' If the search query is empty, display all data
+
             dgvSchedule.DataSource = table
         End If
     End Sub
@@ -364,8 +282,6 @@ Public Class CreateScheduleForm
             MsgBox(ex.ToString())
         End Try
     End Sub
-
-
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dashboard.Show()
