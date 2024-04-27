@@ -29,8 +29,7 @@ Public Class CreateScheduleForm
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Try
-            If String.IsNullOrEmpty(cb_building.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
+            If String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_room.SelectedItem) Then
@@ -52,7 +51,7 @@ Public Class CreateScheduleForm
 
             ' Insert the schedule into the database
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`, `Building`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @Building)"
+            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber)"
 
             ' Clear the parameters collection before adding new parameters
             cmd.Parameters.Clear()
@@ -63,7 +62,7 @@ Public Class CreateScheduleForm
             cmd.Parameters.AddWithValue("@EndTime", EndTIme.Value)
             cmd.Parameters.AddWithValue("@Day", cb_day.SelectedItem)
             cmd.Parameters.AddWithValue("@RoomNumber", cb_room.SelectedItem)
-            cmd.Parameters.AddWithValue("@Building", cb_building.SelectedItem)
+
 
             DBCon()
             cmd.ExecuteNonQuery()
@@ -74,7 +73,7 @@ Public Class CreateScheduleForm
             cb_section.Text = ""
             cb_subject.Text = ""
             cb_day.Text = ""
-            cb_building.Text = ""
+
             cb_room.Text = ""
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -286,5 +285,42 @@ Public Class CreateScheduleForm
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dashboard.Show()
         Me.Hide()
+    End Sub
+
+
+    Private Sub dgvSchedule_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSchedule.CellClick
+        If e.RowIndex >= 0 Then
+            ' Retrieve data from the selected row
+            Dim selectedRow As DataGridViewRow = dgvSchedule.Rows(e.RowIndex)
+            Dim data1 As String = selectedRow.Cells("InstructorName").Value.ToString()
+            Dim data2 As String = selectedRow.Cells("Section").Value.ToString()
+            Dim data3 As String = selectedRow.Cells("Subject").Value.ToString()
+            Dim startTime As DateTime = DateTime.Parse(selectedRow.Cells("StartTime").Value.ToString())
+            Dim endTime As DateTime = DateTime.Parse(selectedRow.Cells("EndTime").Value.ToString())
+            Dim data4 As String = selectedRow.Cells("Day").Value.ToString()
+            Dim data5 As String = selectedRow.Cells("RoomNumber").Value.ToString()
+            Dim id = selectedRow.Cells("ScheduleID").Value.ToString()
+            Dim instructor As String = If(cb_instructor.SelectedItem IsNot Nothing, cb_instructor.SelectedItem.ToString(), "")
+
+            ' Pass the data to SchedulePopupForm constructor
+            Dim daysList As New List(Of String)
+            For Each item As Object In cb_day.Items
+                daysList.Add(item.ToString())
+            Next
+            Dim PopupForm As New SchedulePopupForm(data1, data2, data3, startTime, endTime, data4, data5, instructor, daysList, Val(id))
+
+            ' Show the SchedulePopupForm
+            PopupForm.ShowDialog()
+
+            ' Check if the updateSched method in SchedulePopupForm returns true, then refresh the DataGridView
+            'If PopupForm.updateSched() Then
+            '    dgvSchedule.DataSource = Nothing
+            getSchedules() ' This method probably fetches the schedules from the database and updates the DataGridView
+            End If
+        'End If
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
+
     End Sub
 End Class

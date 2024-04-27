@@ -41,14 +41,11 @@ Partial Class CreateScheduleForm
         StartTime = New DateTimePicker()
         Panel10 = New Panel()
         txt_search = New TextBox()
-        Panel8 = New Panel()
-        cb_building = New ComboBox()
         Label8 = New Label()
         GroupBox2 = New GroupBox()
         dgvSchedule = New DataGridView()
         Label7 = New Label()
         Label2 = New Label()
-        Label6 = New Label()
         Label5 = New Label()
         Label11 = New Label()
         Label4 = New Label()
@@ -66,7 +63,6 @@ Partial Class CreateScheduleForm
         Panel2.SuspendLayout()
         Panel5.SuspendLayout()
         Panel10.SuspendLayout()
-        Panel8.SuspendLayout()
         GroupBox2.SuspendLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -83,11 +79,9 @@ Partial Class CreateScheduleForm
         Panel1.Controls.Add(EndTIme)
         Panel1.Controls.Add(StartTime)
         Panel1.Controls.Add(Panel10)
-        Panel1.Controls.Add(Panel8)
         Panel1.Controls.Add(Label8)
         Panel1.Controls.Add(GroupBox2)
         Panel1.Controls.Add(Label2)
-        Panel1.Controls.Add(Label6)
         Panel1.Controls.Add(Label5)
         Panel1.Controls.Add(Label11)
         Panel1.Controls.Add(Label4)
@@ -247,30 +241,9 @@ Partial Class CreateScheduleForm
         txt_search.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txt_search.Location = New Point(13, 9)
         txt_search.Name = "txt_search"
+        txt_search.PlaceholderText = "SEARCH"
         txt_search.Size = New Size(547, 26)
         txt_search.TabIndex = 0
-        ' 
-        ' Panel8
-        ' 
-        Panel8.BackColor = Color.LightYellow
-        Panel8.BorderStyle = BorderStyle.FixedSingle
-        Panel8.Controls.Add(cb_building)
-        Panel8.Location = New Point(376, 497)
-        Panel8.Name = "Panel8"
-        Panel8.Size = New Size(239, 50)
-        Panel8.TabIndex = 32
-        ' 
-        ' cb_building
-        ' 
-        cb_building.BackColor = Color.LightYellow
-        cb_building.FlatStyle = FlatStyle.Flat
-        cb_building.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        cb_building.FormattingEnabled = True
-        cb_building.Items.AddRange(New Object() {"OLD", "NEW"})
-        cb_building.Location = New Point(14, 8)
-        cb_building.Name = "cb_building"
-        cb_building.Size = New Size(214, 34)
-        cb_building.TabIndex = 36
         ' 
         ' Label8
         ' 
@@ -356,17 +329,6 @@ Partial Class CreateScheduleForm
         Label2.Size = New Size(70, 28)
         Label2.TabIndex = 23
         Label2.Text = "Search"
-        ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label6.Location = New Point(376, 461)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(87, 25)
-        Label6.TabIndex = 22
-        Label6.Text = "Building"
         ' 
         ' Label5
         ' 
@@ -503,7 +465,6 @@ Partial Class CreateScheduleForm
         Panel5.ResumeLayout(False)
         Panel10.ResumeLayout(False)
         Panel10.PerformLayout()
-        Panel8.ResumeLayout(False)
         GroupBox2.ResumeLayout(False)
         GroupBox2.PerformLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).EndInit()
@@ -517,7 +478,6 @@ Partial Class CreateScheduleForm
     Friend WithEvents Button2 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents logo As PictureBox
-    Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Label4 As Label
@@ -527,12 +487,10 @@ Partial Class CreateScheduleForm
     Friend WithEvents Label2 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents Panel8 As Panel
     Friend WithEvents Panel10 As Panel
     Friend WithEvents txt_search As TextBox
     Friend WithEvents StartTime As DateTimePicker
     Friend WithEvents EndTIme As DateTimePicker
-    Friend WithEvents cb_building As ComboBox
     Friend WithEvents dgvSchedule As DataGridView
     Friend WithEvents Panel2 As Panel
     Friend WithEvents cb_section As ComboBox
