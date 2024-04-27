@@ -86,7 +86,7 @@
         Dim buttonWidth As Integer = 100 ' Width of each button
         Dim buttonHeight As Integer = 30 ' Height of each button
         Dim horizontalSpacing As Integer = 200
-        Dim verticalSpacing As Integer = 10
+        Dim verticalSpacing As Integer = 80
         Dim buttonsPerRow As Integer = Math.Max(panelbtns.Width \ (buttonWidth + horizontalSpacing), 1)
 
         For Each ctrl As Control In panelbtns.Controls

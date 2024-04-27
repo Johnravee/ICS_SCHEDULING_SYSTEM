@@ -6,7 +6,7 @@
 
             Label1.Text = $"ROOM :{Section}"
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules WHERE Section = @section"
+            cmd.CommandText = "SELECT * FROM schedules WHERE Section = @section ORDER BY StartTime"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@section", Section)
@@ -27,19 +27,25 @@
 
 
             For Each row As DataRow In data.Rows
-                Dim day As String = row("Day").ToString().Trim()
+                Dim startTime As DateTime = DateTime.Parse(row("StartTime").ToString())
+                Dim endTime As DateTime = DateTime.Parse(row("EndTime").ToString())
 
+                Dim formattedStartTime As String = startTime.ToString("hh:mm tt")
+                Dim formattedEndTime As String = endTime.ToString("hh:mm tt")
+
+                Dim TimeDuration As String = formattedStartTime & " - " & formattedEndTime
+                Dim day As String = row("Day").ToString().Trim()
                 Dim instructor As String = row("InstructorName").ToString().Trim()
                 Dim Subject As String = row("Subject").ToString().Trim()
 
                 Dim columnIndex As Integer = Array.IndexOf(daysOfWeek, day)
 
 
-                If columnIndex <> -1 AndAlso Not String.IsNullOrEmpty(section) Then
+                If columnIndex <> -1 AndAlso Not String.IsNullOrEmpty(Section) Then
 
                     Dim rowIndex As Integer = dgvSectionSched.Rows.Add()
 
-                    Dim CellValue As String = $"Instructor: {instructor}" & vbCrLf & $"Subject: {Subject}"
+                    Dim CellValue As String = $"Time: {TimeDuration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Subject: {Subject}"
 
 
                     dgvSectionSched.Rows(rowIndex).Cells(columnIndex).Value = CellValue

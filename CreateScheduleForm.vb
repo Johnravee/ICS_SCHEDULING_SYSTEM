@@ -3,7 +3,7 @@ Imports MySql.Data.MySqlClient
 
 Public Class CreateScheduleForm
     Dim timeDuration As String
-    Dim dset As New DataSet
+    Dim ScheduleTB As New DataTable
 
     Private Sub CreateScheduleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         StartTime.Format = DateTimePickerFormat.Time
@@ -27,10 +27,9 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub submitbtn_Click(sender As Object, e As EventArgs) Handles submitbtn.Click
         Try
-            If String.IsNullOrEmpty(cb_building.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
+            If String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_room.SelectedItem) Then
@@ -52,7 +51,7 @@ Public Class CreateScheduleForm
 
             ' Insert the schedule into the database
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`, `Building`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @Building)"
+            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber)"
 
             ' Clear the parameters collection before adding new parameters
             cmd.Parameters.Clear()
@@ -63,7 +62,7 @@ Public Class CreateScheduleForm
             cmd.Parameters.AddWithValue("@EndTime", EndTIme.Value)
             cmd.Parameters.AddWithValue("@Day", cb_day.SelectedItem)
             cmd.Parameters.AddWithValue("@RoomNumber", cb_room.SelectedItem)
-            cmd.Parameters.AddWithValue("@Building", cb_building.SelectedItem)
+
 
             DBCon()
             cmd.ExecuteNonQuery()
@@ -74,7 +73,7 @@ Public Class CreateScheduleForm
             cb_section.Text = ""
             cb_subject.Text = ""
             cb_day.Text = ""
-            cb_building.Text = ""
+
             cb_room.Text = ""
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -87,6 +86,8 @@ Public Class CreateScheduleForm
 
     Private Sub getSchedules()
         Try
+
+
             DBCon()
             cmd.Connection = con
             cmd.CommandText = "SELECT * FROM schedules ORDER BY ScheduleID DESC"
@@ -96,19 +97,19 @@ Public Class CreateScheduleForm
 
 
             dataReader.SelectCommand = cmd
-            dataReader.Fill(table)
+            dataReader.Fill(ScheduleTB)
 
             ' Add new columns only if they don't already exist
-            If Not table.Columns.Contains("Start Time") Then
-                table.Columns.Add("Start Time", GetType(String))
+            If Not ScheduleTB.Columns.Contains("Start Time") Then
+                ScheduleTB.Columns.Add("Start Time", GetType(String))
             End If
 
-            If Not table.Columns.Contains("End Time") Then
-                table.Columns.Add("End Time", GetType(String))
+            If Not ScheduleTB.Columns.Contains("End Time") Then
+                ScheduleTB.Columns.Add("End Time", GetType(String))
             End If
 
 
-            For Each row As DataRow In table.Rows
+            For Each row As DataRow In ScheduleTB.Rows
                 Dim startTime As TimeSpan = DirectCast(row("StartTime"), TimeSpan)
                 Dim endTime As TimeSpan = DirectCast(row("EndTime"), TimeSpan)
 
@@ -120,7 +121,7 @@ Public Class CreateScheduleForm
                 row("End Time") = endDateTime.ToString("hh:mm tt")
             Next
 
-            dgvSchedule.DataSource = table
+            dgvSchedule.DataSource = ScheduleTB
 
             ' Optionally, hide the ScheduleID column
             dgvSchedule.Columns("ScheduleID").Visible = False
@@ -177,12 +178,13 @@ Public Class CreateScheduleForm
         ' Filter the data in the table based on the search query
         If Not String.IsNullOrEmpty(searchQuery) Then
             Dim filteredData As New DataTable()
-            For Each column As DataColumn In table.Columns
+            For Each column As DataColumn In ScheduleTB.Columns
                 filteredData.Columns.Add(column.ColumnName, column.DataType)
+
             Next
 
-            For Each row As DataRow In table.Rows
-                For Each column As DataColumn In table.Columns
+            For Each row As DataRow In ScheduleTB.Rows
+                For Each column As DataColumn In ScheduleTB.Columns
                     ' Check if the cell value contains the search query
                     If row(column.ColumnName).ToString().ToLower().Contains(searchQuery.ToLower()) Then
                         filteredData.Rows.Add(row.ItemArray)
@@ -191,11 +193,13 @@ Public Class CreateScheduleForm
                 Next
             Next
 
-
+            dgvSchedule.Columns("ScheduleID").Visible = False
+            dgvSchedule.Columns("StartTime").Visible = False
+            dgvSchedule.Columns("EndTime").Visible = False
             dgvSchedule.DataSource = filteredData
         Else
 
-            dgvSchedule.DataSource = table
+            dgvSchedule.DataSource = ScheduleTB
         End If
     End Sub
 
@@ -286,5 +290,8 @@ Public Class CreateScheduleForm
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dashboard.Show()
         Me.Hide()
+
     End Sub
+
+
 End Class

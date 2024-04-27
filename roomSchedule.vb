@@ -6,7 +6,7 @@
 
             Label1.Text = $"ROOM :{room}"
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @roomnumber"
+            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @roomnumber ORDER BY StartTime "
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@roomnumber", room)
 
@@ -26,6 +26,13 @@
 
 
             For Each row As DataRow In data.Rows
+                Dim startTime As DateTime = DateTime.Parse(row("StartTime").ToString())
+                Dim endTime As DateTime = DateTime.Parse(row("EndTime").ToString())
+
+                Dim formattedStartTime As String = startTime.ToString("hh:mm tt")
+                Dim formattedEndTime As String = endTime.ToString("hh:mm tt")
+
+                Dim TimeDuration As String = formattedStartTime & " - " & formattedEndTime
                 Dim day As String = row("Day").ToString().Trim()
                 Dim section As String = row("Section").ToString().Trim()
                 Dim instructor As String = row("InstructorName").ToString().Trim()
@@ -37,8 +44,8 @@
                 If columnIndex <> -1 AndAlso Not String.IsNullOrEmpty(section) Then
 
                     Dim rowIndex As Integer = dgvRoomSched.Rows.Add()
+                    Dim CellValue As String = $"Time: {TimeDuration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Section: {section}" & vbCrLf & $"Subject: {Subject}"
 
-                    Dim CellValue As String = $"Section: {section}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Subject: {Subject}"
 
 
                     dgvRoomSched.Rows(rowIndex).Cells(columnIndex).Value = CellValue
