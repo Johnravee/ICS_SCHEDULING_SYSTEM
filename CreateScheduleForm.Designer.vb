@@ -53,7 +53,7 @@ Partial Class CreateScheduleForm
         Label10 = New Label()
         logo = New PictureBox()
         Label1 = New Label()
-        Button2 = New Button()
+        submitbtn = New Button()
         Button1 = New Button()
         Label9 = New Label()
         Panel1.SuspendLayout()
@@ -89,7 +89,7 @@ Partial Class CreateScheduleForm
         Panel1.Controls.Add(Label10)
         Panel1.Controls.Add(logo)
         Panel1.Controls.Add(Label1)
-        Panel1.Controls.Add(Button2)
+        Panel1.Controls.Add(submitbtn)
         Panel1.Location = New Point(0, 38)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1576, 721)
@@ -100,13 +100,15 @@ Partial Class CreateScheduleForm
         Panel6.BackColor = Color.LightYellow
         Panel6.BorderStyle = BorderStyle.FixedSingle
         Panel6.Controls.Add(cb_room)
-        Panel6.Location = New Point(42, 595)
+        Panel6.Location = New Point(376, 492)
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(239, 50)
         Panel6.TabIndex = 37
         ' 
         ' cb_room
         ' 
+        cb_room.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_room.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_room.BackColor = Color.LightYellow
         cb_room.FlatStyle = FlatStyle.Flat
         cb_room.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -128,6 +130,8 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_day
         ' 
+        cb_day.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_day.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_day.BackColor = Color.LightYellow
         cb_day.FlatStyle = FlatStyle.Flat
         cb_day.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -150,6 +154,8 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_subject
         ' 
+        cb_subject.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_subject.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_subject.BackColor = Color.LightYellow
         cb_subject.FlatStyle = FlatStyle.Flat
         cb_subject.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -171,6 +177,8 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_section
         ' 
+        cb_section.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_section.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_section.BackColor = Color.LightYellow
         cb_section.FlatStyle = FlatStyle.Flat
         cb_section.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -192,6 +200,8 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_instructor
         ' 
+        cb_instructor.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_instructor.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_instructor.BackColor = Color.LightYellow
         cb_instructor.FlatStyle = FlatStyle.Flat
         cb_instructor.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -210,6 +220,7 @@ Partial Class CreateScheduleForm
         EndTIme.ShowUpDown = True
         EndTIme.Size = New Size(239, 48)
         EndTIme.TabIndex = 35
+        EndTIme.Value = New Date(2024, 4, 22, 0, 0, 0, 0)
         ' 
         ' StartTime
         ' 
@@ -222,6 +233,7 @@ Partial Class CreateScheduleForm
         StartTime.ShowUpDown = True
         StartTime.Size = New Size(239, 48)
         StartTime.TabIndex = 34
+        StartTime.Value = New Date(2024, 4, 22, 0, 0, 0, 0)
         ' 
         ' Panel10
         ' 
@@ -288,14 +300,16 @@ Partial Class CreateScheduleForm
         DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
         DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
-        DataGridViewCellStyle2.Padding = New Padding(5)
+        DataGridViewCellStyle2.Padding = New Padding(2)
         DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
         dgvSchedule.DefaultCellStyle = DataGridViewCellStyle2
-        dgvSchedule.Location = New Point(2, 21)
+        dgvSchedule.Dock = DockStyle.Fill
+        dgvSchedule.Location = New Point(2, 18)
         dgvSchedule.Name = "dgvSchedule"
         dgvSchedule.ReadOnly = True
+        dgvSchedule.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
         DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = SystemColors.Control
         DataGridViewCellStyle3.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
@@ -305,7 +319,10 @@ Partial Class CreateScheduleForm
         DataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
         dgvSchedule.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        dgvSchedule.Size = New Size(866, 430)
+        dgvSchedule.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+        dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvSchedule.ShowEditingIcon = False
+        dgvSchedule.Size = New Size(864, 425)
         dgvSchedule.TabIndex = 28
         ' 
         ' Label7
@@ -335,7 +352,7 @@ Partial Class CreateScheduleForm
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(42, 567)
+        Label5.Location = New Point(376, 464)
         Label5.Name = "Label5"
         Label5.Size = New Size(65, 25)
         Label5.TabIndex = 21
@@ -406,18 +423,18 @@ Partial Class CreateScheduleForm
         Label1.TabIndex = 9
         Label1.Text = "Instructor"
         ' 
-        ' Button2
+        ' submitbtn
         ' 
-        Button2.BackColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
-        Button2.FlatStyle = FlatStyle.Flat
-        Button2.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button2.ForeColor = SystemColors.ButtonHighlight
-        Button2.Location = New Point(459, 640)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(156, 53)
-        Button2.TabIndex = 8
-        Button2.Text = "Submit"
-        Button2.UseVisualStyleBackColor = False
+        submitbtn.BackColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
+        submitbtn.FlatStyle = FlatStyle.Flat
+        submitbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        submitbtn.ForeColor = SystemColors.ButtonHighlight
+        submitbtn.Location = New Point(459, 640)
+        submitbtn.Name = "submitbtn"
+        submitbtn.Size = New Size(156, 53)
+        submitbtn.TabIndex = 8
+        submitbtn.Text = "Save"
+        submitbtn.UseVisualStyleBackColor = False
         ' 
         ' Button1
         ' 
@@ -475,7 +492,7 @@ Partial Class CreateScheduleForm
 
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents submitbtn As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents logo As PictureBox
     Friend WithEvents Label5 As Label

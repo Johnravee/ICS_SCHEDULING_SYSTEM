@@ -4,7 +4,7 @@
     Private Sub nextbtn_Click(sender As Object, e As EventArgs) Handles nextbtn.Click
         If CheckEmptyFields() Then
             If EmailValidation(txtemail.Text) Then
-                Dim rfidscanForm As New rfidandPinRegistrationforinstructors
+                Dim rfidscanForm As New RFIDREGISTRATION
                 rfidscanForm.instructorDataConstructor(txtfname.Text, txtmname.Text, txtsurname.Text, cbsuffix.SelectedItem, cbRole.SelectedItem, txtemail.Text, cbworkstatus.SelectedItem)
 
 
@@ -63,7 +63,7 @@
 
     Private Sub ManualBackBtn_Click(sender As Object, e As EventArgs) Handles ManualBackBtn.Click
         Me.Hide()
-        Authentication_Form.Show()
+        ScanRFIDLOGIN.Show()
     End Sub
 
     Private Sub ClearFields()

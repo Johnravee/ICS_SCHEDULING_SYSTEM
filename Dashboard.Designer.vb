@@ -64,16 +64,16 @@ Partial Class Dashboard
         LogoutBtn.BackgroundImage = CType(resources.GetObject("LogoutBtn.BackgroundImage"), Image)
         LogoutBtn.BackgroundImageLayout = ImageLayout.Zoom
         LogoutBtn.Cursor = Cursors.Hand
-        LogoutBtn.FlatAppearance.BorderColor = Color.FromArgb(CByte(1), CByte(47), CByte(31))
         LogoutBtn.FlatAppearance.BorderSize = 0
-        LogoutBtn.FlatAppearance.CheckedBackColor = Color.FromArgb(CByte(29), CByte(53), CByte(50))
-        LogoutBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(29), CByte(53), CByte(50))
-        LogoutBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(29), CByte(53), CByte(50))
+        LogoutBtn.FlatAppearance.MouseDownBackColor = Color.Green
+        LogoutBtn.FlatAppearance.MouseOverBackColor = Color.Lime
         LogoutBtn.FlatStyle = FlatStyle.Flat
-        LogoutBtn.Location = New Point(12, 684)
+        LogoutBtn.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LogoutBtn.ForeColor = Color.FromArgb(CByte(244), CByte(244), CByte(244))
+        LogoutBtn.Location = New Point(16, 692)
         LogoutBtn.Name = "LogoutBtn"
-        LogoutBtn.Size = New Size(48, 44)
-        LogoutBtn.TabIndex = 1
+        LogoutBtn.Size = New Size(48, 42)
+        LogoutBtn.TabIndex = 0
         LogoutBtn.UseVisualStyleBackColor = False
         ' 
         ' PictureBox1
@@ -334,7 +334,6 @@ Partial Class Dashboard
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label1 As Label
-    Friend WithEvents LogoutBtn As Button
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents minimizeBtn As PictureBox
     Friend WithEvents closeBtn As PictureBox
@@ -347,5 +346,6 @@ Partial Class Dashboard
     Friend WithEvents btnNewSched As Button
     Friend WithEvents btnNewInstructor As Button
     Friend WithEvents btnManagement As Button
+    Friend WithEvents LogoutBtn As Button
 
 End Class
