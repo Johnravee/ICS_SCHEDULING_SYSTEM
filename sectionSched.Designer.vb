@@ -22,15 +22,20 @@ Partial Class sectionSched
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(sectionSched))
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Panel1 = New Panel()
         backbtn = New Button()
-        Panel2 = New Panel()
-        dgvSectionSched = New DataGridView()
         Label1 = New Label()
+        Printbtn = New Button()
+        printingdgv = New DataGridView()
+        dgvSectionSched = New DataGridView()
+        printer = New Printing.PrintDocument()
+        PrintPreviewDialog1 = New PrintPreviewDialog()
         Panel1.SuspendLayout()
-        Panel2.SuspendLayout()
+        CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvSectionSched, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -56,42 +61,6 @@ Partial Class sectionSched
         backbtn.TabIndex = 2
         backbtn.UseVisualStyleBackColor = False
         ' 
-        ' Panel2
-        ' 
-        Panel2.Controls.Add(dgvSectionSched)
-        Panel2.Location = New Point(54, 146)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(1240, 506)
-        Panel2.TabIndex = 7
-        ' 
-        ' dgvSectionSched
-        ' 
-        dgvSectionSched.BackgroundColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = SystemColors.Control
-        DataGridViewCellStyle1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle1.Padding = New Padding(10)
-        DataGridViewCellStyle1.SelectionBackColor = Color.Transparent
-        DataGridViewCellStyle1.SelectionForeColor = Color.Transparent
-        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
-        dgvSectionSched.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        dgvSectionSched.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle2.ForeColor = Color.WhiteSmoke
-        DataGridViewCellStyle2.Padding = New Padding(20)
-        DataGridViewCellStyle2.SelectionBackColor = Color.Transparent
-        DataGridViewCellStyle2.SelectionForeColor = Color.Transparent
-        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
-        dgvSectionSched.DefaultCellStyle = DataGridViewCellStyle2
-        dgvSectionSched.Dock = DockStyle.Fill
-        dgvSectionSched.Location = New Point(0, 0)
-        dgvSectionSched.Name = "dgvSectionSched"
-        dgvSectionSched.Size = New Size(1240, 506)
-        dgvSectionSched.TabIndex = 0
-        ' 
         ' Label1
         ' 
         Label1.AutoSize = True
@@ -102,6 +71,79 @@ Partial Class sectionSched
         Label1.Size = New Size(0, 26)
         Label1.TabIndex = 8
         ' 
+        ' Printbtn
+        ' 
+        Printbtn.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Printbtn.FlatAppearance.BorderSize = 0
+        Printbtn.FlatStyle = FlatStyle.Flat
+        Printbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Printbtn.Image = CType(resources.GetObject("Printbtn.Image"), Image)
+        Printbtn.Location = New Point(1152, 73)
+        Printbtn.Name = "Printbtn"
+        Printbtn.Size = New Size(142, 55)
+        Printbtn.TabIndex = 9
+        Printbtn.Text = "Print"
+        Printbtn.TextImageRelation = TextImageRelation.ImageBeforeText
+        Printbtn.UseVisualStyleBackColor = False
+        ' 
+        ' printingdgv
+        ' 
+        printingdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = SystemColors.Window
+        DataGridViewCellStyle1.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.ControlText
+        DataGridViewCellStyle1.Padding = New Padding(5)
+        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        printingdgv.DefaultCellStyle = DataGridViewCellStyle1
+        printingdgv.Location = New Point(78, 267)
+        printingdgv.Name = "printingdgv"
+        printingdgv.ReadOnly = True
+        printingdgv.Size = New Size(1192, 150)
+        printingdgv.TabIndex = 10
+        ' 
+        ' dgvSectionSched
+        ' 
+        dgvSectionSched.BackgroundColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = SystemColors.Control
+        DataGridViewCellStyle2.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle2.Padding = New Padding(10)
+        DataGridViewCellStyle2.SelectionBackColor = Color.Transparent
+        DataGridViewCellStyle2.SelectionForeColor = Color.Transparent
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        dgvSectionSched.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        dgvSectionSched.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        DataGridViewCellStyle3.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle3.ForeColor = Color.WhiteSmoke
+        DataGridViewCellStyle3.Padding = New Padding(20)
+        DataGridViewCellStyle3.SelectionBackColor = Color.Transparent
+        DataGridViewCellStyle3.SelectionForeColor = Color.Transparent
+        DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
+        dgvSectionSched.DefaultCellStyle = DataGridViewCellStyle3
+        dgvSectionSched.Location = New Point(54, 134)
+        dgvSectionSched.Name = "dgvSectionSched"
+        dgvSectionSched.Size = New Size(1240, 506)
+        dgvSectionSched.TabIndex = 11
+        ' 
+        ' printer
+        ' 
+        ' 
+        ' PrintPreviewDialog1
+        ' 
+        PrintPreviewDialog1.AutoScrollMargin = New Size(0, 0)
+        PrintPreviewDialog1.AutoScrollMinSize = New Size(0, 0)
+        PrintPreviewDialog1.ClientSize = New Size(400, 300)
+        PrintPreviewDialog1.Enabled = True
+        PrintPreviewDialog1.Icon = CType(resources.GetObject("PrintPreviewDialog1.Icon"), Icon)
+        PrintPreviewDialog1.Name = "PrintPreviewDialog1"
+        PrintPreviewDialog1.Visible = False
+        ' 
         ' sectionSched
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -109,15 +151,17 @@ Partial Class sectionSched
         BackColor = Color.Beige
         BackgroundImageLayout = ImageLayout.None
         ClientSize = New Size(1359, 671)
+        Controls.Add(dgvSectionSched)
+        Controls.Add(printingdgv)
+        Controls.Add(Printbtn)
         Controls.Add(Label1)
-        Controls.Add(Panel2)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
         Name = "sectionSched"
         StartPosition = FormStartPosition.CenterScreen
         Text = "sectionSched"
         Panel1.ResumeLayout(False)
-        Panel2.ResumeLayout(False)
+        CType(printingdgv, ComponentModel.ISupportInitialize).EndInit()
         CType(dgvSectionSched, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -125,7 +169,10 @@ Partial Class sectionSched
 
     Friend WithEvents Panel1 As Panel
     Friend WithEvents backbtn As Button
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents dgvSectionSched As DataGridView
     Friend WithEvents Label1 As Label
+    Friend WithEvents Printbtn As Button
+    Friend WithEvents printingdgv As DataGridView
+    Friend WithEvents dgvSectionSched As DataGridView
+    Friend WithEvents printer As Printing.PrintDocument
+    Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
 End Class

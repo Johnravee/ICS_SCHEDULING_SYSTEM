@@ -28,10 +28,11 @@ Partial Class instructorSched
         Panel1 = New Panel()
         backbtn = New Button()
         Label1 = New Label()
-        Button1 = New Button()
+        Printbtn = New Button()
         printer = New Printing.PrintDocument()
         printingdgv = New DataGridView()
         dgvInstructorSched = New DataGridView()
+        PrintPreviewDialog = New PrintPreviewDialog()
         Panel1.SuspendLayout()
         CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvInstructorSched, ComponentModel.ISupportInitialize).BeginInit()
@@ -69,20 +70,20 @@ Partial Class instructorSched
         Label1.Size = New Size(0, 26)
         Label1.TabIndex = 6
         ' 
-        ' Button1
+        ' Printbtn
         ' 
-        Button1.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Button1.FlatAppearance.BorderSize = 0
-        Button1.FlatStyle = FlatStyle.Flat
-        Button1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button1.Image = CType(resources.GetObject("Button1.Image"), Image)
-        Button1.Location = New Point(1152, 73)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(142, 55)
-        Button1.TabIndex = 2
-        Button1.Text = "Print"
-        Button1.TextImageRelation = TextImageRelation.ImageBeforeText
-        Button1.UseVisualStyleBackColor = False
+        Printbtn.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Printbtn.FlatAppearance.BorderSize = 0
+        Printbtn.FlatStyle = FlatStyle.Flat
+        Printbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Printbtn.Image = CType(resources.GetObject("Printbtn.Image"), Image)
+        Printbtn.Location = New Point(1152, 73)
+        Printbtn.Name = "Printbtn"
+        Printbtn.Size = New Size(142, 55)
+        Printbtn.TabIndex = 2
+        Printbtn.Text = "Print"
+        Printbtn.TextImageRelation = TextImageRelation.ImageBeforeText
+        Printbtn.UseVisualStyleBackColor = False
         ' 
         ' printer
         ' 
@@ -122,6 +123,16 @@ Partial Class instructorSched
         dgvInstructorSched.Size = New Size(1240, 506)
         dgvInstructorSched.TabIndex = 9
         ' 
+        ' PrintPreviewDialog
+        ' 
+        PrintPreviewDialog.AutoScrollMargin = New Size(0, 0)
+        PrintPreviewDialog.AutoScrollMinSize = New Size(0, 0)
+        PrintPreviewDialog.ClientSize = New Size(400, 300)
+        PrintPreviewDialog.Enabled = True
+        PrintPreviewDialog.Icon = CType(resources.GetObject("PrintPreviewDialog.Icon"), Icon)
+        PrintPreviewDialog.Name = "PrintPreviewDialog"
+        PrintPreviewDialog.Visible = False
+        ' 
         ' instructorSched
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -130,7 +141,7 @@ Partial Class instructorSched
         ClientSize = New Size(1359, 671)
         Controls.Add(dgvInstructorSched)
         Controls.Add(printingdgv)
-        Controls.Add(Button1)
+        Controls.Add(Printbtn)
         Controls.Add(Label1)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
@@ -147,8 +158,9 @@ Partial Class instructorSched
     Friend WithEvents Panel1 As Panel
     Friend WithEvents backbtn As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Printbtn As Button
     Friend WithEvents printer As Printing.PrintDocument
     Friend WithEvents printingdgv As DataGridView
     Friend WithEvents dgvInstructorSched As DataGridView
+    Friend WithEvents PrintPreviewDialog As PrintPreviewDialog
 End Class
