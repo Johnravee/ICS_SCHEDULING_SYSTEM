@@ -287,7 +287,37 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
+    Private Sub dgvSchedule_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSchedule.CellClick
+        If e.RowIndex >= 0 Then
+            ' Retrieve data from the selected row
+            Dim selectedRow As DataGridViewRow = dgvSchedule.Rows(e.RowIndex)
+            Dim data1 As String = selectedRow.Cells("InstructorName").Value.ToString()
+            Dim data2 As String = selectedRow.Cells("Section").Value.ToString()
+            Dim data3 As String = selectedRow.Cells("Subject").Value.ToString()
+            Dim startTime As DateTime = DateTime.Parse(selectedRow.Cells("StartTime").Value.ToString())
+            Dim endTime As DateTime = DateTime.Parse(selectedRow.Cells("EndTime").Value.ToString())
+            Dim data4 As String = selectedRow.Cells("Day").Value.ToString()
+            Dim data5 As String = selectedRow.Cells("RoomNumber").Value.ToString()
+            Dim id = selectedRow.Cells("ScheduleID").Value.ToString()
+            Dim instructor As String = If(cb_instructor.SelectedItem IsNot Nothing, cb_instructor.SelectedItem.ToString(), "")
 
+            ' Pass the data to SchedulePopupForm constructor
+            Dim daysList As New List(Of String)
+            For Each item As Object In cb_day.Items
+                daysList.Add(item.ToString())
+            Next
+            Dim PopupForm As New SchedulePopupForm(data1, data2, data3, startTime, endTime, data4, data5, instructor, daysList, Val(id))
+
+            ' Show the SchedulePopupForm
+            PopupForm.ShowDialog()
+
+            ' Check if the updateSched method in SchedulePopupForm returns true, then refresh the DataGridView
+            'If PopupForm.updateSched() Then
+            '    dgvSchedule.DataSource = Nothing
+            getSchedules() ' This method probably fetches the schedules from the database and updates the DataGridView
+        End If
+        'End If
+    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dashboard.Show()
