@@ -47,7 +47,10 @@
         MsgBox("Clicks")
     End Sub
 
-    Private Sub Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
+    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        ScanRFIDLOGIN.Show()
+        Me.Close()
     End Sub
 End Class

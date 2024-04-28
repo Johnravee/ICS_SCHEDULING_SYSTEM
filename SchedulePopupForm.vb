@@ -3,8 +3,8 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 
 Public Class SchedulePopupForm
-    Private scheduleID As Integer
-    Private dgvSchedule As Object
+
+
 
     Public Sub New(ByVal data1 As String, ByVal data2 As String, ByVal data3 As String, ByVal startTime As DateTime, ByVal endTime As DateTime, ByVal data4 As String, ByVal data5 As String, ByVal comboBoxData As String, ByVal days As List(Of String), ID As Integer)
         InitializeComponent()
@@ -20,7 +20,7 @@ Public Class SchedulePopupForm
         cbo_day.SelectedItem = data4
         cb_room.SelectedItem = data5
         StartTime1.Value = startTime
-        EndTime1.Value = endTime
+        Me.StartTime1.Value = endTime
     End Sub
 
     Private Sub GetInstructor()
@@ -28,7 +28,7 @@ Public Class SchedulePopupForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT CONCAT(Firstname, ' ', MiddleName, ' ', Surname) AS FullName FROM instructor"
+            cmd.CommandText = "SELECT CONCAT(Firstname,' ', Surname) AS FullName FROM instructor"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
             cbo_instructor.Items.Clear()
@@ -91,58 +91,8 @@ Public Class SchedulePopupForm
         End Try
     End Sub
 
-    Private Sub getSchedules()
-        Try
-            DBCon()
-            cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules ORDER BY ScheduleID DESC"
 
 
-            table.Clear()
-
-
-            dataReader.SelectCommand = cmd
-            dataReader.Fill(table)
-
-            ' Add new columns only if they don't already exist
-            If Not table.Columns.Contains("Start Time") Then
-                table.Columns.Add("Start Time", GetType(String))
-            End If
-
-            If Not table.Columns.Contains("End Time") Then
-                table.Columns.Add("End Time", GetType(String))
-            End If
-
-
-            For Each row As DataRow In table.Rows
-                Dim startTime As TimeSpan = DirectCast(row("StartTime"), TimeSpan)
-                Dim endTime As TimeSpan = DirectCast(row("EndTime"), TimeSpan)
-
-                Dim startDateTime As DateTime = DateTime.Today.Add(startTime)
-                Dim endDateTime As DateTime = DateTime.Today.Add(endTime)
-
-
-                row("Start Time") = startDateTime.ToString("hh:mm tt")
-                row("End Time") = endDateTime.ToString("hh:mm tt")
-            Next
-
-            dgvSchedule.DataSource = table
-
-            ' Optionally, hide the ScheduleID column
-            dgvSchedule.Columns("ScheduleID").Visible = False
-            dgvSchedule.Columns("StartTime").Visible = False
-            dgvSchedule.Columns("EndTime").Visible = False
-
-            ' Set auto-sizing and wrap mode for better display
-            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
-            dgvSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-            dgvSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True
-        Catch ex As Exception
-            MsgBox(ex.ToString())
-        Finally
-            con.Close()
-        End Try
-    End Sub
 
 
 
@@ -157,20 +107,27 @@ Public Class SchedulePopupForm
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        CreateScheduleForm.Enabled = True
         CreateScheduleForm.Show()
+        CreateScheduleForm.Opacity = 1
         Me.Hide()
     End Sub
 
     Private Sub btn_update_Click(sender As Object, e As EventArgs) Handles btn_update.Click
-        Dim isConflict As Boolean = CheckScheduleConflict(cbo_day.SelectedItem.ToString(), cb_room.SelectedItem.ToString(), StartTime1.Value.ToString("HH:mm:ss"), EndTime1.Value.ToString("HH:mm:ss"), Convert.ToInt32(TXTid.Text))
+        Dim isConflict = CheckScheduleConflict(cbo_day.SelectedItem.ToString, cb_room.SelectedItem.ToString, StartTime1.Value.ToString("HH:mm:ss"), StartTime1.Value.ToString("HH:mm:ss"), Convert.ToInt32(TXTid.Text))
 
         If isConflict Then
             MessageBox.Show("Schedule conflict detected. Please choose a different time or room.")
         Else
             ' No conflict, proceed with updating
             If updateSched() Then
-                ' Close the form after successful update
+                CreateScheduleForm.Close()
+                CreateScheduleForm.Opacity = 1
+                CreateScheduleForm.Enabled = True
+                CreateScheduleForm.Show()
+                MessageBox.Show("Updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.Close()
+
             End If
         End If
     End Sub
@@ -179,7 +136,7 @@ Public Class SchedulePopupForm
     Public Function updateSched() As Boolean
         Try
             ' Check if any of the required controls are null
-            If cbo_instructor.SelectedItem Is Nothing OrElse cbo_day.SelectedItem Is Nothing OrElse cb_room.SelectedItem Is Nothing OrElse StartTime1 Is Nothing OrElse EndTime1 Is Nothing Then
+            If cbo_instructor.SelectedItem Is Nothing OrElse cbo_day.SelectedItem Is Nothing OrElse cb_room.SelectedItem Is Nothing OrElse StartTime1 Is Nothing OrElse Me.StartTime1 Is Nothing Then
                 MsgBox("Some data is missing. Please fill in all required fields.")
                 Return False
             End If
@@ -189,7 +146,7 @@ Public Class SchedulePopupForm
             Dim day As String = cbo_day.SelectedItem.ToString()
             Dim room As String = cb_room.SelectedItem.ToString()
             Dim startTime As String = StartTime1.Value.ToString("HH:mm:ss")
-            Dim endTime As String = EndTime1.Value.ToString("HH:mm:ss")
+            Dim endTime As String = Me.StartTime1.Value.ToString("HH:mm:ss")
             Dim scheduleID As Integer = Convert.ToInt32(TXTid.Text)
 
             ' Check for schedule conflicts
@@ -217,8 +174,11 @@ Public Class SchedulePopupForm
                 cmd.Parameters.AddWithValue("@EndTime", endTime)
                 cmd.Parameters.AddWithValue("@Day", day)
                 cmd.Parameters.AddWithValue("@ScheduleID", scheduleID)
-
                 cmd.ExecuteNonQuery()
+
+
+
+
                 con.Close()
 
                 Return True
@@ -232,6 +192,16 @@ Public Class SchedulePopupForm
 
 
     Private Sub SchedulePopupForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        StartTime1.Format = DateTimePickerFormat.Custom
+        StartTime1.CustomFormat = "hh:mm tt"
+        StartTime1.ShowUpDown = True
+
+        EndTime.Format = DateTimePickerFormat.Custom
+        EndTime.CustomFormat = "hh:mm tt"
+        EndTime.ShowUpDown = True
+
+
         GetInstructor()
         GetSection()
         GetSubject()
@@ -254,17 +224,24 @@ Public Class SchedulePopupForm
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
         ' Prompt the user for confirmation before deleting
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete this schedule?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim result = MessageBox.Show("Are you sure you want to delete this schedule?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
             ' Call a method to delete the schedule
-            Dim scheduleDeleted As Boolean = DeleteSchedule()
+            Dim scheduleDeleted = DeleteSchedule()
 
             If scheduleDeleted Then
+                CreateScheduleForm.Close()
+                CreateScheduleForm.Opacity = 1
+                CreateScheduleForm.Enabled = True
+                CreateScheduleForm.Show()
+                MessageBox.Show("Deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+
+
                 Me.Close()
-                ' Optionally, you can refresh the schedule grid or perform any other necessary actions after deletion
             Else
-                MessageBox.Show("Failed to delete schedule.")
+                MessageBox.Show("Deletion failed. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         End If
     End Sub
@@ -329,4 +306,6 @@ Public Class SchedulePopupForm
 
         Return conflictExists
     End Function
+
+
 End Class

@@ -5,12 +5,16 @@ Public Class CreateScheduleForm
     Dim timeDuration As String
     Dim ScheduleTB As New DataTable
 
-    Private Sub CreateScheduleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        StartTime.Format = DateTimePickerFormat.Time
-        StartTime.CustomFormat = "hh:mm"
 
-        EndTIme.Format = DateTimePickerFormat.Time
-        EndTIme.CustomFormat = "hh:mm"
+
+    Private Sub CreateScheduleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        StartTime.Format = DateTimePickerFormat.Custom
+        StartTime.CustomFormat = "hh:mm tt"
+        StartTime.ShowUpDown = True
+
+        EndTIme.Format = DateTimePickerFormat.Custom
+        EndTIme.CustomFormat = "hh:mm tt"
+        EndTIme.ShowUpDown = True
 
         Try
             getSchedules()
@@ -84,6 +88,8 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
+
+
     Private Sub getSchedules()
         Try
 
@@ -93,7 +99,7 @@ Public Class CreateScheduleForm
             cmd.CommandText = "SELECT * FROM schedules ORDER BY ScheduleID DESC"
 
 
-            table.Clear()
+            ScheduleTB.Clear()
 
 
             dataReader.SelectCommand = cmd
@@ -308,13 +314,13 @@ Public Class CreateScheduleForm
             Next
             Dim PopupForm As New SchedulePopupForm(data1, data2, data3, startTime, endTime, data4, data5, instructor, daysList, Val(id))
 
-            ' Show the SchedulePopupForm
-            PopupForm.ShowDialog()
 
-            ' Check if the updateSched method in SchedulePopupForm returns true, then refresh the DataGridView
-            'If PopupForm.updateSched() Then
-            '    dgvSchedule.DataSource = Nothing
-            getSchedules() ' This method probably fetches the schedules from the database and updates the DataGridView
+            PopupForm.BringToFront()
+            PopupForm.Show()
+            Me.Opacity = 0.9
+            Me.Enabled = False
+
+
         End If
         'End If
     End Sub

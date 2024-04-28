@@ -74,6 +74,7 @@ Partial Class Dashboard
         LogoutBtn.Name = "LogoutBtn"
         LogoutBtn.Size = New Size(48, 42)
         LogoutBtn.TabIndex = 0
+        LogoutBtn.TabStop = False
         LogoutBtn.UseVisualStyleBackColor = False
         ' 
         ' PictureBox1
@@ -165,6 +166,7 @@ Partial Class Dashboard
         btnManagement.Name = "btnManagement"
         btnManagement.Size = New Size(591, 122)
         btnManagement.TabIndex = 15
+        btnManagement.TabStop = False
         btnManagement.Text = "    Management"
         btnManagement.TextAlign = ContentAlignment.MiddleRight
         btnManagement.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -184,6 +186,7 @@ Partial Class Dashboard
         btnViewSummary.Name = "btnViewSummary"
         btnViewSummary.Size = New Size(591, 122)
         btnViewSummary.TabIndex = 15
+        btnViewSummary.TabStop = False
         btnViewSummary.Text = "    Summary"
         btnViewSummary.TextAlign = ContentAlignment.MiddleRight
         btnViewSummary.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -203,6 +206,7 @@ Partial Class Dashboard
         btnViewSubject.Name = "btnViewSubject"
         btnViewSubject.Size = New Size(591, 103)
         btnViewSubject.TabIndex = 14
+        btnViewSubject.TabStop = False
         btnViewSubject.Text = "    Subjects"
         btnViewSubject.TextAlign = ContentAlignment.MiddleRight
         btnViewSubject.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -222,6 +226,7 @@ Partial Class Dashboard
         btnViewSection.Name = "btnViewSection"
         btnViewSection.Size = New Size(591, 103)
         btnViewSection.TabIndex = 13
+        btnViewSection.TabStop = False
         btnViewSection.Text = "    Sections"
         btnViewSection.TextAlign = ContentAlignment.MiddleRight
         btnViewSection.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -241,6 +246,7 @@ Partial Class Dashboard
         btnViewInstructor.Name = "btnViewInstructor"
         btnViewInstructor.Size = New Size(591, 103)
         btnViewInstructor.TabIndex = 12
+        btnViewInstructor.TabStop = False
         btnViewInstructor.Text = "    Instructors"
         btnViewInstructor.TextAlign = ContentAlignment.MiddleRight
         btnViewInstructor.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -260,6 +266,7 @@ Partial Class Dashboard
         btnViewFacilities.Name = "btnViewFacilities"
         btnViewFacilities.Size = New Size(591, 103)
         btnViewFacilities.TabIndex = 11
+        btnViewFacilities.TabStop = False
         btnViewFacilities.Text = "    Facilities"
         btnViewFacilities.TextAlign = ContentAlignment.MiddleRight
         btnViewFacilities.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -279,6 +286,7 @@ Partial Class Dashboard
         btnNewSched.Name = "btnNewSched"
         btnNewSched.Size = New Size(591, 103)
         btnNewSched.TabIndex = 10
+        btnNewSched.TabStop = False
         btnNewSched.Text = "    New Schedule"
         btnNewSched.TextAlign = ContentAlignment.MiddleRight
         btnNewSched.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -298,6 +306,7 @@ Partial Class Dashboard
         btnNewInstructor.Name = "btnNewInstructor"
         btnNewInstructor.Size = New Size(591, 103)
         btnNewInstructor.TabIndex = 9
+        btnNewInstructor.TabStop = False
         btnNewInstructor.Text = "    New Instructor"
         btnNewInstructor.TextAlign = ContentAlignment.MiddleRight
         btnNewInstructor.TextImageRelation = TextImageRelation.ImageBeforeText
