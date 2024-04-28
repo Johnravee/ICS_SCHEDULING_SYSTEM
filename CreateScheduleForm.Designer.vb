@@ -253,6 +253,7 @@ Partial Class CreateScheduleForm
         txt_search.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txt_search.Location = New Point(13, 9)
         txt_search.Name = "txt_search"
+        txt_search.PlaceholderText = "SEARCH"
         txt_search.Size = New Size(547, 26)
         txt_search.TabIndex = 0
         ' 
