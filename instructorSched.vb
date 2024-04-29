@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
-
-Public Class instructorSched
-=======
 ﻿Imports System.Collections.Specialized.BitVector32
 Imports System.Globalization
 
 Public Class instructorSched
     Dim instructor As String
 
->>>>>>> upstream/main
     Private Sub instructorSched_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DBCon()
         instructor = viewInstructors.Instructor
@@ -92,11 +86,6 @@ Public Class instructorSched
     End Sub
 
 
-<<<<<<< HEAD
-    Private Sub dgvInstructorSched_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInstructorSched.CellContentClick
-
-    End Sub
-=======
     Private rowIndexToPrint As Integer = 0 ' Track the index of the next row to print
     Private isNewPage As Boolean = True
 
@@ -239,5 +228,4 @@ Public Class instructorSched
     End Sub
 
 
->>>>>>> upstream/main
 End Class
