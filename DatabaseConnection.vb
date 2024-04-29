@@ -4,8 +4,12 @@ Module DatabaseConnection
 
     Public cmd As New MySqlCommand
     Public dataReader As New MySqlDataAdapter(cmd)
+<<<<<<< HEAD
     Public table As New DataTable()
     Public READER As MySqlDataReader
+=======
+    Public table As New DataTable
+>>>>>>> upstream/main
     Public con As New MySqlConnection("server=localhost;username=root;password=;database=ics_scheduling_db")
 
     Public Sub DBCon()

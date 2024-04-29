@@ -22,11 +22,16 @@ Partial Class instructorSched
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+<<<<<<< HEAD
+=======
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(instructorSched))
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+>>>>>>> upstream/main
         Panel1 = New Panel()
         backbtn = New Button()
-        Panel2 = New Panel()
-        dgvInstructorSched = New DataGridView()
         Label1 = New Label()
+<<<<<<< HEAD
         TextBox2 = New TextBox()
         TextBox7 = New TextBox()
         TextBox3 = New TextBox()
@@ -36,8 +41,15 @@ Partial Class instructorSched
         upd = New Button()
         del = New Button()
         TextBox8 = New TextBox()
+=======
+        Printbtn = New Button()
+        printer = New Printing.PrintDocument()
+        printingdgv = New DataGridView()
+        dgvInstructorSched = New DataGridView()
+        PrintPreviewDialog = New PrintPreviewDialog()
+>>>>>>> upstream/main
         Panel1.SuspendLayout()
-        Panel2.SuspendLayout()
+        CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvInstructorSched, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -65,6 +77,7 @@ Partial Class instructorSched
         backbtn.TabIndex = 2
         backbtn.UseVisualStyleBackColor = False
         ' 
+<<<<<<< HEAD
         ' Panel2
         ' 
         Panel2.Controls.Add(dgvInstructorSched)
@@ -84,6 +97,8 @@ Partial Class instructorSched
         dgvInstructorSched.Size = New Size(1280, 706)
         dgvInstructorSched.TabIndex = 4
         ' 
+=======
+>>>>>>> upstream/main
         ' Label1
         ' 
         Label1.AutoSize = True
@@ -95,6 +110,7 @@ Partial Class instructorSched
         Label1.Size = New Size(0, 39)
         Label1.TabIndex = 6
         ' 
+<<<<<<< HEAD
         ' TextBox2
         ' 
         TextBox2.Location = New Point(66, 153)
@@ -163,12 +179,77 @@ Partial Class instructorSched
         TextBox8.Name = "TextBox8"
         TextBox8.Size = New Size(324, 31)
         TextBox8.TabIndex = 23
+=======
+        ' Printbtn
+        ' 
+        Printbtn.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Printbtn.FlatAppearance.BorderSize = 0
+        Printbtn.FlatStyle = FlatStyle.Flat
+        Printbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Printbtn.Image = CType(resources.GetObject("Printbtn.Image"), Image)
+        Printbtn.Location = New Point(1152, 73)
+        Printbtn.Name = "Printbtn"
+        Printbtn.Size = New Size(142, 55)
+        Printbtn.TabIndex = 2
+        Printbtn.Text = "Print"
+        Printbtn.TextImageRelation = TextImageRelation.ImageBeforeText
+        Printbtn.UseVisualStyleBackColor = False
+        ' 
+        ' printer
+        ' 
+        ' 
+        ' printingdgv
+        ' 
+        printingdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        printingdgv.Location = New Point(255, 199)
+        printingdgv.Name = "printingdgv"
+        printingdgv.Size = New Size(791, 237)
+        printingdgv.TabIndex = 8
+        ' 
+        ' dgvInstructorSched
+        ' 
+        dgvInstructorSched.BackgroundColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle1.Padding = New Padding(10)
+        DataGridViewCellStyle1.SelectionBackColor = Color.Transparent
+        DataGridViewCellStyle1.SelectionForeColor = Color.Transparent
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        dgvInstructorSched.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        dgvInstructorSched.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = Color.WhiteSmoke
+        DataGridViewCellStyle2.Padding = New Padding(20)
+        DataGridViewCellStyle2.SelectionBackColor = Color.Transparent
+        DataGridViewCellStyle2.SelectionForeColor = Color.Transparent
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        dgvInstructorSched.DefaultCellStyle = DataGridViewCellStyle2
+        dgvInstructorSched.Location = New Point(54, 134)
+        dgvInstructorSched.Name = "dgvInstructorSched"
+        dgvInstructorSched.Size = New Size(1240, 506)
+        dgvInstructorSched.TabIndex = 9
+        ' 
+        ' PrintPreviewDialog
+        ' 
+        PrintPreviewDialog.AutoScrollMargin = New Size(0, 0)
+        PrintPreviewDialog.AutoScrollMinSize = New Size(0, 0)
+        PrintPreviewDialog.ClientSize = New Size(400, 300)
+        PrintPreviewDialog.Enabled = True
+        PrintPreviewDialog.Icon = CType(resources.GetObject("PrintPreviewDialog.Icon"), Icon)
+        PrintPreviewDialog.Name = "PrintPreviewDialog"
+        PrintPreviewDialog.Visible = False
+>>>>>>> upstream/main
         ' 
         ' instructorSched
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
+<<<<<<< HEAD
         ClientSize = New Size(1741, 841)
         Controls.Add(TextBox8)
         Controls.Add(upd)
@@ -179,8 +260,13 @@ Partial Class instructorSched
         Controls.Add(TextBox4)
         Controls.Add(TextBox3)
         Controls.Add(TextBox2)
+=======
+        ClientSize = New Size(1359, 671)
+        Controls.Add(dgvInstructorSched)
+        Controls.Add(printingdgv)
+        Controls.Add(Printbtn)
+>>>>>>> upstream/main
         Controls.Add(Label1)
-        Controls.Add(Panel2)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
         Margin = New Padding(4, 5, 4, 5)
@@ -188,7 +274,7 @@ Partial Class instructorSched
         StartPosition = FormStartPosition.CenterScreen
         Text = "instructorSched"
         Panel1.ResumeLayout(False)
-        Panel2.ResumeLayout(False)
+        CType(printingdgv, ComponentModel.ISupportInitialize).EndInit()
         CType(dgvInstructorSched, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -196,6 +282,7 @@ Partial Class instructorSched
 
     Friend WithEvents Panel1 As Panel
     Friend WithEvents backbtn As Button
+<<<<<<< HEAD
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents dgvInstructorSched As DataGridView
@@ -208,4 +295,12 @@ Partial Class instructorSched
     Friend WithEvents upd As Button
     Friend WithEvents del As Button
     Friend WithEvents TextBox8 As TextBox
+=======
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Printbtn As Button
+    Friend WithEvents printer As Printing.PrintDocument
+    Friend WithEvents printingdgv As DataGridView
+    Friend WithEvents dgvInstructorSched As DataGridView
+    Friend WithEvents PrintPreviewDialog As PrintPreviewDialog
+>>>>>>> upstream/main
 End Class

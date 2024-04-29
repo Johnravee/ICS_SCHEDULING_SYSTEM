@@ -19,12 +19,7 @@
         Me.Hide()
     End Sub
 
-    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
-        SaveUserData(Nothing)
 
-        Authentication_Form.Show()
-        Me.Hide()
-    End Sub
 
     Private Sub btnViewFacilities_Click(sender As Object, e As EventArgs) Handles btnViewFacilities.Click
         Me.Hide()
@@ -39,5 +34,23 @@
     Private Sub btnViewInstructor_Click(sender As Object, e As EventArgs) Handles btnViewInstructor.Click
         Me.Hide()
         viewInstructors.Show()
+    End Sub
+
+    Private Sub btnViewSubject_Click(sender As Object, e As EventArgs) Handles btnViewSubject.Click
+        Me.Hide()
+        SubjectForm.Show()
+    End Sub
+
+
+    'Logout Problem
+    Private Sub LogoutBtn_Click_1(sender As Object, e As EventArgs)
+        MsgBox("Clicks")
+    End Sub
+
+
+
+    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        ScanRFIDLOGIN.Show()
+        Me.Close()
     End Sub
 End Class

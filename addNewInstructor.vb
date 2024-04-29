@@ -30,7 +30,7 @@ Public Class addNewInstructor
                 cmd.Parameters.AddWithValue("@email", txtemail.Text)
 
                 cmd.ExecuteNonQuery()
-                MessageBox.Show("Account inserted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Instructor added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 ClearFields()
                 con.Close()
             Catch ex As MySqlException

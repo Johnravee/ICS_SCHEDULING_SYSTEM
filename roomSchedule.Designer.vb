@@ -22,15 +22,19 @@ Partial Class roomSchedule
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(roomSchedule))
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         backbtn = New Button()
         Panel1 = New Panel()
         Label1 = New Label()
-        Panel2 = New Panel()
+        Printbtn = New Button()
+        printingdgv = New DataGridView()
         dgvRoomSched = New DataGridView()
+        printer = New Printing.PrintDocument()
+        PrintPreviewDialog = New PrintPreviewDialog()
         Panel1.SuspendLayout()
-        Panel2.SuspendLayout()
+        CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvRoomSched, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -66,41 +70,65 @@ Partial Class roomSchedule
         Label1.Size = New Size(0, 33)
         Label1.TabIndex = 5
         ' 
-        ' Panel2
+        ' Printbtn
         ' 
-        Panel2.Controls.Add(dgvRoomSched)
-        Panel2.Location = New Point(54, 146)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(1240, 506)
-        Panel2.TabIndex = 6
+        Printbtn.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Printbtn.FlatAppearance.BorderSize = 0
+        Printbtn.FlatStyle = FlatStyle.Flat
+        Printbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Printbtn.Image = CType(resources.GetObject("Printbtn.Image"), Image)
+        Printbtn.Location = New Point(1152, 73)
+        Printbtn.Name = "Printbtn"
+        Printbtn.Size = New Size(142, 55)
+        Printbtn.TabIndex = 10
+        Printbtn.Text = "Print"
+        Printbtn.TextImageRelation = TextImageRelation.ImageBeforeText
+        Printbtn.UseVisualStyleBackColor = False
+        ' 
+        ' printingdgv
+        ' 
+        printingdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        printingdgv.Location = New Point(135, 259)
+        printingdgv.Name = "printingdgv"
+        printingdgv.Size = New Size(1009, 150)
+        printingdgv.TabIndex = 11
         ' 
         ' dgvRoomSched
         ' 
         dgvRoomSched.BackgroundColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = SystemColors.Control
-        DataGridViewCellStyle3.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle3.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle3.Padding = New Padding(10)
-        DataGridViewCellStyle3.SelectionBackColor = Color.Transparent
-        DataGridViewCellStyle3.SelectionForeColor = Color.Transparent
-        DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
-        dgvRoomSched.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle1.Padding = New Padding(10)
+        DataGridViewCellStyle1.SelectionBackColor = Color.Transparent
+        DataGridViewCellStyle1.SelectionForeColor = Color.Transparent
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        dgvRoomSched.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         dgvRoomSched.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        DataGridViewCellStyle4.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle4.ForeColor = Color.WhiteSmoke
-        DataGridViewCellStyle4.Padding = New Padding(20)
-        DataGridViewCellStyle4.SelectionBackColor = Color.Transparent
-        DataGridViewCellStyle4.SelectionForeColor = Color.Transparent
-        DataGridViewCellStyle4.WrapMode = DataGridViewTriState.True
-        dgvRoomSched.DefaultCellStyle = DataGridViewCellStyle4
-        dgvRoomSched.Dock = DockStyle.Fill
-        dgvRoomSched.Location = New Point(0, 0)
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = Color.WhiteSmoke
+        DataGridViewCellStyle2.Padding = New Padding(20)
+        DataGridViewCellStyle2.SelectionBackColor = Color.Transparent
+        DataGridViewCellStyle2.SelectionForeColor = Color.Transparent
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        dgvRoomSched.DefaultCellStyle = DataGridViewCellStyle2
+        dgvRoomSched.Location = New Point(54, 134)
         dgvRoomSched.Name = "dgvRoomSched"
         dgvRoomSched.Size = New Size(1240, 506)
-        dgvRoomSched.TabIndex = 0
+        dgvRoomSched.TabIndex = 12
+        ' 
+        ' PrintPreviewDialog
+        ' 
+        PrintPreviewDialog.AutoScrollMargin = New Size(0, 0)
+        PrintPreviewDialog.AutoScrollMinSize = New Size(0, 0)
+        PrintPreviewDialog.ClientSize = New Size(400, 300)
+        PrintPreviewDialog.Enabled = True
+        PrintPreviewDialog.Icon = CType(resources.GetObject("PrintPreviewDialog.Icon"), Icon)
+        PrintPreviewDialog.Name = "PrintPreviewDialog"
+        PrintPreviewDialog.Visible = False
         ' 
         ' roomSchedule
         ' 
@@ -108,7 +136,9 @@ Partial Class roomSchedule
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1359, 671)
-        Controls.Add(Panel2)
+        Controls.Add(dgvRoomSched)
+        Controls.Add(printingdgv)
+        Controls.Add(Printbtn)
         Controls.Add(Label1)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
@@ -116,7 +146,7 @@ Partial Class roomSchedule
         StartPosition = FormStartPosition.CenterScreen
         Text = "ViewSchedinroomForm"
         Panel1.ResumeLayout(False)
-        Panel2.ResumeLayout(False)
+        CType(printingdgv, ComponentModel.ISupportInitialize).EndInit()
         CType(dgvRoomSched, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -126,6 +156,9 @@ Partial Class roomSchedule
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents dgvRoomSchedule As DataGridView
-    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Printbtn As Button
+    Friend WithEvents printingdgv As DataGridView
     Friend WithEvents dgvRoomSched As DataGridView
+    Friend WithEvents printer As Printing.PrintDocument
+    Friend WithEvents PrintPreviewDialog As PrintPreviewDialog
 End Class
