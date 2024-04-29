@@ -1,4 +1,6 @@
-﻿Public Class instructorSched
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+
+Public Class instructorSched
     Private Sub instructorSched_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DBCon()
         Dim instructor As String = viewInstructors.Instructor
@@ -69,5 +71,10 @@
     Private Sub backbtn_Click(sender As Object, e As EventArgs) Handles backbtn.Click
         Me.Close()
         viewInstructors.Show()
+    End Sub
+
+
+    Private Sub dgvInstructorSched_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInstructorSched.CellContentClick
+
     End Sub
 End Class
