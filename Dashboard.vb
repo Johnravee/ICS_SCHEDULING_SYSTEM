@@ -53,4 +53,9 @@
         ScanRFIDLOGIN.Show()
         Me.Close()
     End Sub
+
+    Private Sub btnManagement_Click(sender As Object, e As EventArgs) Handles btnManagement.Click
+        Me.Hide()
+        ManagementScheduleForm.Show()
+    End Sub
 End Class

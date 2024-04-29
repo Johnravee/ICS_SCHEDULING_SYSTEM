@@ -10,7 +10,7 @@
         dgv.Columns("instructorID").Visible = False
 
         dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-        dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowMode.AllCells
+
         dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         con.Close()
     End Sub
