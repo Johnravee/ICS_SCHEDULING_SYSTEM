@@ -32,7 +32,6 @@ Partial Class RFIDREGISTRATION
         ScanRFID_Logo = New PictureBox()
         Scan_Label = New Label()
         RFIDTIMER = New Timer(components)
-        accountdialogtimer = New Timer(components)
         rfidscanpanel.SuspendLayout()
         CType(ScanDoneLogo, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -113,10 +112,6 @@ Partial Class RFIDREGISTRATION
         ' 
         RFIDTIMER.Interval = 1000
         ' 
-        ' accountdialogtimer
-        ' 
-        accountdialogtimer.Interval = 5000
-        ' 
         ' RFIDREGISTRATION
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -151,5 +146,4 @@ Partial Class RFIDREGISTRATION
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents accountdialogtimer As Timer
 End Class

@@ -22,8 +22,10 @@ Partial Class ScanRFIDLOGIN
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ScanRFIDLOGIN))
         Panel1 = New Panel()
+        closeBtn = New PictureBox()
         Scan_Label = New Label()
         Granted_Access_Logo = New PictureBox()
         Scan_Denied_Logo = New PictureBox()
@@ -32,6 +34,11 @@ Partial Class ScanRFIDLOGIN
         ScanRFID_Logo = New PictureBox()
         lk1register = New LinkLabel()
         Panel2 = New Panel()
+        rfidlink = New LinkLabel()
+        clearinputtimer = New Timer(components)
+        hidelogos = New Timer(components)
+        Panel1.SuspendLayout()
+        CType(closeBtn, ComponentModel.ISupportInitialize).BeginInit()
         CType(Granted_Access_Logo, ComponentModel.ISupportInitialize).BeginInit()
         CType(Scan_Denied_Logo, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -41,11 +48,24 @@ Partial Class ScanRFIDLOGIN
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
+        Panel1.Controls.Add(closeBtn)
         Panel1.Dock = DockStyle.Top
         Panel1.Location = New Point(0, 0)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(472, 42)
         Panel1.TabIndex = 10
+        ' 
+        ' closeBtn
+        ' 
+        closeBtn.BackColor = Color.Transparent
+        closeBtn.BackgroundImage = CType(resources.GetObject("closeBtn.BackgroundImage"), Image)
+        closeBtn.BackgroundImageLayout = ImageLayout.Stretch
+        closeBtn.Cursor = Cursors.Hand
+        closeBtn.Location = New Point(450, 3)
+        closeBtn.Name = "closeBtn"
+        closeBtn.Size = New Size(22, 21)
+        closeBtn.TabIndex = 3
+        closeBtn.TabStop = False
         ' 
         ' Scan_Label
         ' 
@@ -82,16 +102,16 @@ Partial Class ScanRFIDLOGIN
         ' 
         ' txtrfidlogin
         ' 
-        txtrfidlogin.Location = New Point(223, 130)
+        txtrfidlogin.Location = New Point(177, 122)
         txtrfidlogin.Name = "txtrfidlogin"
-        txtrfidlogin.Size = New Size(37, 23)
+        txtrfidlogin.Size = New Size(130, 23)
         txtrfidlogin.TabIndex = 14
         ' 
         ' logo
         ' 
         logo.BackgroundImage = CType(resources.GetObject("logo.BackgroundImage"), Image)
         logo.BackgroundImageLayout = ImageLayout.Zoom
-        logo.Location = New Point(161, 72)
+        logo.Location = New Point(165, 69)
         logo.Name = "logo"
         logo.Size = New Size(153, 135)
         logo.TabIndex = 15
@@ -110,7 +130,7 @@ Partial Class ScanRFIDLOGIN
         ' lk1register
         ' 
         lk1register.AutoSize = True
-        lk1register.Location = New Point(211, 501)
+        lk1register.Location = New Point(211, 488)
         lk1register.Name = "lk1register"
         lk1register.Size = New Size(49, 15)
         lk1register.TabIndex = 19
@@ -126,12 +146,30 @@ Partial Class ScanRFIDLOGIN
         Panel2.Size = New Size(472, 42)
         Panel2.TabIndex = 20
         ' 
+        ' rfidlink
+        ' 
+        rfidlink.AutoSize = True
+        rfidlink.Location = New Point(133, 515)
+        rfidlink.Name = "rfidlink"
+        rfidlink.Size = New Size(194, 15)
+        rfidlink.TabIndex = 21
+        rfidlink.TabStop = True
+        rfidlink.Text = "Don't have RFID device? CLick here!"
+        ' 
+        ' clearinputtimer
+        ' 
+        ' 
+        ' hidelogos
+        ' 
+        hidelogos.Interval = 3000
+        ' 
         ' ScanRFIDLOGIN
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(472, 575)
+        Controls.Add(rfidlink)
         Controls.Add(Panel2)
         Controls.Add(lk1register)
         Controls.Add(ScanRFID_Logo)
@@ -146,6 +184,8 @@ Partial Class ScanRFIDLOGIN
         Name = "ScanRFIDLOGIN"
         StartPosition = FormStartPosition.CenterScreen
         Text = "ScanRFIDLOGIN"
+        Panel1.ResumeLayout(False)
+        CType(closeBtn, ComponentModel.ISupportInitialize).EndInit()
         CType(Granted_Access_Logo, ComponentModel.ISupportInitialize).EndInit()
         CType(Scan_Denied_Logo, ComponentModel.ISupportInitialize).EndInit()
         CType(logo, ComponentModel.ISupportInitialize).EndInit()
@@ -162,4 +202,8 @@ Partial Class ScanRFIDLOGIN
     Friend WithEvents ScanRFID_Logo As PictureBox
     Friend WithEvents lk1register As LinkLabel
     Friend WithEvents Panel2 As Panel
+    Friend WithEvents closeBtn As PictureBox
+    Friend WithEvents rfidlink As LinkLabel
+    Friend WithEvents clearinputtimer As Timer
+    Friend WithEvents hidelogos As Timer
 End Class
