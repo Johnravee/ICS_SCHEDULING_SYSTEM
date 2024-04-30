@@ -22,6 +22,8 @@ Partial Class FacilityListForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Panel1 = New Panel()
         Label4 = New Label()
         UpdateButton = New Button()
@@ -48,13 +50,13 @@ Partial Class FacilityListForm
         Panel1.Controls.Add(TextBox2)
         Panel1.Location = New Point(29, 422)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(867, 168)
+        Panel1.Size = New Size(991, 168)
         Panel1.TabIndex = 20
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Font = New Font("Calibri", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = Color.White
         Label4.Location = New Point(48, 115)
         Label4.Name = "Label4"
@@ -85,7 +87,7 @@ Partial Class FacilityListForm
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Font = New Font("Calibri", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label3.ForeColor = Color.White
         Label3.Location = New Point(101, 73)
         Label3.Name = "Label3"
@@ -96,7 +98,7 @@ Partial Class FacilityListForm
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Calibri", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.White
         Label2.Location = New Point(386, 16)
         Label2.Name = "Label2"
@@ -127,7 +129,7 @@ Partial Class FacilityListForm
         ' SearchTextBox
         ' 
         SearchTextBox.Font = New Font("Calibri", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        SearchTextBox.Location = New Point(217, 18)
+        SearchTextBox.Location = New Point(592, 24)
         SearchTextBox.Margin = New Padding(3, 2, 3, 2)
         SearchTextBox.Multiline = True
         SearchTextBox.Name = "SearchTextBox"
@@ -137,20 +139,39 @@ Partial Class FacilityListForm
         ' 
         ' DataGridView1
         ' 
+        DataGridView1.BackgroundColor = Color.Beige
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle1.Padding = New Padding(5)
+        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = SystemColors.Window
+        DataGridViewCellStyle2.Font = New Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
+        DataGridViewCellStyle2.Padding = New Padding(10)
+        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
         DataGridView1.Location = New Point(30, 57)
         DataGridView1.Margin = New Padding(3, 2, 3, 2)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 51
-        DataGridView1.Size = New Size(866, 365)
+        DataGridView1.Size = New Size(990, 365)
         DataGridView1.TabIndex = 18
         ' 
         ' FacilityListForm
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(950, 619)
+        ClientSize = New Size(1050, 609)
         Controls.Add(Panel1)
         Controls.Add(SearchTextBox)
         Controls.Add(DataGridView1)

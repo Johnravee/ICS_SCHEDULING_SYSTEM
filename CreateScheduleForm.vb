@@ -137,6 +137,8 @@ Public Class CreateScheduleForm
             ' Set auto-sizing and wrap mode for better display
             dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
             dgvSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+
             dgvSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         Catch ex As Exception
             MsgBox(ex.ToString())

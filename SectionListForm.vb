@@ -19,7 +19,8 @@ Public Class SectionListForm
             ' Hide the SectionID column
             DataGridView1.Columns("SectionID").Visible = False
 
-            DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
+            DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             DataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             DataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         Catch ex As Exception

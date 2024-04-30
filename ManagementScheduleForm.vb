@@ -6,6 +6,10 @@
         Panel3.Controls.Add(panel)
         panel.Show()
     End Sub
+
+    Private Sub ManagementScheduleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        switchPanel(InstructorListForm)
+    End Sub
     Private Sub InstructorListBtn_Click(sender As Object, e As EventArgs) Handles InstructorListBtn.Click
 
         switchPanel(InstructorListForm)
@@ -33,4 +37,6 @@
     Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
 
     End Sub
+
+
 End Class

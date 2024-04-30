@@ -18,7 +18,8 @@ Public Class FacilityListForm
             ' Hide the RoomID column
             DataGridView1.Columns("RoomID").Visible = False
 
-            DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
+            DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             DataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             DataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         Catch ex As Exception

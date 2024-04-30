@@ -23,9 +23,12 @@ Public Class InstructorListForm
 
         DataGridView1.DataSource = tab
 
+        DataGridView1.Columns("InstructorID").Visible = False
+        DataGridView1.Columns("RFID").Visible = False
 
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-
+        DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        DataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
         DataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         con.Close()
     End Sub
@@ -107,7 +110,6 @@ Public Class InstructorListForm
         Dim selectedRowIndex As Integer = DataGridView1.CurrentCell.RowIndex
         If selectedRowIndex >= 0 AndAlso selectedRowIndex < DataGridView1.Rows.Count Then
             DataGridView1.Rows(selectedRowIndex).Cells("InstructorID").Value = TextBox2.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("PIN").Value = TextBox3.Text
             DataGridView1.Rows(selectedRowIndex).Cells("RFID").Value = TextBox4.Text
             DataGridView1.Rows(selectedRowIndex).Cells("Firstname").Value = TextBox5.Text
             DataGridView1.Rows(selectedRowIndex).Cells("MiddleName").Value = TextBox6.Text
@@ -136,22 +138,26 @@ Public Class InstructorListForm
         con.Close()
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        Dim index As Integer
-        index = e.RowIndex
-        Dim selectedRow As DataGridViewRow
-        selectedRow = DataGridView1.Rows(index)
-        TextBox2.Text = selectedRow.Cells(0).Value.ToString()
-        TextBox3.Text = selectedRow.Cells(1).Value.ToString()
-        TextBox4.Text = selectedRow.Cells(2).Value.ToString()
-        TextBox5.Text = selectedRow.Cells(3).Value.ToString()
-        TextBox6.Text = selectedRow.Cells(4).Value.ToString()
-        TextBox7.Text = selectedRow.Cells(5).Value.ToString()
-        TextBox8.Text = selectedRow.Cells(6).Value.ToString()
-        TextBox9.Text = selectedRow.Cells(7).Value.ToString()
-        TextBox10.Text = selectedRow.Cells(8).Value.ToString()
-        TextBox11.Text = selectedRow.Cells(9).Value.ToString()
+    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+        Dim index As Integer = e.RowIndex
 
-        DataGridView1.Refresh()
+        ' Check if the index is within the valid range
+        If index >= 0 AndAlso index < DataGridView1.Rows.Count Then
+            Dim selectedRow As DataGridViewRow = DataGridView1.Rows(index)
+
+            ' Update text boxes with cell values
+            TextBox2.Text = selectedRow.Cells(0).Value.ToString()
+            TextBox3.Text = selectedRow.Cells(1).Value.ToString()
+            TextBox4.Text = selectedRow.Cells(2).Value.ToString()
+            TextBox5.Text = selectedRow.Cells(3).Value.ToString()
+            TextBox6.Text = selectedRow.Cells(4).Value.ToString()
+            TextBox7.Text = selectedRow.Cells(5).Value.ToString()
+            TextBox8.Text = selectedRow.Cells(6).Value.ToString()
+            TextBox9.Text = selectedRow.Cells(7).Value.ToString()
+            TextBox10.Text = selectedRow.Cells(8).Value.ToString()
+
+            ' Refresh the DataGridView if needed
+            DataGridView1.Refresh()
+        End If
     End Sub
 End Class

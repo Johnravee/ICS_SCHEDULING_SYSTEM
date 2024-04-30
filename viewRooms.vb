@@ -29,7 +29,7 @@ Public Class viewRooms
                 btn.Font = New Font("Calibri", 20, Font.Style.Bold)
 
 
-                Dim imageFilePath As String = "C:\Users\ravem\OneDrive\Desktop\ICS_SCHD\Resources\434394242_336699002727228_7171667631377081297_n (1).png"
+                Dim imageFilePath As String = "C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\434394242_336699002727228_7171667631377081297_n (1).png"
                 If System.IO.File.Exists(imageFilePath) Then
                     btn.Image = Image.FromFile(imageFilePath)
                     btn.ImageAlign = ContentAlignment.MiddleCenter ' Set image alignment to the left of the text

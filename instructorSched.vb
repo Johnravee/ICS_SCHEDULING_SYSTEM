@@ -93,10 +93,10 @@ Public Class instructorSched
         Dim StrFormat As New StringFormat()
         StrFormat.Alignment = StringAlignment.Center
 
-        Dim image1 As Image = Image.FromFile("C:\Users\ravem\OneDrive\Desktop\ICS_SCHD\Resources\cmdtransparent.png")
+        Dim image1 As Image = Image.FromFile("C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\cmdtransparent.png")
         e.Graphics.DrawImage(image1, 60, 50, 100, 100)
 
-        Dim Image2 As Image = Image.FromFile("C:\Users\ravem\OneDrive\Desktop\ICS_SCHD\Resources\icstransparent.png")
+        Dim Image2 As Image = Image.FromFile("C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\icstransparent.png")
         e.Graphics.DrawImage(Image2, 930, 35, 120, 120)
 
 

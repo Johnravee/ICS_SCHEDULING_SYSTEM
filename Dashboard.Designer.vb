@@ -24,7 +24,7 @@ Partial Class Dashboard
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Dashboard))
         Panel1 = New Panel()
-        LogoutBtn = New Button()
+        LogoutBtn = New PictureBox()
         PictureBox1 = New PictureBox()
         Panel2 = New Panel()
         minimizeBtn = New PictureBox()
@@ -40,6 +40,7 @@ Partial Class Dashboard
         btnNewSched = New Button()
         btnNewInstructor = New Button()
         Panel1.SuspendLayout()
+        CType(LogoutBtn, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         CType(minimizeBtn, ComponentModel.ISupportInitialize).BeginInit()
@@ -60,22 +61,14 @@ Partial Class Dashboard
         ' 
         ' LogoutBtn
         ' 
-        LogoutBtn.BackColor = Color.Transparent
-        LogoutBtn.BackgroundImage = CType(resources.GetObject("LogoutBtn.BackgroundImage"), Image)
-        LogoutBtn.BackgroundImageLayout = ImageLayout.Zoom
         LogoutBtn.Cursor = Cursors.Hand
-        LogoutBtn.FlatAppearance.BorderSize = 0
-        LogoutBtn.FlatAppearance.MouseDownBackColor = Color.Green
-        LogoutBtn.FlatAppearance.MouseOverBackColor = Color.Lime
-        LogoutBtn.FlatStyle = FlatStyle.Flat
-        LogoutBtn.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        LogoutBtn.ForeColor = Color.FromArgb(CByte(244), CByte(244), CByte(244))
-        LogoutBtn.Location = New Point(16, 692)
+        LogoutBtn.Image = My.Resources.Resources.icons8_logout_rounded_left_80
+        LogoutBtn.Location = New Point(14, 684)
         LogoutBtn.Name = "LogoutBtn"
-        LogoutBtn.Size = New Size(48, 42)
-        LogoutBtn.TabIndex = 0
+        LogoutBtn.Size = New Size(51, 44)
+        LogoutBtn.SizeMode = PictureBoxSizeMode.Zoom
+        LogoutBtn.TabIndex = 2
         LogoutBtn.TabStop = False
-        LogoutBtn.UseVisualStyleBackColor = False
         ' 
         ' PictureBox1
         ' 
@@ -330,6 +323,7 @@ Partial Class Dashboard
         StartPosition = FormStartPosition.CenterScreen
         Text = "Form1"
         Panel1.ResumeLayout(False)
+        CType(LogoutBtn, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
@@ -355,6 +349,6 @@ Partial Class Dashboard
     Friend WithEvents btnNewSched As Button
     Friend WithEvents btnNewInstructor As Button
     Friend WithEvents btnManagement As Button
-    Friend WithEvents LogoutBtn As Button
+    Friend WithEvents LogoutBtn As PictureBox
 
 End Class

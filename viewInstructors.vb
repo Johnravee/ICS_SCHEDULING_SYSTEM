@@ -28,7 +28,7 @@
                 btn.Font = New Font("Calibri", 20, Font.Style.Bold)
 
 
-                Dim imageFilePath As String = "C:\Users\ravem\OneDrive\Desktop\ICS_SCHD\Resources\icons8-teacher-80.png"
+                Dim imageFilePath As String = "C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\icons8-teacher-80.png"
                 If System.IO.File.Exists(imageFilePath) Then
                     btn.Image = Image.FromFile(imageFilePath)
                     btn.ImageAlign = ContentAlignment.MiddleCenter

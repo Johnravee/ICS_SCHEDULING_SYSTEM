@@ -22,6 +22,8 @@ Partial Class InstructorListForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         TextBox1 = New TextBox()
         TextBox9 = New TextBox()
         TextBox8 = New TextBox()
@@ -42,86 +44,94 @@ Partial Class InstructorListForm
         ' TextBox1
         ' 
         TextBox1.Font = New Font("Calibri", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox1.Location = New Point(617, 22)
-        TextBox1.Margin = New Padding(4)
+        TextBox1.Location = New Point(599, 13)
+        TextBox1.Margin = New Padding(3, 2, 3, 2)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.PlaceholderText = "  Search"
-        TextBox1.Size = New Size(609, 45)
+        TextBox1.Size = New Size(428, 29)
         TextBox1.TabIndex = 14
         ' 
         ' TextBox9
         ' 
-        TextBox9.Location = New Point(10, 596)
+        TextBox9.Location = New Point(764, 540)
+        TextBox9.Margin = New Padding(2)
         TextBox9.Name = "TextBox9"
-        TextBox9.Size = New Size(324, 31)
+        TextBox9.Size = New Size(228, 23)
         TextBox9.TabIndex = 26
         ' 
         ' TextBox8
         ' 
-        TextBox8.Location = New Point(10, 508)
+        TextBox8.Location = New Point(755, 498)
+        TextBox8.Margin = New Padding(2)
         TextBox8.Name = "TextBox8"
-        TextBox8.Size = New Size(324, 31)
+        TextBox8.Size = New Size(228, 23)
         TextBox8.TabIndex = 25
         ' 
         ' TextBox7
         ' 
-        TextBox7.Location = New Point(10, 436)
+        TextBox7.Location = New Point(532, 540)
+        TextBox7.Margin = New Padding(2)
         TextBox7.Name = "TextBox7"
-        TextBox7.Size = New Size(324, 31)
+        TextBox7.Size = New Size(228, 23)
         TextBox7.TabIndex = 24
         ' 
         ' TextBox6
         ' 
-        TextBox6.Location = New Point(10, 365)
+        TextBox6.Location = New Point(523, 498)
+        TextBox6.Margin = New Padding(2)
         TextBox6.Name = "TextBox6"
-        TextBox6.Size = New Size(324, 31)
+        TextBox6.Size = New Size(228, 23)
         TextBox6.TabIndex = 23
         ' 
         ' TextBox5
         ' 
-        TextBox5.Location = New Point(10, 289)
+        TextBox5.Location = New Point(268, 540)
+        TextBox5.Margin = New Padding(2)
         TextBox5.Name = "TextBox5"
-        TextBox5.Size = New Size(324, 31)
+        TextBox5.Size = New Size(228, 23)
         TextBox5.TabIndex = 22
         ' 
         ' TextBox4
         ' 
-        TextBox4.Location = New Point(10, 217)
+        TextBox4.Location = New Point(268, 498)
+        TextBox4.Margin = New Padding(2)
         TextBox4.Name = "TextBox4"
-        TextBox4.Size = New Size(324, 31)
+        TextBox4.Size = New Size(228, 23)
         TextBox4.TabIndex = 21
         ' 
         ' TextBox3
         ' 
-        TextBox3.Location = New Point(10, 148)
+        TextBox3.Location = New Point(25, 540)
+        TextBox3.Margin = New Padding(2)
         TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(324, 31)
+        TextBox3.Size = New Size(228, 23)
         TextBox3.TabIndex = 20
         ' 
         ' TextBox2
         ' 
-        TextBox2.Location = New Point(10, 80)
+        TextBox2.Location = New Point(25, 498)
+        TextBox2.Margin = New Padding(2)
         TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(324, 31)
+        TextBox2.Size = New Size(228, 23)
         TextBox2.TabIndex = 19
         ' 
         ' upd
         ' 
-        upd.Location = New Point(747, 755)
-        upd.Margin = New Padding(4)
+        upd.Location = New Point(523, 453)
+        upd.Margin = New Padding(3, 2, 3, 2)
         upd.Name = "upd"
-        upd.Size = New Size(136, 56)
+        upd.Size = New Size(95, 34)
         upd.TabIndex = 17
         upd.Text = "Update"
         upd.UseVisualStyleBackColor = True
         ' 
         ' del
         ' 
-        del.Location = New Point(1077, 755)
-        del.Margin = New Padding(4)
+        del.Location = New Point(754, 453)
+        del.Margin = New Padding(3, 2, 3, 2)
         del.Name = "del"
-        del.Size = New Size(136, 56)
+        del.Size = New Size(95, 34)
         del.TabIndex = 18
         del.Text = "Delete"
         del.UseVisualStyleBackColor = True
@@ -129,34 +139,55 @@ Partial Class InstructorListForm
         ' DataGridView1
         ' 
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        DataGridView1.BackgroundColor = Color.Beige
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle1.Padding = New Padding(5)
+        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(404, 87)
-        DataGridView1.Margin = New Padding(4)
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = SystemColors.Window
+        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
+        DataGridViewCellStyle2.Padding = New Padding(10)
+        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridView1.Location = New Point(25, 46)
+        DataGridView1.Margin = New Padding(3, 2, 3, 2)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 51
-        DataGridView1.Size = New Size(1110, 651)
+        DataGridView1.Size = New Size(1002, 391)
         DataGridView1.TabIndex = 16
         ' 
         ' TextBox10
         ' 
-        TextBox10.Location = New Point(12, 664)
+        TextBox10.Location = New Point(764, 575)
+        TextBox10.Margin = New Padding(2)
         TextBox10.Name = "TextBox10"
-        TextBox10.Size = New Size(324, 31)
+        TextBox10.Size = New Size(228, 23)
         TextBox10.TabIndex = 27
         ' 
         ' TextBox11
         ' 
-        TextBox11.Location = New Point(10, 723)
+        TextBox11.Location = New Point(523, 575)
+        TextBox11.Margin = New Padding(2)
         TextBox11.Name = "TextBox11"
-        TextBox11.Size = New Size(324, 31)
+        TextBox11.Size = New Size(228, 23)
         TextBox11.TabIndex = 28
         ' 
         ' InstructorListForm
         ' 
-        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(1524, 842)
+        ClientSize = New Size(1050, 609)
         Controls.Add(TextBox11)
         Controls.Add(TextBox10)
         Controls.Add(TextBox9)
@@ -172,7 +203,7 @@ Partial Class InstructorListForm
         Controls.Add(DataGridView1)
         Controls.Add(TextBox1)
         FormBorderStyle = FormBorderStyle.None
-        Margin = New Padding(4)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "InstructorListForm"
         Text = "InstructorListForm"
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
