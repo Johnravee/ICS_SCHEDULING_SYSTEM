@@ -63,12 +63,11 @@ Public Class instructorSched
             dgvInstructorSched.AllowUserToAddRows = False
             dgvInstructorSched.ReadOnly = True
 
-            dgvInstructorSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
-            dgvInstructorSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+            dgvInstructorSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            dgvInstructorSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             dgvInstructorSched.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvInstructorSched.DefaultCellStyle.WrapMode = DataGridViewTriState.True
-            dgvInstructorSched.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            dgvInstructorSched.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+
 
 
 

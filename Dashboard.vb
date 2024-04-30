@@ -54,4 +54,9 @@
         ScanRFIDLOGIN.Show()
         Hide()
     End Sub
+
+    Private Sub btnViewSummary_Click(sender As Object, e As EventArgs) Handles btnViewSummary.Click
+        Summary.Show()
+        Me.Hide()
+    End Sub
 End Class

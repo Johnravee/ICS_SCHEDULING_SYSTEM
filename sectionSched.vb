@@ -61,12 +61,11 @@ Public Class sectionSched
             dgvSectionSched.AllowUserToAddRows = False
             dgvSectionSched.ReadOnly = True
 
-            dgvSectionSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
-            dgvSectionSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+            dgvSectionSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            dgvSectionSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             dgvSectionSched.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvSectionSched.DefaultCellStyle.WrapMode = DataGridViewTriState.True
-            dgvSectionSched.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            dgvSectionSched.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+
 
 
 

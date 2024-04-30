@@ -10,9 +10,6 @@
     <Compile Update="adminRegistration.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="AllRoomsform.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="CreateScheduleForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +53,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="subjects.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Summary.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="viewInstructors.vb">

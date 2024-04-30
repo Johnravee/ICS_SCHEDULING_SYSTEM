@@ -79,12 +79,12 @@ Public Class SchedulePopupForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select room_number from rooms"
+            cmd.CommandText = "Select Room from rooms"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
             cb_room.Items.Clear()
             For Each row As DataRow In newtable.Rows
-                cb_room.Items.Add(row("room_number").ToString())
+                cb_room.Items.Add(row("Room").ToString())
             Next
         Catch ex As Exception
             MsgBox(ex.ToString())

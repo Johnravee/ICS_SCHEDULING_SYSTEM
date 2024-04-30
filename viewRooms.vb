@@ -16,7 +16,7 @@ Public Class viewRooms
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT room_number FROM rooms"
+            cmd.CommandText = "SELECT Room FROM rooms"
             dataReader.SelectCommand = cmd
             dataReader.Fill(roomsTable)
 
@@ -24,7 +24,7 @@ Public Class viewRooms
             For Each row As DataRow In roomsTable.Rows
 
                 Dim btn As New Button()
-                btn.Text = row("room_number")
+                btn.Text = row("Room")
                 btn.Size = New Size(buttonWidth, buttonHeight)
                 btn.Font = New Font("Calibri", 20, Font.Style.Bold)
 

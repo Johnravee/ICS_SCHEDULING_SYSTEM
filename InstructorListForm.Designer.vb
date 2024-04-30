@@ -25,19 +25,26 @@ Partial Class InstructorListForm
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         TextBox1 = New TextBox()
-        TextBox9 = New TextBox()
-        TextBox8 = New TextBox()
-        TextBox7 = New TextBox()
-        TextBox6 = New TextBox()
-        TextBox5 = New TextBox()
-        TextBox4 = New TextBox()
-        TextBox3 = New TextBox()
-        TextBox2 = New TextBox()
+        txtsurname = New TextBox()
+        txtmidname = New TextBox()
+        txtFirtname = New TextBox()
+        txtrfid = New TextBox()
+        txtinstructorid = New TextBox()
         upd = New Button()
         del = New Button()
         DataGridView1 = New DataGridView()
-        TextBox10 = New TextBox()
-        TextBox11 = New TextBox()
+        txtemail = New TextBox()
+        cborole = New ComboBox()
+        cbworkstatus = New ComboBox()
+        Label1 = New Label()
+        Label2 = New Label()
+        Label3 = New Label()
+        cbosuffix = New ComboBox()
+        Label4 = New Label()
+        Label5 = New Label()
+        Label6 = New Label()
+        Label7 = New Label()
+        Panel1 = New Panel()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -52,89 +59,87 @@ Partial Class InstructorListForm
         TextBox1.Size = New Size(428, 29)
         TextBox1.TabIndex = 14
         ' 
-        ' TextBox9
+        ' txtsurname
         ' 
-        TextBox9.Location = New Point(764, 540)
-        TextBox9.Margin = New Padding(2)
-        TextBox9.Name = "TextBox9"
-        TextBox9.Size = New Size(228, 23)
-        TextBox9.TabIndex = 26
+        txtsurname.BackColor = Color.LightYellow
+        txtsurname.BorderStyle = BorderStyle.FixedSingle
+        txtsurname.Font = New Font("Calibri", 15.75F, FontStyle.Bold)
+        txtsurname.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        txtsurname.Location = New Point(539, 479)
+        txtsurname.Margin = New Padding(2)
+        txtsurname.Name = "txtsurname"
+        txtsurname.Size = New Size(228, 33)
+        txtsurname.TabIndex = 23
         ' 
-        ' TextBox8
+        ' txtmidname
         ' 
-        TextBox8.Location = New Point(755, 498)
-        TextBox8.Margin = New Padding(2)
-        TextBox8.Name = "TextBox8"
-        TextBox8.Size = New Size(228, 23)
-        TextBox8.TabIndex = 25
+        txtmidname.BackColor = Color.LightYellow
+        txtmidname.BorderStyle = BorderStyle.FixedSingle
+        txtmidname.Font = New Font("Calibri", 15.75F, FontStyle.Bold)
+        txtmidname.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        txtmidname.Location = New Point(281, 479)
+        txtmidname.Margin = New Padding(2)
+        txtmidname.Name = "txtmidname"
+        txtmidname.Size = New Size(228, 33)
+        txtmidname.TabIndex = 22
         ' 
-        ' TextBox7
+        ' txtFirtname
         ' 
-        TextBox7.Location = New Point(532, 540)
-        TextBox7.Margin = New Padding(2)
-        TextBox7.Name = "TextBox7"
-        TextBox7.Size = New Size(228, 23)
-        TextBox7.TabIndex = 24
+        txtFirtname.BackColor = Color.LightYellow
+        txtFirtname.BorderStyle = BorderStyle.FixedSingle
+        txtFirtname.Font = New Font("Calibri", 15.75F, FontStyle.Bold)
+        txtFirtname.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        txtFirtname.Location = New Point(25, 479)
+        txtFirtname.Margin = New Padding(2)
+        txtFirtname.Name = "txtFirtname"
+        txtFirtname.Size = New Size(228, 33)
+        txtFirtname.TabIndex = 21
         ' 
-        ' TextBox6
+        ' txtrfid
         ' 
-        TextBox6.Location = New Point(523, 498)
-        TextBox6.Margin = New Padding(2)
-        TextBox6.Name = "TextBox6"
-        TextBox6.Size = New Size(228, 23)
-        TextBox6.TabIndex = 23
+        txtrfid.Location = New Point(59, 11)
+        txtrfid.Margin = New Padding(2)
+        txtrfid.Name = "txtrfid"
+        txtrfid.Size = New Size(56, 23)
+        txtrfid.TabIndex = 20
         ' 
-        ' TextBox5
+        ' txtinstructorid
         ' 
-        TextBox5.Location = New Point(268, 540)
-        TextBox5.Margin = New Padding(2)
-        TextBox5.Name = "TextBox5"
-        TextBox5.Size = New Size(228, 23)
-        TextBox5.TabIndex = 22
-        ' 
-        ' TextBox4
-        ' 
-        TextBox4.Location = New Point(268, 498)
-        TextBox4.Margin = New Padding(2)
-        TextBox4.Name = "TextBox4"
-        TextBox4.Size = New Size(228, 23)
-        TextBox4.TabIndex = 21
-        ' 
-        ' TextBox3
-        ' 
-        TextBox3.Location = New Point(25, 540)
-        TextBox3.Margin = New Padding(2)
-        TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(228, 23)
-        TextBox3.TabIndex = 20
-        ' 
-        ' TextBox2
-        ' 
-        TextBox2.Location = New Point(25, 498)
-        TextBox2.Margin = New Padding(2)
-        TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(228, 23)
-        TextBox2.TabIndex = 19
+        txtinstructorid.Location = New Point(197, 11)
+        txtinstructorid.Margin = New Padding(2)
+        txtinstructorid.Name = "txtinstructorid"
+        txtinstructorid.Size = New Size(56, 23)
+        txtinstructorid.TabIndex = 19
         ' 
         ' upd
         ' 
-        upd.Location = New Point(523, 453)
+        upd.BackColor = Color.FromArgb(CByte(20), CByte(164), CByte(77))
+        upd.FlatAppearance.BorderSize = 0
+        upd.FlatStyle = FlatStyle.Flat
+        upd.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        upd.ForeColor = Color.WhiteSmoke
+        upd.Location = New Point(799, 563)
         upd.Margin = New Padding(3, 2, 3, 2)
         upd.Name = "upd"
         upd.Size = New Size(95, 34)
         upd.TabIndex = 17
-        upd.Text = "Update"
-        upd.UseVisualStyleBackColor = True
+        upd.Text = "UPDATE"
+        upd.UseVisualStyleBackColor = False
         ' 
         ' del
         ' 
-        del.Location = New Point(754, 453)
+        del.BackColor = Color.FromArgb(CByte(220), CByte(76), CByte(100))
+        del.FlatAppearance.BorderSize = 0
+        del.FlatStyle = FlatStyle.Flat
+        del.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        del.ForeColor = Color.WhiteSmoke
+        del.Location = New Point(932, 563)
         del.Margin = New Padding(3, 2, 3, 2)
         del.Name = "del"
         del.Size = New Size(95, 34)
         del.TabIndex = 18
-        del.Text = "Delete"
-        del.UseVisualStyleBackColor = True
+        del.Text = "DELETE"
+        del.UseVisualStyleBackColor = False
         ' 
         ' DataGridView1
         ' 
@@ -162,25 +167,132 @@ Partial Class InstructorListForm
         DataGridView1.Location = New Point(25, 46)
         DataGridView1.Margin = New Padding(3, 2, 3, 2)
         DataGridView1.Name = "DataGridView1"
+        DataGridView1.ReadOnly = True
         DataGridView1.RowHeadersWidth = 51
         DataGridView1.Size = New Size(1002, 391)
         DataGridView1.TabIndex = 16
         ' 
-        ' TextBox10
+        ' txtemail
         ' 
-        TextBox10.Location = New Point(764, 575)
-        TextBox10.Margin = New Padding(2)
-        TextBox10.Name = "TextBox10"
-        TextBox10.Size = New Size(228, 23)
-        TextBox10.TabIndex = 27
+        txtemail.BackColor = Color.LightYellow
+        txtemail.BorderStyle = BorderStyle.FixedSingle
+        txtemail.Font = New Font("Calibri", 15.75F, FontStyle.Bold)
+        txtemail.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        txtemail.Location = New Point(540, 564)
+        txtemail.Margin = New Padding(2)
+        txtemail.Name = "txtemail"
+        txtemail.Size = New Size(228, 33)
+        txtemail.TabIndex = 27
         ' 
-        ' TextBox11
+        ' cborole
         ' 
-        TextBox11.Location = New Point(523, 575)
-        TextBox11.Margin = New Padding(2)
-        TextBox11.Name = "TextBox11"
-        TextBox11.Size = New Size(228, 23)
-        TextBox11.TabIndex = 28
+        cborole.BackColor = Color.LightYellow
+        cborole.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cborole.FormattingEnabled = True
+        cborole.Items.AddRange(New Object() {"DEAN", "BSIT PROGRAM HEAD", "BScPE PROGRAM HEAD", "INSTRUCTOR"})
+        cborole.Location = New Point(25, 565)
+        cborole.Name = "cborole"
+        cborole.Size = New Size(228, 32)
+        cborole.TabIndex = 29
+        ' 
+        ' cbworkstatus
+        ' 
+        cbworkstatus.BackColor = Color.LightYellow
+        cbworkstatus.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cbworkstatus.FormattingEnabled = True
+        cbworkstatus.Items.AddRange(New Object() {"FULL-TIMER", "PART-TIMER"})
+        cbworkstatus.Location = New Point(281, 565)
+        cbworkstatus.Name = "cbworkstatus"
+        cbworkstatus.Size = New Size(228, 32)
+        cbworkstatus.TabIndex = 30
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(25, 454)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(90, 23)
+        Label1.TabIndex = 31
+        Label1.Text = "Firstname"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(281, 454)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(111, 23)
+        Label2.TabIndex = 32
+        Label2.Text = "Middlename"
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Location = New Point(549, 454)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(80, 23)
+        Label3.TabIndex = 33
+        Label3.Text = "Surname"
+        ' 
+        ' cbosuffix
+        ' 
+        cbosuffix.BackColor = Color.LightYellow
+        cbosuffix.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cbosuffix.FormattingEnabled = True
+        cbosuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
+        cbosuffix.Location = New Point(799, 480)
+        cbosuffix.Name = "cbosuffix"
+        cbosuffix.Size = New Size(228, 32)
+        cbosuffix.TabIndex = 34
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(799, 454)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(54, 23)
+        Label4.TabIndex = 35
+        Label4.Text = "Suffix"
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label5.Location = New Point(25, 539)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(46, 23)
+        Label5.TabIndex = 36
+        Label5.Text = "Role"
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.Location = New Point(281, 539)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(106, 23)
+        Label6.TabIndex = 37
+        Label6.Text = "Work Status"
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label7.Location = New Point(539, 539)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(53, 23)
+        Label7.TabIndex = 38
+        Label7.Text = "Email"
+        ' 
+        ' Panel1
+        ' 
+        Panel1.Location = New Point(59, 5)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(200, 29)
+        Panel1.TabIndex = 39
         ' 
         ' InstructorListForm
         ' 
@@ -188,16 +300,23 @@ Partial Class InstructorListForm
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1050, 609)
-        Controls.Add(TextBox11)
-        Controls.Add(TextBox10)
-        Controls.Add(TextBox9)
-        Controls.Add(TextBox8)
-        Controls.Add(TextBox7)
-        Controls.Add(TextBox6)
-        Controls.Add(TextBox5)
-        Controls.Add(TextBox4)
-        Controls.Add(TextBox3)
-        Controls.Add(TextBox2)
+        Controls.Add(Panel1)
+        Controls.Add(Label7)
+        Controls.Add(Label6)
+        Controls.Add(Label5)
+        Controls.Add(Label4)
+        Controls.Add(cbosuffix)
+        Controls.Add(Label3)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
+        Controls.Add(cbworkstatus)
+        Controls.Add(cborole)
+        Controls.Add(txtemail)
+        Controls.Add(txtsurname)
+        Controls.Add(txtmidname)
+        Controls.Add(txtFirtname)
+        Controls.Add(txtrfid)
+        Controls.Add(txtinstructorid)
         Controls.Add(upd)
         Controls.Add(del)
         Controls.Add(DataGridView1)
@@ -212,17 +331,24 @@ Partial Class InstructorListForm
     End Sub
 
     Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox9 As TextBox
-    Friend WithEvents TextBox8 As TextBox
-    Friend WithEvents TextBox7 As TextBox
-    Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents TextBox5 As TextBox
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtsurname As TextBox
+    Friend WithEvents txtmidname As TextBox
+    Friend WithEvents txtFirtname As TextBox
+    Friend WithEvents txtrfid As TextBox
+    Friend WithEvents txtinstructorid As TextBox
     Friend WithEvents upd As Button
     Friend WithEvents del As Button
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents TextBox10 As TextBox
-    Friend WithEvents TextBox11 As TextBox
+    Friend WithEvents txtemail As TextBox
+    Friend WithEvents cborole As ComboBox
+    Friend WithEvents cbworkstatus As ComboBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents cbosuffix As ComboBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Panel1 As Panel
 End Class

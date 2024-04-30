@@ -134,7 +134,7 @@ Public Class SchedListForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select room_number from rooms"
+            cmd.CommandText = "Select Room from rooms"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -143,7 +143,7 @@ Public Class SchedListForm
 
 
             For Each row As DataRow In newtable.Rows
-                cb_room.Items.Add(row("room_number").ToString())
+                cb_room.Items.Add(row("Room").ToString())
             Next
 
             con.Close()
@@ -204,6 +204,10 @@ Public Class SchedListForm
                     GetSchedules()
                     MessageBox.Show("Record Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
+                    dgv.DataSource = Nothing
+                    lamesa.Rows.Clear()
+                    lamesa.Columns.Clear()
+                    GetSchedules()
                     MessageBox.Show("Deletion Failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             Catch ex As Exception
@@ -269,6 +273,10 @@ Public Class SchedListForm
                 lamesa.Columns.Clear()
                 GetSchedules()
             Else
+                dgv.DataSource = Nothing
+                lamesa.Rows.Clear()
+                lamesa.Columns.Clear()
+                GetSchedules()
                 MsgBox("Update failed")
             End If
         Catch ex As Exception
@@ -341,4 +349,37 @@ Public Class SchedListForm
     End Function
 
 
+    'Delete All Schedules
+    Private Sub ResetBtn_Click(sender As Object, e As EventArgs) Handles ResetBtn.Click
+        Try
+
+            Dim result As DialogResult = MessageBox.Show("Do you want to reset the Schedules?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+            If result = DialogResult.Yes Then
+                DBCon()
+                cmd.Connection = con
+                cmd.CommandText = "TRUNCATE TABLE schedules"
+                cmd.ExecuteNonQuery()
+
+                MessageBox.Show("The reset was successful.", "Reset Successful", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                dgv.DataSource = Nothing
+                lamesa.Rows.Clear()
+                lamesa.Columns.Clear()
+                GetSchedules()
+
+                con.Close()
+
+            End If
+
+
+
+        Catch ex As Exception
+            dgv.DataSource = Nothing
+            lamesa.Rows.Clear()
+            lamesa.Columns.Clear()
+            GetSchedules()
+            MsgBox(ex.Message())
+        End Try
+    End Sub
 End Class

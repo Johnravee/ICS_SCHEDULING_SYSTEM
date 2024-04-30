@@ -1,13 +1,16 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class SectionListForm
-    ' Define a variable to store the currently selected DataGridView row index
-    Private selectedRowIndex As Integer
+    Dim SectionTable As New DataTable
 
     Private Sub SectionListForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        GetSection()
+    End Sub
+
+    Private Sub GetSection()
         DBCon()
         Try
-            Dim SectionTable As New DataTable
+
             cmd.Connection = con
             cmd.CommandText = "SELECT * FROM sections"
             table.Clear()
@@ -29,113 +32,149 @@ Public Class SectionListForm
     End Sub
 
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        ' When a cell is clicked, populate the TextBoxes with the values of the selected row
-        If e.RowIndex >= 0 Then
-            Dim row As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
-            TextBox2.Text = row.Cells("SectionID").Value.ToString()
-            TextBox3.Text = row.Cells("Section_Code").Value.ToString()
-            TextBox4.Text = row.Cells("Year").Value.ToString()
-            TextBox5.Text = row.Cells("Section_Program").Value.ToString()
-            ' Store the selected row index for future reference
-            selectedRowIndex = e.RowIndex
-        End If
-        If DataGridView1.SelectedRows.Count > 0 Then
-            Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
-            selectedRowIndex = selectedRow.Index
-
-            ' Populate TextBoxes with the values of the selected row
-            TextBox2.Text = selectedRow.Cells("SectionID").Value.ToString()
-            TextBox3.Text = selectedRow.Cells("Section_Code").Value.ToString()
-            TextBox4.Text = selectedRow.Cells("Year").Value.ToString()
-            TextBox5.Text = selectedRow.Cells("Section_Program").Value.ToString()
+        Dim index = e.RowIndex
+        If index >= 0 AndAlso index < DataGridView1.Rows.Count Then
+            Dim selectedRow = DataGridView1.Rows(index)
+            txtsectionid.Text = selectedRow.Cells(0).Value.ToString()
+            txtcode.Text = selectedRow.Cells(1).Value.ToString()
+            txtyear.Text = selectedRow.Cells(2).Value.ToString()
+            txtprogram.Text = selectedRow.Cells(3).Value.ToString()
         End If
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If selectedRowIndex <> -1 Then
-            ' Get the SectionID of the selected row
-            Dim sectionID As Integer = DataGridView1.Rows(selectedRowIndex).Cells("SectionID").Value
 
-            ' Delete the record from the database
-            Dim connectionString As String = "server=localhost;username=root;password=;database=ics_scheduling_db;SslMode=none"
-            Dim query As String = "DELETE FROM sections WHERE SectionID=@SectionID"
+        ' Get the SectionID of the selected row
+        Dim sectionID As Integer = Val(txtsectionid.Text)
 
-            Using connection As New MySqlConnection(connectionString)
-                Using command As New MySqlCommand(query, connection)
-                    Try
-                        connection.Open()
-                        ' Set parameter values
-                        command.Parameters.AddWithValue("@SectionID", sectionID)
+        Try
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "DELETE FROM sections WHERE SectionID=@SectionID"
 
-                        ' Execute the query
-                        Dim rowsAffected As Integer = command.ExecuteNonQuery()
+            ' Set parameter values
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@SectionID", sectionID)
 
-                        If rowsAffected > 0 Then
-                            MessageBox.Show("Record deleted successfully!")
-                            ' Remove the row from the DataGridView
-                            DataGridView1.Rows.RemoveAt(selectedRowIndex)
-                            selectedRowIndex = -1 ' Reset selectedRowIndex
-                        Else
-                            MessageBox.Show("No record found with the provided SectionID.")
-                        End If
-                    Catch ex As Exception
-                        MessageBox.Show("Error deleting record: " & ex.Message)
-                    End Try
-                End Using
-            End Using
-        Else
-            MessageBox.Show("Please select a row to delete.")
-        End If
+
+
+            If cmd.ExecuteNonQuery() > 0 Then
+                DataGridView1.DataSource = Nothing
+                SectionTable.Columns.Clear()
+                SectionTable.Rows.Clear()
+                GetSection()
+                txtprogram.Clear()
+                txtcode.Clear()
+                txtyear.Clear()
+                MessageBox.Show("Record deleted successfully!")
+                con.Close()
+            Else
+                MessageBox.Show("No record found with the provided Section.")
+                txtprogram.Clear()
+                txtcode.Clear()
+                txtyear.Clear()
+                con.Close()
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error deleting record: " & ex.Message)
+        End Try
+
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        If selectedRowIndex <> -1 Then
-            ' Get the SectionID of the selected row
-            Dim sectionID As Integer = DataGridView1.Rows(selectedRowIndex).Cells("SectionID").Value
 
-            ' Collect updated values from TextBoxes
-            Dim sectionCode As String = TextBox3.Text
-            Dim year As Integer
-            If Integer.TryParse(TextBox4.Text, year) = False Then
-                MessageBox.Show("Please enter a valid year.")
-                Return
+        Try
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "UPDATE sections SET Section_Code=@SectionCode, Year=@Year, Section_Program=@SectionProgram WHERE SectionID=@SectionID"
+            ' Set parameter values
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@SectionID", txtsectionid.Text)
+            cmd.Parameters.AddWithValue("@SectionCode", txtcode.Text)
+            cmd.Parameters.AddWithValue("@Year", txtyear.Text)
+            cmd.Parameters.AddWithValue("@SectionProgram", txtprogram.Text)
+
+
+
+            If cmd.ExecuteNonQuery() > 0 Then
+                DataGridView1.DataSource = Nothing
+                SectionTable.Columns.Clear()
+                SectionTable.Rows.Clear()
+                GetSection()
+                txtprogram.Clear()
+                txtcode.Clear()
+                txtyear.Clear()
+                con.Close()
+                MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("No record found with the provided Section.")
+                txtprogram.Clear()
+                txtcode.Clear()
+                txtyear.Clear()
+                con.Close()
             End If
-            Dim sectionProgram As String = TextBox5.Text
+        Catch ex As Exception
+            MessageBox.Show("Error updating record: " & ex.Message)
+        End Try
 
-            ' Update the record in the database
-            Dim connectionString As String = "server=localhost;username=root;password=;database=ics_scheduling_db;SslMode=none"
-            Dim query As String = "UPDATE sections SET Section_Code=@SectionCode, Year=@Year, Section_Program=@SectionProgram WHERE SectionID=@SectionID"
+    End Sub
 
-            Using connection As New MySqlConnection(connectionString)
-                Using command As New MySqlCommand(query, connection)
-                    Try
-                        connection.Open()
-                        ' Set parameter values
-                        command.Parameters.AddWithValue("@SectionID", sectionID)
-                        command.Parameters.AddWithValue("@SectionCode", sectionCode)
-                        command.Parameters.AddWithValue("@Year", year)
-                        command.Parameters.AddWithValue("@SectionProgram", sectionProgram)
+    Private Sub InsertBtn_Click(sender As Object, e As EventArgs) Handles InsertBtn.Click
+        Try
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "INSERT INTO sections (Section_Code, Year, Section_Program) VALUES(@code, @yr, @sp)"
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@code", txtcode.Text)
+            cmd.Parameters.AddWithValue("@yr", txtyear.Text)
+            cmd.Parameters.AddWithValue("@sp", txtprogram.Text)
 
-                        ' Execute the query
-                        Dim rowsAffected As Integer = command.ExecuteNonQuery()
+            If cmd.ExecuteNonQuery() > 0 Then
+                DataGridView1.DataSource = Nothing
+                SectionTable.Columns.Clear()
+                SectionTable.Rows.Clear()
+                GetSection()
+                MessageBox.Show("Section saved successfully.", "Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                txtprogram.Clear()
+                txtcode.Clear()
+                txtyear.Clear()
+                con.Close()
 
-                        If rowsAffected > 0 Then
-                            MessageBox.Show("Record updated successfully!")
-                            ' Update DataGridView with new values
-                            Dim selectedRow As DataGridViewRow = DataGridView1.Rows(selectedRowIndex)
-                            selectedRow.Cells("Section_Code").Value = sectionCode
-                            selectedRow.Cells("Year").Value = year
-                            selectedRow.Cells("Section_Program").Value = sectionProgram
-                        Else
-                            MessageBox.Show("No record found with the provided SectionID.")
-                        End If
-                    Catch ex As Exception
-                        MessageBox.Show("Error updating record: " & ex.Message)
-                    End Try
-                End Using
-            End Using
+            Else
+                MessageBox.Show("Section saved failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtprogram.Clear()
+                txtcode.Clear()
+                txtyear.Clear()
+                con.Close()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message())
+        End Try
+    End Sub
+
+    'Search
+    Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
+        Dim searchQuery As String = SearchTextBox.Text.Trim()
+        If Not String.IsNullOrEmpty(searchQuery) Then
+            Dim filteredData As New DataTable()
+            For Each column As DataColumn In SectionTable.Columns
+                filteredData.Columns.Add(column.ColumnName, column.DataType)
+            Next
+
+            For Each row As DataRow In SectionTable.Rows
+                For Each column As DataColumn In SectionTable.Columns
+                    If row(column.ColumnName).ToString().ToLower().Contains(searchQuery.ToLower()) Then
+                        filteredData.Rows.Add(row.ItemArray)
+                        Exit For
+                    End If
+                Next
+            Next
+
+            DataGridView1.DataSource = filteredData
         Else
-            MessageBox.Show("Please select a row to update.")
+            DataGridView1.DataSource = SectionTable
         End If
     End Sub
 End Class

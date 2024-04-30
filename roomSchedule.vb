@@ -61,12 +61,11 @@ Public Class roomSchedule
             dgvRoomSched.AllowUserToAddRows = False
             dgvRoomSched.ReadOnly = True
 
-            dgvRoomSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
-            dgvRoomSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+            dgvRoomSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            dgvRoomSched.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             dgvRoomSched.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvRoomSched.DefaultCellStyle.WrapMode = DataGridViewTriState.True
-            dgvRoomSched.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            dgvRoomSched.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+
 
 
 

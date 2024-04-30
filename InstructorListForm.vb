@@ -7,14 +7,14 @@ Imports Mysqlx.Cursor
 Imports Mysqlx.Prepare
 
 Public Class InstructorListForm
-    Dim i As Integer
+    Dim tab As New DataTable()
     Private Sub InstructorListForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_data()
 
     End Sub
 
     Private Sub Load_data()
-        Dim tab As New DataTable()
+
         DBCon()
         cmd.Connection = con
         cmd.CommandText = "SELECT * FROM `instructor`"
@@ -67,17 +67,40 @@ Public Class InstructorListForm
         If MsgBox("Are You Sure You Want to Delete This Record?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             Try
                 con.Open()
-                Dim selectedRowIndex As Integer = DataGridView1.CurrentCell.RowIndex
-                Dim InstructorID As Integer = Convert.ToInt32(DataGridView1.Rows(selectedRowIndex).Cells("InstructorID").Value)
+
+                Dim InstructorID As Integer = txtinstructorid.Text
                 Dim delCommand As New MySqlCommand("DELETE FROM `instructor` WHERE `InstructorID` = @ins", con)
                 delCommand.Parameters.AddWithValue("@ins", InstructorID)
                 Dim rowsAffected As Integer = delCommand.ExecuteNonQuery()
 
                 If rowsAffected > 0 Then
                     DataGridView1.DataSource = Nothing
+                    tab.Columns.Clear()
+                    tab.Rows.Clear()
+                    txtemail.Clear()
+                    txtFirtname.Clear()
+                    txtinstructorid.Clear()
+                    txtmidname.Clear()
+                    cborole.SelectedIndex = -1
+                    txtrfid.Clear()
+                    cbosuffix.SelectedIndex = -1
+                    txtsurname.Clear()
+                    cbworkstatus.SelectedIndex = -1
                     Load_data()
                     MessageBox.Show("Record Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
+                    tab.Columns.Clear()
+                    tab.Rows.Clear()
+                    txtemail.Clear()
+                    txtFirtname.Clear()
+                    txtinstructorid.Clear()
+                    txtmidname.Clear()
+                    cborole.SelectedIndex = -1
+                    txtrfid.Clear()
+                    cbosuffix.SelectedIndex = -1
+                    txtsurname.Clear()
+                    cbworkstatus.SelectedIndex = -1
+                    Load_data()
                     MessageBox.Show("Deletion Failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             Catch ex As Exception
@@ -91,51 +114,64 @@ Public Class InstructorListForm
     End Sub
 
     Private Sub upd_Click(sender As Object, e As EventArgs) Handles upd.Click
-        If con.State = ConnectionState.Closed Then
-            con.Open()
-        End If
+        Try
+            If con.State = ConnectionState.Closed Then
+                DBCon()
+            End If
 
-        Dim updateCommand As New MySqlCommand("UPDATE `instructor` SET PIN=@pin,RFID=@rfid,Firstname=@fn,MiddleName=@mn,Surname=@sn,Suffix=@sfx,Position=@pos,WorkStatus=@ws,email=@email WHERE `InstructorID` = @ins", con)
-        updateCommand.Parameters.AddWithValue("@ins", TextBox2.Text)
-        updateCommand.Parameters.AddWithValue("@pin", TextBox3.Text)
-        updateCommand.Parameters.AddWithValue("@rfid", TextBox4.Text)
-        updateCommand.Parameters.AddWithValue("@fn", TextBox5.Text)
-        updateCommand.Parameters.AddWithValue("@mn", TextBox6.Text)
-        updateCommand.Parameters.AddWithValue("@sn", TextBox7.Text)
-        updateCommand.Parameters.AddWithValue("@sfx", TextBox8.Text)
-        updateCommand.Parameters.AddWithValue("@pos", TextBox9.Text)
-        updateCommand.Parameters.AddWithValue("@ws", TextBox10.Text)
-        updateCommand.Parameters.AddWithValue("@email", TextBox11.Text)
+            cmd.Connection = con
+            cmd.CommandText = "UPDATE instructor SET Firstname=@fn,MiddleName=@mn,Surname=@sn,Suffix=@sfx,Position=@pos,WorkStatus=@ws,email=@email WHERE InstructorID = @insID"
 
-        Dim selectedRowIndex As Integer = DataGridView1.CurrentCell.RowIndex
-        If selectedRowIndex >= 0 AndAlso selectedRowIndex < DataGridView1.Rows.Count Then
-            DataGridView1.Rows(selectedRowIndex).Cells("InstructorID").Value = TextBox2.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("RFID").Value = TextBox4.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("Firstname").Value = TextBox5.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("MiddleName").Value = TextBox6.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("Surname").Value = TextBox7.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("Suffix").Value = TextBox8.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("Position").Value = TextBox9.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("WorkStatus").Value = TextBox10.Text
-            DataGridView1.Rows(selectedRowIndex).Cells("email").Value = TextBox11.Text
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@insID", txtinstructorid.Text)
+            cmd.Parameters.AddWithValue("@fn", txtFirtname.Text)
+            cmd.Parameters.AddWithValue("@mn", txtmidname.Text)
+            cmd.Parameters.AddWithValue("@sn", txtsurname.Text)
+            cmd.Parameters.AddWithValue("@sfx", cbosuffix.SelectedItem)
+            cmd.Parameters.AddWithValue("@pos", cborole.SelectedItem)
+            cmd.Parameters.AddWithValue("@ws", cbworkstatus.SelectedItem)
+            cmd.Parameters.AddWithValue("@email", txtemail.Text)
 
-            DataGridView1.Refresh()
 
-        End If
-        If selectedRowIndex >= 0 AndAlso selectedRowIndex < DataGridView1.Rows.Count Then
-            Try
-                updateCommand.ExecuteNonQuery()
-                MsgBox("Update successful")
-            Catch ex As Exception
-                MsgBox("Error updating record: " & ex.Message)
-            End Try
+            If cmd.ExecuteNonQuery() > 0 Then
+                DataGridView1.DataSource = Nothing
+                tab.Columns.Clear()
+                tab.Rows.Clear()
+                txtemail.Clear()
+                txtFirtname.Clear()
+                txtinstructorid.Clear()
+                txtmidname.Clear()
+                cborole.SelectedIndex = -1
+                txtrfid.Clear()
+                cbosuffix.SelectedIndex = -1
+                txtsurname.Clear()
+                cbworkstatus.SelectedIndex = -1
 
-            DataGridView1.Refresh()
-        Else
-            MessageBox.Show("Please select a valid row.")
-        End If
+                Load_data()
+                MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                tab.Columns.Clear()
+                tab.Rows.Clear()
+                txtemail.Clear()
+                txtFirtname.Clear()
+                txtinstructorid.Clear()
+                txtmidname.Clear()
+                cborole.SelectedIndex = -1
+                txtrfid.Clear()
+                cbosuffix.SelectedIndex = -1
+                txtsurname.Clear()
+                cbworkstatus.SelectedIndex = -1
+                Load_data()
+                MessageBox.Show("No record found with the provided Instructor.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
 
-        con.Close()
+
+
+            con.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message())
+        End Try
+
     End Sub
 
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
@@ -146,18 +182,20 @@ Public Class InstructorListForm
             Dim selectedRow As DataGridViewRow = DataGridView1.Rows(index)
 
             ' Update text boxes with cell values
-            TextBox2.Text = selectedRow.Cells(0).Value.ToString()
-            TextBox3.Text = selectedRow.Cells(1).Value.ToString()
-            TextBox4.Text = selectedRow.Cells(2).Value.ToString()
-            TextBox5.Text = selectedRow.Cells(3).Value.ToString()
-            TextBox6.Text = selectedRow.Cells(4).Value.ToString()
-            TextBox7.Text = selectedRow.Cells(5).Value.ToString()
-            TextBox8.Text = selectedRow.Cells(6).Value.ToString()
-            TextBox9.Text = selectedRow.Cells(7).Value.ToString()
-            TextBox10.Text = selectedRow.Cells(8).Value.ToString()
+            txtinstructorid.Text = selectedRow.Cells(0).Value.ToString()
+            txtrfid.Text = selectedRow.Cells(1).Value.ToString()
+            txtFirtname.Text = selectedRow.Cells(2).Value.ToString()
+            txtmidname.Text = selectedRow.Cells(3).Value.ToString()
+            txtsurname.Text = selectedRow.Cells(4).Value.ToString()
+            cbosuffix.SelectedItem = selectedRow.Cells(5).Value.ToString()
+            cborole.SelectedItem = selectedRow.Cells(6).Value.ToString()
+            cbworkstatus.SelectedItem = selectedRow.Cells(7).Value.ToString()
+            txtemail.Text = selectedRow.Cells(8).Value.ToString()
 
             ' Refresh the DataGridView if needed
             DataGridView1.Refresh()
         End If
     End Sub
+
+
 End Class

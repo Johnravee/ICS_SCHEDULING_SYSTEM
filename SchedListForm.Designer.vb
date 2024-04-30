@@ -41,6 +41,7 @@ Partial Class SchedListForm
         cb_room = New ComboBox()
         StartTime = New DateTimePicker()
         EndTime = New DateTimePicker()
+        ResetBtn = New Button()
         CType(dgv, ComponentModel.ISupportInitialize).BeginInit()
         Panel10.SuspendLayout()
         Panel2.SuspendLayout()
@@ -70,7 +71,7 @@ Partial Class SchedListForm
         upd.Location = New Point(656, 547)
         upd.Margin = New Padding(3, 2, 3, 2)
         upd.Name = "upd"
-        upd.Size = New Size(175, 45)
+        upd.Size = New Size(114, 45)
         upd.TabIndex = 4
         upd.Text = "UPDATE"
         upd.UseVisualStyleBackColor = False
@@ -82,10 +83,10 @@ Partial Class SchedListForm
         del.FlatStyle = FlatStyle.Flat
         del.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         del.ForeColor = Color.WhiteSmoke
-        del.Location = New Point(841, 547)
+        del.Location = New Point(778, 547)
         del.Margin = New Padding(3, 2, 3, 2)
         del.Name = "del"
-        del.Size = New Size(175, 45)
+        del.Size = New Size(114, 45)
         del.TabIndex = 5
         del.Text = "DELETE"
         del.UseVisualStyleBackColor = False
@@ -261,12 +262,28 @@ Partial Class SchedListForm
         EndTime.TabIndex = 47
         EndTime.Value = New Date(2024, 4, 28, 0, 0, 0, 0)
         ' 
+        ' ResetBtn
+        ' 
+        ResetBtn.BackColor = Color.FromArgb(CByte(223), CByte(70), CByte(98))
+        ResetBtn.FlatAppearance.BorderSize = 0
+        ResetBtn.FlatStyle = FlatStyle.Flat
+        ResetBtn.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        ResetBtn.ForeColor = Color.WhiteSmoke
+        ResetBtn.Location = New Point(902, 547)
+        ResetBtn.Margin = New Padding(3, 2, 3, 2)
+        ResetBtn.Name = "ResetBtn"
+        ResetBtn.Size = New Size(114, 45)
+        ResetBtn.TabIndex = 48
+        ResetBtn.Text = "RESET"
+        ResetBtn.UseVisualStyleBackColor = False
+        ' 
         ' SchedListForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1050, 609)
+        Controls.Add(ResetBtn)
         Controls.Add(EndTime)
         Controls.Add(StartTime)
         Controls.Add(Panel4)
@@ -313,4 +330,5 @@ Partial Class SchedListForm
     Friend WithEvents cbo_subject As ComboBox
     Friend WithEvents cb_sections As ComboBox
     Friend WithEvents cbo_sec As ComboBox
+    Friend WithEvents ResetBtn As Button
 End Class

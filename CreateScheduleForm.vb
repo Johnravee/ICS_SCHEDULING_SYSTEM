@@ -135,10 +135,9 @@ Public Class CreateScheduleForm
             dgvSchedule.Columns("EndTime").Visible = False
 
             ' Set auto-sizing and wrap mode for better display
-            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
-            dgvSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-
+            dgvSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         Catch ex As Exception
             MsgBox(ex.ToString())
@@ -279,7 +278,7 @@ Public Class CreateScheduleForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select room_number from rooms"
+            cmd.CommandText = "Select Room from rooms"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -288,7 +287,7 @@ Public Class CreateScheduleForm
 
             ' Add each FullName value to the ComboBox
             For Each row As DataRow In newtable.Rows
-                cb_room.Items.Add(row("room_number").ToString())
+                cb_room.Items.Add(row("Room").ToString())
             Next
         Catch ex As Exception
             MsgBox(ex.ToString())
