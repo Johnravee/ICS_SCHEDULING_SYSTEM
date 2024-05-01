@@ -19,7 +19,8 @@
 
             dgvSubjectTable.Columns("SubjectID").Visible = False
 
-            dgvSubjectTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
+            dgvSubjectTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            dgvSubjectTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             dgvSubjectTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvSubjectTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         Catch ex As Exception
@@ -35,11 +36,22 @@
 
 
     Private Sub dgvSubjectTable_CellClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSubjectTable.CellClick
-        Dim SelectedRow = dgvSubjectTable.Rows(e.RowIndex)
 
-        txtsubjectname.Text = SelectedRow.Cells("subject_description").Value.ToString
-        txtsubjectcode.Text = SelectedRow.Cells("subject_code").Value.ToString
-        txtsubjectid.Text = SelectedRow.Cells("SubjectID").Value.ToString
+        Dim index = e.RowIndex
+        If index >= 0 AndAlso index < dgvSubjectTable.Rows.Count Then
+            Dim selectedRow = dgvSubjectTable.Rows(index)
+
+
+
+            txtsubjectname.Text = selectedRow.Cells("subject_description").Value.ToString
+            txtsubjectcode.Text = selectedRow.Cells("subject_code").Value.ToString
+            txtsubjectid.Text = selectedRow.Cells("SubjectID").Value.ToString
+
+
+        End If
+
+
+
     End Sub
 
 

@@ -92,10 +92,10 @@ Public Class sectionSched
         Dim StrFormat As New StringFormat()
         StrFormat.Alignment = StringAlignment.Center
 
-        Dim image1 As Image = Image.FromFile("C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\cmdtransparent.png")
+        Dim image1 As Image = My.Resources.cmdtransparent
         e.Graphics.DrawImage(image1, 60, 50, 100, 100)
 
-        Dim Image2 As Image = Image.FromFile("C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\icstransparent.png")
+        Dim Image2 As Image = My.Resources.icstransparent
         e.Graphics.DrawImage(Image2, 930, 35, 120, 120)
 
 
