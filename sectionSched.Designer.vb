@@ -26,6 +26,7 @@ Partial Class sectionSched
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Panel1 = New Panel()
         backbtn = New Button()
         Label1 = New Label()
@@ -88,47 +89,56 @@ Partial Class sectionSched
         ' 
         ' printingdgv
         ' 
-        printingdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = SystemColors.Window
-        DataGridViewCellStyle1.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle1.ForeColor = SystemColors.ControlText
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
         DataGridViewCellStyle1.Padding = New Padding(5)
         DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
-        printingdgv.DefaultCellStyle = DataGridViewCellStyle1
+        printingdgv.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        printingdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = SystemColors.Window
+        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
+        DataGridViewCellStyle2.Padding = New Padding(5)
+        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        printingdgv.DefaultCellStyle = DataGridViewCellStyle2
         printingdgv.Location = New Point(78, 267)
         printingdgv.Name = "printingdgv"
         printingdgv.ReadOnly = True
-        printingdgv.Size = New Size(1192, 150)
+        printingdgv.Size = New Size(1044, 150)
         printingdgv.TabIndex = 10
         ' 
         ' dgvSectionSched
         ' 
         dgvSectionSched.BackgroundColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = SystemColors.Control
-        DataGridViewCellStyle2.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle2.Padding = New Padding(10)
-        DataGridViewCellStyle2.SelectionBackColor = Color.Transparent
-        DataGridViewCellStyle2.SelectionForeColor = Color.Transparent
-        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
-        dgvSectionSched.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        dgvSectionSched.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        DataGridViewCellStyle3.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle3.ForeColor = Color.WhiteSmoke
-        DataGridViewCellStyle3.Padding = New Padding(20)
+        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = SystemColors.Control
+        DataGridViewCellStyle3.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle3.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle3.Padding = New Padding(10)
         DataGridViewCellStyle3.SelectionBackColor = Color.Transparent
         DataGridViewCellStyle3.SelectionForeColor = Color.Transparent
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
-        dgvSectionSched.DefaultCellStyle = DataGridViewCellStyle3
-        dgvSectionSched.Location = New Point(54, 134)
+        dgvSectionSched.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        dgvSectionSched.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        DataGridViewCellStyle4.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle4.ForeColor = Color.WhiteSmoke
+        DataGridViewCellStyle4.Padding = New Padding(20)
+        DataGridViewCellStyle4.SelectionBackColor = Color.Transparent
+        DataGridViewCellStyle4.SelectionForeColor = Color.Transparent
+        DataGridViewCellStyle4.WrapMode = DataGridViewTriState.True
+        dgvSectionSched.DefaultCellStyle = DataGridViewCellStyle4
+        dgvSectionSched.Location = New Point(65, 134)
         dgvSectionSched.Name = "dgvSectionSched"
-        dgvSectionSched.Size = New Size(1240, 506)
+        dgvSectionSched.Size = New Size(1229, 506)
         dgvSectionSched.TabIndex = 11
         ' 
         ' printer
@@ -157,6 +167,7 @@ Partial Class sectionSched
         Controls.Add(Label1)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "sectionSched"
         StartPosition = FormStartPosition.CenterScreen
         Text = "sectionSched"

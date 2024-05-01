@@ -22,6 +22,7 @@ Partial Class ManagementScheduleForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ManagementScheduleForm))
         Panel1 = New Panel()
         BackBtn = New Button()
         Panel2 = New Panel()
@@ -167,6 +168,7 @@ Partial Class ManagementScheduleForm
         Controls.Add(Panel2)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Margin = New Padding(3, 2, 3, 2)
         Name = "ManagementScheduleForm"
         StartPosition = FormStartPosition.CenterScreen

@@ -343,6 +343,7 @@ Partial Class adminRegistration
         Controls.Add(Panel2)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "adminRegistration"
         StartPosition = FormStartPosition.CenterScreen
         Text = "adminRegistration"

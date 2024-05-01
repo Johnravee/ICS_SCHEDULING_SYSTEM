@@ -120,6 +120,7 @@ Partial Class RFIDREGISTRATION
         ClientSize = New Size(419, 479)
         Controls.Add(rfidscanpanel)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "RFIDREGISTRATION"
         StartPosition = FormStartPosition.CenterScreen
         Text = "rfidandPinRegistrationforinstructors"

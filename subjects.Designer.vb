@@ -25,6 +25,7 @@ Partial Class SubjectForm
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SubjectForm))
         Panel1 = New Panel()
         backBtn = New Button()
         Label1 = New Label()
@@ -139,9 +140,9 @@ Partial Class SubjectForm
         Label2.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
         Label2.Location = New Point(147, 155)
         Label2.Name = "Label2"
-        Label2.Size = New Size(57, 23)
+        Label2.Size = New Size(164, 23)
         Label2.TabIndex = 5
-        Label2.Text = "Name"
+        Label2.Text = "Subject Description"
         ' 
         ' Label3
         ' 
@@ -150,9 +151,9 @@ Partial Class SubjectForm
         Label3.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
         Label3.Location = New Point(147, 248)
         Label3.Name = "Label3"
-        Label3.Size = New Size(50, 23)
+        Label3.Size = New Size(113, 23)
         Label3.TabIndex = 6
-        Label3.Text = "Code"
+        Label3.Text = "Subject Code"
         ' 
         ' InsertBtn
         ' 
@@ -280,6 +281,7 @@ Partial Class SubjectForm
         Controls.Add(Panel2)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "SubjectForm"
         StartPosition = FormStartPosition.CenterScreen
         Text = "subjects"

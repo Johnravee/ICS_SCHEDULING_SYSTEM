@@ -22,6 +22,7 @@ Partial Class viewSection
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(viewSection))
         Panel1 = New Panel()
         backBtn = New Button()
         Panel2 = New Panel()
@@ -102,6 +103,7 @@ Partial Class viewSection
         Controls.Add(Panel2)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "viewSection"
         StartPosition = FormStartPosition.CenterScreen
         Text = "viewSection"

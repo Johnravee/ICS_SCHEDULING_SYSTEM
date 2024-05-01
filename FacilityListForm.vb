@@ -32,7 +32,7 @@ Public Class FacilityListForm
         End Try
     End Sub
 
-    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         Dim index = e.RowIndex
         If index >= 0 AndAlso index < DataGridView1.Rows.Count Then
             Dim selectedRow = DataGridView1.Rows(index)

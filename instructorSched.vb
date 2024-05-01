@@ -11,7 +11,7 @@ Public Class instructorSched
 
             Label1.Text = $"Instructor :{instructor}"
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, TIME_FORMAT(StartTime, '%h:%i %p') AS FormattedStart, TIME_FORMAT(EndTime, '%h:%i %p') AS FormattedEnd, Day, RoomNumber FROM schedules WHERE InstructorName = @instructor ORDER BY DAYOFWEEK(Day) ASC"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject,CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber FROM schedules WHERE InstructorName = @instructor ORDER BY DAYOFWEEK(Day) ASC"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@instructor", instructor)
@@ -38,7 +38,7 @@ Public Class instructorSched
 
             For Each row As DataRow In data.Rows
 
-                Dim TimeDuration As String = row("FormattedStart") & " - " & row("FormattedEnd")
+                Dim TimeDuration As String = row("Time")
                 Dim day As String = row("Day").ToString().Trim()
                 Dim Subject As String = row("Subject").ToString().Trim()
                 Dim roomNumber As String = row("RoomNumber").ToString().Trim()
@@ -68,7 +68,10 @@ Public Class instructorSched
             dgvInstructorSched.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvInstructorSched.DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
-
+            printingdgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            printingdgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            printingdgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            printingdgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
 
         Catch ex As Exception
@@ -104,9 +107,9 @@ Public Class instructorSched
         e.Graphics.DrawString("Colegio De Montalban", New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, New PointF(570, 80), StrFormat)
         e.Graphics.DrawString("ICS Schedules", New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, New PointF(570, 100), StrFormat)
 
-        e.Graphics.DrawString($"Instructor:", New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(63, 200), StrFormat)
-        e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(350, 210), StrFormat)
-        e.Graphics.DrawString(instructor, New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(200, 203), StrFormat)
+        e.Graphics.DrawString($"Instructor:", New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(100, 200), StrFormat)
+        e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(380, 210), StrFormat)
+        e.Graphics.DrawString(instructor, New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(220, 203), StrFormat)
 
         Dim Format As New StringFormat(StringFormatFlags.LineLimit)
         Format.LineAlignment = StringAlignment.Center
@@ -122,12 +125,12 @@ Public Class instructorSched
 
         If isNewPage Then
             row = printingdgv.Rows(rowIndexToPrint)
-            x = 20
+            x = 53
             'Print Header Row
             For Each cell As DataGridViewCell In row.Cells
                 If cell.Visible Then
 
-                    printingdgv.Columns(cell.ColumnIndex).Width = 152
+
                     recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                     e.Graphics.FillRectangle(Brushes.LightYellow, recta)
                     e.Graphics.DrawRectangle(Pens.Black, recta)
@@ -141,12 +144,10 @@ Public Class instructorSched
                         Case 2
                             headerText = "Subject"
                         Case 3
-                            headerText = "Start"
+                            headerText = "Time"
                         Case 4
-                            headerText = "End"
-                        Case 5
                             headerText = "Day"
-                        Case 6
+                        Case 5
                             headerText = "Room"
                     End Select
 
@@ -170,7 +171,7 @@ Public Class instructorSched
         'Print Rows
         For dNow = rowIndexToPrint To printingdgv.RowCount - 1
             row = printingdgv.Rows(dNow)
-            x = 20
+            x = 53
             h = 0
 
             For Each cell As DataGridViewCell In row.Cells
@@ -178,7 +179,7 @@ Public Class instructorSched
                     recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                     e.Graphics.DrawRectangle(Pens.Black, recta)
 
-                    Format.Alignment = StringAlignment.Near
+                    Format.Alignment = StringAlignment.Center
                     recta.Offset(5, 0)
 
 

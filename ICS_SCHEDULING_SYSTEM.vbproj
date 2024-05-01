@@ -6,11 +6,17 @@
     <StartupObject>ICS_SCHEDULING_SYSTEM.My.MyApplication</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <ApplicationIcon>Resources\icstransparent.ico</ApplicationIcon>
+    <PackageIcon>icstransparent.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Authentication_Form.resx~RFde73384.TMP" />
     <None Remove="Authentication_Form.resx~RFe2bd008.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icstransparent.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +64,10 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Update="Resources\icstransparent.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

@@ -24,6 +24,7 @@ Partial Class SchedListForm
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SchedListForm))
         TextBox1 = New TextBox()
         upd = New Button()
         del = New Button()
@@ -297,6 +298,7 @@ Partial Class SchedListForm
         Controls.Add(upd)
         Controls.Add(del)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Margin = New Padding(3, 2, 3, 2)
         Name = "SchedListForm"
         StartPosition = FormStartPosition.WindowsDefaultBounds

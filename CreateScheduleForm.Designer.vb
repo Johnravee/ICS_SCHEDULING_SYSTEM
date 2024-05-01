@@ -470,6 +470,7 @@ Partial Class CreateScheduleForm
         Controls.Add(Panel1)
         Controls.Add(Button1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "CreateScheduleForm"
         StartPosition = FormStartPosition.CenterScreen
         Text = "CreateScheduleForm"

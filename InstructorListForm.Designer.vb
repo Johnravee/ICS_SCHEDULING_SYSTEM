@@ -24,6 +24,7 @@ Partial Class InstructorListForm
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(InstructorListForm))
         TextBox1 = New TextBox()
         txtsurname = New TextBox()
         txtmidname = New TextBox()
@@ -322,6 +323,7 @@ Partial Class InstructorListForm
         Controls.Add(DataGridView1)
         Controls.Add(TextBox1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Margin = New Padding(3, 2, 3, 2)
         Name = "InstructorListForm"
         Text = "InstructorListForm"

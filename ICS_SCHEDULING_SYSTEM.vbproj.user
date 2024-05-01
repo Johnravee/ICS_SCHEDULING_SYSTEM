@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_LastSelectedProfileId>C:\Users\ravem\OneDrive\Desktop\ICS_SCHD\My Project\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+    <_LastSelectedProfileId>C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\My Project\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="addNewInstructor.vb">
@@ -14,9 +14,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Dashboard.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="allInstructor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FacilityListForm.vb">

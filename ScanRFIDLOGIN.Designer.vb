@@ -111,7 +111,7 @@ Partial Class ScanRFIDLOGIN
         ' 
         logo.BackgroundImage = CType(resources.GetObject("logo.BackgroundImage"), Image)
         logo.BackgroundImageLayout = ImageLayout.Zoom
-        logo.Location = New Point(165, 69)
+        logo.Location = New Point(154, 86)
         logo.Name = "logo"
         logo.Size = New Size(153, 135)
         logo.TabIndex = 15
@@ -181,6 +181,7 @@ Partial Class ScanRFIDLOGIN
         Controls.Add(Panel1)
         ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "ScanRFIDLOGIN"
         StartPosition = FormStartPosition.CenterScreen
         Text = "ScanRFIDLOGIN"

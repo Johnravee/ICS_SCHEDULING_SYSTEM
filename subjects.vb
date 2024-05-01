@@ -37,7 +37,7 @@
     Private Sub dgvSubjectTable_CellClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSubjectTable.CellClick
         Dim SelectedRow = dgvSubjectTable.Rows(e.RowIndex)
 
-        txtsubjectname.Text = SelectedRow.Cells("subject_name").Value.ToString
+        txtsubjectname.Text = SelectedRow.Cells("subject_description").Value.ToString
         txtsubjectcode.Text = SelectedRow.Cells("subject_code").Value.ToString
         txtsubjectid.Text = SelectedRow.Cells("SubjectID").Value.ToString
     End Sub
@@ -48,7 +48,7 @@
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO subjects (subject_name, subject_code) VALUES(@name, @code)"
+            cmd.CommandText = "INSERT INTO subjects (subject_description, subject_code) VALUES(@name, @code)"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@name", txtsubjectname.Text)

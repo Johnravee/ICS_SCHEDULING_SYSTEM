@@ -257,7 +257,8 @@ Public Class CreateScheduleForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select subject_code from subjects"
+            cmd.CommandText = "SELECT CONCAT(subject_description, ' (', subject_code, ')') AS Subject FROM subjects
+"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -266,7 +267,7 @@ Public Class CreateScheduleForm
 
             ' Add each FullName value to the ComboBox
             For Each row As DataRow In newtable.Rows
-                cb_subject.Items.Add(row("subject_code").ToString())
+                cb_subject.Items.Add(row("Subject").ToString())
             Next
         Catch ex As Exception
             MsgBox(ex.ToString())

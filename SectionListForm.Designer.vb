@@ -24,6 +24,7 @@ Partial Class SectionListForm
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SectionListForm))
         Panel1 = New Panel()
         InsertBtn = New Button()
         Label6 = New Label()
@@ -241,6 +242,7 @@ Partial Class SectionListForm
         Controls.Add(DataGridView1)
         Controls.Add(txtsectionid)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Margin = New Padding(3, 2, 3, 2)
         Name = "SectionListForm"
         StartPosition = FormStartPosition.CenterScreen

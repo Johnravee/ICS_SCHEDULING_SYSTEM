@@ -22,6 +22,7 @@ Partial Class viewRooms
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(viewRooms))
         Panel1 = New Panel()
         backBtn = New Button()
         txtsearch = New TextBox()
@@ -90,6 +91,7 @@ Partial Class viewRooms
         Controls.Add(Panel2)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "viewRooms"
         StartPosition = FormStartPosition.CenterScreen
         Text = "viewRooms"

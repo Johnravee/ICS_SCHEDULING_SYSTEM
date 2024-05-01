@@ -322,6 +322,7 @@ Partial Class addNewInstructor
         Controls.Add(logo)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "addNewInstructor"
         StartPosition = FormStartPosition.CenterScreen
         Text = "addNewInstructor"

@@ -8,7 +8,7 @@
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject,CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber FROM schedules ORDER BY InstructorName"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject,CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber FROM schedules ORDER BY InstructorName, DAYOFWEEK(day)"
 
             dataReader.Fill(SummaryTable)
 
@@ -97,7 +97,7 @@
 
         isNewPage = False
         Dim dplay As Integer
-        For dplay = 0 To printingdgv.RowCount - 1
+        For dplay = rowIndexToPrint To printingdgv.RowCount - 1
             row = printingdgv.Rows(dplay)
             x = 150
             h = 0

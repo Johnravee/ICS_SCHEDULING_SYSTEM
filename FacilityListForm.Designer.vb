@@ -24,6 +24,7 @@ Partial Class FacilityListForm
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FacilityListForm))
         Panel1 = New Panel()
         InsertBtn = New Button()
         UpdateButton = New Button()
@@ -191,6 +192,7 @@ Partial Class FacilityListForm
         Controls.Add(Panel1)
         Controls.Add(SearchTextBox)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "FacilityListForm"
         StartPosition = FormStartPosition.CenterScreen
         Text = "FacilityListForm"

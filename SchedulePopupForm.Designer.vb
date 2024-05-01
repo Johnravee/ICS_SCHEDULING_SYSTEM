@@ -22,6 +22,7 @@ Partial Class SchedulePopupForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SchedulePopupForm))
         Button1 = New Button()
         Label1 = New Label()
         Label2 = New Label()
@@ -346,6 +347,7 @@ Partial Class SchedulePopupForm
         Controls.Add(Panel5)
         ForeColor = Color.FromArgb(CByte(2), CByte(47), CByte(32))
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "SchedulePopupForm"
         StartPosition = FormStartPosition.CenterScreen
         Text = "0618983539"

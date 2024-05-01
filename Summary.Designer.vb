@@ -155,6 +155,7 @@ Partial Class Summary
         Controls.Add(Printbtn)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "Summary"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Summary"
