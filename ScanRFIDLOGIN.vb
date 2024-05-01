@@ -94,7 +94,7 @@ Public Class ScanRFIDLOGIN
 
     'Close Program
     Private Sub closeBtn_Click(sender As Object, e As EventArgs) Handles closeBtn.Click
-        Me.Close()
+        Application.Exit()
 
     End Sub
 

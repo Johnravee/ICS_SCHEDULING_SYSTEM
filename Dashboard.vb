@@ -1,6 +1,6 @@
 ﻿Public Class Dashboard
     Private Sub closeBtn_Click(sender As Object, e As EventArgs) Handles closeBtn.Click
-        Me.Close()
+        Application.Exit()
     End Sub
 
     Private Sub minimizeBtn_Click(sender As Object, e As EventArgs) Handles minimizeBtn.Click
@@ -52,7 +52,7 @@
 
     Private Sub LogoutBtn_Click_2(sender As Object, e As EventArgs) Handles LogoutBtn.Click
         ScanRFIDLOGIN.Show()
-        Hide()
+        Me.Close()
     End Sub
 
     Private Sub btnViewSummary_Click(sender As Object, e As EventArgs) Handles btnViewSummary.Click
