@@ -187,6 +187,8 @@ Partial Class InstructorListForm
         ' 
         ' cborole
         ' 
+        cborole.AutoCompleteMode = AutoCompleteMode.Suggest
+        cborole.AutoCompleteSource = AutoCompleteSource.ListItems
         cborole.BackColor = Color.LightYellow
         cborole.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cborole.FormattingEnabled = True
@@ -239,6 +241,8 @@ Partial Class InstructorListForm
         ' 
         ' cbosuffix
         ' 
+        cbosuffix.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbosuffix.AutoCompleteSource = AutoCompleteSource.ListItems
         cbosuffix.BackColor = Color.LightYellow
         cbosuffix.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cbosuffix.FormattingEnabled = True

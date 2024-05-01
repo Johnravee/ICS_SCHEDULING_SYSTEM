@@ -47,9 +47,10 @@ Public Class ScanRFIDLOGIN
     'Authenticate user
     Private Function Authentication(data As String) As Boolean
         Try
+
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM instructor WHERE RFID = @rfid"
+            cmd.CommandText = "SELECT * FROM instructor WHERE RFID = @rfid AND Position IN ('DEAN', 'BSIT PROGRAM HEAD', 'BScPE PROGRAM HEAD' )"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@rfid", data)
 

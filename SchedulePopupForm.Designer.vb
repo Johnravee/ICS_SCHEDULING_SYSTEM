@@ -46,7 +46,7 @@ Partial Class SchedulePopupForm
         TXTid = New TextBox()
         Panel5 = New Panel()
         Panel1 = New Panel()
-        EndTime = New DateTimePicker()
+        enTime = New DateTimePicker()
         StartTime1 = New DateTimePicker()
         Panel10.SuspendLayout()
         Panel2.SuspendLayout()
@@ -178,7 +178,10 @@ Partial Class SchedulePopupForm
         ' 
         ' cbo_instructor
         ' 
+        cbo_instructor.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_instructor.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_instructor.BackColor = Color.LightYellow
+        cbo_instructor.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_instructor.FlatStyle = FlatStyle.Flat
         cbo_instructor.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_instructor.FormattingEnabled = True
@@ -199,7 +202,10 @@ Partial Class SchedulePopupForm
         ' 
         ' cbo_section
         ' 
+        cbo_section.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_section.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_section.BackColor = Color.LightYellow
+        cbo_section.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_section.FlatStyle = FlatStyle.Flat
         cbo_section.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_section.FormattingEnabled = True
@@ -220,7 +226,10 @@ Partial Class SchedulePopupForm
         ' 
         ' cbo_subject
         ' 
+        cbo_subject.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_subject.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_subject.BackColor = Color.LightYellow
+        cbo_subject.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_subject.FlatStyle = FlatStyle.Flat
         cbo_subject.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_subject.FormattingEnabled = True
@@ -241,10 +250,14 @@ Partial Class SchedulePopupForm
         ' 
         ' cbo_day
         ' 
+        cbo_day.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_day.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_day.BackColor = Color.LightYellow
+        cbo_day.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_day.FlatStyle = FlatStyle.Flat
         cbo_day.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_day.FormattingEnabled = True
+        cbo_day.Items.AddRange(New Object() {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"})
         cbo_day.Location = New Point(8, 8)
         cbo_day.Name = "cbo_day"
         cbo_day.Size = New Size(156, 34)
@@ -262,7 +275,10 @@ Partial Class SchedulePopupForm
         ' 
         ' cb_room
         ' 
+        cb_room.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_room.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_room.BackColor = Color.LightYellow
+        cb_room.DropDownStyle = ComboBoxStyle.DropDownList
         cb_room.FlatStyle = FlatStyle.Flat
         cb_room.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cb_room.FormattingEnabled = True
@@ -289,7 +305,7 @@ Partial Class SchedulePopupForm
         ' Panel1
         ' 
         Panel1.BackColor = Color.Beige
-        Panel1.Controls.Add(EndTime)
+        Panel1.Controls.Add(enTime)
         Panel1.Controls.Add(StartTime1)
         Panel1.Controls.Add(Panel4)
         Panel1.Controls.Add(pane100)
@@ -310,18 +326,18 @@ Partial Class SchedulePopupForm
         Panel1.Size = New Size(515, 595)
         Panel1.TabIndex = 0
         ' 
-        ' EndTime
+        ' enTime
         ' 
-        EndTime.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        EndTime.CustomFormat = ""
-        EndTime.Font = New Font("Calibri", 24.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        EndTime.Format = DateTimePickerFormat.Time
-        EndTime.Location = New Point(276, 368)
-        EndTime.Name = "EndTime"
-        EndTime.ShowUpDown = True
-        EndTime.Size = New Size(175, 48)
-        EndTime.TabIndex = 46
-        EndTime.Value = New Date(2024, 4, 28, 0, 0, 0, 0)
+        enTime.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        enTime.CustomFormat = ""
+        enTime.Font = New Font("Calibri", 24.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        enTime.Format = DateTimePickerFormat.Time
+        enTime.Location = New Point(276, 368)
+        enTime.Name = "enTime"
+        enTime.ShowUpDown = True
+        enTime.Size = New Size(175, 48)
+        enTime.TabIndex = 46
+        enTime.Value = New Date(2024, 4, 28, 0, 0, 0, 0)
         ' 
         ' StartTime1
         ' 
@@ -385,6 +401,6 @@ Partial Class SchedulePopupForm
     Friend WithEvents TXTid As TextBox
     Friend WithEvents Panel5 As Panel
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents EndTime As DateTimePicker
+    Friend WithEvents enTime As DateTimePicker
     Friend WithEvents StartTime1 As DateTimePicker
 End Class

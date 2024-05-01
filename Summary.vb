@@ -107,7 +107,7 @@
                     recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                     e.Graphics.DrawRectangle(Pens.Black, recta)
 
-                    Format.Alignment = StringAlignment.Near
+                    Format.Alignment = StringAlignment.Center
                     recta.Offset(5, 0)
                     e.Graphics.DrawString(cell.FormattedValue.ToString(), printingdgv.Font, Brushes.Black, recta, Format)
 

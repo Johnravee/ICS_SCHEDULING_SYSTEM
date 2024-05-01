@@ -111,7 +111,7 @@ Partial Class instructorSched
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
         printingdgv.DefaultCellStyle = DataGridViewCellStyle2
-        printingdgv.Location = New Point(255, 199)
+        printingdgv.Location = New Point(240, 199)
         printingdgv.Name = "printingdgv"
         printingdgv.Size = New Size(1044, 150)
         printingdgv.TabIndex = 8

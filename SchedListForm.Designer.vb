@@ -43,6 +43,11 @@ Partial Class SchedListForm
         StartTime = New DateTimePicker()
         EndTime = New DateTimePicker()
         ResetBtn = New Button()
+        Label1 = New Label()
+        Label2 = New Label()
+        Label3 = New Label()
+        Label4 = New Label()
+        Label5 = New Label()
         CType(dgv, ComponentModel.ISupportInitialize).BeginInit()
         Panel10.SuspendLayout()
         Panel2.SuspendLayout()
@@ -54,7 +59,7 @@ Partial Class SchedListForm
         ' TextBox1
         ' 
         TextBox1.Font = New Font("Calibri", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox1.Location = New Point(588, 27)
+        TextBox1.Location = New Point(588, 11)
         TextBox1.Margin = New Padding(3, 2, 3, 2)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
@@ -123,12 +128,12 @@ Partial Class SchedListForm
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
         dgv.DefaultCellStyle = DataGridViewCellStyle2
-        dgv.Location = New Point(28, 72)
+        dgv.Location = New Point(28, 44)
         dgv.Margin = New Padding(3, 2, 3, 2)
         dgv.Name = "dgv"
         dgv.ReadOnly = True
         dgv.RowHeadersWidth = 51
-        dgv.Size = New Size(988, 391)
+        dgv.Size = New Size(988, 363)
         dgv.TabIndex = 16
         ' 
         ' Panel10
@@ -136,14 +141,17 @@ Partial Class SchedListForm
         Panel10.BackColor = Color.LightYellow
         Panel10.BorderStyle = BorderStyle.FixedSingle
         Panel10.Controls.Add(cbo_instructor)
-        Panel10.Location = New Point(28, 488)
+        Panel10.Location = New Point(28, 453)
         Panel10.Name = "Panel10"
         Panel10.Size = New Size(284, 50)
         Panel10.TabIndex = 38
         ' 
         ' cbo_instructor
         ' 
+        cbo_instructor.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_instructor.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_instructor.BackColor = Color.LightYellow
+        cbo_instructor.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_instructor.FlatStyle = FlatStyle.Flat
         cbo_instructor.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_instructor.FormattingEnabled = True
@@ -164,7 +172,10 @@ Partial Class SchedListForm
         ' 
         ' cbo_sec
         ' 
+        cbo_sec.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_sec.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_sec.BackColor = Color.LightYellow
+        cbo_sec.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_sec.FlatStyle = FlatStyle.Flat
         cbo_sec.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_sec.FormattingEnabled = True
@@ -178,20 +189,24 @@ Partial Class SchedListForm
         Panel3.BackColor = Color.LightYellow
         Panel3.BorderStyle = BorderStyle.FixedSingle
         Panel3.Controls.Add(cbo_subject)
-        Panel3.Location = New Point(351, 488)
+        Panel3.Location = New Point(318, 453)
         Panel3.Name = "Panel3"
-        Panel3.Size = New Size(284, 50)
+        Panel3.Size = New Size(332, 50)
         Panel3.TabIndex = 40
         ' 
         ' cbo_subject
         ' 
+        cbo_subject.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_subject.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_subject.BackColor = Color.LightYellow
+        cbo_subject.DropDownStyle = ComboBoxStyle.DropDownList
+        cbo_subject.DropDownWidth = 350
         cbo_subject.FlatStyle = FlatStyle.Flat
         cbo_subject.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_subject.FormattingEnabled = True
-        cbo_subject.Location = New Point(13, 7)
+        cbo_subject.Location = New Point(5, 7)
         cbo_subject.Name = "cbo_subject"
-        cbo_subject.Size = New Size(256, 34)
+        cbo_subject.Size = New Size(322, 34)
         cbo_subject.TabIndex = 37
         ' 
         ' pane100
@@ -199,13 +214,15 @@ Partial Class SchedListForm
         pane100.BackColor = Color.LightYellow
         pane100.BorderStyle = BorderStyle.FixedSingle
         pane100.Controls.Add(cbo_day)
-        pane100.Location = New Point(656, 488)
+        pane100.Location = New Point(656, 453)
         pane100.Name = "pane100"
         pane100.Size = New Size(175, 50)
         pane100.TabIndex = 42
         ' 
         ' cbo_day
         ' 
+        cbo_day.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_day.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_day.BackColor = Color.LightYellow
         cbo_day.FlatStyle = FlatStyle.Flat
         cbo_day.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -221,14 +238,17 @@ Partial Class SchedListForm
         Panel4.BackColor = Color.LightYellow
         Panel4.BorderStyle = BorderStyle.FixedSingle
         Panel4.Controls.Add(cb_room)
-        Panel4.Location = New Point(841, 488)
+        Panel4.Location = New Point(837, 453)
         Panel4.Name = "Panel4"
         Panel4.Size = New Size(175, 50)
         Panel4.TabIndex = 43
         ' 
         ' cb_room
         ' 
+        cb_room.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_room.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_room.BackColor = Color.LightYellow
+        cb_room.DropDownStyle = ComboBoxStyle.DropDownList
         cb_room.FlatStyle = FlatStyle.Flat
         cb_room.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cb_room.FormattingEnabled = True
@@ -243,7 +263,7 @@ Partial Class SchedListForm
         StartTime.CustomFormat = ""
         StartTime.Font = New Font("Calibri", 24.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         StartTime.Format = DateTimePickerFormat.Time
-        StartTime.Location = New Point(338, 544)
+        StartTime.Location = New Point(318, 547)
         StartTime.Name = "StartTime"
         StartTime.ShowUpDown = True
         StartTime.Size = New Size(153, 48)
@@ -256,7 +276,7 @@ Partial Class SchedListForm
         EndTime.CustomFormat = ""
         EndTime.Font = New Font("Calibri", 24.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         EndTime.Format = DateTimePickerFormat.Time
-        EndTime.Location = New Point(497, 544)
+        EndTime.Location = New Point(493, 547)
         EndTime.Name = "EndTime"
         EndTime.ShowUpDown = True
         EndTime.Size = New Size(153, 48)
@@ -278,12 +298,67 @@ Partial Class SchedListForm
         ResetBtn.Text = "RESET"
         ResetBtn.UseVisualStyleBackColor = False
         ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(28, 431)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(49, 19)
+        Label1.TabIndex = 49
+        Label1.Text = "Name"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(338, 431)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(60, 19)
+        Label2.TabIndex = 50
+        Label2.Text = "Subject"
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Location = New Point(28, 525)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(59, 19)
+        Label3.TabIndex = 51
+        Label3.Text = "Section"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(656, 431)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(35, 19)
+        Label4.TabIndex = 51
+        Label4.Text = "Day"
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label5.Location = New Point(837, 431)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(49, 19)
+        Label5.TabIndex = 52
+        Label5.Text = "Room"
+        ' 
         ' SchedListForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1050, 609)
+        Controls.Add(Label5)
+        Controls.Add(Label4)
+        Controls.Add(Label3)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
         Controls.Add(ResetBtn)
         Controls.Add(EndTime)
         Controls.Add(StartTime)
@@ -333,4 +408,9 @@ Partial Class SchedListForm
     Friend WithEvents cb_sections As ComboBox
     Friend WithEvents cbo_sec As ComboBox
     Friend WithEvents ResetBtn As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
 End Class

@@ -1,26 +1,46 @@
-﻿Imports System.Security.Cryptography.X509Certificates
+﻿Imports System.Globalization
+Imports System.Security.Cryptography.X509Certificates
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 
 Public Class SchedulePopupForm
+    Private Sub SchedulePopupForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        StartTime1.Format = DateTimePickerFormat.Custom
+        StartTime1.CustomFormat = "hh:mm tt"
+        StartTime1.ShowUpDown = True
+
+        enTime.Format = DateTimePickerFormat.Custom
+        enTime.CustomFormat = "hh:mm tt"
+        enTime.ShowUpDown = True
 
 
 
-    Public Sub New(ByVal data1 As String, ByVal data2 As String, ByVal data3 As String, ByVal startTime As DateTime, ByVal endTime As DateTime, ByVal data4 As String, ByVal data5 As String, ByVal comboBoxData As String, ByVal days As List(Of String), ID As Integer)
+
+
+
+    End Sub
+
+
+    Public Sub New(Instructor As String, Section As String, Subject As String, Start As String, ind As String, Day As String, Room As String, id As Integer)
+
         InitializeComponent()
-        cbo_instructor.Items.Add(data1)
-        cbo_section.Items.Add(data2)
-        cbo_subject.Items.Add(data3)
-        cb_room.Items.Add(data5)
-        TXTid.Text = ID
-        cbo_instructor.SelectedItem = data1
-        cbo_section.SelectedItem = data2
-        cbo_subject.SelectedItem = data3
-        cbo_day.Items.AddRange(days.ToArray())
-        cbo_day.SelectedItem = data4
-        cb_room.SelectedItem = data5
-        StartTime1.Value = startTime
-        Me.StartTime1.Value = endTime
+        GetInstructor()
+        GetSection()
+        GetSubject()
+        GetRoom()
+
+        cbo_instructor.SelectedItem = Instructor
+        cbo_section.SelectedItem = Section
+        cbo_subject.SelectedItem = Subject
+        StartTime1.Value = DateTime.ParseExact(Start, "h:mm:ss tt", CultureInfo.InvariantCulture)
+        enTime.Value = DateTime.ParseExact(ind, "h:mm:ss tt", CultureInfo.InvariantCulture)
+        cbo_day.SelectedItem = Day
+        cb_room.SelectedItem = Room
+        TXTid.Text = id.ToString()
+
+
+
     End Sub
 
     Private Sub GetInstructor()
@@ -62,7 +82,8 @@ Public Class SchedulePopupForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select CONCAT(subject_name, ' ', subject_code) AS Subject from subjects"
+            cmd.CommandText = "SELECT CONCAT(subject_description, ' (', subject_code, ')') AS Subject FROM subjects
+"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
             cbo_subject.Items.Clear()
@@ -94,18 +115,6 @@ Public Class SchedulePopupForm
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         CreateScheduleForm.Enabled = True
         CreateScheduleForm.Show()
@@ -114,10 +123,17 @@ Public Class SchedulePopupForm
     End Sub
 
     Private Sub btn_update_Click(sender As Object, e As EventArgs) Handles btn_update.Click
+
+        If StartTime1.Value.ToString("hh:mm tt") = enTime.Value.ToString("hh:mm tt") Then
+            MessageBox.Show("The start time and end time cannot be the same. Please adjust the schedule accordingly.", "Invalid Schedule", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         Dim isConflict = CheckScheduleConflict(cbo_day.SelectedItem.ToString, cb_room.SelectedItem.ToString, StartTime1.Value.ToString("HH:mm:ss"), StartTime1.Value.ToString("HH:mm:ss"), Convert.ToInt32(TXTid.Text))
 
         If isConflict Then
-            MessageBox.Show("Schedule conflict detected. Please choose a different time or room.")
+            MessageBox.Show("A schedule conflict has been detected. Please choose a different time or room for this schedule.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         Else
             ' No conflict, proceed with updating
             If updateSched() Then
@@ -137,23 +153,25 @@ Public Class SchedulePopupForm
         Try
             ' Check if any of the required controls are null
             If cbo_instructor.SelectedItem Is Nothing OrElse cbo_day.SelectedItem Is Nothing OrElse cb_room.SelectedItem Is Nothing OrElse StartTime1 Is Nothing OrElse Me.StartTime1 Is Nothing Then
-                MsgBox("Some data is missing. Please fill in all required fields.")
+                MsgBox("Some data is missing. Please ensure all required fields are filled in before proceeding.", MsgBoxStyle.OkOnly Or MsgBoxStyle.Exclamation, "Missing Data")
+
                 Return False
             End If
 
             ' Convert values to string and integer
-            Dim instructor As String = cbo_day.SelectedItem.ToString()
+            Dim instructor As String = cbo_instructor.SelectedItem.ToString()
             Dim day As String = cbo_day.SelectedItem.ToString()
             Dim room As String = cb_room.SelectedItem.ToString()
             Dim startTime As String = StartTime1.Value.ToString("HH:mm:ss")
-            Dim endTime As String = Me.StartTime1.Value.ToString("HH:mm:ss")
+            Dim endTime As String = enTime.Value.ToString("HH:mm:ss")
             Dim scheduleID As Integer = Convert.ToInt32(TXTid.Text)
 
             ' Check for schedule conflicts
             Dim isConflict As Boolean = CheckScheduleConflict(day, room, startTime, endTime, scheduleID)
 
             If isConflict Then
-                MsgBox("Schedule conflict detected. Please choose a different time or room.")
+                MsgBox("Schedule conflict detected. Please choose a different time or room.", MsgBoxStyle.OkOnly Or MsgBoxStyle.Exclamation, "Schedule Conflict")
+
                 Return False
             Else
                 ' Proceed with updating the schedule
@@ -161,15 +179,12 @@ Public Class SchedulePopupForm
                 cmd.Connection = con
                 cmd.CommandText = "UPDATE schedules SET InstructorName = @Instructor, Section = @Section, Subject = @Subject, StartTime = @StartTime, EndTime = @EndTime, Day = @Day, RoomNumber = @Room WHERE ScheduleID = @ScheduleID"
                 cmd.Parameters.Clear()
-                Dim InstructorValue As Object = If(cbo_instructor.SelectedItem IsNot Nothing, cbo_instructor.SelectedItem, cbo_instructor.Text)
-                Dim sectionValue As Object = If(cbo_section.SelectedItem IsNot Nothing, cbo_section.SelectedItem, cbo_section.Text)
-                Dim subjectValue As Object = If(cbo_subject.SelectedItem IsNot Nothing, cbo_subject.SelectedItem, cbo_subject.Text)
-                Dim roomValue As Object = If(cb_room.SelectedItem IsNot Nothing, cb_room.SelectedItem, cb_room.Text)
 
-                cmd.Parameters.AddWithValue("@Instructor", InstructorValue)
-                cmd.Parameters.AddWithValue("@Section", sectionValue)
-                cmd.Parameters.AddWithValue("@Subject", subjectValue)
-                cmd.Parameters.AddWithValue("@Room", roomValue)
+
+                cmd.Parameters.AddWithValue("@Instructor", instructor)
+                cmd.Parameters.AddWithValue("@Section", cbo_section.SelectedItem.ToString())
+                cmd.Parameters.AddWithValue("@Subject", cbo_subject.SelectedItem.ToString())
+                cmd.Parameters.AddWithValue("@Room", room)
                 cmd.Parameters.AddWithValue("@StartTime", startTime)
                 cmd.Parameters.AddWithValue("@EndTime", endTime)
                 cmd.Parameters.AddWithValue("@Day", day)
@@ -191,35 +206,7 @@ Public Class SchedulePopupForm
 
 
 
-    Private Sub SchedulePopupForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        StartTime1.Format = DateTimePickerFormat.Custom
-        StartTime1.CustomFormat = "hh:mm tt"
-        StartTime1.ShowUpDown = True
-
-        EndTime.Format = DateTimePickerFormat.Custom
-        EndTime.CustomFormat = "hh:mm tt"
-        EndTime.ShowUpDown = True
-
-
-        GetInstructor()
-        GetSection()
-        GetSubject()
-        GetRoom()
-
-        If Not String.IsNullOrEmpty(cbo_instructor.Text) Then
-            cbo_instructor.SelectedItem = cbo_instructor.Text
-        End If
-
-        If Not String.IsNullOrEmpty(cbo_day.Text) Then
-            cbo_day.SelectedItem = cbo_day.Text
-        End If
-
-        If Not String.IsNullOrEmpty(cb_room.Text) Then
-            cb_room.SelectedItem = cb_room.Text
-        End If
-
-    End Sub
 
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click

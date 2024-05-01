@@ -109,7 +109,7 @@ Public Class SchedListForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select subject_code from subjects"
+            cmd.CommandText = "SELECT CONCAT(subject_description, ' (', subject_code, ')') AS Subject FROM subjects"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -120,7 +120,7 @@ Public Class SchedListForm
 
             For Each row As DataRow In newtable.Rows
 
-                cbo_subject.Items.Add(row("subject_code").ToString())
+                cbo_subject.Items.Add(row("Subject").ToString())
             Next
 
             con.Close()
