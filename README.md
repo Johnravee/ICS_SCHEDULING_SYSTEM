@@ -21,65 +21,57 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
 - Database Name: ics_scheduling_db
 - Customizable database connection available in the DatabaseConnection.vb file
 
-## Tables in Database:
-CREATE TABLE `instructor`(
-    `InstructorID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `RFID` VARCHAR(255) NOT NULL,
-    `Firstname` VARCHAR(255) NOT NULL,
-    `MiddleName` VARCHAR(255) NOT NULL,
-    `Surname` VARCHAR(255) NOT NULL,
-    `Position` VARCHAR(255) NOT NULL,
-    `WorkStatus` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) NOT NULL
-);
-ALTER TABLE
-    `instructor` ADD UNIQUE `instructor_rfid_unique`(`RFID`);
-ALTER TABLE
-    `instructor` ADD UNIQUE `instructor_email_unique`(`email`);
-CREATE TABLE `sections`(
-    `SectionID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `Section_Code` VARCHAR(255) NOT NULL,
-    `Year` VARCHAR(255) NOT NULL,
-    `Section_Program` VARCHAR(255) NOT NULL
-);
-CREATE TABLE `rooms`(
-    `RoomID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `Room` VARCHAR(255) NOT NULL
-);
-CREATE TABLE `schedules`(
-    `ScheduleID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `InstructorName` VARCHAR(255) NOT NULL,
-    `Section` VARCHAR(255) NOT NULL,
-    `Subject` VARCHAR(255) NOT NULL,
-    `StartTime` TIME NOT NULL,
-    `EndTime` TIME NOT NULL,
-    `Day` VARCHAR(255) NOT NULL,
-    `RoomNumber` VARCHAR(255) NOT NULL
-);
-CREATE TABLE `subjects`(
-    `SubjectID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `subject_description` VARCHAR(255) NOT NULL,
-    `subject-code` VARCHAR(255) NOT NULL
-);
-ALTER TABLE
-    `subjects` ADD UNIQUE `subjects_subject_description_unique`(`subject_description`);
+## Database Tables
 
+### instructor
+- **Description**: Store information about instructors
+- **Fields**: 
+    - InstructorID (INT): Unique identifier for each instructor
+    - RFID (VARCHAR(255)): RFID code for identification
+    - Firstname (VARCHAR(255)): First name of the instructor
+    - MiddleName (VARCHAR(255)): Middle name of the instructor
+    - Surname (VARCHAR(255)): Last name of the instructor
+    - Position (VARCHAR(255)): Position or title of the instructor
+    - WorkStatus (VARCHAR(255)): Current work status of the instructor
+    - email (VARCHAR(255)): Email address of the instructor
+- **Constraints**: 
+    - Unique constraint on RFID: `instructor_rfid_unique`
+    - Unique constraint on email: `instructor_email_unique`
 
+### sections
+- **Description**: Manage sections with section code, year, and program details
+- **Fields**:
+    - SectionID (INT): Unique identifier for each section
+    - Section_Code (VARCHAR(255)): Code representing the section
+    - Year (VARCHAR(255)): Year of the section
+    - Section_Program (VARCHAR(255)): Program associated with the section
 
-### instructor:
-- Store information about instructors
+### rooms
+- **Description**: Maintain information about rooms available for scheduling
+- **Fields**:
+    - RoomID (INT): Unique identifier for each room
+    - Room (VARCHAR(255)): Name or identifier of the room
 
-### sections:
-- Manage sections with section code, year, and program details
+### schedules
+- **Description**: Schedule classes with details such as instructor name, section, subject, start time, end time, day, and room number
+- **Fields**:
+    - ScheduleID (INT): Unique identifier for each schedule entry
+    - InstructorName (VARCHAR(255)): Name of the instructor teaching the class
+    - Section (VARCHAR(255)): Section associated with the class
+    - Subject (VARCHAR(255)): Subject of the class
+    - StartTime (TIME): Start time of the class
+    - EndTime (TIME): End time of the class
+    - Day (VARCHAR(255)): Day of the week the class occurs
+    - RoomNumber (VARCHAR(255)): Room number where the class is held
 
-### rooms:
-- Maintain information about rooms available for scheduling
-
-### schedules:
-- Schedule classes with details such as instructor name, section, subject, start time, end time, day, and room number
-
-### subjects:
-- Store subjects along with their descriptions and codes.
+### subjects
+- **Description**: Store subjects along with their descriptions and codes
+- **Fields**:
+    - SubjectID (INT): Unique identifier for each subject
+    - subject_description (VARCHAR(255)): Description of the subject
+    - subject-code (VARCHAR(255)): Code representing the subject
+- **Constraints**: 
+    - Unique constraint on subject_description: `subjects_subject_description_unique`
 
 
 
