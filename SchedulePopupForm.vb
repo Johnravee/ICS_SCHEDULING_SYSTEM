@@ -39,6 +39,7 @@ Public Class SchedulePopupForm
         cb_room.SelectedItem = Room
         TXTid.Text = id.ToString()
 
+        'MsgBox(cbo_instructor.SelectedItem & " " & cbo_section.SelectedItem & " " & cbo_subject.SelectedItem & " " & cbo_day.SelectedItem & " " & cb_room.SelectedItem & " " & TXTid.Text)
 
 
     End Sub
@@ -152,9 +153,8 @@ Public Class SchedulePopupForm
     Public Function updateSched() As Boolean
         Try
             ' Check if any of the required controls are null
-            If cbo_instructor.SelectedItem Is Nothing OrElse cbo_day.SelectedItem Is Nothing OrElse cb_room.SelectedItem Is Nothing OrElse StartTime1 Is Nothing OrElse Me.StartTime1 Is Nothing Then
+            If cbo_instructor.SelectedItem Is Nothing OrElse cbo_day.SelectedItem Is Nothing OrElse cb_room.SelectedItem Is Nothing OrElse StartTime1 Is Nothing OrElse enTime Is Nothing Then
                 MsgBox("Some data is missing. Please ensure all required fields are filled in before proceeding.", MsgBoxStyle.OkOnly Or MsgBoxStyle.Exclamation, "Missing Data")
-
                 Return False
             End If
 
@@ -171,7 +171,6 @@ Public Class SchedulePopupForm
 
             If isConflict Then
                 MsgBox("Schedule conflict detected. Please choose a different time or room.", MsgBoxStyle.OkOnly Or MsgBoxStyle.Exclamation, "Schedule Conflict")
-
                 Return False
             Else
                 ' Proceed with updating the schedule
@@ -180,10 +179,9 @@ Public Class SchedulePopupForm
                 cmd.CommandText = "UPDATE schedules SET InstructorName = @Instructor, Section = @Section, Subject = @Subject, StartTime = @StartTime, EndTime = @EndTime, Day = @Day, RoomNumber = @Room WHERE ScheduleID = @ScheduleID"
                 cmd.Parameters.Clear()
 
-
                 cmd.Parameters.AddWithValue("@Instructor", instructor)
-                cmd.Parameters.AddWithValue("@Section", cbo_section.SelectedItem.ToString())
-                cmd.Parameters.AddWithValue("@Subject", cbo_subject.SelectedItem.ToString())
+                cmd.Parameters.AddWithValue("@Section", If(cbo_section.SelectedItem IsNot Nothing, cbo_section.SelectedItem.ToString(), ""))
+                cmd.Parameters.AddWithValue("@Subject", If(cbo_subject.SelectedItem IsNot Nothing, cbo_subject.SelectedItem.ToString(), ""))
                 cmd.Parameters.AddWithValue("@Room", room)
                 cmd.Parameters.AddWithValue("@StartTime", startTime)
                 cmd.Parameters.AddWithValue("@EndTime", endTime)
@@ -191,11 +189,7 @@ Public Class SchedulePopupForm
                 cmd.Parameters.AddWithValue("@ScheduleID", scheduleID)
                 cmd.ExecuteNonQuery()
 
-
-
-
                 con.Close()
-
                 Return True
             End If
         Catch ex As Exception
@@ -203,6 +197,7 @@ Public Class SchedulePopupForm
             Return False
         End Try
     End Function
+
 
 
 

@@ -215,9 +215,9 @@ Partial Class SubjectForm
         GroupBox1.Controls.Add(dgvSubjectTable)
         GroupBox1.Font = New Font("Calibri", 20.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox1.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        GroupBox1.Location = New Point(665, 73)
+        GroupBox1.Location = New Point(554, 73)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(452, 482)
+        GroupBox1.Size = New Size(563, 482)
         GroupBox1.TabIndex = 36
         GroupBox1.TabStop = False
         GroupBox1.Text = "LIST OF SUBJECTS"
@@ -259,7 +259,7 @@ Partial Class SubjectForm
         DataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
         dgvSubjectTable.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        dgvSubjectTable.Size = New Size(446, 443)
+        dgvSubjectTable.Size = New Size(557, 443)
         dgvSubjectTable.TabIndex = 30
         ' 
         ' SubjectForm

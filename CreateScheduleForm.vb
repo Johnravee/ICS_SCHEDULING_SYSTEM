@@ -23,7 +23,7 @@ Public Class CreateScheduleForm
             GetSubject()
             GetRoom()
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, something went wrong while loading the form. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If con.State = ConnectionState.Open Then
                 con.Close()
@@ -43,13 +43,14 @@ Public Class CreateScheduleForm
 
             ' Check if start time and end time are the same
             If StartTime.Value.ToString("hh:mm") = EndTIme.Value.ToString("hh:mm") Then
-                MessageBox.Show("Same Start and End time is not applicable", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Please choose different start and end times.", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
             ' Check if the schedule already exists
             If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm")) Then
-                MessageBox.Show("Schedule is not available. Another schedule already exists for the same day and room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("The selected schedule conflicts with an existing one. Please choose a different time or room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
                 Return
             End If
 
@@ -80,7 +81,7 @@ Public Class CreateScheduleForm
 
             cb_room.Text = ""
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MessageBox.Show("An unexpected error occurred. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If con.State = ConnectionState.Open Then
                 con.Close()
@@ -92,15 +93,11 @@ Public Class CreateScheduleForm
 
     Private Sub getSchedules()
         Try
-
-
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules ORDER BY ScheduleID DESC"
-
+            cmd.CommandText = "SELECT * FROM schedules ORDER BY Section, InstructorName, StartTime, EndTime, RoomNumber ASC"
 
             ScheduleTB.Clear()
-
 
             dataReader.SelectCommand = cmd
             dataReader.Fill(ScheduleTB)
@@ -114,14 +111,12 @@ Public Class CreateScheduleForm
                 ScheduleTB.Columns.Add("End Time", GetType(String))
             End If
 
-
             For Each row As DataRow In ScheduleTB.Rows
                 Dim startTime As TimeSpan = DirectCast(row("StartTime"), TimeSpan)
                 Dim endTime As TimeSpan = DirectCast(row("EndTime"), TimeSpan)
 
                 Dim startDateTime As DateTime = DateTime.Today.Add(startTime)
                 Dim endDateTime As DateTime = DateTime.Today.Add(endTime)
-
 
                 row("Start Time") = startDateTime.ToString("hh:mm tt")
                 row("End Time") = endDateTime.ToString("hh:mm tt")
@@ -140,7 +135,8 @@ Public Class CreateScheduleForm
             dgvSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("An error occurred while fetching schedules. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
         Finally
             con.Close()
         End Try
@@ -227,9 +223,11 @@ Public Class CreateScheduleForm
                 cb_instructor.Items.Add(row("FullName").ToString())
             Next
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving instructor information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
         End Try
     End Sub
+
 
     Private Sub GetSection()
         Try
@@ -248,7 +246,7 @@ Public Class CreateScheduleForm
                 cb_section.Items.Add(row("Section").ToString())
             Next
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving section information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -270,7 +268,7 @@ Public Class CreateScheduleForm
                 cb_subject.Items.Add(row("Subject").ToString())
             Next
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving subject information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -291,7 +289,7 @@ Public Class CreateScheduleForm
                 cb_room.Items.Add(row("Room").ToString())
             Next
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving room information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

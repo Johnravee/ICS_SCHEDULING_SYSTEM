@@ -13,30 +13,39 @@
     Private Sub InstructorListBtn_Click(sender As Object, e As EventArgs) Handles InstructorListBtn.Click
 
         switchPanel(InstructorListForm)
+        SchedListForm.Close()
+        FacilityListForm.Close()
+        SectionListForm.Close()
 
     End Sub
 
     Private Sub ScheduleListBtn_Click(sender As Object, e As EventArgs) Handles ScheduleListBtn.Click
         switchPanel(SchedListForm)
-
+        InstructorListForm.Close()
+        FacilityListForm.Close()
+        SectionListForm.Close()
     End Sub
 
     Private Sub FacilityListBtn_Click(sender As Object, e As EventArgs) Handles FacilityListBtn.Click
         switchPanel(FacilityListForm)
+        InstructorListForm.Close()
+        SchedListForm.Close()
+        SectionListForm.Close()
     End Sub
 
     Private Sub SectionListBtn_Click(sender As Object, e As EventArgs) Handles SectionListBtn.Click
         switchPanel(SectionListForm)
+        InstructorListForm.Close()
+        SchedListForm.Close()
+        FacilityListForm.Close()
     End Sub
 
     Private Sub BackBtn_Click(sender As Object, e As EventArgs) Handles BackBtn.Click
         Dashboard.Show()
-        Me.Hide()
+        Me.Close()
     End Sub
 
-    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
 
-    End Sub
 
 
 End Class

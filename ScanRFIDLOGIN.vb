@@ -47,7 +47,6 @@ Public Class ScanRFIDLOGIN
     'Authenticate user
     Private Function Authentication(data As String) As Boolean
         Try
-
             DBCon()
             cmd.Connection = con
             cmd.CommandText = "SELECT * FROM instructor WHERE RFID = @rfid AND Position IN ('DEAN', 'BSIT PROGRAM HEAD', 'BScPE PROGRAM HEAD' )"
@@ -67,10 +66,15 @@ Public Class ScanRFIDLOGIN
                 ScanRFID_Logo.Visible = False
                 hidelogos.Start()
                 Return False
-
             End If
         Catch ex As Exception
-            MsgBox("An error occurred: " & ex.ToString())
+            MsgBox("Sorry, there was a problem with the authentication process. Please try again.", MsgBoxStyle.Exclamation, "Authentication Error")
+            con.Close()
+            txtrfidlogin.Clear()
+            txtrfidlogin.Focus()
+            Scan_Denied_Logo.Visible = True
+            ScanRFID_Logo.Visible = False
+            hidelogos.Start()
             Return False
         End Try
     End Function

@@ -59,7 +59,7 @@
 
 
         Catch ex As Exception
-            MsgBox(ex.Message())
+            MessageBox.Show("An error occurred while loading instructor data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -125,8 +125,6 @@
         End If
 
 
-        If Not buttonFound AndAlso searchText <> "" Then
-            MessageBox.Show("Button not found.")
-        End If
+
     End Sub
 End Class

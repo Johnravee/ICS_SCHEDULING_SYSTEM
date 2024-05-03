@@ -24,7 +24,7 @@
             dgvSubjectTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvSubjectTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True
         Catch ex As Exception
-            MsgBox(ex.Message())
+            MessageBox.Show("Sorry, we encountered an error while retrieving subject information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -70,15 +70,19 @@
             If cmd.ExecuteNonQuery() > 0 Then
                 dgvSubjectTable.DataSource = Nothing
                 getSubjects()
-                MessageBox.Show("Insertion successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Subject inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
             Else
-                MessageBox.Show("Insertion failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                dgvSubjectTable.DataSource = Nothing
+                getSubjects()
+                MessageBox.Show("Failed to insert subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtsubjectcode.Clear()
+                txtsubjectname.Clear()
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message())
+            MessageBox.Show("An error occurred while inserting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -101,11 +105,17 @@
                 txtsubjectname.Clear()
                 txtsubjectid.Clear()
             Else
-                MessageBox.Show("Update failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                dgvSubjectTable.DataSource = Nothing
+                getSubjects()
+                MessageBox.Show("Subject updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                txtsubjectcode.Clear()
+                txtsubjectcode.Clear()
+                txtsubjectname.Clear()
+                txtsubjectid.Clear()
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message())
+            MessageBox.Show("An error occurred while deleting the subject. Please try again later..", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -121,7 +131,7 @@
             If cmd.ExecuteNonQuery() > 0 Then
                 dgvSubjectTable.DataSource = Nothing
                 getSubjects()
-                MessageBox.Show("Deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Subject deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
                 txtsubjectid.Clear()
@@ -130,7 +140,8 @@
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message())
+            MessageBox.Show("An error occurred while deleting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
         End Try
     End Sub
 

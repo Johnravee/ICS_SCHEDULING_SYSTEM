@@ -64,7 +64,7 @@ Public Class viewSection
 
 
         Catch ex As Exception
-            MsgBox(ex.Message())
+            MessageBox.Show("An error occurred while loading instructor data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

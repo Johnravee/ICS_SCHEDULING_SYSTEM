@@ -34,23 +34,28 @@ Public Class SchedListForm
     'GetSchedules
     Private Sub GetSchedules()
 
-        DBCon()
-        cmd.Connection = con
-        cmd.CommandText = "SELECT ScheduleID ,InstructorName, Section, Subject, TIME_FORMAT(StartTime, '%h:%i %p') AS FormattedStart, TIME_FORMAT(EndTime, '%h:%i %p') AS FormattedEnd, Day, RoomNumber FROM schedules"
-        cmd.ExecuteNonQuery()
-        dataReader.Fill(lamesa)
-        dgv.DataSource = lamesa
+        Try
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "SELECT ScheduleID ,InstructorName, Section, Subject, TIME_FORMAT(StartTime, '%h:%i %p') AS FormattedStart, TIME_FORMAT(EndTime, '%h:%i %p') AS FormattedEnd, Day, RoomNumber FROM schedules"
+            cmd.ExecuteNonQuery()
+            dataReader.Fill(lamesa)
+            dgv.DataSource = lamesa
 
-        dgv.Columns("ScheduleID").Visible = False
+            dgv.Columns("ScheduleID").Visible = False
 
 
 
-        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-        dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
-        con.Close()
+            con.Close()
+        Catch ex As Exception
+            MessageBox.Show("An error occurred while fetching schedules. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            con.Close()
+        End Try
     End Sub
 
 
@@ -72,7 +77,7 @@ Public Class SchedListForm
             Next
             con.Close()
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving instructor information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -97,7 +102,7 @@ Public Class SchedListForm
             con.Close()
 
         Catch ex As Exception
-            MsgBox("Error in GetSection(): " & ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving section information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -125,7 +130,7 @@ Public Class SchedListForm
 
             con.Close()
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving subject information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -148,7 +153,7 @@ Public Class SchedListForm
 
             con.Close()
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MessageBox.Show("Sorry, we encountered an error while retrieving room information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -224,13 +229,9 @@ Public Class SchedListForm
     Private Sub upd_Click(sender As Object, e As EventArgs) Handles upd.Click
 
 
-
-        MsgBox("Start Time: " & StartTime.Value.ToString("hh:mm") & vbCrLf & "End Time: " & EndTime.Value.ToString("hh:mm"))
-
-
         ' Check if start time and end time are the same
         If StartTime.Value.ToString("hh:mm") = EndTime.Value.ToString("hh:mm") Then
-            MessageBox.Show("Same Start and End time is not applicable", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Please select different start and end times.", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
@@ -246,7 +247,7 @@ Public Class SchedListForm
 
         Try
             cmd.Connection = con
-            cmd.CommandText = "UPDATE schedules SET InstructorName =@instruc, Section=@sec, Subject=@sub, StartTime=@td, EndTime=@et, Day=@day, RoomNumber=@rn WHERE ScheduleID=@schedID"
+            cmd.CommandText = "UPDATE schedules SET InstructorName = @instruc, Section = @sec, Subject = @sub, StartTime = @td, EndTime = @et, Day = @day, RoomNumber = @rn WHERE ScheduleID = @schedID"
 
             ' Clear parameters before adding new ones
             cmd.Parameters.Clear()
@@ -261,26 +262,25 @@ Public Class SchedListForm
             cmd.Parameters.AddWithValue("@day", cbo_day.SelectedItem)
             cmd.Parameters.AddWithValue("@rn", cb_room.SelectedItem)
 
-
-
             ' Execute the command
             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 
             If rowsAffected > 0 Then
-                MsgBox("Update successful")
+                MessageBox.Show("Schedule updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 dgv.DataSource = Nothing
                 lamesa.Rows.Clear()
                 lamesa.Columns.Clear()
                 GetSchedules()
             Else
+                MessageBox.Show("Failed to update schedule.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 dgv.DataSource = Nothing
                 lamesa.Rows.Clear()
                 lamesa.Columns.Clear()
                 GetSchedules()
-                MsgBox("Update failed")
             End If
         Catch ex As Exception
-            MsgBox("Error updating record: " & ex.Message)
+            MessageBox.Show("An error occurred while updating the schedule. Please try again later or contact support for assistance.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
         Finally
             con.Close()
         End Try
@@ -352,8 +352,7 @@ Public Class SchedListForm
     'Delete All Schedules
     Private Sub ResetBtn_Click(sender As Object, e As EventArgs) Handles ResetBtn.Click
         Try
-
-            Dim result As DialogResult = MessageBox.Show("Do you want to reset the Schedules?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to reset the schedules?", "Reset Schedules", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
                 DBCon()
@@ -361,7 +360,7 @@ Public Class SchedListForm
                 cmd.CommandText = "TRUNCATE TABLE schedules"
                 cmd.ExecuteNonQuery()
 
-                MessageBox.Show("The reset was successful.", "Reset Successful", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("The schedules have been reset successfully.", "Reset Successful", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 dgv.DataSource = Nothing
                 lamesa.Rows.Clear()
@@ -369,17 +368,11 @@ Public Class SchedListForm
                 GetSchedules()
 
                 con.Close()
-
             End If
 
-
-
         Catch ex As Exception
-            dgv.DataSource = Nothing
-            lamesa.Rows.Clear()
-            lamesa.Columns.Clear()
-            GetSchedules()
-            MsgBox(ex.Message())
+            MessageBox.Show("An error occurred while resetting the schedules. Please try again later or contact support for assistance.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 End Class
