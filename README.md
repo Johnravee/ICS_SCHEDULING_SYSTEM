@@ -74,6 +74,6 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
     - Unique constraint on subject_description: `subjects_subject_description_unique`
       
 ### License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
 
 Thank you for choosing the ICS Scheduling System.
