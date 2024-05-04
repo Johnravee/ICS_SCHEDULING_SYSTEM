@@ -72,8 +72,8 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
     - subject-code (VARCHAR(255)): Code representing the subject
 - **Constraints**: 
     - Unique constraint on subject_description: `subjects_subject_description_unique`
-
-###License
+      
+### License
 This project is licensed under the MIT License.
 
 Thank you for choosing the ICS Scheduling System.
