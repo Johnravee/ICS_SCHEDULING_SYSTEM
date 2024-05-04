@@ -5,20 +5,20 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
 ## Features:
 
 ### Admin Tools:
-- Optimizing scheduling tasks
-- Assign instructors to classes
-- Generate reports for efficient management
-- Add Instructors
+- ⚙️ Optimizing scheduling tasks
+- 👩‍🏫 Assign instructors to classes
+- 📊 Generate reports for efficient management
+- ➕ Add Instructors
 
 ### Viewing Website:
-- Access schedules conveniently
-- User-friendly interface for easy navigation
+- 🖥️ Access schedules conveniently
+- 🌐 User-friendly interface for easy navigation
 
 ## Necessary Devices:
-- RFID Reader for enhanced security and efficiency
+- 📟 RFID Reader for enhanced security and efficiency
 
 ## Database Setup:
-- Database Name: ics_scheduling_db
+- **Database Name**: ics_scheduling_db
 - Customizable database connection available in the DatabaseConnection.vb file
 
 ## Database Tables
@@ -73,7 +73,7 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
 - **Constraints**: 
     - Unique constraint on subject_description: `subjects_subject_description_unique`
       
-### License
+## License
 This project is licensed under the [MIT License](LICENSE).
 
 Thank you for choosing the ICS Scheduling System.
