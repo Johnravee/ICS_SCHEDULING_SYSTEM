@@ -37,14 +37,17 @@ Public Class SchedListForm
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT ScheduleID ,InstructorName, Section, Subject, TIME_FORMAT(StartTime, '%h:%i %p') AS FormattedStart, TIME_FORMAT(EndTime, '%h:%i %p') AS FormattedEnd, Day, RoomNumber FROM schedules"
+            cmd.CommandText = "SELECT ScheduleID ,InstructorName, Section, Subject, TIME_FORMAT(StartTime, '%h:%i %p') AS FormattedStart, TIME_FORMAT(EndTime, '%h:%i %p') AS FormattedEnd, Day, RoomNumber, Semester FROM schedules"
             cmd.ExecuteNonQuery()
             dataReader.Fill(lamesa)
             dgv.DataSource = lamesa
 
             dgv.Columns("ScheduleID").Visible = False
 
-
+            dgv.Columns("InstructorName").HeaderText = "Name"
+            dgv.Columns("RoomNumber").HeaderText = "Room"
+            dgv.Columns("FormattedStart").HeaderText = "Start Time"
+            dgv.Columns("FormattedEnd").HeaderText = "End Time"
 
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -207,6 +210,7 @@ Public Class SchedListForm
                     lamesa.Rows.Clear()
                     lamesa.Columns.Clear()
                     GetSchedules()
+                    CreateScheduleForm.ResetForm()
                     MessageBox.Show("Record Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     dgv.DataSource = Nothing
@@ -236,7 +240,7 @@ Public Class SchedListForm
         End If
 
         ' Check if the schedule already exists
-        If ScheduleExists(cbo_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTime.Value.ToString("HH:mm")) Then
+        If ScheduleExists(cbo_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTime.Value.ToString("HH:mm"), cb_semester.SelectedItem) Then
             MessageBox.Show("Schedule is not available. Another schedule already exists for the same day and room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -247,7 +251,7 @@ Public Class SchedListForm
 
         Try
             cmd.Connection = con
-            cmd.CommandText = "UPDATE schedules SET InstructorName = @instruc, Section = @sec, Subject = @sub, StartTime = @td, EndTime = @et, Day = @day, RoomNumber = @rn WHERE ScheduleID = @schedID"
+            cmd.CommandText = "UPDATE schedules SET InstructorName = @instruc, Section = @sec, Subject = @sub, StartTime = @td, EndTime = @et, Day = @day, RoomNumber = @rn, Semester = @semester WHERE ScheduleID = @schedID"
 
             ' Clear parameters before adding new ones
             cmd.Parameters.Clear()
@@ -261,6 +265,7 @@ Public Class SchedListForm
             cmd.Parameters.AddWithValue("@et", EndTime.Value.TimeOfDay)
             cmd.Parameters.AddWithValue("@day", cbo_day.SelectedItem)
             cmd.Parameters.AddWithValue("@rn", cb_room.SelectedItem)
+            cmd.Parameters.AddWithValue("@semester", cb_semester.SelectedItem)
 
             ' Execute the command
             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
@@ -309,14 +314,14 @@ Public Class SchedListForm
             cbo_subject.SelectedItem = selectedRow.Cells(3).Value.ToString()
             cbo_day.SelectedItem = selectedRow.Cells(6).Value.ToString()
             cb_room.SelectedItem = selectedRow.Cells(7).Value.ToString()
-
+            cb_semester.SelectedItem = selectedRow.Cells(8).Value.ToString()
 
             dgv.Refresh()
         End If
     End Sub
 
     'Check Conflict in Schedules/ If schedule is already existed
-    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String) As Boolean
+    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String, Semester As String) As Boolean
         Dim exists As Boolean = False
 
         Try
@@ -325,13 +330,14 @@ Public Class SchedListForm
             End If
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))"
+            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@RoomNumber", room)
             cmd.Parameters.AddWithValue("@Day", day)
             cmd.Parameters.AddWithValue("@starttime", StartTime)
             cmd.Parameters.AddWithValue("@endtime", EndTime)
+            cmd.Parameters.AddWithValue("@semester", Semester)
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
             If count > 0 Then
@@ -361,7 +367,7 @@ Public Class SchedListForm
                 cmd.ExecuteNonQuery()
 
                 MessageBox.Show("The schedules have been reset successfully.", "Reset Successful", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                CreateScheduleForm.ResetForm()
                 dgv.DataSource = Nothing
                 lamesa.Rows.Clear()
                 lamesa.Columns.Clear()

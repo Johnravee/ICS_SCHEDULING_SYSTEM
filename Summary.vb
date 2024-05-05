@@ -10,7 +10,7 @@
             DBCon()
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber FROM schedules ORDER BY  Section, InstructorName, StartTime, EndTime, RoomNumber ASC"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester FROM schedules ORDER BY  Section, InstructorName, StartTime, EndTime, RoomNumber,Semester, DAYOFWEEK(day) ASC"
 
             ' Fill data into SummaryTable DataTable
             dataReader.Fill(SummaryTable)

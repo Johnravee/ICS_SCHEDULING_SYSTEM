@@ -140,6 +140,7 @@ Partial Class sectionSched
         dgvSectionSched.Name = "dgvSectionSched"
         dgvSectionSched.Size = New Size(1229, 506)
         dgvSectionSched.TabIndex = 11
+        dgvSectionSched.TabStop = False
         ' 
         ' printer
         ' 

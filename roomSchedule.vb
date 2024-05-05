@@ -10,7 +10,7 @@ Public Class roomSchedule
         Try
             Label1.Text = $"ROOM: {room}"
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber FROM schedules WHERE RoomNumber = @roomnumber ORDER BY DAYOFWEEK(day) ASC;"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester FROM schedules WHERE RoomNumber = @roomnumber ORDER BY DAYOFWEEK(day) ASC;"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@roomnumber", room)
 
@@ -34,12 +34,13 @@ Public Class roomSchedule
                 Dim section As String = row("Section").ToString().Trim()
                 Dim instructor As String = row("InstructorName").ToString().Trim()
                 Dim Subject As String = row("Subject").ToString().Trim()
+                Dim Semester As String = row("Semester").ToString.Trim()
 
                 Dim columnIndex As Integer = Array.IndexOf(daysOfWeek, day)
 
                 If columnIndex <> -1 AndAlso Not String.IsNullOrEmpty(section) Then
                     Dim rowIndex As Integer = dgvRoomSched.Rows.Add()
-                    Dim CellValue As String = $"Time: {TimeDuration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Section: {section}" & vbCrLf & $"Subject: {Subject}"
+                    Dim CellValue As String = $"Semester: {Semester}" & vbCrLf & $"Time: {TimeDuration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Section: {section}" & vbCrLf & $"Subject: {Subject}"
 
                     dgvRoomSched.Rows(rowIndex).Cells(columnIndex).Value = CellValue
                     dgvRoomSched.Rows(rowIndex).Cells(columnIndex).Style.BackColor = Color.Green
@@ -97,7 +98,7 @@ Public Class roomSchedule
             e.Graphics.DrawString("Colegio De Montalban", New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, New PointF(570, 80), StrFormat)
             e.Graphics.DrawString("ICS Schedules", New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, New PointF(570, 100), StrFormat)
             e.Graphics.DrawString($"Room: {room}", New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(80, 200), StrFormat)
-            e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(350, 210), StrFormat)
+            e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(320, 210), StrFormat)
 
             ' Define format for data
             Dim Format As New StringFormat(StringFormatFlags.LineLimit)
@@ -137,6 +138,8 @@ Public Class roomSchedule
                                 headerText = "Day"
                             Case 5
                                 headerText = "Room"
+                            Case 6
+                                headerText = "Semester"
                         End Select
 
                         Dim centerHeaderFormat As New StringFormat(Format)

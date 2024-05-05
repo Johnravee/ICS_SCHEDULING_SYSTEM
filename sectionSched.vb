@@ -17,7 +17,7 @@ Public Class sectionSched
 
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber FROM schedules WHERE Section = @section ORDER BY DAYOFWEEK(day) ASC"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester FROM schedules WHERE Section = @section ORDER BY DAYOFWEEK(day) ASC"
 
             ' Clear parameters and add the section parameter
             cmd.Parameters.Clear()
@@ -44,12 +44,13 @@ Public Class sectionSched
                 Dim day As String = row("Day").ToString().Trim()
                 Dim instructor As String = row("InstructorName").ToString().Trim()
                 Dim Subject As String = row("Subject").ToString().Trim()
+                Dim semester As String = row("Semester").ToString.Trim()
                 Dim columnIndex As Integer = Array.IndexOf(daysOfWeek, day)
 
                 ' Check if the day is valid and if the section is not empty
                 If columnIndex <> -1 AndAlso Not String.IsNullOrEmpty(Section) Then
                     Dim rowIndex As Integer = dgvSectionSched.Rows.Add()
-                    Dim CellValue As String = $"Time: {TimeDuration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Subject: {Subject}"
+                    Dim CellValue As String = $"Semester: {semester}" & vbCrLf & $"Time: {TimeDuration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Subject: {Subject}"
                     dgvSectionSched.Rows(rowIndex).Cells(columnIndex).Value = CellValue
                     dgvSectionSched.Rows(rowIndex).Cells(columnIndex).Style.BackColor = Color.Green
                 End If
@@ -145,6 +146,9 @@ Public Class sectionSched
                                 headerText = "Day"
                             Case 5
                                 headerText = "Room"
+                            Case 6
+                                headerText = "Semester"
+
                         End Select
 
                         Dim centerHeaderFormat As New StringFormat(Format)

@@ -31,12 +31,26 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
+    Public Sub ResetForm()
+        ' Reset all fields to their initial state
+        cb_instructor.SelectedIndex = -1
+        cb_section.SelectedIndex = -1
+        cb_subject.SelectedIndex = -1
+        cb_day.SelectedIndex = -1
+        cb_room.SelectedIndex = -1
+        cbo_semester.SelectedIndex = -1
+
+        dgvSchedule.DataSource = Nothing
+        getSchedules()
+    End Sub
+
     Private Sub submitbtn_Click(sender As Object, e As EventArgs) Handles submitbtn.Click
         Try
             If String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_room.SelectedItem) Then
+                String.IsNullOrEmpty(cb_room.SelectedItem) OrElse
+                String.IsNullOrEmpty(cbo_semester.SelectedItem) Then
                 MessageBox.Show("Please fill up all the fields.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
@@ -48,7 +62,7 @@ Public Class CreateScheduleForm
             End If
 
             ' Check if the schedule already exists
-            If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm")) Then
+            If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm"), cbo_semester.SelectedItem) Then
                 MessageBox.Show("The selected schedule conflicts with an existing one. Please choose a different time or room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
                 Return
@@ -56,7 +70,7 @@ Public Class CreateScheduleForm
 
             ' Insert the schedule into the database
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber)"
+            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`, Semester) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @semester)"
 
             ' Clear the parameters collection before adding new parameters
             cmd.Parameters.Clear()
@@ -67,6 +81,7 @@ Public Class CreateScheduleForm
             cmd.Parameters.AddWithValue("@EndTime", EndTIme.Value)
             cmd.Parameters.AddWithValue("@Day", cb_day.SelectedItem)
             cmd.Parameters.AddWithValue("@RoomNumber", cb_room.SelectedItem)
+            cmd.Parameters.AddWithValue("@semester", cbo_semester.SelectedItem)
 
 
             DBCon()
@@ -74,14 +89,17 @@ Public Class CreateScheduleForm
             getSchedules()
             con.Close()
 
-            cb_instructor.Text = ""
-            cb_section.Text = ""
-            cb_subject.Text = ""
-            cb_day.Text = ""
+            cbo_semester.SelectedIndex = -1
+            cb_day.SelectedIndex = -1
+            cb_instructor.SelectedIndex = -1
+            cb_room.SelectedIndex = -1
+            cb_section.SelectedIndex = -1
+            cb_subject.SelectedIndex = -1
 
-            cb_room.Text = ""
+
         Catch ex As Exception
             MessageBox.Show("An unexpected error occurred. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
         Finally
             If con.State = ConnectionState.Open Then
                 con.Close()
@@ -111,6 +129,8 @@ Public Class CreateScheduleForm
                 ScheduleTB.Columns.Add("End Time", GetType(String))
             End If
 
+
+
             For Each row As DataRow In ScheduleTB.Rows
                 Dim startTime As TimeSpan = DirectCast(row("StartTime"), TimeSpan)
                 Dim endTime As TimeSpan = DirectCast(row("EndTime"), TimeSpan)
@@ -120,6 +140,7 @@ Public Class CreateScheduleForm
 
                 row("Start Time") = startDateTime.ToString("hh:mm tt")
                 row("End Time") = endDateTime.ToString("hh:mm tt")
+
             Next
 
             dgvSchedule.DataSource = ScheduleTB
@@ -128,6 +149,10 @@ Public Class CreateScheduleForm
             dgvSchedule.Columns("ScheduleID").Visible = False
             dgvSchedule.Columns("StartTime").Visible = False
             dgvSchedule.Columns("EndTime").Visible = False
+
+            dgvSchedule.Columns("InstructorName").HeaderText = "Name"
+            dgvSchedule.Columns("RoomNumber").HeaderText = "Room"
+
 
             ' Set auto-sizing and wrap mode for better display
             dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
@@ -142,7 +167,7 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
-    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String) As Boolean
+    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String, semester As String) As Boolean
         Dim exists As Boolean = False
 
         Try
@@ -151,13 +176,14 @@ Public Class CreateScheduleForm
             End If
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))"
+            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))  AND Semester = @semester"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@RoomNumber", room)
             cmd.Parameters.AddWithValue("@Day", day)
             cmd.Parameters.AddWithValue("@starttime", StartTime)
             cmd.Parameters.AddWithValue("@endtime", EndTime)
+            cmd.Parameters.AddWithValue("@semester", semester)
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
             If count > 0 Then
@@ -306,12 +332,13 @@ Public Class CreateScheduleForm
             Dim id = selectedRow.Cells("ScheduleID").Value.ToString()
             Dim startTime As DateTime = DateTime.Parse(selectedRow.Cells("StartTime").Value.ToString())
             Dim endTime As DateTime = DateTime.Parse(selectedRow.Cells("EndTime").Value.ToString())
+            Dim Semester = selectedRow.Cells("Semester").Value.ToString()
 
             ' Convert time portion to strings
             Dim startTimeString As String = startTime.ToString("h:mm:ss tt")
             Dim endTimeString As String = endTime.ToString("h:mm:ss tt")
 
-            Dim PopupForm As New SchedulePopupForm(instructor, Section, Subject, startTimeString, endTimeString, Day, Room, Val(id))
+            Dim PopupForm As New SchedulePopupForm(instructor, Section, Subject, startTimeString, endTimeString, Day, Room, Val(id), Semester)
 
 
             PopupForm.BringToFront()

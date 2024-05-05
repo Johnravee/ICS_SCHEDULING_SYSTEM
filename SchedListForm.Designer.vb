@@ -48,12 +48,16 @@ Partial Class SchedListForm
         Label3 = New Label()
         Label4 = New Label()
         Label5 = New Label()
+        Label6 = New Label()
+        Panel1 = New Panel()
+        cb_semester = New ComboBox()
         CType(dgv, ComponentModel.ISupportInitialize).BeginInit()
         Panel10.SuspendLayout()
         Panel2.SuspendLayout()
         Panel3.SuspendLayout()
         pane100.SuspendLayout()
         Panel4.SuspendLayout()
+        Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' TextBox1
@@ -167,7 +171,7 @@ Partial Class SchedListForm
         Panel2.Controls.Add(cbo_sec)
         Panel2.Location = New Point(28, 547)
         Panel2.Name = "Panel2"
-        Panel2.Size = New Size(284, 50)
+        Panel2.Size = New Size(128, 50)
         Panel2.TabIndex = 39
         ' 
         ' cbo_sec
@@ -181,7 +185,7 @@ Partial Class SchedListForm
         cbo_sec.FormattingEnabled = True
         cbo_sec.Location = New Point(13, 7)
         cbo_sec.Name = "cbo_sec"
-        cbo_sec.Size = New Size(256, 34)
+        cbo_sec.Size = New Size(105, 34)
         cbo_sec.TabIndex = 37
         ' 
         ' Panel3
@@ -263,7 +267,7 @@ Partial Class SchedListForm
         StartTime.CustomFormat = ""
         StartTime.Font = New Font("Calibri", 24.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         StartTime.Format = DateTimePickerFormat.Time
-        StartTime.Location = New Point(318, 547)
+        StartTime.Location = New Point(318, 549)
         StartTime.Name = "StartTime"
         StartTime.ShowUpDown = True
         StartTime.Size = New Size(153, 48)
@@ -348,12 +352,49 @@ Partial Class SchedListForm
         Label5.TabIndex = 52
         Label5.Text = "Room"
         ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.Location = New Point(160, 525)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(72, 19)
+        Label6.TabIndex = 54
+        Label6.Text = "Semester"
+        ' 
+        ' Panel1
+        ' 
+        Panel1.BackColor = Color.LightYellow
+        Panel1.BorderStyle = BorderStyle.FixedSingle
+        Panel1.Controls.Add(cb_semester)
+        Panel1.Location = New Point(160, 547)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(152, 50)
+        Panel1.TabIndex = 53
+        ' 
+        ' cb_semester
+        ' 
+        cb_semester.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_semester.AutoCompleteSource = AutoCompleteSource.ListItems
+        cb_semester.BackColor = Color.LightYellow
+        cb_semester.DropDownStyle = ComboBoxStyle.DropDownList
+        cb_semester.FlatStyle = FlatStyle.Flat
+        cb_semester.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cb_semester.FormattingEnabled = True
+        cb_semester.Items.AddRange(New Object() {"FIRST SEMESTER", "SECOND SEMESTER"})
+        cb_semester.Location = New Point(3, 7)
+        cb_semester.Name = "cb_semester"
+        cb_semester.Size = New Size(135, 34)
+        cb_semester.TabIndex = 37
+        ' 
         ' SchedListForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1050, 609)
+        Controls.Add(Label6)
+        Controls.Add(Panel1)
         Controls.Add(Label5)
         Controls.Add(Label4)
         Controls.Add(Label3)
@@ -385,6 +426,7 @@ Partial Class SchedListForm
         Panel3.ResumeLayout(False)
         pane100.ResumeLayout(False)
         Panel4.ResumeLayout(False)
+        Panel1.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -413,4 +455,7 @@ Partial Class SchedListForm
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents cb_semester As ComboBox
 End Class

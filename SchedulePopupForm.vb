@@ -22,7 +22,7 @@ Public Class SchedulePopupForm
     End Sub
 
 
-    Public Sub New(Instructor As String, Section As String, Subject As String, Start As String, ind As String, Day As String, Room As String, id As Integer)
+    Public Sub New(Instructor As String, Section As String, Subject As String, Start As String, ind As String, Day As String, Room As String, id As Integer, Semester As String)
 
         InitializeComponent()
         GetInstructor()
@@ -38,8 +38,9 @@ Public Class SchedulePopupForm
         cbo_day.SelectedItem = Day
         cb_room.SelectedItem = Room
         TXTid.Text = id.ToString()
+        cbo_semester.SelectedItem = Semester
 
-        'MsgBox(cbo_instructor.SelectedItem & " " & cbo_section.SelectedItem & " " & cbo_subject.SelectedItem & " " & cbo_day.SelectedItem & " " & cb_room.SelectedItem & " " & TXTid.Text)
+        'MsgBox(cbo_instructor.SelectedItem & " " & cbo_section.SelectedItem & " " & cbo_subject.SelectedItem & " " & cbo_day.SelectedItem & " " & cb_room.SelectedItem & " " & TXTid.Text & " " & cbo_semester.SelectedItem)
 
 
     End Sub
@@ -130,21 +131,22 @@ Public Class SchedulePopupForm
             Return
         End If
 
-        Dim isConflict = CheckScheduleConflict(cbo_day.SelectedItem.ToString, cb_room.SelectedItem.ToString, StartTime1.Value.ToString("HH:mm:ss"), StartTime1.Value.ToString("HH:mm:ss"), Convert.ToInt32(TXTid.Text))
+        Dim isConflict = CheckScheduleConflict(cbo_day.SelectedItem.ToString, cb_room.SelectedItem.ToString, StartTime1.Value.ToString("HH:mm:ss"), StartTime1.Value.ToString("HH:mm:ss"), Convert.ToInt32(TXTid.Text), cbo_semester.SelectedItem)
 
         If isConflict Then
             MessageBox.Show("A schedule conflict has been detected. Please choose a different time or room for this schedule.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         Else
-            ' No conflict, proceed with updating
-            If updateSched() Then
-                CreateScheduleForm.Close()
-                CreateScheduleForm.Opacity = 1
-                CreateScheduleForm.Enabled = True
-                CreateScheduleForm.Show()
-                MessageBox.Show("Updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.Close()
 
+            If updateSched() Then
+
+                Me.Hide()
+                CreateScheduleForm.ResetForm()
+                CreateScheduleForm.Enabled = True
+                CreateScheduleForm.Opacity = 1
+                CreateScheduleForm.Show()
+
+                MessageBox.Show("Updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         End If
     End Sub
@@ -167,7 +169,7 @@ Public Class SchedulePopupForm
             Dim scheduleID As Integer = Convert.ToInt32(TXTid.Text)
 
             ' Check for schedule conflicts
-            Dim isConflict As Boolean = CheckScheduleConflict(day, room, startTime, endTime, scheduleID)
+            Dim isConflict As Boolean = CheckScheduleConflict(day, room, startTime, endTime, scheduleID, cbo_semester.SelectedItem)
 
             If isConflict Then
                 MsgBox("Schedule conflict detected. Please choose a different time or room.", MsgBoxStyle.OkOnly Or MsgBoxStyle.Exclamation, "Schedule Conflict")
@@ -176,7 +178,7 @@ Public Class SchedulePopupForm
                 ' Proceed with updating the schedule
                 DBCon()
                 cmd.Connection = con
-                cmd.CommandText = "UPDATE schedules SET InstructorName = @Instructor, Section = @Section, Subject = @Subject, StartTime = @StartTime, EndTime = @EndTime, Day = @Day, RoomNumber = @Room WHERE ScheduleID = @ScheduleID"
+                cmd.CommandText = "UPDATE schedules SET InstructorName = @Instructor, Section = @Section, Subject = @Subject, StartTime = @StartTime, EndTime = @EndTime, Day = @Day, RoomNumber = @Room, Semester = @semester WHERE ScheduleID = @ScheduleID"
                 cmd.Parameters.Clear()
 
                 cmd.Parameters.AddWithValue("@Instructor", instructor)
@@ -187,6 +189,7 @@ Public Class SchedulePopupForm
                 cmd.Parameters.AddWithValue("@EndTime", endTime)
                 cmd.Parameters.AddWithValue("@Day", day)
                 cmd.Parameters.AddWithValue("@ScheduleID", scheduleID)
+                cmd.Parameters.AddWithValue("@semester", cbo_semester.SelectedItem)
                 cmd.ExecuteNonQuery()
 
                 con.Close()
@@ -209,21 +212,20 @@ Public Class SchedulePopupForm
         Dim result = MessageBox.Show("Are you sure you want to delete this schedule?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
-            ' Call a method to delete the schedule
-            Dim scheduleDeleted = DeleteSchedule()
 
-            If scheduleDeleted Then
-                CreateScheduleForm.Close()
+
+            If DeleteSchedule() Then
+                Me.Hide()
+                CreateScheduleForm.ResetForm()
                 CreateScheduleForm.Opacity = 1
                 CreateScheduleForm.Enabled = True
                 CreateScheduleForm.Show()
                 MessageBox.Show("Deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
-
-                Me.Close()
             Else
                 MessageBox.Show("Deletion failed. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
             End If
         End If
     End Sub
@@ -256,7 +258,7 @@ Public Class SchedulePopupForm
     End Function
 
 
-    Private Function CheckScheduleConflict(day As String, room As String, StartTime As String, EndTime As String, scheduleID As Integer) As Boolean
+    Private Function CheckScheduleConflict(day As String, room As String, StartTime As String, EndTime As String, scheduleID As Integer, semester As String) As Boolean
         Dim conflictExists As Boolean = False
 
         Try
@@ -265,7 +267,7 @@ Public Class SchedulePopupForm
             End If
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime)) AND ScheduleID <> @ScheduleID"
+            cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime)) AND ScheduleID <> @ScheduleID"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@RoomNumber", room)
@@ -273,6 +275,7 @@ Public Class SchedulePopupForm
             cmd.Parameters.AddWithValue("@starttime", StartTime)
             cmd.Parameters.AddWithValue("@endtime", EndTime)
             cmd.Parameters.AddWithValue("@ScheduleID", scheduleID)
+            cmd.Parameters.AddWithValue("@semester", semester)
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
             If count > 0 Then

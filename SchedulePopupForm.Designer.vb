@@ -48,6 +48,9 @@ Partial Class SchedulePopupForm
         Panel1 = New Panel()
         enTime = New DateTimePicker()
         StartTime1 = New DateTimePicker()
+        Panel6 = New Panel()
+        cbo_semester = New ComboBox()
+        Label8 = New Label()
         Panel10.SuspendLayout()
         Panel2.SuspendLayout()
         Panel3.SuspendLayout()
@@ -55,6 +58,7 @@ Partial Class SchedulePopupForm
         Panel4.SuspendLayout()
         Panel5.SuspendLayout()
         Panel1.SuspendLayout()
+        Panel6.SuspendLayout()
         SuspendLayout()
         ' 
         ' Button1
@@ -124,7 +128,7 @@ Partial Class SchedulePopupForm
         ' 
         Label6.AutoSize = True
         Label6.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.Location = New Point(289, 431)
+        Label6.Location = New Point(276, 431)
         Label6.Name = "Label6"
         Label6.Size = New Size(71, 30)
         Label6.TabIndex = 10
@@ -146,7 +150,7 @@ Partial Class SchedulePopupForm
         btn_update.FlatStyle = FlatStyle.Flat
         btn_update.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_update.ForeColor = Color.Beige
-        btn_update.Location = New Point(46, 532)
+        btn_update.Location = New Point(46, 606)
         btn_update.Name = "btn_update"
         btn_update.Size = New Size(175, 45)
         btn_update.TabIndex = 16
@@ -159,7 +163,7 @@ Partial Class SchedulePopupForm
         btn_delete.FlatStyle = FlatStyle.Flat
         btn_delete.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_delete.ForeColor = Color.Beige
-        btn_delete.Location = New Point(276, 532)
+        btn_delete.Location = New Point(276, 606)
         btn_delete.Name = "btn_delete"
         btn_delete.Size = New Size(175, 45)
         btn_delete.TabIndex = 17
@@ -305,6 +309,8 @@ Partial Class SchedulePopupForm
         ' Panel1
         ' 
         Panel1.BackColor = Color.Beige
+        Panel1.Controls.Add(Panel6)
+        Panel1.Controls.Add(Label8)
         Panel1.Controls.Add(enTime)
         Panel1.Controls.Add(StartTime1)
         Panel1.Controls.Add(Panel4)
@@ -323,7 +329,7 @@ Partial Class SchedulePopupForm
         Panel1.Controls.Add(Label1)
         Panel1.Location = New Point(0, 44)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(515, 595)
+        Panel1.Size = New Size(515, 660)
         Panel1.TabIndex = 0
         ' 
         ' enTime
@@ -352,12 +358,47 @@ Partial Class SchedulePopupForm
         StartTime1.TabIndex = 45
         StartTime1.Value = New Date(2024, 4, 28, 0, 0, 0, 0)
         ' 
+        ' Panel6
+        ' 
+        Panel6.BackColor = Color.LightYellow
+        Panel6.BorderStyle = BorderStyle.FixedSingle
+        Panel6.Controls.Add(cbo_semester)
+        Panel6.Location = New Point(46, 550)
+        Panel6.Name = "Panel6"
+        Panel6.Size = New Size(405, 50)
+        Panel6.TabIndex = 44
+        ' 
+        ' cbo_semester
+        ' 
+        cbo_semester.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_semester.AutoCompleteSource = AutoCompleteSource.ListItems
+        cbo_semester.BackColor = Color.LightYellow
+        cbo_semester.DropDownStyle = ComboBoxStyle.DropDownList
+        cbo_semester.FlatStyle = FlatStyle.Flat
+        cbo_semester.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbo_semester.FormattingEnabled = True
+        cbo_semester.Items.AddRange(New Object() {"FIRST SEMESTER", "SECOND SEMESTER"})
+        cbo_semester.Location = New Point(14, 8)
+        cbo_semester.Name = "cbo_semester"
+        cbo_semester.Size = New Size(381, 34)
+        cbo_semester.TabIndex = 36
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label8.Location = New Point(46, 517)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(102, 30)
+        Label8.TabIndex = 43
+        Label8.Text = "Semester"
+        ' 
         ' SchedulePopupForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(32))
-        ClientSize = New Size(513, 640)
+        ClientSize = New Size(513, 704)
         Controls.Add(Button1)
         Controls.Add(Panel1)
         Controls.Add(Panel5)
@@ -376,6 +417,7 @@ Partial Class SchedulePopupForm
         Panel5.PerformLayout()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        Panel6.ResumeLayout(False)
         ResumeLayout(False)
     End Sub
     Friend WithEvents Button1 As Button
@@ -403,4 +445,7 @@ Partial Class SchedulePopupForm
     Friend WithEvents Panel1 As Panel
     Friend WithEvents enTime As DateTimePicker
     Friend WithEvents StartTime1 As DateTimePicker
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents cbo_semester As ComboBox
+    Friend WithEvents Label8 As Label
 End Class

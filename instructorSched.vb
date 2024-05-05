@@ -17,7 +17,7 @@ Public Class instructorSched
 
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber FROM schedules WHERE InstructorName = @instructor ORDER BY DAYOFWEEK(Day) ASC"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester FROM schedules WHERE InstructorName = @instructor ORDER BY DAYOFWEEK(Day) ASC"
 
             ' Clear parameters and add the instructor parameter
             cmd.Parameters.Clear()
@@ -44,12 +44,15 @@ Public Class instructorSched
                 Dim day As String = row("Day").ToString().Trim()
                 Dim Subject As String = row("Subject").ToString().Trim()
                 Dim roomNumber As String = row("RoomNumber").ToString().Trim()
+                Dim Semester As String = row("Semester").ToString().Trim()
+                Dim Section As String = row("Section").ToString().Trim()
                 Dim columnIndex As Integer = Array.IndexOf(daysOfWeek, day)
+
 
                 ' Check if the day is valid and if the instructor name is not empty
                 If columnIndex <> -1 AndAlso Not String.IsNullOrEmpty(instructor) Then
                     Dim rowIndex As Integer = dgvInstructorSched.Rows.Add()
-                    Dim CellValue As String = $"Time: {TimeDuration}" & vbCrLf & $"Day: {day}" & vbCrLf & $"Room: {roomNumber}" & vbCrLf & $"Subject: {Subject}"
+                    Dim CellValue As String = $"Semester: {Semester}" & vbCrLf & $"Section: {Section}" & vbCrLf & $"Time: {TimeDuration}" & vbCrLf & $"Room: {roomNumber}" & vbCrLf & $"Subject: {Subject}"
                     dgvInstructorSched.Rows(rowIndex).Cells(columnIndex).Value = CellValue
                     dgvInstructorSched.Rows(rowIndex).Cells(columnIndex).Style.BackColor = Color.Green
                 End If
@@ -145,6 +148,8 @@ Public Class instructorSched
                                 headerText = "Day"
                             Case 5
                                 headerText = "Room"
+                            Case 6
+                                headerText = "Semester"
                         End Select
 
                         Dim centerHeaderFormat As New StringFormat(Format)

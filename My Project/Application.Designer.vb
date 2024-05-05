@@ -33,7 +33,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.ICS_SCHEDULING_SYSTEM.ScanRFIDLOGIN
+            Me.MainForm = Global.ICS_SCHEDULING_SYSTEM.CreateScheduleForm
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _

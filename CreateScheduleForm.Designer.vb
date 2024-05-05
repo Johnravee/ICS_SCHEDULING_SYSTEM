@@ -56,6 +56,9 @@ Partial Class CreateScheduleForm
         submitbtn = New Button()
         Button1 = New Button()
         Label9 = New Label()
+        Panel7 = New Panel()
+        cbo_semester = New ComboBox()
+        Label6 = New Label()
         Panel1.SuspendLayout()
         Panel6.SuspendLayout()
         Panel4.SuspendLayout()
@@ -66,11 +69,14 @@ Partial Class CreateScheduleForm
         GroupBox2.SuspendLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
+        Panel7.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
+        Panel1.Controls.Add(Panel7)
+        Panel1.Controls.Add(Label6)
         Panel1.Controls.Add(Panel6)
         Panel1.Controls.Add(Panel4)
         Panel1.Controls.Add(Panel3)
@@ -429,7 +435,7 @@ Partial Class CreateScheduleForm
         submitbtn.FlatStyle = FlatStyle.Flat
         submitbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         submitbtn.ForeColor = SystemColors.ButtonHighlight
-        submitbtn.Location = New Point(459, 640)
+        submitbtn.Location = New Point(449, 654)
         submitbtn.Name = "submitbtn"
         submitbtn.Size = New Size(156, 53)
         submitbtn.TabIndex = 8
@@ -460,6 +466,41 @@ Partial Class CreateScheduleForm
         Label9.TabIndex = 1
         Label9.Text = "CREATE SCHEDULE"
         ' 
+        ' Panel7
+        ' 
+        Panel7.BackColor = Color.LightYellow
+        Panel7.BorderStyle = BorderStyle.FixedSingle
+        Panel7.Controls.Add(cbo_semester)
+        Panel7.Location = New Point(42, 602)
+        Panel7.Name = "Panel7"
+        Panel7.Size = New Size(239, 50)
+        Panel7.TabIndex = 41
+        ' 
+        ' cbo_semester
+        ' 
+        cbo_semester.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_semester.AutoCompleteSource = AutoCompleteSource.ListItems
+        cbo_semester.BackColor = Color.LightYellow
+        cbo_semester.FlatStyle = FlatStyle.Flat
+        cbo_semester.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbo_semester.FormattingEnabled = True
+        cbo_semester.Items.AddRange(New Object() {"FIRST SEMESTER", "SECOND SEMESTER"})
+        cbo_semester.Location = New Point(14, 8)
+        cbo_semester.Name = "cbo_semester"
+        cbo_semester.Size = New Size(214, 34)
+        cbo_semester.TabIndex = 36
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label6.Location = New Point(42, 569)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(93, 25)
+        Label6.TabIndex = 40
+        Label6.Text = "Semester"
+        ' 
         ' CreateScheduleForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -487,6 +528,7 @@ Partial Class CreateScheduleForm
         GroupBox2.PerformLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).EndInit()
         CType(logo, ComponentModel.ISupportInitialize).EndInit()
+        Panel7.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -521,4 +563,7 @@ Partial Class CreateScheduleForm
     Friend WithEvents Panel3 As Panel
     Friend WithEvents cb_subject As ComboBox
     Friend WithEvents Label9 As Label
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents cbo_semester As ComboBox
+    Friend WithEvents Label6 As Label
 End Class
