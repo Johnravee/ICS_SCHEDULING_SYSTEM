@@ -63,6 +63,7 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
     - EndTime (TIME): End time of the class
     - Day (VARCHAR(255)): Day of the week the class occurs
     - RoomNumber (VARCHAR(255)): Room number where the class is held
+    - Semester (VARCHAR(255)) : Semester of current schedule
 
 ### subjects
 - **Description**: Store subjects along with their descriptions and codes
