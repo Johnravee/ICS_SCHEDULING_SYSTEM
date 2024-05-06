@@ -29,6 +29,7 @@ Partial Class viewSection
         txtsearch = New TextBox()
         panelbtns = New Panel()
         Label1 = New Label()
+        Label9 = New Label()
         Panel1.SuspendLayout()
         Panel2.SuspendLayout()
         SuspendLayout()
@@ -36,6 +37,7 @@ Partial Class viewSection
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
+        Panel1.Controls.Add(Label9)
         Panel1.Controls.Add(backBtn)
         Panel1.Dock = DockStyle.Top
         Panel1.Location = New Point(0, 0)
@@ -92,6 +94,17 @@ Partial Class viewSection
         Label1.Size = New Size(0, 26)
         Label1.TabIndex = 5
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1364, 9)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(91, 24)
+        Label9.TabIndex = 4
+        Label9.Text = "SECTIONS"
+        ' 
         ' viewSection
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -108,6 +121,7 @@ Partial Class viewSection
         StartPosition = FormStartPosition.CenterScreen
         Text = "viewSection"
         Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
         ResumeLayout(False)
@@ -120,4 +134,5 @@ Partial Class viewSection
     Friend WithEvents txtsearch As TextBox
     Friend WithEvents panelbtns As Panel
     Friend WithEvents Label1 As Label
+    Friend WithEvents Label9 As Label
 End Class

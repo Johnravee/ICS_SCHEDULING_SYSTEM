@@ -34,6 +34,7 @@ Partial Class Summary
         PrintPreviewDialog = New PrintPreviewDialog()
         printingdgv = New DataGridView()
         dgvschedsum = New DataGridView()
+        Label9 = New Label()
         Panel1.SuspendLayout()
         CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvschedsum, ComponentModel.ISupportInitialize).BeginInit()
@@ -42,6 +43,7 @@ Partial Class Summary
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(0), CByte(51), CByte(38))
+        Panel1.Controls.Add(Label9)
         Panel1.Controls.Add(backbtn)
         Panel1.Dock = DockStyle.Top
         Panel1.Location = New Point(0, 0)
@@ -144,6 +146,17 @@ Partial Class Summary
         dgvschedsum.Size = New Size(1363, 492)
         dgvschedsum.TabIndex = 14
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1356, 9)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(99, 24)
+        Label9.TabIndex = 4
+        Label9.Text = "SUMMARY"
+        ' 
         ' Summary
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -160,6 +173,7 @@ Partial Class Summary
         StartPosition = FormStartPosition.CenterScreen
         Text = "Summary"
         Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
         CType(printingdgv, ComponentModel.ISupportInitialize).EndInit()
         CType(dgvschedsum, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -172,4 +186,5 @@ Partial Class Summary
     Friend WithEvents PrintPreviewDialog As PrintPreviewDialog
     Friend WithEvents printingdgv As DataGridView
     Friend WithEvents dgvschedsum As DataGridView
+    Friend WithEvents Label9 As Label
 End Class

@@ -28,6 +28,7 @@ Partial Class viewInstructors
         Panel2 = New Panel()
         txtsearch = New TextBox()
         panelbtns = New Panel()
+        Label9 = New Label()
         Panel1.SuspendLayout()
         Panel2.SuspendLayout()
         SuspendLayout()
@@ -35,6 +36,7 @@ Partial Class viewInstructors
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
+        Panel1.Controls.Add(Label9)
         Panel1.Controls.Add(backBtn)
         Panel1.Dock = DockStyle.Top
         Panel1.Location = New Point(0, 0)
@@ -81,6 +83,17 @@ Partial Class viewInstructors
         panelbtns.Size = New Size(1346, 546)
         panelbtns.TabIndex = 4
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1330, 9)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(125, 24)
+        Label9.TabIndex = 3
+        Label9.Text = "INSTRUCTORS"
+        ' 
         ' viewInstructors
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -96,6 +109,7 @@ Partial Class viewInstructors
         StartPosition = FormStartPosition.CenterScreen
         Text = "viewInstructors"
         Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
         ResumeLayout(False)
@@ -106,4 +120,5 @@ Partial Class viewInstructors
     Friend WithEvents Panel2 As Panel
     Friend WithEvents txtsearch As TextBox
     Friend WithEvents panelbtns As Panel
+    Friend WithEvents Label9 As Label
 End Class

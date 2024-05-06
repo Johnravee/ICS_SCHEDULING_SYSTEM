@@ -200,7 +200,7 @@ Partial Class adminRegistration
         cbsuffix.Location = New Point(17, 7)
         cbsuffix.Name = "cbsuffix"
         cbsuffix.Size = New Size(257, 27)
-        cbsuffix.TabIndex = 4
+        cbsuffix.TabIndex = 5
         ' 
         ' txtemail
         ' 
@@ -210,7 +210,7 @@ Partial Class adminRegistration
         txtemail.Location = New Point(17, 11)
         txtemail.Name = "txtemail"
         txtemail.Size = New Size(244, 20)
-        txtemail.TabIndex = 5
+        txtemail.TabIndex = 6
         ' 
         ' Panel9
         ' 
@@ -231,7 +231,7 @@ Partial Class adminRegistration
         cbRole.Location = New Point(17, 7)
         cbRole.Name = "cbRole"
         cbRole.Size = New Size(257, 27)
-        cbRole.TabIndex = 6
+        cbRole.TabIndex = 7
         ' 
         ' Panel8
         ' 
@@ -284,7 +284,7 @@ Partial Class adminRegistration
         nextbtn.Location = New Point(585, 351)
         nextbtn.Name = "nextbtn"
         nextbtn.Size = New Size(113, 43)
-        nextbtn.TabIndex = 7
+        nextbtn.TabIndex = 8
         nextbtn.Text = "NEXT"
         nextbtn.UseVisualStyleBackColor = False
         ' 
@@ -310,6 +310,8 @@ Partial Class adminRegistration
         ' 
         ' cbworkstatus
         ' 
+        cbworkstatus.AutoCompleteMode = AutoCompleteMode.Append
+        cbworkstatus.AutoCompleteSource = AutoCompleteSource.ListItems
         cbworkstatus.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         cbworkstatus.FlatStyle = FlatStyle.Flat
         cbworkstatus.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
@@ -318,7 +320,7 @@ Partial Class adminRegistration
         cbworkstatus.Location = New Point(17, 7)
         cbworkstatus.Name = "cbworkstatus"
         cbworkstatus.Size = New Size(258, 27)
-        cbworkstatus.TabIndex = 6
+        cbworkstatus.TabIndex = 4
         ' 
         ' adminRegistration
         ' 

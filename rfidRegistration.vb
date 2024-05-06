@@ -6,7 +6,16 @@ Public Class RFIDREGISTRATION
     Private Sub rfidandPinRegistrationforinstructors_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         rfidscanpanel.Dock = DockStyle.Fill
         txtRfidRegister.Focus()
-
+        imgloading.Visible = False
+        imgsuccess.Visible = False
+        imgerror.Visible = False
+        ScanRFID_Logo.Visible = True
+        lblredirect.Visible = False
+        lblsuccess.Visible = False
+        lblemailerror.Visible = False
+        lblrfiderror.Visible = False
+        lblduplicateentry.Visible = False
+        lblunxerror.Visible = False
     End Sub
 
 
@@ -71,11 +80,12 @@ Public Class RFIDREGISTRATION
 
 
                 If cmd.ExecuteNonQuery() > 0 Then
-                    ScanDoneLogo.Visible = True
-                    MessageBox.Show("Instructor account created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Me.Close()
-                    adminRegistration.Close()
-                    ScanRFIDLOGIN.Show()
+                    ScanRFID_Logo.Visible = False
+                    imgsuccess.Visible = True
+                    lblsuccess.Visible = True
+                    createdsuccesstimer.Start()
+                    redirectionTimer.Start()
+
 
 
                 End If
@@ -88,23 +98,23 @@ Public Class RFIDREGISTRATION
         Catch ex As MySqlException
             If ex.Number = 1062 Then
                 If ex.Message.Contains("instructor_rfid_unique") Then
-                    MessageBox.Show("Duplicate RFID! This RFID already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    adminRegistration.Show()
-                    Me.Close()
+                    imgerror.Visible = True
+                    lblrfiderror.Visible = True
+                    backtoregistrationTimer.Start()
 
                 ElseIf ex.Message.Contains("instructor_email_unique") Then
-                    MessageBox.Show("Duplicate email address! This email already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    adminRegistration.Show()
-                    Me.Close()
+                    imgerror.Visible = True
+                    lblemailerror.Visible = True
+                    backtoregistrationTimer.Start()
                 Else
-                    MessageBox.Show("Duplicate entry error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    adminRegistration.Show()
-                    Me.Close()
+                    imgerror.Visible = True
+                    lblduplicateentry.Visible = True
+                    backtoregistrationTimer.Start()
                 End If
             Else
-                MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                adminRegistration.Show()
-                Me.Close()
+                imgerror.Visible = True
+                lblunxerror.Visible = True
+                backtoregistrationTimer.Start()
             End If
 
         Finally
@@ -112,6 +122,31 @@ Public Class RFIDREGISTRATION
         End Try
 
 
+    End Sub
+
+    'Redirect to login in 7secs
+    Private Sub redirectionTimer_Tick(sender As Object, e As EventArgs) Handles redirectionTimer.Tick
+        Me.Close()
+        adminRegistration.Close()
+        ScanRFIDLOGIN.Show()
+        redirectionTimer.Stop()
+    End Sub
+
+    'Redirect to registration in 5secs
+    Private Sub backtoregistrationTimer_Tick(sender As Object, e As EventArgs) Handles backtoregistrationTimer.Tick
+        adminRegistration.Show()
+        Me.Close()
+        backtoregistrationTimer.Stop()
+    End Sub
+
+
+    'Display loading animation in 3secs
+    Private Sub createdsuccesstimer_Tick(sender As Object, e As EventArgs) Handles createdsuccesstimer.Tick
+        imgsuccess.Visible = False
+        lblsuccess.Visible = False
+        imgloading.Visible = True
+        lblredirect.Visible = True
+        createdsuccesstimer.Stop()
     End Sub
 
 

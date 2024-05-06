@@ -64,6 +64,7 @@
     Private Sub ManualBackBtn_Click(sender As Object, e As EventArgs) Handles ManualBackBtn.Click
         Me.Hide()
         ScanRFIDLOGIN.Show()
+        ClearFields()
     End Sub
 
     Private Sub ClearFields()
@@ -73,6 +74,6 @@
         txtsurname.Clear()
         cbsuffix.SelectedIndex = -1
         cbworkstatus.SelectedIndex = -1
-
+        cbRole.SelectedIndex = -1
     End Sub
 End Class
