@@ -27,7 +27,6 @@ Partial Class ScanRFIDLOGIN
         Panel1 = New Panel()
         closeBtn = New PictureBox()
         Scan_Label = New Label()
-        Granted_Access_Logo = New PictureBox()
         Scan_Denied_Logo = New PictureBox()
         txtrfidlogin = New TextBox()
         logo = New PictureBox()
@@ -39,7 +38,6 @@ Partial Class ScanRFIDLOGIN
         hidelogos = New Timer(components)
         Panel1.SuspendLayout()
         CType(closeBtn, ComponentModel.ISupportInitialize).BeginInit()
-        CType(Granted_Access_Logo, ComponentModel.ISupportInitialize).BeginInit()
         CType(Scan_Denied_Logo, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
         CType(ScanRFID_Logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -72,27 +70,16 @@ Partial Class ScanRFIDLOGIN
         Scan_Label.AutoSize = True
         Scan_Label.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Scan_Label.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Scan_Label.Location = New Point(133, 247)
+        Scan_Label.Location = New Point(133, 250)
         Scan_Label.Name = "Scan_Label"
         Scan_Label.Size = New Size(202, 29)
         Scan_Label.TabIndex = 11
         Scan_Label.Text = "TAP RFID TO LOGIN"
         ' 
-        ' Granted_Access_Logo
-        ' 
-        Granted_Access_Logo.Image = CType(resources.GetObject("Granted_Access_Logo.Image"), Image)
-        Granted_Access_Logo.Location = New Point(117, 305)
-        Granted_Access_Logo.Name = "Granted_Access_Logo"
-        Granted_Access_Logo.Size = New Size(227, 163)
-        Granted_Access_Logo.SizeMode = PictureBoxSizeMode.CenterImage
-        Granted_Access_Logo.TabIndex = 12
-        Granted_Access_Logo.TabStop = False
-        Granted_Access_Logo.Visible = False
-        ' 
         ' Scan_Denied_Logo
         ' 
         Scan_Denied_Logo.Image = CType(resources.GetObject("Scan_Denied_Logo.Image"), Image)
-        Scan_Denied_Logo.Location = New Point(117, 305)
+        Scan_Denied_Logo.Location = New Point(122, 310)
         Scan_Denied_Logo.Name = "Scan_Denied_Logo"
         Scan_Denied_Logo.Size = New Size(227, 163)
         Scan_Denied_Logo.SizeMode = PictureBoxSizeMode.Zoom
@@ -111,7 +98,7 @@ Partial Class ScanRFIDLOGIN
         ' 
         logo.BackgroundImage = CType(resources.GetObject("logo.BackgroundImage"), Image)
         logo.BackgroundImageLayout = ImageLayout.Zoom
-        logo.Location = New Point(154, 86)
+        logo.Location = New Point(165, 88)
         logo.Name = "logo"
         logo.Size = New Size(153, 135)
         logo.TabIndex = 15
@@ -120,7 +107,7 @@ Partial Class ScanRFIDLOGIN
         ' ScanRFID_Logo
         ' 
         ScanRFID_Logo.Image = CType(resources.GetObject("ScanRFID_Logo.Image"), Image)
-        ScanRFID_Logo.Location = New Point(117, 305)
+        ScanRFID_Logo.Location = New Point(122, 310)
         ScanRFID_Logo.Name = "ScanRFID_Logo"
         ScanRFID_Logo.Size = New Size(227, 163)
         ScanRFID_Logo.SizeMode = PictureBoxSizeMode.Zoom
@@ -176,7 +163,6 @@ Partial Class ScanRFIDLOGIN
         Controls.Add(logo)
         Controls.Add(txtrfidlogin)
         Controls.Add(Scan_Denied_Logo)
-        Controls.Add(Granted_Access_Logo)
         Controls.Add(Scan_Label)
         Controls.Add(Panel1)
         ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
@@ -187,7 +173,6 @@ Partial Class ScanRFIDLOGIN
         Text = "ScanRFIDLOGIN"
         Panel1.ResumeLayout(False)
         CType(closeBtn, ComponentModel.ISupportInitialize).EndInit()
-        CType(Granted_Access_Logo, ComponentModel.ISupportInitialize).EndInit()
         CType(Scan_Denied_Logo, ComponentModel.ISupportInitialize).EndInit()
         CType(logo, ComponentModel.ISupportInitialize).EndInit()
         CType(ScanRFID_Logo, ComponentModel.ISupportInitialize).EndInit()
@@ -196,7 +181,6 @@ Partial Class ScanRFIDLOGIN
     End Sub
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Scan_Label As Label
-    Friend WithEvents Granted_Access_Logo As PictureBox
     Friend WithEvents Scan_Denied_Logo As PictureBox
     Friend WithEvents txtrfidlogin As TextBox
     Friend WithEvents logo As PictureBox

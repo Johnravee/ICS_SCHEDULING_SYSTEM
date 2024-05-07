@@ -14,6 +14,7 @@
     <None Remove="Authentication_Form.resx~RFde73384.TMP" />
     <None Remove="Authentication_Form.resx~RFe2bd008.TMP" />
     <None Remove="rfidRegistration.resx~RF967a27e.TMP" />
+    <None Remove="ScanRFIDLOGIN.resx~RFe0868fb.TMP" />
   </ItemGroup>
 
   <ItemGroup>

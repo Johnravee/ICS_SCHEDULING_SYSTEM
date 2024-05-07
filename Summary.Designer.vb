@@ -28,13 +28,13 @@ Partial Class Summary
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Panel1 = New Panel()
+        Label9 = New Label()
         backbtn = New Button()
         Printbtn = New Button()
         printer = New Printing.PrintDocument()
         PrintPreviewDialog = New PrintPreviewDialog()
         printingdgv = New DataGridView()
         dgvschedsum = New DataGridView()
-        Label9 = New Label()
         Panel1.SuspendLayout()
         CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvschedsum, ComponentModel.ISupportInitialize).BeginInit()
@@ -50,6 +50,17 @@ Partial Class Summary
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1467, 42)
         Panel1.TabIndex = 0
+        ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1356, 9)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(99, 24)
+        Label9.TabIndex = 4
+        Label9.Text = "SUMMARY"
         ' 
         ' backbtn
         ' 
@@ -145,17 +156,6 @@ Partial Class Summary
         dgvschedsum.ReadOnly = True
         dgvschedsum.Size = New Size(1363, 492)
         dgvschedsum.TabIndex = 14
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.ForeColor = Color.WhiteSmoke
-        Label9.Location = New Point(1356, 9)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(99, 24)
-        Label9.TabIndex = 4
-        Label9.Text = "SUMMARY"
         ' 
         ' Summary
         ' 

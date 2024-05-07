@@ -18,6 +18,8 @@
             dgvSubjectTable.DataSource = subjectTable
 
             dgvSubjectTable.Columns("SubjectID").Visible = False
+            dgvSubjectTable.Columns("subject_description").HeaderText = "Description"
+            dgvSubjectTable.Columns("subject_code").HeaderText = "Code"
 
             dgvSubjectTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             dgvSubjectTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -90,10 +92,10 @@
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "UPDATE subjects SET subject_name = @name, subject_code = @code WHERE SubjectID = @subjectID"
+            cmd.CommandText = "UPDATE subjects SET subject_description = @description, subject_code = @code WHERE SubjectID = @subjectID"
 
             cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@name", txtsubjectname.Text)
+            cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
             cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
 
@@ -115,7 +117,8 @@
             End If
 
         Catch ex As Exception
-            MessageBox.Show("An error occurred while deleting the subject. Please try again later..", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            MessageBox.Show("An error occurred while updating the subject. Please try again later..", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

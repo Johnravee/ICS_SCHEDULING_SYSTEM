@@ -217,8 +217,16 @@ Public Class instructorSched
 
 
 
-
+    'PRINT WHEN CLICK
     Private Sub Printbtn_Click(sender As Object, e As EventArgs) Handles Printbtn.Click
+
+
+
+        If printingdgv.Rows.Count = 1 AndAlso dgvInstructorSched.Rows.Count = 0 Then
+            MessageBox.Show("Both the document and printing data are empty.", "Empty Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
         printer.DefaultPageSettings.Landscape = True
         PrintPreviewDialog.WindowState = WindowState.Maximized
         PrintPreviewDialog.Document = printer
