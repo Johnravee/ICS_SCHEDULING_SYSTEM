@@ -27,9 +27,8 @@ Partial Class Dashboard
         LogoutBtn = New PictureBox()
         PictureBox1 = New PictureBox()
         Panel2 = New Panel()
-        minimizeBtn = New PictureBox()
-        closeBtn = New PictureBox()
-        Label1 = New Label()
+        Label9 = New Label()
+        lblcurrentuser = New Label()
         Panel3 = New Panel()
         btnManagement = New Button()
         btnViewSummary = New Button()
@@ -43,8 +42,6 @@ Partial Class Dashboard
         CType(LogoutBtn, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
-        CType(minimizeBtn, ComponentModel.ISupportInitialize).BeginInit()
-        CType(closeBtn, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
         SuspendLayout()
         ' 
@@ -84,50 +81,34 @@ Partial Class Dashboard
         ' Panel2
         ' 
         Panel2.BackColor = Color.FromArgb(CByte(0), CByte(51), CByte(38))
-        Panel2.Controls.Add(minimizeBtn)
-        Panel2.Controls.Add(closeBtn)
-        Panel2.Controls.Add(Label1)
+        Panel2.Controls.Add(Label9)
+        Panel2.Controls.Add(lblcurrentuser)
         Panel2.Dock = DockStyle.Top
         Panel2.Location = New Point(79, 0)
         Panel2.Name = "Panel2"
-        Panel2.Size = New Size(1404, 61)
+        Panel2.Size = New Size(1404, 42)
         Panel2.TabIndex = 1
         ' 
-        ' minimizeBtn
+        ' Label9
         ' 
-        minimizeBtn.BackColor = Color.Transparent
-        minimizeBtn.BackgroundImage = CType(resources.GetObject("minimizeBtn.BackgroundImage"), Image)
-        minimizeBtn.BackgroundImageLayout = ImageLayout.Stretch
-        minimizeBtn.Cursor = Cursors.Hand
-        minimizeBtn.Location = New Point(1360, 3)
-        minimizeBtn.Name = "minimizeBtn"
-        minimizeBtn.Size = New Size(22, 21)
-        minimizeBtn.TabIndex = 3
-        minimizeBtn.TabStop = False
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1278, 7)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(118, 24)
+        Label9.TabIndex = 6
+        Label9.Text = "DASHBOARD"
         ' 
-        ' closeBtn
+        ' lblcurrentuser
         ' 
-        closeBtn.BackColor = Color.Transparent
-        closeBtn.BackgroundImage = CType(resources.GetObject("closeBtn.BackgroundImage"), Image)
-        closeBtn.BackgroundImageLayout = ImageLayout.Stretch
-        closeBtn.Cursor = Cursors.Hand
-        closeBtn.Location = New Point(1379, 3)
-        closeBtn.Name = "closeBtn"
-        closeBtn.Size = New Size(22, 21)
-        closeBtn.TabIndex = 2
-        closeBtn.TabStop = False
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.BackColor = Color.Transparent
-        Label1.Font = New Font("Calibri", 26.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.ForeColor = Color.WhiteSmoke
-        Label1.Location = New Point(0, 9)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(206, 42)
-        Label1.TabIndex = 0
-        Label1.Text = "DASHBOARD"
+        lblcurrentuser.AutoSize = True
+        lblcurrentuser.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblcurrentuser.ForeColor = Color.WhiteSmoke
+        lblcurrentuser.Location = New Point(6, 9)
+        lblcurrentuser.Name = "lblcurrentuser"
+        lblcurrentuser.Size = New Size(0, 24)
+        lblcurrentuser.TabIndex = 5
         ' 
         ' Panel3
         ' 
@@ -140,9 +121,9 @@ Partial Class Dashboard
         Panel3.Controls.Add(btnNewSched)
         Panel3.Controls.Add(btnNewInstructor)
         Panel3.Dock = DockStyle.Fill
-        Panel3.Location = New Point(79, 61)
+        Panel3.Location = New Point(79, 42)
         Panel3.Name = "Panel3"
-        Panel3.Size = New Size(1404, 695)
+        Panel3.Size = New Size(1404, 714)
         Panel3.TabIndex = 2
         ' 
         ' btnManagement
@@ -328,8 +309,6 @@ Partial Class Dashboard
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
-        CType(minimizeBtn, ComponentModel.ISupportInitialize).EndInit()
-        CType(closeBtn, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
         ResumeLayout(False)
@@ -337,10 +316,7 @@ Partial Class Dashboard
 
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents Label1 As Label
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents minimizeBtn As PictureBox
-    Friend WithEvents closeBtn As PictureBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents btnViewSummary As Button
     Friend WithEvents btnViewSubject As Button
@@ -351,5 +327,7 @@ Partial Class Dashboard
     Friend WithEvents btnNewInstructor As Button
     Friend WithEvents btnManagement As Button
     Friend WithEvents LogoutBtn As PictureBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents lblcurrentuser As Label
 
 End Class

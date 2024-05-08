@@ -1,10 +1,10 @@
 ﻿Public Class Dashboard
-    Private Sub closeBtn_Click(sender As Object, e As EventArgs) Handles closeBtn.Click
+    Private Sub closeBtn_Click(sender As Object, e As EventArgs)
         Application.Exit()
     End Sub
 
-    Private Sub minimizeBtn_Click(sender As Object, e As EventArgs) Handles minimizeBtn.Click
-        Me.WindowState = FormWindowState.Minimized
+    Private Sub minimizeBtn_Click(sender As Object, e As EventArgs)
+        WindowState = FormWindowState.Minimized
     End Sub
 
 
@@ -56,7 +56,15 @@
     End Sub
 
     Private Sub btnViewSummary_Click(sender As Object, e As EventArgs) Handles btnViewSummary.Click
+        currentUser = ""
+        lblcurrentuser.Text = ""
         Summary.Show()
         Me.Hide()
     End Sub
+
+    Private Sub Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lblcurrentuser.Text = currentUser
+    End Sub
+
+
 End Class

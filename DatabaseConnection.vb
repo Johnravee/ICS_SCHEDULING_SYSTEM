@@ -7,6 +7,7 @@ Module DatabaseConnection
     Public table As New DataTable
     Public con As New MySqlConnection("server=localhost;username=root;password=;database=ics_scheduling_db")
 
+
     Public Sub DBCon()
         Try
             If con.State = ConnectionState.Closed Then

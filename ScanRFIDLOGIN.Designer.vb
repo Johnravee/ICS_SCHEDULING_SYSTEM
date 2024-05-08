@@ -36,6 +36,7 @@ Partial Class ScanRFIDLOGIN
         rfidlink = New LinkLabel()
         clearinputtimer = New Timer(components)
         hidelogos = New Timer(components)
+        linkforgot = New LinkLabel()
         Panel1.SuspendLayout()
         CType(closeBtn, ComponentModel.ISupportInitialize).BeginInit()
         CType(Scan_Denied_Logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -98,7 +99,7 @@ Partial Class ScanRFIDLOGIN
         ' 
         logo.BackgroundImage = CType(resources.GetObject("logo.BackgroundImage"), Image)
         logo.BackgroundImageLayout = ImageLayout.Zoom
-        logo.Location = New Point(165, 88)
+        logo.Location = New Point(163, 74)
         logo.Name = "logo"
         logo.Size = New Size(153, 135)
         logo.TabIndex = 15
@@ -117,7 +118,7 @@ Partial Class ScanRFIDLOGIN
         ' lk1register
         ' 
         lk1register.AutoSize = True
-        lk1register.Location = New Point(211, 488)
+        lk1register.Location = New Point(211, 477)
         lk1register.Name = "lk1register"
         lk1register.Size = New Size(49, 15)
         lk1register.TabIndex = 19
@@ -136,7 +137,7 @@ Partial Class ScanRFIDLOGIN
         ' rfidlink
         ' 
         rfidlink.AutoSize = True
-        rfidlink.Location = New Point(133, 515)
+        rfidlink.Location = New Point(133, 497)
         rfidlink.Name = "rfidlink"
         rfidlink.Size = New Size(194, 15)
         rfidlink.TabIndex = 21
@@ -150,12 +151,23 @@ Partial Class ScanRFIDLOGIN
         ' 
         hidelogos.Interval = 3000
         ' 
+        ' linkforgot
+        ' 
+        linkforgot.AutoSize = True
+        linkforgot.Location = New Point(200, 515)
+        linkforgot.Name = "linkforgot"
+        linkforgot.Size = New Size(74, 15)
+        linkforgot.TabIndex = 22
+        linkforgot.TabStop = True
+        linkforgot.Text = "Forgot RFID?"
+        ' 
         ' ScanRFIDLOGIN
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(472, 575)
+        Controls.Add(linkforgot)
         Controls.Add(rfidlink)
         Controls.Add(Panel2)
         Controls.Add(lk1register)
@@ -191,4 +203,5 @@ Partial Class ScanRFIDLOGIN
     Friend WithEvents rfidlink As LinkLabel
     Friend WithEvents clearinputtimer As Timer
     Friend WithEvents hidelogos As Timer
+    Friend WithEvents linkforgot As LinkLabel
 End Class

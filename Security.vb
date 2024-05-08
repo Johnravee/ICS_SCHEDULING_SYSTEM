@@ -1,37 +1,68 @@
 ﻿Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Security
+Imports System.Security.Cryptography
+Imports MySql.Data.MySqlClient
 
 
 
 Module Security
+    Public currentUser As String
 
-    Public Function EncryptData(data As String) As String
-        If data IsNot Nothing Then
-            Dim msg As String = Nothing
-            Dim encode As Byte() = New Byte(data.Length - 1) {}
-            encode = Encoding.UTF8.GetBytes(data)
-            msg = Convert.ToBase64String(encode)
-            Return msg
-        Else
-            Return data
-        End If
+    'Hash RFID
+    Public Function EncryptData(RFID As String) As String
+        Using Sha256Hash As New SHA256Managed()
+            Dim bytes As Byte() = Sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(RFID))
+
+            Dim builder As New StringBuilder()
+
+            For Each b As Byte In bytes
+                builder.Append(b.ToString("x2"))
+            Next
+
+            Return builder.ToString()
+        End Using
+    End Function
+
+    'Verify inputted rfid
+    Public Function VerifyRFID(RFID As String) As Boolean
+        Try
+            Dim HashRFID As String = EncryptData(RFID)
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "SELECT RFID, CONCAT(Firstname, ' ' ,Surname) AS name FROM instructor WHERE RFID = @rfid AND Position IN ('DEAN', 'BSIT PROGRAM HEAD', 'BScPE PROGRAM HEAD' )"
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@rfid", HashRFID)
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            If reader.HasRows Then
+                reader.Read()
+                currentUser = reader("name").ToString()
+                con.Close()
+                Return True
+            Else
+                currentUser = ""
+                con.Close()
+                Return False
+            End If
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+
+
+
+
+
     End Function
 
 
-    Public Function DecryptData(data As String) As String
-        Dim decryptedtxt As String = Nothing
-        Dim encodedtxt As New UTF8Encoding()
-        Dim decodedtxt As Decoder = encodedtxt.GetDecoder()
-        Dim byteData As Byte() = Convert.FromBase64String(data)
-        Dim charCount As Integer = decodedtxt.GetCharCount(byteData, 0, byteData.Length)
-        Dim decodedCharacter As Char() = New Char(charCount - 1) {}
-        decodedtxt.GetChars(byteData, 0, byteData.Length, decodedCharacter, 0)
-        decryptedtxt = New String(decodedCharacter)
-        Return decryptedtxt
-    End Function
 
-
+    'Evaluate inputted email  email
     Public Function EmailValidation(email As String) As Boolean
 
         If Regex.IsMatch(email, "^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$") Then

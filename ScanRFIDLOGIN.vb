@@ -15,13 +15,20 @@ Public Class ScanRFIDLOGIN
     'Scanner
     Private Sub txtrfid_TextChanged(sender As Object, e As EventArgs) Handles txtrfidlogin.TextChanged
         If txtrfidlogin.Text.Length >= 10 Then
-            Dim encryptedRFID = EncryptData(txtrfidlogin.Text)
+            VerifyRFID(txtrfidlogin.Text)
 
-            If Authentication(encryptedRFID) Then
+            If VerifyRFID(txtrfidlogin.Text) Then
                 clearinputtimer.Start()
                 Dashboard.Show()
                 Me.Hide()
                 txtrfidlogin.Focus()
+
+            Else
+                txtrfidlogin.Clear()
+                txtrfidlogin.Focus()
+                Scan_Denied_Logo.Visible = True
+                ScanRFID_Logo.Visible = False
+                hidelogos.Start()
             End If
         End If
     End Sub
@@ -33,51 +40,22 @@ Public Class ScanRFIDLOGIN
         txtrfidlogin.Focus()
         Dim RfidInput As String = InputBox("Please enter your RFID number:", "Input Dialog").Trim()
         If Not String.IsNullOrWhiteSpace(RfidInput) Then
-            Dim encryptedRFID = EncryptData(RfidInput)
 
-            If Authentication(encryptedRFID) Then
+
+            If VerifyRFID(RfidInput) Then
                 clearinputtimer.Start()
                 Dashboard.Show()
                 Me.Hide()
-
-            End If
-        End If
-    End Sub
-
-    'Authenticate user
-    Private Function Authentication(data As String) As Boolean
-        Try
-            DBCon()
-            cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM instructor WHERE RFID = @rfid AND Position IN ('DEAN', 'BSIT PROGRAM HEAD', 'BScPE PROGRAM HEAD' )"
-            cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@rfid", data)
-
-            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-
-            If count > 0 Then
-                con.Close()
-                Return True
             Else
-                con.Close()
+
                 txtrfidlogin.Clear()
                 txtrfidlogin.Focus()
                 Scan_Denied_Logo.Visible = True
                 ScanRFID_Logo.Visible = False
                 hidelogos.Start()
-                Return False
             End If
-        Catch ex As Exception
-            MsgBox("Sorry, there was a problem with the authentication process. Please try again.", MsgBoxStyle.Exclamation, "Authentication Error")
-            con.Close()
-            txtrfidlogin.Clear()
-            txtrfidlogin.Focus()
-            Scan_Denied_Logo.Visible = True
-            ScanRFID_Logo.Visible = False
-            hidelogos.Start()
-            Return False
-        End Try
-    End Function
+        End If
+    End Sub
 
 
 
