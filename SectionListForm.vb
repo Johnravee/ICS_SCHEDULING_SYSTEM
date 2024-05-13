@@ -36,9 +36,9 @@ Public Class SectionListForm
         If index >= 0 AndAlso index < DataGridView1.Rows.Count Then
             Dim selectedRow = DataGridView1.Rows(index)
             txtsectionid.Text = selectedRow.Cells(0).Value.ToString()
-            txtcode.Text = selectedRow.Cells(1).Value.ToString()
+            txtcode.Text = selectedRow.Cells(3).Value.ToString()
             txtyear.Text = selectedRow.Cells(2).Value.ToString()
-            txtprogram.Text = selectedRow.Cells(3).Value.ToString()
+            txtprogram.Text = selectedRow.Cells(1).Value.ToString()
         End If
     End Sub
 
@@ -124,11 +124,11 @@ Public Class SectionListForm
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO sections (Section_Code, Year, Section_Program) VALUES(@code, @yr, @sp)"
+            cmd.CommandText = "INSERT INTO sections (Section_Program, Year, Section_Code) VALUES(@sp, @yr, @code)"
             cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@code", txtcode.Text)
-            cmd.Parameters.AddWithValue("@yr", txtyear.Text)
-            cmd.Parameters.AddWithValue("@sp", txtprogram.Text)
+            cmd.Parameters.AddWithValue("@code", UCase(txtcode.Text))
+            cmd.Parameters.AddWithValue("@yr", UCase(txtyear.Text))
+            cmd.Parameters.AddWithValue("@sp", UCase(txtprogram.Text))
 
             If cmd.ExecuteNonQuery() > 0 Then
                 DataGridView1.DataSource = Nothing

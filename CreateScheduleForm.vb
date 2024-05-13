@@ -8,6 +8,10 @@ Public Class CreateScheduleForm
 
 
     Private Sub CreateScheduleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
+
+
         StartTime.Format = DateTimePickerFormat.Custom
         StartTime.CustomFormat = "hh:mm tt"
         StartTime.ShowUpDown = True
@@ -22,6 +26,14 @@ Public Class CreateScheduleForm
             GetSection()
             GetSubject()
             GetRoom()
+
+
+            cb_instructor.SelectedIndex = 0
+            cb_section.SelectedIndex = 0
+            cb_subject.SelectedIndex = 0
+            cb_room.SelectedIndex = 0
+            cb_day.SelectedIndex = 0
+            cbo_semester.SelectedIndex = 0
         Catch ex As Exception
             MessageBox.Show("Sorry, something went wrong while loading the form. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
@@ -45,8 +57,10 @@ Public Class CreateScheduleForm
     End Sub
 
     Private Sub submitbtn_Click(sender As Object, e As EventArgs) Handles submitbtn.Click
+        MsgBox("I miss you na. ")
         Try
             If String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
+                    String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_room.SelectedItem) OrElse
@@ -68,11 +82,11 @@ Public Class CreateScheduleForm
                 Return
             End If
 
-            ' Insert the schedule into the database
+
             cmd.Connection = con
             cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`, Semester) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @semester)"
 
-            ' Clear the parameters collection before adding new parameters
+
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@InstructorName", cb_instructor.SelectedItem)
             cmd.Parameters.AddWithValue("@Section", cb_section.SelectedItem)

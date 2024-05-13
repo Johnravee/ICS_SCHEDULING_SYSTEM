@@ -49,7 +49,7 @@ Public Class FacilityListForm
             cmd.Connection = con
             cmd.CommandText = "INSERT INTO rooms (Room) VALUES (@room)"
             cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@room", txtroom.Text)
+            cmd.Parameters.AddWithValue("@room", UCase(txtroom.Text))
 
             ' Execute the query
             If cmd.ExecuteNonQuery() > 0 Then

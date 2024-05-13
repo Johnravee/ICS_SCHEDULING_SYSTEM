@@ -25,8 +25,12 @@ Partial Class CreateScheduleForm
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CreateScheduleForm))
         Panel1 = New Panel()
+        Panel7 = New Panel()
+        cbo_semester = New ComboBox()
+        Label6 = New Label()
         Panel6 = New Panel()
         cb_room = New ComboBox()
         Panel4 = New Panel()
@@ -56,10 +60,8 @@ Partial Class CreateScheduleForm
         submitbtn = New Button()
         Button1 = New Button()
         Label9 = New Label()
-        Panel7 = New Panel()
-        cbo_semester = New ComboBox()
-        Label6 = New Label()
         Panel1.SuspendLayout()
+        Panel7.SuspendLayout()
         Panel6.SuspendLayout()
         Panel4.SuspendLayout()
         Panel3.SuspendLayout()
@@ -69,7 +71,6 @@ Partial Class CreateScheduleForm
         GroupBox2.SuspendLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
-        Panel7.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
@@ -100,6 +101,41 @@ Partial Class CreateScheduleForm
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1576, 721)
         Panel1.TabIndex = 0
+        ' 
+        ' Panel7
+        ' 
+        Panel7.BackColor = Color.LightYellow
+        Panel7.BorderStyle = BorderStyle.FixedSingle
+        Panel7.Controls.Add(cbo_semester)
+        Panel7.Location = New Point(42, 602)
+        Panel7.Name = "Panel7"
+        Panel7.Size = New Size(239, 50)
+        Panel7.TabIndex = 41
+        ' 
+        ' cbo_semester
+        ' 
+        cbo_semester.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_semester.AutoCompleteSource = AutoCompleteSource.ListItems
+        cbo_semester.BackColor = Color.LightYellow
+        cbo_semester.FlatStyle = FlatStyle.Flat
+        cbo_semester.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbo_semester.FormattingEnabled = True
+        cbo_semester.Items.AddRange(New Object() {"FIRST SEMESTER", "SECOND SEMESTER"})
+        cbo_semester.Location = New Point(14, 8)
+        cbo_semester.Name = "cbo_semester"
+        cbo_semester.Size = New Size(214, 34)
+        cbo_semester.TabIndex = 36
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label6.Location = New Point(42, 569)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(93, 25)
+        Label6.TabIndex = 40
+        Label6.Text = "Semester"
         ' 
         ' Panel6
         ' 
@@ -289,42 +325,49 @@ Partial Class CreateScheduleForm
         ' 
         ' dgvSchedule
         ' 
+        dgvSchedule.AllowUserToAddRows = False
+        dgvSchedule.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        dgvSchedule.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         dgvSchedule.BackgroundColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
         dgvSchedule.BorderStyle = BorderStyle.None
+        dgvSchedule.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
         dgvSchedule.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
-        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
-        DataGridViewCellStyle1.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle1.Padding = New Padding(5)
-        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
-        dgvSchedule.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
-        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
-        DataGridViewCellStyle2.Padding = New Padding(2)
+        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle2.Padding = New Padding(5)
         DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
-        dgvSchedule.DefaultCellStyle = DataGridViewCellStyle2
+        dgvSchedule.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
+        DataGridViewCellStyle3.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle3.ForeColor = SystemColors.ControlText
+        DataGridViewCellStyle3.Padding = New Padding(2)
+        DataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
+        dgvSchedule.DefaultCellStyle = DataGridViewCellStyle3
         dgvSchedule.Dock = DockStyle.Fill
         dgvSchedule.Location = New Point(2, 18)
         dgvSchedule.Name = "dgvSchedule"
         dgvSchedule.ReadOnly = True
         dgvSchedule.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
-        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = SystemColors.Control
-        DataGridViewCellStyle3.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle3.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle3.Padding = New Padding(10)
-        DataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
-        dgvSchedule.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = SystemColors.Control
+        DataGridViewCellStyle4.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle4.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle4.Padding = New Padding(10)
+        DataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = DataGridViewTriState.True
+        dgvSchedule.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         dgvSchedule.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvSchedule.ShowEditingIcon = False
@@ -466,41 +509,6 @@ Partial Class CreateScheduleForm
         Label9.TabIndex = 1
         Label9.Text = "CREATE SCHEDULE"
         ' 
-        ' Panel7
-        ' 
-        Panel7.BackColor = Color.LightYellow
-        Panel7.BorderStyle = BorderStyle.FixedSingle
-        Panel7.Controls.Add(cbo_semester)
-        Panel7.Location = New Point(42, 602)
-        Panel7.Name = "Panel7"
-        Panel7.Size = New Size(239, 50)
-        Panel7.TabIndex = 41
-        ' 
-        ' cbo_semester
-        ' 
-        cbo_semester.AutoCompleteMode = AutoCompleteMode.Suggest
-        cbo_semester.AutoCompleteSource = AutoCompleteSource.ListItems
-        cbo_semester.BackColor = Color.LightYellow
-        cbo_semester.FlatStyle = FlatStyle.Flat
-        cbo_semester.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        cbo_semester.FormattingEnabled = True
-        cbo_semester.Items.AddRange(New Object() {"FIRST SEMESTER", "SECOND SEMESTER"})
-        cbo_semester.Location = New Point(14, 8)
-        cbo_semester.Name = "cbo_semester"
-        cbo_semester.Size = New Size(214, 34)
-        cbo_semester.TabIndex = 36
-        ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label6.Location = New Point(42, 569)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(93, 25)
-        Label6.TabIndex = 40
-        Label6.Text = "Semester"
-        ' 
         ' CreateScheduleForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -517,6 +525,7 @@ Partial Class CreateScheduleForm
         Text = "CreateScheduleForm"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        Panel7.ResumeLayout(False)
         Panel6.ResumeLayout(False)
         Panel4.ResumeLayout(False)
         Panel3.ResumeLayout(False)
@@ -528,7 +537,6 @@ Partial Class CreateScheduleForm
         GroupBox2.PerformLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).EndInit()
         CType(logo, ComponentModel.ISupportInitialize).EndInit()
-        Panel7.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub

@@ -52,7 +52,9 @@ Public Class InstructorListForm
 
             DataGridView1.DataSource = filteredData
         Else
-            DataGridView1.DataSource = table
+            DataGridView1.DataSource = tab
+            DataGridView1.Columns("InstructorID").Visible = False
+            DataGridView1.Columns("RFID").Visible = False
         End If
     End Sub
     Public Sub ExecuteQuery(query As String)
