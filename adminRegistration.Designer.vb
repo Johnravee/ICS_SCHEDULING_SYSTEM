@@ -48,6 +48,9 @@ Partial Class adminRegistration
         Label8 = New Label()
         Panel6 = New Panel()
         cbworkstatus = New ComboBox()
+        Label9 = New Label()
+        Panel7 = New Panel()
+        cb_gender = New ComboBox()
         Panel1.SuspendLayout()
         CType(ManualBackBtn, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
@@ -57,6 +60,7 @@ Partial Class adminRegistration
         Panel9.SuspendLayout()
         Panel8.SuspendLayout()
         Panel6.SuspendLayout()
+        Panel7.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
@@ -216,7 +220,7 @@ Partial Class adminRegistration
         ' 
         Panel9.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel9.Controls.Add(txtemail)
-        Panel9.Location = New Point(421, 185)
+        Panel9.Location = New Point(422, 257)
         Panel9.Name = "Panel9"
         Panel9.Size = New Size(277, 42)
         Panel9.TabIndex = 6
@@ -237,7 +241,7 @@ Partial Class adminRegistration
         ' 
         Panel8.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel8.Controls.Add(cbRole)
-        Panel8.Location = New Point(421, 274)
+        Panel8.Location = New Point(421, 352)
         Panel8.Name = "Panel8"
         Panel8.Size = New Size(277, 42)
         Panel8.TabIndex = 7
@@ -258,7 +262,7 @@ Partial Class adminRegistration
         Label5.AutoSize = True
         Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(421, 159)
+        Label5.Location = New Point(422, 231)
         Label5.Name = "Label5"
         Label5.Size = New Size(53, 23)
         Label5.TabIndex = 14
@@ -269,7 +273,7 @@ Partial Class adminRegistration
         Label6.AutoSize = True
         Label6.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label6.Location = New Point(422, 248)
+        Label6.Location = New Point(429, 326)
         Label6.Name = "Label6"
         Label6.Size = New Size(46, 23)
         Label6.TabIndex = 15
@@ -281,7 +285,7 @@ Partial Class adminRegistration
         nextbtn.FlatStyle = FlatStyle.Popup
         nextbtn.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         nextbtn.ForeColor = Color.WhiteSmoke
-        nextbtn.Location = New Point(585, 351)
+        nextbtn.Location = New Point(582, 424)
         nextbtn.Name = "nextbtn"
         nextbtn.Size = New Size(113, 43)
         nextbtn.TabIndex = 8
@@ -322,12 +326,46 @@ Partial Class adminRegistration
         cbworkstatus.Size = New Size(258, 27)
         cbworkstatus.TabIndex = 4
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label9.Location = New Point(421, 150)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(69, 23)
+        Label9.TabIndex = 19
+        Label9.Text = "Gender"
+        ' 
+        ' Panel7
+        ' 
+        Panel7.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel7.Controls.Add(cb_gender)
+        Panel7.Location = New Point(420, 176)
+        Panel7.Name = "Panel7"
+        Panel7.Size = New Size(277, 42)
+        Panel7.TabIndex = 18
+        ' 
+        ' cb_gender
+        ' 
+        cb_gender.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cb_gender.FlatStyle = FlatStyle.Flat
+        cb_gender.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cb_gender.FormattingEnabled = True
+        cb_gender.Items.AddRange(New Object() {"MALE", "FEMALE"})
+        cb_gender.Location = New Point(17, 7)
+        cb_gender.Name = "cb_gender"
+        cb_gender.Size = New Size(257, 27)
+        cb_gender.TabIndex = 7
+        ' 
         ' adminRegistration
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(734, 407)
+        ClientSize = New Size(734, 481)
+        Controls.Add(Label9)
+        Controls.Add(Panel7)
         Controls.Add(Label8)
         Controls.Add(Panel6)
         Controls.Add(nextbtn)
@@ -363,6 +401,7 @@ Partial Class adminRegistration
         Panel9.PerformLayout()
         Panel8.ResumeLayout(False)
         Panel6.ResumeLayout(False)
+        Panel7.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -392,4 +431,7 @@ Partial Class adminRegistration
     Friend WithEvents Panel6 As Panel
     Friend WithEvents cbworkstatus As ComboBox
     Friend WithEvents ManualBackBtn As PictureBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents cb_gender As ComboBox
 End Class

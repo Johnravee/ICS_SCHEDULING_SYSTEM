@@ -27,7 +27,6 @@ Partial Class addNewInstructor
         ManualBackBtn = New PictureBox()
         Label14 = New Label()
         logo = New PictureBox()
-        OpenFileDialog = New OpenFileDialog()
         Label8 = New Label()
         Panel6 = New Panel()
         cbworkstatus = New ComboBox()
@@ -47,6 +46,10 @@ Partial Class addNewInstructor
         txtmname = New TextBox()
         Panel2 = New Panel()
         txtfname = New TextBox()
+        Label9 = New Label()
+        Panel7 = New Panel()
+        cb_gender = New ComboBox()
+        Label6 = New Label()
         Panel1.SuspendLayout()
         CType(ManualBackBtn, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -56,6 +59,7 @@ Partial Class addNewInstructor
         Panel5.SuspendLayout()
         Panel3.SuspendLayout()
         Panel2.SuspendLayout()
+        Panel7.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
@@ -98,10 +102,6 @@ Partial Class addNewInstructor
         logo.Size = New Size(78, 65)
         logo.TabIndex = 38
         logo.TabStop = False
-        ' 
-        ' OpenFileDialog
-        ' 
-        OpenFileDialog.FileName = "OpenFileDialog1"
         ' 
         ' Label8
         ' 
@@ -153,7 +153,7 @@ Partial Class addNewInstructor
         Label5.AutoSize = True
         Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(421, 178)
+        Label5.Location = New Point(28, 437)
         Label5.Name = "Label5"
         Label5.Size = New Size(53, 23)
         Label5.TabIndex = 50
@@ -164,7 +164,7 @@ Partial Class addNewInstructor
         Label4.AutoSize = True
         Label4.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label4.Location = New Point(421, 89)
+        Label4.Location = New Point(28, 348)
         Label4.Name = "Label4"
         Label4.Size = New Size(54, 23)
         Label4.TabIndex = 49
@@ -226,7 +226,7 @@ Partial Class addNewInstructor
         ' 
         Panel4.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel4.Controls.Add(cbsuffix)
-        Panel4.Location = New Point(421, 115)
+        Panel4.Location = New Point(28, 374)
         Panel4.Name = "Panel4"
         Panel4.Size = New Size(277, 42)
         Panel4.TabIndex = 42
@@ -300,12 +300,58 @@ Partial Class addNewInstructor
         txtfname.Size = New Size(244, 20)
         txtfname.TabIndex = 1
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label9.Location = New Point(420, 89)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(69, 23)
+        Label9.TabIndex = 56
+        Label9.Text = "Gender"
+        ' 
+        ' Panel7
+        ' 
+        Panel7.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        Panel7.Controls.Add(cb_gender)
+        Panel7.Location = New Point(419, 115)
+        Panel7.Name = "Panel7"
+        Panel7.Size = New Size(277, 42)
+        Panel7.TabIndex = 55
+        ' 
+        ' cb_gender
+        ' 
+        cb_gender.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cb_gender.FlatStyle = FlatStyle.Flat
+        cb_gender.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cb_gender.FormattingEnabled = True
+        cb_gender.Items.AddRange(New Object() {"MALE", "FEMALE"})
+        cb_gender.Location = New Point(17, 7)
+        cb_gender.Name = "cb_gender"
+        cb_gender.Size = New Size(257, 27)
+        cb_gender.TabIndex = 7
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        Label6.Location = New Point(29, 429)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(53, 23)
+        Label6.TabIndex = 54
+        Label6.Text = "Email"
+        ' 
         ' addNewInstructor
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
         ClientSize = New Size(725, 438)
+        Controls.Add(Label9)
+        Controls.Add(Panel7)
+        Controls.Add(Label6)
         Controls.Add(Label8)
         Controls.Add(Panel6)
         Controls.Add(addbtn)
@@ -340,6 +386,7 @@ Partial Class addNewInstructor
         Panel3.PerformLayout()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
+        Panel7.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -349,7 +396,6 @@ Partial Class addNewInstructor
     Friend WithEvents AddInstructorBtn As Button
     Friend WithEvents logo As PictureBox
     Friend WithEvents Label14 As Label
-    Friend WithEvents OpenFileDialog As OpenFileDialog
     Friend WithEvents Label8 As Label
     Friend WithEvents Panel6 As Panel
     Friend WithEvents cbworkstatus As ComboBox
@@ -370,4 +416,8 @@ Partial Class addNewInstructor
     Friend WithEvents Panel2 As Panel
     Friend WithEvents txtfname As TextBox
     Friend WithEvents ManualBackBtn As PictureBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents cb_gender As ComboBox
+    Friend WithEvents Label6 As Label
 End Class

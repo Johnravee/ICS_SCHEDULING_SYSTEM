@@ -25,6 +25,7 @@ Public Class InstructorListForm
 
         DataGridView1.Columns("InstructorID").Visible = False
         DataGridView1.Columns("RFID").Visible = False
+        DataGridView1.Columns("Position").HeaderText = "Role"
 
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -88,6 +89,7 @@ Public Class InstructorListForm
                     cbosuffix.SelectedIndex = -1
                     txtsurname.Clear()
                     cbworkstatus.SelectedIndex = -1
+                    cb_gender.SelectedIndex = -1
                     Load_data()
                     MessageBox.Show("Record Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
@@ -102,6 +104,7 @@ Public Class InstructorListForm
                     cbosuffix.SelectedIndex = -1
                     txtsurname.Clear()
                     cbworkstatus.SelectedIndex = -1
+                    cb_gender.SelectedIndex = -1
                     Load_data()
                     MessageBox.Show("Deletion Failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
@@ -122,17 +125,18 @@ Public Class InstructorListForm
             End If
 
             cmd.Connection = con
-            cmd.CommandText = "UPDATE instructor SET Firstname=@fn,MiddleName=@mn,Surname=@sn,Suffix=@sfx,Position=@pos,WorkStatus=@ws,email=@email WHERE InstructorID = @insID"
+            cmd.CommandText = "UPDATE instructor SET Firstname=@fn,MiddleName=@mn,Surname=@sn, Gender = @gender,Suffix=@sfx,Position=@pos,WorkStatus=@ws,email=@email WHERE InstructorID = @insID"
 
             cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@insID", txtinstructorid.Text)
-            cmd.Parameters.AddWithValue("@fn", txtFirtname.Text)
-            cmd.Parameters.AddWithValue("@mn", txtmidname.Text)
-            cmd.Parameters.AddWithValue("@sn", txtsurname.Text)
-            cmd.Parameters.AddWithValue("@sfx", cbosuffix.SelectedItem)
-            cmd.Parameters.AddWithValue("@pos", cborole.SelectedItem)
-            cmd.Parameters.AddWithValue("@ws", cbworkstatus.SelectedItem)
+            cmd.Parameters.AddWithValue("@insID", ReplaceSpecialCharacters(UCase(txtinstructorid.Text)))
+            cmd.Parameters.AddWithValue("@fn", ReplaceSpecialCharacters(UCase(txtFirtname.Text)))
+            cmd.Parameters.AddWithValue("@mn", ReplaceSpecialCharacters(UCase(txtmidname.Text)))
+            cmd.Parameters.AddWithValue("@sn", ReplaceSpecialCharacters(UCase(txtsurname.Text)))
+            cmd.Parameters.AddWithValue("@sfx", ReplaceSpecialCharacters(UCase(cbosuffix.SelectedItem)))
+            cmd.Parameters.AddWithValue("@pos", ReplaceSpecialCharacters(UCase(cborole.SelectedItem)))
+            cmd.Parameters.AddWithValue("@ws", ReplaceSpecialCharacters(UCase(cbworkstatus.SelectedItem)))
             cmd.Parameters.AddWithValue("@email", txtemail.Text)
+            cmd.Parameters.AddWithValue("@gender", ReplaceSpecialCharacters(UCase(cb_gender.SelectedItem)))
 
 
             If cmd.ExecuteNonQuery() > 0 Then
@@ -148,7 +152,7 @@ Public Class InstructorListForm
                 cbosuffix.SelectedIndex = -1
                 txtsurname.Clear()
                 cbworkstatus.SelectedIndex = -1
-
+                cb_gender.SelectedIndex = -1
                 Load_data()
                 MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
@@ -163,6 +167,7 @@ Public Class InstructorListForm
                 cbosuffix.SelectedIndex = -1
                 txtsurname.Clear()
                 cbworkstatus.SelectedIndex = -1
+                cb_gender.SelectedIndex = -1
                 Load_data()
                 MessageBox.Show("No record found with the provided Instructor.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
@@ -190,9 +195,10 @@ Public Class InstructorListForm
             txtmidname.Text = selectedRow.Cells(3).Value.ToString()
             txtsurname.Text = selectedRow.Cells(4).Value.ToString()
             cbosuffix.SelectedItem = selectedRow.Cells(5).Value.ToString()
-            cborole.SelectedItem = selectedRow.Cells(6).Value.ToString()
-            cbworkstatus.SelectedItem = selectedRow.Cells(7).Value.ToString()
-            txtemail.Text = selectedRow.Cells(8).Value.ToString()
+            cb_gender.Text = selectedRow.Cells(6).Value.ToString()
+            cborole.SelectedItem = selectedRow.Cells(7).Value.ToString()
+            cbworkstatus.SelectedItem = selectedRow.Cells(8).Value.ToString()
+            txtemail.Text = selectedRow.Cells(9).Value.ToString()
 
             ' Refresh the DataGridView if needed
             DataGridView1.Refresh()

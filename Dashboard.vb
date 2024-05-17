@@ -51,13 +51,14 @@
     End Sub
 
     Private Sub LogoutBtn_Click_2(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        currentUser = ""
+        lblcurrentuser.Text = ""
         ScanRFIDLOGIN.Show()
         Me.Close()
     End Sub
 
     Private Sub btnViewSummary_Click(sender As Object, e As EventArgs) Handles btnViewSummary.Click
-        currentUser = ""
-        lblcurrentuser.Text = ""
+
         Summary.Show()
         Me.Hide()
     End Sub

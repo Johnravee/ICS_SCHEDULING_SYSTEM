@@ -5,7 +5,7 @@
         If CheckEmptyFields() Then
             If EmailValidation(txtemail.Text) Then
                 Dim rfidscanForm As New RFIDREGISTRATION
-                rfidscanForm.instructorDataConstructor(txtfname.Text, txtmname.Text, txtsurname.Text, cbsuffix.SelectedItem, cbRole.SelectedItem, txtemail.Text, cbworkstatus.SelectedItem)
+                rfidscanForm.instructorDataConstructor(txtfname.Text, txtmname.Text, txtsurname.Text, cbsuffix.SelectedItem, cbRole.SelectedItem, txtemail.Text, cbworkstatus.SelectedItem, cb_gender.SelectedItem)
 
 
                 rfidscanForm.Show()
@@ -37,6 +37,11 @@
 
         If String.IsNullOrEmpty(cbsuffix.SelectedItem) Then
             errorMessage &= "- Suffix" & vbCrLf
+        End If
+
+
+        If String.IsNullOrEmpty(cb_gender.SelectedItem) Then
+            errorMessage &= "- Gender" & vbCrLf
         End If
 
         If String.IsNullOrEmpty(cbRole.SelectedItem) Then
@@ -76,4 +81,6 @@
         cbworkstatus.SelectedIndex = -1
         cbRole.SelectedIndex = -1
     End Sub
+
+
 End Class

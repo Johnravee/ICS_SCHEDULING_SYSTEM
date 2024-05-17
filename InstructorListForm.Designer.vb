@@ -47,6 +47,8 @@ Partial Class InstructorListForm
         Label6 = New Label()
         Label7 = New Label()
         Panel1 = New Panel()
+        Label8 = New Label()
+        cb_gender = New ComboBox()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -257,7 +259,7 @@ Partial Class InstructorListForm
         cbosuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
         cbosuffix.Location = New Point(799, 480)
         cbosuffix.Name = "cbosuffix"
-        cbosuffix.Size = New Size(228, 32)
+        cbosuffix.Size = New Size(67, 32)
         cbosuffix.TabIndex = 34
         ' 
         ' Label4
@@ -307,12 +309,37 @@ Partial Class InstructorListForm
         Panel1.Size = New Size(200, 29)
         Panel1.TabIndex = 39
         ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label8.Location = New Point(909, 454)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(69, 23)
+        Label8.TabIndex = 41
+        Label8.Text = "Gender"
+        ' 
+        ' cb_gender
+        ' 
+        cb_gender.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_gender.AutoCompleteSource = AutoCompleteSource.ListItems
+        cb_gender.BackColor = Color.LightYellow
+        cb_gender.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cb_gender.FormattingEnabled = True
+        cb_gender.Items.AddRange(New Object() {"MALE", "FEMALE"})
+        cb_gender.Location = New Point(909, 480)
+        cb_gender.Name = "cb_gender"
+        cb_gender.Size = New Size(118, 32)
+        cb_gender.TabIndex = 40
+        ' 
         ' InstructorListForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1050, 609)
+        Controls.Add(Label8)
+        Controls.Add(cb_gender)
         Controls.Add(Panel1)
         Controls.Add(Label7)
         Controls.Add(Label6)
@@ -365,4 +392,6 @@ Partial Class InstructorListForm
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label8 As Label
+    Friend WithEvents cb_gender As ComboBox
 End Class

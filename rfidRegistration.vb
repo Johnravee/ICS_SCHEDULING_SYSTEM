@@ -2,7 +2,7 @@
 
 Public Class RFIDREGISTRATION
 
-    Dim fname, mname, lname, sufx, jobPosisyon, emailAdd, workStats, registeredRFID As String
+    Dim fname, mname, lname, sufx, jobPosisyon, emailAdd, workStats, registeredRFID, Gender As String
     Private Sub rfidandPinRegistrationforinstructors_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         rfidscanpanel.Dock = DockStyle.Fill
         txtRfidRegister.Focus()
@@ -36,14 +36,15 @@ Public Class RFIDREGISTRATION
     End Sub
 
     ' ayusin nalang yung pagaayos ng variables and procedures
-    Public Sub instructorDataConstructor(firstName As String, middleName As String, lastName As String, suffix As String, role As String, email As String, workstatus As String)
-        fname = firstName
-        mname = middleName
-        lname = lastName
-        sufx = suffix
+    Public Sub instructorDataConstructor(firstName As String, middleName As String, lastName As String, suffix As String, role As String, email As String, workstatus As String, gnder As String)
+        fname = ReplaceSpecialCharacters(firstName)
+        mname = ReplaceSpecialCharacters(middleName)
+        lname = ReplaceSpecialCharacters(lastName)
+        sufx = ReplaceSpecialCharacters(suffix)
         emailAdd = email
-        jobPosisyon = role
-        workStats = workstatus
+        jobPosisyon = ReplaceSpecialCharacters(role)
+        workStats = ReplaceSpecialCharacters(workstatus)
+        Gender = ReplaceSpecialCharacters(gnder)
     End Sub
 
 
@@ -59,20 +60,21 @@ Public Class RFIDREGISTRATION
 
             If con.State = ConnectionState.Open Then
 
-                cmd.CommandText = "INSERT INTO instructor (RFID, Firstname, MiddleName, Surname, Suffix, Position, WorkStatus, email) VALUES (@rfid, @fname, @mname, @surname, @suffix, @position, @workstats, @email)"
+                cmd.CommandText = "INSERT INTO instructor (RFID, Firstname, MiddleName, Surname, Gender, Suffix, Position, WorkStatus, email) VALUES (@rfid, @fname, @mname, @surname, @gender, @suffix, @position, @workstats, @email)"
 
 
                 cmd.Parameters.Clear()
                 cmd.Connection = con
 
                 cmd.Parameters.AddWithValue("@rfid", registeredRFID)
-                cmd.Parameters.AddWithValue("@fname", fname)
-                cmd.Parameters.AddWithValue("@mname", mname)
-                cmd.Parameters.AddWithValue("@surname", lname)
-                cmd.Parameters.AddWithValue("@suffix", sufx)
-                cmd.Parameters.AddWithValue("@position", jobPosisyon)
-                cmd.Parameters.AddWithValue("@workstats", workStats)
+                cmd.Parameters.AddWithValue("@fname", UCase(fname))
+                cmd.Parameters.AddWithValue("@mname", UCase(mname))
+                cmd.Parameters.AddWithValue("@surname", UCase(lname))
+                cmd.Parameters.AddWithValue("@suffix", UCase(sufx))
+                cmd.Parameters.AddWithValue("@position", UCase(jobPosisyon))
+                cmd.Parameters.AddWithValue("@workstats", UCase(workStats))
                 cmd.Parameters.AddWithValue("@email", emailAdd)
+                cmd.Parameters.AddWithValue("@gender", UCase(Gender))
 
 
 

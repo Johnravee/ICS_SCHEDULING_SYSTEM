@@ -14,11 +14,12 @@ Public Class addNewInstructor
             txtsurname.Text = ReplaceSpecialCharacters(UCase(txtsurname.Text))
             cbsuffix.SelectedItem = ReplaceSpecialCharacters(UCase(cbsuffix.SelectedItem))
             cbworkstatus.SelectedItem = ReplaceSpecialCharacters(UCase(cbworkstatus.SelectedItem))
+            cb_gender.SelectedItem = ReplaceSpecialCharacters(UCase(cb_gender.SelectedItem))
 
             Try
                 DBCon()
                 cmd.Connection = con
-                cmd.CommandText = "INSERT INTO instructor (Firstname, MiddleName, Surname, Suffix, Position ,WorkStatus, email) VALUES(@fname, @mname, @surname, @suffix, @position, @workstatus, @email)"
+                cmd.CommandText = "INSERT INTO instructor (Firstname, MiddleName, Surname, Suffix, Gender, Position ,WorkStatus, email) VALUES(@fname, @mname, @surname, @suffix, @gender, @position, @workstatus, @email)"
 
                 cmd.Parameters.Clear()
                 cmd.Parameters.AddWithValue("@fname", txtfname.Text)
@@ -28,6 +29,7 @@ Public Class addNewInstructor
                 cmd.Parameters.AddWithValue("@position", "INSTRUCTOR")
                 cmd.Parameters.AddWithValue("@workstatus", cbworkstatus.SelectedItem)
                 cmd.Parameters.AddWithValue("@email", txtemail.Text)
+                cmd.Parameters.AddWithValue("@gender", cb_gender.SelectedItem)
 
                 cmd.ExecuteNonQuery()
                 MessageBox.Show("Instructor added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
