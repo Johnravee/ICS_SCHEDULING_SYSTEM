@@ -11,6 +11,11 @@
 
     Private Sub btnNewSched_Click(sender As Object, e As EventArgs) Handles btnNewSched.Click
         CreateScheduleForm.Show()
+        CreateScheduleForm.GetInstructor()
+        CreateScheduleForm.getSchedules()
+        CreateScheduleForm.GetSubject()
+        CreateScheduleForm.GetRoom()
+        CreateScheduleForm.GetSection()
         Me.Hide()
     End Sub
 
@@ -22,18 +27,22 @@
 
 
     Private Sub btnViewFacilities_Click(sender As Object, e As EventArgs) Handles btnViewFacilities.Click
-        Me.Hide()
         viewRooms.Show()
+        viewRooms.GetRooms()
+        Me.Hide()
+
     End Sub
 
     Private Sub btnViewSection_Click(sender As Object, e As EventArgs) Handles btnViewSection.Click
         Me.Hide()
         viewSection.Show()
+        viewSection.GetSections()
     End Sub
 
     Private Sub btnViewInstructor_Click(sender As Object, e As EventArgs) Handles btnViewInstructor.Click
         Me.Hide()
         viewInstructors.Show()
+        viewInstructors.GetInstructors()
     End Sub
 
     Private Sub btnViewSubject_Click(sender As Object, e As EventArgs) Handles btnViewSubject.Click

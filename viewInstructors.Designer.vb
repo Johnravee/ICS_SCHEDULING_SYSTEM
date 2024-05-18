@@ -24,11 +24,11 @@ Partial Class viewInstructors
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(viewInstructors))
         Panel1 = New Panel()
+        Label9 = New Label()
         backBtn = New Button()
         Panel2 = New Panel()
         txtsearch = New TextBox()
         panelbtns = New Panel()
-        Label9 = New Label()
         Panel1.SuspendLayout()
         Panel2.SuspendLayout()
         SuspendLayout()
@@ -44,9 +44,20 @@ Partial Class viewInstructors
         Panel1.Size = New Size(1467, 42)
         Panel1.TabIndex = 1
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1330, 9)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(125, 24)
+        Label9.TabIndex = 3
+        Label9.Text = "INSTRUCTORS"
+        ' 
         ' backBtn
         ' 
-        backBtn.BackgroundImage = My.Resources.Resources._434230529_948718966640697_2976062282803324491_n1
+        backBtn.BackgroundImage = My.Resources.Resources.backBtn
         backBtn.BackgroundImageLayout = ImageLayout.Stretch
         backBtn.FlatStyle = FlatStyle.Flat
         backBtn.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
@@ -78,21 +89,11 @@ Partial Class viewInstructors
         ' 
         ' panelbtns
         ' 
+        panelbtns.AutoScroll = True
         panelbtns.Location = New Point(62, 139)
         panelbtns.Name = "panelbtns"
         panelbtns.Size = New Size(1346, 546)
         panelbtns.TabIndex = 4
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.ForeColor = Color.WhiteSmoke
-        Label9.Location = New Point(1330, 9)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(125, 24)
-        Label9.TabIndex = 3
-        Label9.Text = "INSTRUCTORS"
         ' 
         ' viewInstructors
         ' 

@@ -53,7 +53,7 @@ Partial Class ManagementScheduleForm
         ' BackBtn
         ' 
         BackBtn.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
-        BackBtn.BackgroundImage = My.Resources.Resources.backBtn_removebg_preview
+        BackBtn.BackgroundImage = My.Resources.Resources.backBtn
         BackBtn.BackgroundImageLayout = ImageLayout.Stretch
         BackBtn.FlatStyle = FlatStyle.Flat
         BackBtn.Location = New Point(9, 6)

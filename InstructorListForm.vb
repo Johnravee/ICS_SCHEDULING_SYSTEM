@@ -1,10 +1,6 @@
 ﻿
-Imports System.CodeDom
-Imports System.Data.Common
-Imports System.Linq.Expressions
 Imports MySql.Data.MySqlClient
-Imports Mysqlx.Cursor
-Imports Mysqlx.Prepare
+
 
 Public Class InstructorListForm
     Dim tab As New DataTable()
@@ -58,13 +54,7 @@ Public Class InstructorListForm
             DataGridView1.Columns("RFID").Visible = False
         End If
     End Sub
-    Public Sub ExecuteQuery(query As String)
 
-        Dim command As New MySqlCommand(query, con)
-        con.Open()
-        command.ExecuteReader()
-        con.Close()
-    End Sub
 
     Private Sub del_Click(sender As Object, e As EventArgs) Handles del.Click
         If MsgBox("Are You Sure You Want to Delete This Record?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
@@ -86,7 +76,7 @@ Public Class InstructorListForm
                     txtmidname.Clear()
                     cborole.SelectedIndex = -1
                     txtrfid.Clear()
-                    cbosuffix.SelectedIndex = -1
+
                     txtsurname.Clear()
                     cbworkstatus.SelectedIndex = -1
                     cb_gender.SelectedIndex = -1
@@ -101,7 +91,7 @@ Public Class InstructorListForm
                     txtmidname.Clear()
                     cborole.SelectedIndex = -1
                     txtrfid.Clear()
-                    cbosuffix.SelectedIndex = -1
+
                     txtsurname.Clear()
                     cbworkstatus.SelectedIndex = -1
                     cb_gender.SelectedIndex = -1
@@ -125,14 +115,14 @@ Public Class InstructorListForm
             End If
 
             cmd.Connection = con
-            cmd.CommandText = "UPDATE instructor SET Firstname=@fn,MiddleName=@mn,Surname=@sn, Gender = @gender,Suffix=@sfx,Position=@pos,WorkStatus=@ws,email=@email WHERE InstructorID = @insID"
+            cmd.CommandText = "UPDATE instructor SET Firstname=@fn,MiddleName=@mn,Surname=@sn, Gender = @gender,Position=@pos,WorkStatus=@ws,email=@email WHERE InstructorID = @insID"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@insID", ReplaceSpecialCharacters(UCase(txtinstructorid.Text)))
             cmd.Parameters.AddWithValue("@fn", ReplaceSpecialCharacters(UCase(txtFirtname.Text)))
             cmd.Parameters.AddWithValue("@mn", ReplaceSpecialCharacters(UCase(txtmidname.Text)))
             cmd.Parameters.AddWithValue("@sn", ReplaceSpecialCharacters(UCase(txtsurname.Text)))
-            cmd.Parameters.AddWithValue("@sfx", ReplaceSpecialCharacters(UCase(cbosuffix.SelectedItem)))
+
             cmd.Parameters.AddWithValue("@pos", ReplaceSpecialCharacters(UCase(cborole.SelectedItem)))
             cmd.Parameters.AddWithValue("@ws", ReplaceSpecialCharacters(UCase(cbworkstatus.SelectedItem)))
             cmd.Parameters.AddWithValue("@email", txtemail.Text)
@@ -149,7 +139,7 @@ Public Class InstructorListForm
                 txtmidname.Clear()
                 cborole.SelectedIndex = -1
                 txtrfid.Clear()
-                cbosuffix.SelectedIndex = -1
+
                 txtsurname.Clear()
                 cbworkstatus.SelectedIndex = -1
                 cb_gender.SelectedIndex = -1
@@ -164,7 +154,7 @@ Public Class InstructorListForm
                 txtmidname.Clear()
                 cborole.SelectedIndex = -1
                 txtrfid.Clear()
-                cbosuffix.SelectedIndex = -1
+
                 txtsurname.Clear()
                 cbworkstatus.SelectedIndex = -1
                 cb_gender.SelectedIndex = -1
@@ -194,11 +184,10 @@ Public Class InstructorListForm
             txtFirtname.Text = selectedRow.Cells(2).Value.ToString()
             txtmidname.Text = selectedRow.Cells(3).Value.ToString()
             txtsurname.Text = selectedRow.Cells(4).Value.ToString()
-            cbosuffix.SelectedItem = selectedRow.Cells(5).Value.ToString()
-            cb_gender.Text = selectedRow.Cells(6).Value.ToString()
-            cborole.SelectedItem = selectedRow.Cells(7).Value.ToString()
-            cbworkstatus.SelectedItem = selectedRow.Cells(8).Value.ToString()
-            txtemail.Text = selectedRow.Cells(9).Value.ToString()
+            cb_gender.Text = selectedRow.Cells(5).Value.ToString()
+            cborole.SelectedItem = selectedRow.Cells(6).Value.ToString()
+            cbworkstatus.SelectedItem = selectedRow.Cells(7).Value.ToString()
+            txtemail.Text = selectedRow.Cells(8).Value.ToString()
 
             ' Refresh the DataGridView if needed
             DataGridView1.Refresh()

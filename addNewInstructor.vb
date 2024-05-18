@@ -12,20 +12,18 @@ Public Class addNewInstructor
             txtfname.Text = ReplaceSpecialCharacters(UCase(txtfname.Text))
             txtmname.Text = ReplaceSpecialCharacters(UCase(txtmname.Text))
             txtsurname.Text = ReplaceSpecialCharacters(UCase(txtsurname.Text))
-            cbsuffix.SelectedItem = ReplaceSpecialCharacters(UCase(cbsuffix.SelectedItem))
             cbworkstatus.SelectedItem = ReplaceSpecialCharacters(UCase(cbworkstatus.SelectedItem))
             cb_gender.SelectedItem = ReplaceSpecialCharacters(UCase(cb_gender.SelectedItem))
 
             Try
                 DBCon()
                 cmd.Connection = con
-                cmd.CommandText = "INSERT INTO instructor (Firstname, MiddleName, Surname, Suffix, Gender, Position ,WorkStatus, email) VALUES(@fname, @mname, @surname, @suffix, @gender, @position, @workstatus, @email)"
+                cmd.CommandText = "INSERT INTO instructor (Firstname, MiddleName, Surname, Gender, Position ,WorkStatus, email) VALUES(@fname, @mname, @surname, @gender, @position, @workstatus, @email)"
 
                 cmd.Parameters.Clear()
                 cmd.Parameters.AddWithValue("@fname", txtfname.Text)
                 cmd.Parameters.AddWithValue("@mname", txtmname.Text)
                 cmd.Parameters.AddWithValue("@surname", txtsurname.Text)
-                cmd.Parameters.AddWithValue("@suffix", cbsuffix.SelectedItem)
                 cmd.Parameters.AddWithValue("@position", "INSTRUCTOR")
                 cmd.Parameters.AddWithValue("@workstatus", cbworkstatus.SelectedItem)
                 cmd.Parameters.AddWithValue("@email", txtemail.Text)
@@ -75,10 +73,6 @@ Public Class addNewInstructor
             errorMessage &= "- Surname" & vbCrLf
         End If
 
-        If String.IsNullOrEmpty(cbsuffix.SelectedItem) Then
-            errorMessage &= "- Suffix" & vbCrLf
-        End If
-
 
         If String.IsNullOrEmpty(cbworkstatus.SelectedItem) Then
             errorMessage &= "- Work Status" & vbCrLf
@@ -105,8 +99,9 @@ Public Class addNewInstructor
         txtfname.Clear()
         txtmname.Clear()
         txtsurname.Clear()
-        cbsuffix.SelectedIndex = -1
+
         cbworkstatus.SelectedIndex = -1
+        cb_gender.SelectedIndex = -1
 
     End Sub
 

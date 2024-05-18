@@ -11,7 +11,7 @@
     Dim roomsTable As New DataTable()
     Public Shared Instructor As String = ""
 
-    Private Sub viewInstructors_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub GetInstructors()
         Try
             DBCon()
             cmd.Connection = con
@@ -28,9 +28,9 @@
                 btn.Font = New Font("Calibri", 20, Font.Style.Bold)
 
 
-                Dim imageFilePath As String = "C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\icons8-teacher-80.png"
-                If System.IO.File.Exists(imageFilePath) Then
-                    btn.Image = Image.FromFile(imageFilePath)
+                Dim ImageLogo As Image = My.Resources.instructorlogo40
+                If ImageLogo IsNot Nothing Then
+                    btn.Image = ImageLogo
                     btn.ImageAlign = ContentAlignment.MiddleCenter
                     btn.TextImageRelation = TextImageRelation.ImageBeforeText
 
@@ -64,6 +64,7 @@
 
     End Sub
 
+
     Private Sub InstructorButton(sender As Object, e As EventArgs)
         Instructor = sender.Text
         Me.Hide()
@@ -73,7 +74,7 @@
 
     Private Sub backBtn_Click(sender As Object, e As EventArgs) Handles backBtn.Click
         Dashboard.Show()
-        Me.Hide()
+        Me.Close()
         txtsearch.Clear()
 
     End Sub

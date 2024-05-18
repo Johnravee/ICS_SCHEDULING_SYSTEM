@@ -36,11 +36,10 @@ Public Class RFIDREGISTRATION
     End Sub
 
     ' ayusin nalang yung pagaayos ng variables and procedures
-    Public Sub instructorDataConstructor(firstName As String, middleName As String, lastName As String, suffix As String, role As String, email As String, workstatus As String, gnder As String)
+    Public Sub instructorDataConstructor(firstName As String, middleName As String, lastName As String, role As String, email As String, workstatus As String, gnder As String)
         fname = ReplaceSpecialCharacters(firstName)
         mname = ReplaceSpecialCharacters(middleName)
         lname = ReplaceSpecialCharacters(lastName)
-        sufx = ReplaceSpecialCharacters(suffix)
         emailAdd = email
         jobPosisyon = ReplaceSpecialCharacters(role)
         workStats = ReplaceSpecialCharacters(workstatus)
@@ -60,7 +59,7 @@ Public Class RFIDREGISTRATION
 
             If con.State = ConnectionState.Open Then
 
-                cmd.CommandText = "INSERT INTO instructor (RFID, Firstname, MiddleName, Surname, Gender, Suffix, Position, WorkStatus, email) VALUES (@rfid, @fname, @mname, @surname, @gender, @suffix, @position, @workstats, @email)"
+                cmd.CommandText = "INSERT INTO instructor (RFID, Firstname, MiddleName, Surname, Gender, Position, WorkStatus, email) VALUES (@rfid, @fname, @mname, @surname, @gender,@position, @workstats, @email)"
 
 
                 cmd.Parameters.Clear()
@@ -70,7 +69,7 @@ Public Class RFIDREGISTRATION
                 cmd.Parameters.AddWithValue("@fname", UCase(fname))
                 cmd.Parameters.AddWithValue("@mname", UCase(mname))
                 cmd.Parameters.AddWithValue("@surname", UCase(lname))
-                cmd.Parameters.AddWithValue("@suffix", UCase(sufx))
+
                 cmd.Parameters.AddWithValue("@position", UCase(jobPosisyon))
                 cmd.Parameters.AddWithValue("@workstats", UCase(workStats))
                 cmd.Parameters.AddWithValue("@email", emailAdd)

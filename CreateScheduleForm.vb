@@ -8,10 +8,6 @@ Public Class CreateScheduleForm
 
 
     Private Sub CreateScheduleForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
-
-
         StartTime.Format = DateTimePickerFormat.Custom
         StartTime.CustomFormat = "hh:mm tt"
         StartTime.ShowUpDown = True
@@ -20,27 +16,12 @@ Public Class CreateScheduleForm
         EndTIme.CustomFormat = "hh:mm tt"
         EndTIme.ShowUpDown = True
 
-        Try
-            getSchedules()
-            GetInstructor()
-            GetSection()
-            GetSubject()
-            GetRoom()
 
 
-            cb_instructor.SelectedIndex = 0
-            cb_section.SelectedIndex = 0
-            cb_subject.SelectedIndex = 0
-            cb_room.SelectedIndex = 0
-            cb_day.SelectedIndex = 0
-            cbo_semester.SelectedIndex = 0
-        Catch ex As Exception
-            MessageBox.Show("Sorry, something went wrong while loading the form. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-        End Try
+
+
+
+
     End Sub
 
     Public Sub ResetForm()
@@ -57,8 +38,14 @@ Public Class CreateScheduleForm
     End Sub
 
     Private Sub submitbtn_Click(sender As Object, e As EventArgs) Handles submitbtn.Click
-        MsgBox("I miss you na. ")
         Try
+            Dim Start As DateTime = StartTime.Value
+            Dim ind As DateTime = EndTIme.Value
+            Dim duration As TimeSpan = ind - Start
+
+            'Format duration
+            Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
+
             If String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
                     String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
                 String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
@@ -71,7 +58,13 @@ Public Class CreateScheduleForm
 
             ' Check if start time and end time are the same
             If StartTime.Value.ToString("hh:mm") = EndTIme.Value.ToString("hh:mm") Then
-                MessageBox.Show("Please choose different start and end times.", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("The start time and end time cannot be the same. Please adjust the schedule accordingly.", "Invalid Schedule", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            'Adjust nalang if needed
+            If duration.Hours <= 0 Or duration.Hours > 8 Then
+                MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 
@@ -83,20 +76,23 @@ Public Class CreateScheduleForm
             End If
 
 
+
+
+
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`, `Day`, `RoomNumber`, Semester) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @semester)"
+            cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`,`Day`, `RoomNumber`, Semester, `Duration`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @semester, @duration)"
 
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@InstructorName", cb_instructor.SelectedItem)
             cmd.Parameters.AddWithValue("@Section", cb_section.SelectedItem)
             cmd.Parameters.AddWithValue("@Subject", cb_subject.SelectedItem)
-            cmd.Parameters.AddWithValue("@StartTime", StartTime.Value)
-            cmd.Parameters.AddWithValue("@EndTime", EndTIme.Value)
+            cmd.Parameters.AddWithValue("@StartTime", Start)
+            cmd.Parameters.AddWithValue("@EndTime", ind)
             cmd.Parameters.AddWithValue("@Day", cb_day.SelectedItem)
             cmd.Parameters.AddWithValue("@RoomNumber", cb_room.SelectedItem)
             cmd.Parameters.AddWithValue("@semester", cbo_semester.SelectedItem)
-
+            cmd.Parameters.AddWithValue("@duration", FormatedDuration)
 
             DBCon()
             cmd.ExecuteNonQuery()
@@ -113,7 +109,7 @@ Public Class CreateScheduleForm
 
         Catch ex As Exception
             MessageBox.Show("An unexpected error occurred. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
+            MsgBox(ex.Message)
         Finally
             If con.State = ConnectionState.Open Then
                 con.Close()
@@ -123,11 +119,11 @@ Public Class CreateScheduleForm
 
 
 
-    Private Sub getSchedules()
+    Public Sub getSchedules()
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules ORDER BY Section, InstructorName, StartTime, EndTime, RoomNumber ASC"
+            cmd.CommandText = "SELECT * FROM schedules ORDER BY Section DESC"
 
             ScheduleTB.Clear()
 
@@ -246,12 +242,12 @@ Public Class CreateScheduleForm
         End If
     End Sub
 
-    Private Sub GetInstructor()
+    Public Sub GetInstructor()
         Try
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT CONCAT(Firstname,' ', Surname) AS FullName FROM instructor"
+            cmd.CommandText = "SELECT CONCAT(Firstname, ' ', Surname) AS FullName FROM instructor"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -269,7 +265,10 @@ Public Class CreateScheduleForm
     End Sub
 
 
-    Private Sub GetSection()
+
+
+
+    Public Sub GetSection()
         Try
             Dim newtable As New DataTable()
             DBCon()
@@ -290,7 +289,7 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
-    Private Sub GetSubject()
+    Public Sub GetSubject()
         Try
             Dim newtable As New DataTable()
             DBCon()
@@ -312,7 +311,7 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
-    Private Sub GetRoom()
+    Public Sub GetRoom()
         Try
             Dim newtable As New DataTable()
             DBCon()
@@ -368,7 +367,7 @@ Public Class CreateScheduleForm
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dashboard.Show()
         Me.Hide()
-
+        ResetForm()
     End Sub
 
 

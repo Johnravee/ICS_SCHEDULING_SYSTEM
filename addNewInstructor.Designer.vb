@@ -32,14 +32,11 @@ Partial Class addNewInstructor
         cbworkstatus = New ComboBox()
         addbtn = New Button()
         Label5 = New Label()
-        Label4 = New Label()
         Label3 = New Label()
         Label2 = New Label()
         Label1 = New Label()
         Panel9 = New Panel()
         txtemail = New TextBox()
-        Panel4 = New Panel()
-        cbsuffix = New ComboBox()
         Panel5 = New Panel()
         txtsurname = New TextBox()
         Panel3 = New Panel()
@@ -49,13 +46,11 @@ Partial Class addNewInstructor
         Label9 = New Label()
         Panel7 = New Panel()
         cb_gender = New ComboBox()
-        Label6 = New Label()
         Panel1.SuspendLayout()
         CType(ManualBackBtn, ComponentModel.ISupportInitialize).BeginInit()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
         Panel6.SuspendLayout()
         Panel9.SuspendLayout()
-        Panel4.SuspendLayout()
         Panel5.SuspendLayout()
         Panel3.SuspendLayout()
         Panel2.SuspendLayout()
@@ -125,14 +120,17 @@ Partial Class addNewInstructor
         ' 
         ' cbworkstatus
         ' 
+        cbworkstatus.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cbworkstatus.AutoCompleteSource = AutoCompleteSource.ListItems
         cbworkstatus.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cbworkstatus.DropDownStyle = ComboBoxStyle.DropDownList
         cbworkstatus.FlatStyle = FlatStyle.Flat
         cbworkstatus.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cbworkstatus.FormattingEnabled = True
         cbworkstatus.Items.AddRange(New Object() {"FULL-TIMER", "PART-TIMER"})
         cbworkstatus.Location = New Point(17, 7)
         cbworkstatus.Name = "cbworkstatus"
-        cbworkstatus.Size = New Size(244, 27)
+        cbworkstatus.Size = New Size(256, 27)
         cbworkstatus.TabIndex = 6
         ' 
         ' addbtn
@@ -153,22 +151,11 @@ Partial Class addNewInstructor
         Label5.AutoSize = True
         Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(28, 437)
+        Label5.Location = New Point(419, 178)
         Label5.Name = "Label5"
         Label5.Size = New Size(53, 23)
         Label5.TabIndex = 50
         Label5.Text = "Email"
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label4.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label4.Location = New Point(28, 348)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(54, 23)
-        Label4.TabIndex = 49
-        Label4.Text = "Suffix"
         ' 
         ' Label3
         ' 
@@ -221,27 +208,6 @@ Partial Class addNewInstructor
         txtemail.Name = "txtemail"
         txtemail.Size = New Size(244, 20)
         txtemail.TabIndex = 5
-        ' 
-        ' Panel4
-        ' 
-        Panel4.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel4.Controls.Add(cbsuffix)
-        Panel4.Location = New Point(28, 374)
-        Panel4.Name = "Panel4"
-        Panel4.Size = New Size(277, 42)
-        Panel4.TabIndex = 42
-        ' 
-        ' cbsuffix
-        ' 
-        cbsuffix.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        cbsuffix.FlatStyle = FlatStyle.Flat
-        cbsuffix.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        cbsuffix.FormattingEnabled = True
-        cbsuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
-        cbsuffix.Location = New Point(17, 7)
-        cbsuffix.Name = "cbsuffix"
-        cbsuffix.Size = New Size(244, 27)
-        cbsuffix.TabIndex = 4
         ' 
         ' Panel5
         ' 
@@ -322,7 +288,10 @@ Partial Class addNewInstructor
         ' 
         ' cb_gender
         ' 
+        cb_gender.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cb_gender.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_gender.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cb_gender.DropDownStyle = ComboBoxStyle.DropDownList
         cb_gender.FlatStyle = FlatStyle.Flat
         cb_gender.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cb_gender.FormattingEnabled = True
@@ -332,36 +301,22 @@ Partial Class addNewInstructor
         cb_gender.Size = New Size(257, 27)
         cb_gender.TabIndex = 7
         ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label6.Location = New Point(29, 429)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(53, 23)
-        Label6.TabIndex = 54
-        Label6.Text = "Email"
-        ' 
         ' addNewInstructor
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
-        ClientSize = New Size(725, 438)
+        ClientSize = New Size(725, 430)
         Controls.Add(Label9)
         Controls.Add(Panel7)
-        Controls.Add(Label6)
         Controls.Add(Label8)
         Controls.Add(Panel6)
         Controls.Add(addbtn)
         Controls.Add(Label5)
-        Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(Panel9)
-        Controls.Add(Panel4)
         Controls.Add(Panel5)
         Controls.Add(Panel3)
         Controls.Add(Panel2)
@@ -379,7 +334,6 @@ Partial Class addNewInstructor
         Panel6.ResumeLayout(False)
         Panel9.ResumeLayout(False)
         Panel9.PerformLayout()
-        Panel4.ResumeLayout(False)
         Panel5.ResumeLayout(False)
         Panel5.PerformLayout()
         Panel3.ResumeLayout(False)
@@ -401,14 +355,11 @@ Partial Class addNewInstructor
     Friend WithEvents cbworkstatus As ComboBox
     Friend WithEvents addbtn As Button
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel9 As Panel
     Friend WithEvents txtemail As TextBox
-    Friend WithEvents Panel4 As Panel
-    Friend WithEvents cbsuffix As ComboBox
     Friend WithEvents Panel5 As Panel
     Friend WithEvents txtsurname As TextBox
     Friend WithEvents Panel3 As Panel
@@ -419,5 +370,4 @@ Partial Class addNewInstructor
     Friend WithEvents Label9 As Label
     Friend WithEvents Panel7 As Panel
     Friend WithEvents cb_gender As ComboBox
-    Friend WithEvents Label6 As Label
 End Class

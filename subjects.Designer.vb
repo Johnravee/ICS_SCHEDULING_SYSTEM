@@ -64,7 +64,7 @@ Partial Class SubjectForm
         ' 
         ' backBtn
         ' 
-        backBtn.BackgroundImage = My.Resources.Resources._434230529_948718966640697_2976062282803324491_n1
+        backBtn.BackgroundImage = My.Resources.Resources.backBtn
         backBtn.BackgroundImageLayout = ImageLayout.Stretch
         backBtn.FlatStyle = FlatStyle.Flat
         backBtn.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))

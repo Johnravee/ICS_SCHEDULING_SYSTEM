@@ -126,6 +126,8 @@ Public Class SchedulePopupForm
 
     Private Sub btn_update_Click(sender As Object, e As EventArgs) Handles btn_update.Click
 
+
+
         If StartTime1.Value.ToString("hh:mm tt") = enTime.Value.ToString("hh:mm tt") Then
             MessageBox.Show("The start time and end time cannot be the same. Please adjust the schedule accordingly.", "Invalid Schedule", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -160,6 +162,19 @@ Public Class SchedulePopupForm
                 Return False
             End If
 
+            Dim Start As DateTime = StartTime1.Value
+            Dim ind As DateTime = enTime.Value
+            Dim duration As TimeSpan = ind - Start
+
+            'Format duration
+            Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
+
+            'Adjust nalang if needed
+            If duration.Hours <= 0 Or duration.Hours > 8 Then
+                MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Return False
+            End If
+
             ' Convert values to string and integer
             Dim instructor As String = cbo_instructor.SelectedItem.ToString()
             Dim day As String = cbo_day.SelectedItem.ToString()
@@ -178,7 +193,7 @@ Public Class SchedulePopupForm
                 ' Proceed with updating the schedule
                 DBCon()
                 cmd.Connection = con
-                cmd.CommandText = "UPDATE schedules SET InstructorName = @Instructor, Section = @Section, Subject = @Subject, StartTime = @StartTime, EndTime = @EndTime, Day = @Day, RoomNumber = @Room, Semester = @semester WHERE ScheduleID = @ScheduleID"
+                cmd.CommandText = "UPDATE schedules SET InstructorName = @Instructor, Section = @Section, Subject = @Subject, StartTime = @StartTime, EndTime = @EndTime, Day = @Day, RoomNumber = @Room, Semester = @semester, Duration = @duration WHERE ScheduleID = @ScheduleID"
                 cmd.Parameters.Clear()
 
                 cmd.Parameters.AddWithValue("@Instructor", instructor)
@@ -190,7 +205,11 @@ Public Class SchedulePopupForm
                 cmd.Parameters.AddWithValue("@Day", day)
                 cmd.Parameters.AddWithValue("@ScheduleID", scheduleID)
                 cmd.Parameters.AddWithValue("@semester", cbo_semester.SelectedItem)
+                cmd.Parameters.AddWithValue("@duration", FormatedDuration)
+
                 cmd.ExecuteNonQuery()
+
+
 
                 con.Close()
                 Return True

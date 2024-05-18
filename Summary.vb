@@ -1,5 +1,8 @@
-﻿Public Class Summary
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+
+Public Class Summary
     Dim SummaryTable As New DataTable()
+
     Private Sub Summary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetSchedules()
     End Sub
@@ -10,10 +13,11 @@
             DBCon()
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester FROM schedules ORDER BY  Section, InstructorName, StartTime, EndTime, RoomNumber,Semester, DAYOFWEEK(day) ASC"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester, Duration FROM schedules ORDER BY  Section ASC"
 
             ' Fill data into SummaryTable DataTable
             dataReader.Fill(SummaryTable)
+
 
             ' Rename columns for better clarity
             SummaryTable.Columns("InstructorName").ColumnName = "Instructor"
@@ -25,7 +29,7 @@
 
             ' Bind data to DataGridViews
             dgvschedsum.DataSource = SummaryTable
-            printingdgv.DataSource = SummaryTable
+
 
             ' Set DataGridView properties for Summary Table
             dgvschedsum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
@@ -33,11 +37,7 @@
             dgvschedsum.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             dgvschedsum.DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
-            ' Set DataGridView properties for Printing Table
-            printingdgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-            printingdgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-            printingdgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-            printingdgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+
 
         Catch ex As Exception
 
@@ -80,15 +80,15 @@
             Format.Alignment = StringAlignment.Center
 
             Dim y As Integer = 300
-            Dim x As Integer = 150
+            Dim x As Integer = 10
             Dim h As Integer = 0
             Dim recta As Rectangle
             Dim row As DataGridViewRow
 
 
             If isNewPage Then
-                row = printingdgv.Rows(rowIndexToPrint)
-                x = 150
+                row = dgvschedsum.Rows(rowIndexToPrint)
+                x = 10
                 For Each cell As DataGridViewCell In row.Cells
                     If cell.Visible Then
 
@@ -96,7 +96,7 @@
                         e.Graphics.FillRectangle(Brushes.LightYellow, recta)
                         e.Graphics.DrawRectangle(Pens.Black, recta)
 
-                        e.Graphics.DrawString(printingdgv.Columns(cell.ColumnIndex).HeaderText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, Format)
+                        e.Graphics.DrawString(dgvschedsum.Columns(cell.ColumnIndex).HeaderText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, Format)
 
                         x += recta.Width
 
@@ -111,9 +111,9 @@
 
             isNewPage = False
             Dim dplay As Integer
-            For dplay = rowIndexToPrint To printingdgv.RowCount - 1
-                row = printingdgv.Rows(dplay)
-                x = 150
+            For dplay = rowIndexToPrint To dgvschedsum.RowCount - 1
+                row = dgvschedsum.Rows(dplay)
+                x = 10
                 h = 0
 
                 For Each cell As DataGridViewCell In row.Cells
@@ -123,7 +123,7 @@
 
                         Format.Alignment = StringAlignment.Center
                         recta.Offset(5, 0)
-                        e.Graphics.DrawString(cell.FormattedValue.ToString(), printingdgv.Font, Brushes.Black, recta, Format)
+                        e.Graphics.DrawString(cell.FormattedValue.ToString(), dgvschedsum.Font, Brushes.Black, recta, Format)
 
                         x += recta.Width
                         h = Math.Max(h, recta.Height)
@@ -153,8 +153,8 @@
 
     Private Sub Printbtn_Click(sender As Object, e As EventArgs) Handles Printbtn.Click
 
+        If dgvschedsum.Rows.Count <= 0 Then
 
-        If dgvschedsum.Rows.Count = 1 AndAlso printingdgv.Rows.Count = 1 Then
             MessageBox.Show("Both the document and printing data are empty.", "Empty Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
@@ -176,6 +176,32 @@
     Private Sub backbtn_Click(sender As Object, e As EventArgs) Handles backbtn.Click
         Dashboard.Show()
         Me.Close()
+    End Sub
+
+    Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
+
+
+        Dim searchQuery As String = txtsearch.Text.Trim()
+        If Not String.IsNullOrEmpty(searchQuery) Then
+            Dim filteredData As New DataTable()
+            For Each column As DataColumn In SummaryTable.Columns
+                filteredData.Columns.Add(column.ColumnName, column.DataType)
+            Next
+
+            For Each row As DataRow In SummaryTable.Rows
+                For Each column As DataColumn In SummaryTable.Columns
+                    If row(column.ColumnName).ToString().ToLower().Contains(searchQuery.ToLower()) Then
+                        filteredData.Rows.Add(row.ItemArray)
+                        Exit For
+                    End If
+                Next
+            Next
+
+            dgvschedsum.DataSource = filteredData
+        Else
+            dgvschedsum.DataSource = SummaryTable
+        End If
+
     End Sub
 End Class
 

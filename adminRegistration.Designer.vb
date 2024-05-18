@@ -35,13 +35,10 @@ Partial Class adminRegistration
         Label1 = New Label()
         Label2 = New Label()
         Label3 = New Label()
-        Panel4 = New Panel()
-        cbsuffix = New ComboBox()
         txtemail = New TextBox()
         Panel9 = New Panel()
         cbRole = New ComboBox()
         Panel8 = New Panel()
-        Label4 = New Label()
         Label5 = New Label()
         Label6 = New Label()
         nextbtn = New Button()
@@ -56,7 +53,6 @@ Partial Class adminRegistration
         Panel2.SuspendLayout()
         Panel3.SuspendLayout()
         Panel5.SuspendLayout()
-        Panel4.SuspendLayout()
         Panel9.SuspendLayout()
         Panel8.SuspendLayout()
         Panel6.SuspendLayout()
@@ -185,27 +181,6 @@ Partial Class adminRegistration
         Label3.TabIndex = 12
         Label3.Text = "Surname"
         ' 
-        ' Panel4
-        ' 
-        Panel4.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        Panel4.Controls.Add(cbsuffix)
-        Panel4.Location = New Point(421, 96)
-        Panel4.Name = "Panel4"
-        Panel4.Size = New Size(277, 42)
-        Panel4.TabIndex = 5
-        ' 
-        ' cbsuffix
-        ' 
-        cbsuffix.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
-        cbsuffix.FlatStyle = FlatStyle.Flat
-        cbsuffix.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        cbsuffix.FormattingEnabled = True
-        cbsuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
-        cbsuffix.Location = New Point(17, 7)
-        cbsuffix.Name = "cbsuffix"
-        cbsuffix.Size = New Size(257, 27)
-        cbsuffix.TabIndex = 5
-        ' 
         ' txtemail
         ' 
         txtemail.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
@@ -220,14 +195,17 @@ Partial Class adminRegistration
         ' 
         Panel9.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel9.Controls.Add(txtemail)
-        Panel9.Location = New Point(422, 257)
+        Panel9.Location = New Point(420, 177)
         Panel9.Name = "Panel9"
         Panel9.Size = New Size(277, 42)
         Panel9.TabIndex = 6
         ' 
         ' cbRole
         ' 
+        cbRole.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cbRole.AutoCompleteSource = AutoCompleteSource.ListItems
         cbRole.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cbRole.DropDownStyle = ComboBoxStyle.DropDownList
         cbRole.FlatStyle = FlatStyle.Flat
         cbRole.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cbRole.FormattingEnabled = True
@@ -241,28 +219,17 @@ Partial Class adminRegistration
         ' 
         Panel8.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel8.Controls.Add(cbRole)
-        Panel8.Location = New Point(421, 352)
+        Panel8.Location = New Point(419, 268)
         Panel8.Name = "Panel8"
         Panel8.Size = New Size(277, 42)
         Panel8.TabIndex = 7
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label4.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label4.Location = New Point(421, 70)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(54, 23)
-        Label4.TabIndex = 13
-        Label4.Text = "Suffix"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
         Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(422, 231)
+        Label5.Location = New Point(420, 151)
         Label5.Name = "Label5"
         Label5.Size = New Size(53, 23)
         Label5.TabIndex = 14
@@ -273,7 +240,7 @@ Partial Class adminRegistration
         Label6.AutoSize = True
         Label6.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label6.Location = New Point(429, 326)
+        Label6.Location = New Point(420, 242)
         Label6.Name = "Label6"
         Label6.Size = New Size(46, 23)
         Label6.TabIndex = 15
@@ -285,7 +252,7 @@ Partial Class adminRegistration
         nextbtn.FlatStyle = FlatStyle.Popup
         nextbtn.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         nextbtn.ForeColor = Color.WhiteSmoke
-        nextbtn.Location = New Point(582, 424)
+        nextbtn.Location = New Point(579, 359)
         nextbtn.Name = "nextbtn"
         nextbtn.Size = New Size(113, 43)
         nextbtn.TabIndex = 8
@@ -314,9 +281,10 @@ Partial Class adminRegistration
         ' 
         ' cbworkstatus
         ' 
-        cbworkstatus.AutoCompleteMode = AutoCompleteMode.Append
+        cbworkstatus.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cbworkstatus.AutoCompleteSource = AutoCompleteSource.ListItems
         cbworkstatus.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cbworkstatus.DropDownStyle = ComboBoxStyle.DropDownList
         cbworkstatus.FlatStyle = FlatStyle.Flat
         cbworkstatus.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cbworkstatus.FormattingEnabled = True
@@ -331,7 +299,7 @@ Partial Class adminRegistration
         Label9.AutoSize = True
         Label9.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label9.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label9.Location = New Point(421, 150)
+        Label9.Location = New Point(419, 70)
         Label9.Name = "Label9"
         Label9.Size = New Size(69, 23)
         Label9.TabIndex = 19
@@ -341,14 +309,17 @@ Partial Class adminRegistration
         ' 
         Panel7.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel7.Controls.Add(cb_gender)
-        Panel7.Location = New Point(420, 176)
+        Panel7.Location = New Point(418, 96)
         Panel7.Name = "Panel7"
         Panel7.Size = New Size(277, 42)
         Panel7.TabIndex = 18
         ' 
         ' cb_gender
         ' 
+        cb_gender.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cb_gender.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_gender.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
+        cb_gender.DropDownStyle = ComboBoxStyle.DropDownList
         cb_gender.FlatStyle = FlatStyle.Flat
         cb_gender.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cb_gender.FormattingEnabled = True
@@ -363,7 +334,7 @@ Partial Class adminRegistration
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(734, 481)
+        ClientSize = New Size(734, 429)
         Controls.Add(Label9)
         Controls.Add(Panel7)
         Controls.Add(Label8)
@@ -371,13 +342,11 @@ Partial Class adminRegistration
         Controls.Add(nextbtn)
         Controls.Add(Label6)
         Controls.Add(Label5)
-        Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(Panel8)
         Controls.Add(Panel9)
-        Controls.Add(Panel4)
         Controls.Add(Panel5)
         Controls.Add(Panel3)
         Controls.Add(Panel2)
@@ -396,7 +365,6 @@ Partial Class adminRegistration
         Panel3.PerformLayout()
         Panel5.ResumeLayout(False)
         Panel5.PerformLayout()
-        Panel4.ResumeLayout(False)
         Panel9.ResumeLayout(False)
         Panel9.PerformLayout()
         Panel8.ResumeLayout(False)
@@ -416,17 +384,14 @@ Partial Class adminRegistration
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Panel4 As Panel
     Friend WithEvents txtemail As TextBox
     Friend WithEvents Panel9 As Panel
     Friend WithEvents cbRole As ComboBox
     Friend WithEvents Panel8 As Panel
-    Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents nextbtn As Button
     Friend WithEvents Label7 As Label
-    Friend WithEvents cbsuffix As ComboBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Panel6 As Panel
     Friend WithEvents cbworkstatus As ComboBox

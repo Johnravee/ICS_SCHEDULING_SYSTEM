@@ -37,7 +37,7 @@ Public Class SchedListForm
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT ScheduleID ,InstructorName, Section, Subject, TIME_FORMAT(StartTime, '%h:%i %p') AS FormattedStart, TIME_FORMAT(EndTime, '%h:%i %p') AS FormattedEnd, Day, RoomNumber, Semester FROM schedules"
+            cmd.CommandText = "SELECT ScheduleID ,InstructorName, Section, Subject, TIME_FORMAT(StartTime, '%h:%i %p') AS FormattedStart, TIME_FORMAT(EndTime, '%h:%i %p') AS FormattedEnd, Day, RoomNumber, Semester, Duration FROM schedules"
             cmd.ExecuteNonQuery()
             dataReader.Fill(lamesa)
             dgv.DataSource = lamesa
@@ -185,14 +185,6 @@ Public Class SchedListForm
         End If
     End Sub
 
-    Public Sub ExecuteQuery(query As String)
-
-        Dim command As New MySqlCommand(query, con)
-        con.Open()
-        command.ExecuteReader()
-        con.Close()
-    End Sub
-
 
     'Delete row
     Private Sub del_Click(sender As Object, e As EventArgs) Handles del.Click
@@ -233,9 +225,24 @@ Public Class SchedListForm
     Private Sub upd_Click(sender As Object, e As EventArgs) Handles upd.Click
 
 
+        Dim Start As DateTime = StartTime.Value
+        Dim ind As DateTime = EndTime.Value
+        Dim duration As TimeSpan = ind - Start
+
+        'Format duration
+        Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
+
+
+
         ' Check if start time and end time are the same
         If StartTime.Value.ToString("hh:mm") = EndTime.Value.ToString("hh:mm") Then
-            MessageBox.Show("Please select different start and end times.", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("The start time and end time cannot be the same. Please adjust the schedule accordingly.", "Invalid Schedule", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        'Adjust nalang if needed
+        If duration.Hours <= 0 Or duration.Hours > 8 Then
+            MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Return
         End If
 
@@ -251,7 +258,7 @@ Public Class SchedListForm
 
         Try
             cmd.Connection = con
-            cmd.CommandText = "UPDATE schedules SET InstructorName = @instruc, Section = @sec, Subject = @sub, StartTime = @td, EndTime = @et, Day = @day, RoomNumber = @rn, Semester = @semester WHERE ScheduleID = @schedID"
+            cmd.CommandText = "UPDATE schedules SET InstructorName = @instruc, Section = @sec, Subject = @sub, StartTime = @td, EndTime = @et, Day = @day, RoomNumber = @rn, Semester = @semester, Duration = @duration WHERE ScheduleID = @schedID"
 
             ' Clear parameters before adding new ones
             cmd.Parameters.Clear()
@@ -266,7 +273,7 @@ Public Class SchedListForm
             cmd.Parameters.AddWithValue("@day", cbo_day.SelectedItem)
             cmd.Parameters.AddWithValue("@rn", cb_room.SelectedItem)
             cmd.Parameters.AddWithValue("@semester", cb_semester.SelectedItem)
-
+            cmd.Parameters.AddWithValue("@duration", FormatedDuration)
             ' Execute the command
             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 

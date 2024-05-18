@@ -24,12 +24,12 @@ Partial Class viewSection
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(viewSection))
         Panel1 = New Panel()
+        Label9 = New Label()
         backBtn = New Button()
         Panel2 = New Panel()
         txtsearch = New TextBox()
         panelbtns = New Panel()
         Label1 = New Label()
-        Label9 = New Label()
         Panel1.SuspendLayout()
         Panel2.SuspendLayout()
         SuspendLayout()
@@ -45,9 +45,20 @@ Partial Class viewSection
         Panel1.Size = New Size(1467, 42)
         Panel1.TabIndex = 1
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.ForeColor = Color.WhiteSmoke
+        Label9.Location = New Point(1364, 9)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(91, 24)
+        Label9.TabIndex = 4
+        Label9.Text = "SECTIONS"
+        ' 
         ' backBtn
         ' 
-        backBtn.BackgroundImage = My.Resources.Resources._434230529_948718966640697_2976062282803324491_n1
+        backBtn.BackgroundImage = My.Resources.Resources.backBtn
         backBtn.BackgroundImageLayout = ImageLayout.Stretch
         backBtn.FlatStyle = FlatStyle.Flat
         backBtn.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
@@ -79,6 +90,7 @@ Partial Class viewSection
         ' 
         ' panelbtns
         ' 
+        panelbtns.AutoScroll = True
         panelbtns.Location = New Point(62, 139)
         panelbtns.Name = "panelbtns"
         panelbtns.Size = New Size(1346, 546)
@@ -93,17 +105,6 @@ Partial Class viewSection
         Label1.Name = "Label1"
         Label1.Size = New Size(0, 26)
         Label1.TabIndex = 5
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.ForeColor = Color.WhiteSmoke
-        Label9.Location = New Point(1364, 9)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(91, 24)
-        Label9.TabIndex = 4
-        Label9.Text = "SECTIONS"
         ' 
         ' viewSection
         ' 

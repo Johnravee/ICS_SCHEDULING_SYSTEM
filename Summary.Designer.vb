@@ -26,17 +26,15 @@ Partial Class Summary
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Panel1 = New Panel()
         Label9 = New Label()
         backbtn = New Button()
         Printbtn = New Button()
         printer = New Printing.PrintDocument()
         PrintPreviewDialog = New PrintPreviewDialog()
-        printingdgv = New DataGridView()
         dgvschedsum = New DataGridView()
+        txtsearch = New TextBox()
         Panel1.SuspendLayout()
-        CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvschedsum, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -48,7 +46,7 @@ Partial Class Summary
         Panel1.Dock = DockStyle.Top
         Panel1.Location = New Point(0, 0)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1467, 42)
+        Panel1.Size = New Size(1136, 42)
         Panel1.TabIndex = 0
         ' 
         ' Label9
@@ -56,7 +54,7 @@ Partial Class Summary
         Label9.AutoSize = True
         Label9.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label9.ForeColor = Color.WhiteSmoke
-        Label9.Location = New Point(1356, 9)
+        Label9.Location = New Point(1014, 8)
         Label9.Name = "Label9"
         Label9.Size = New Size(99, 24)
         Label9.TabIndex = 4
@@ -65,7 +63,7 @@ Partial Class Summary
         ' backbtn
         ' 
         backbtn.BackColor = Color.Transparent
-        backbtn.BackgroundImage = My.Resources.Resources._434230529_948718966640697_2976062282803324491_n1
+        backbtn.BackgroundImage = My.Resources.Resources.backBtn
         backbtn.BackgroundImageLayout = ImageLayout.Stretch
         backbtn.FlatStyle = FlatStyle.Flat
         backbtn.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
@@ -82,7 +80,7 @@ Partial Class Summary
         Printbtn.FlatStyle = FlatStyle.Flat
         Printbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Printbtn.Image = CType(resources.GetObject("Printbtn.Image"), Image)
-        Printbtn.Location = New Point(1274, 81)
+        Printbtn.Location = New Point(957, 76)
         Printbtn.Name = "Printbtn"
         Printbtn.Size = New Size(142, 55)
         Printbtn.TabIndex = 11
@@ -103,68 +101,58 @@ Partial Class Summary
         PrintPreviewDialog.Name = "PrintPreviewDialog"
         PrintPreviewDialog.Visible = False
         ' 
-        ' printingdgv
+        ' dgvschedsum
         ' 
-        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = SystemColors.Control
-        DataGridViewCellStyle1.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle1.Padding = New Padding(5)
-        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
+        dgvschedsum.AllowUserToAddRows = False
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
         DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
-        printingdgv.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        printingdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = SystemColors.Window
-        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
-        DataGridViewCellStyle2.Padding = New Padding(5)
+        dgvschedsum.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        dgvschedsum.BackgroundColor = Color.Beige
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = SystemColors.Control
+        DataGridViewCellStyle2.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle2.Padding = New Padding(2)
         DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
-        printingdgv.DefaultCellStyle = DataGridViewCellStyle2
-        printingdgv.Location = New Point(147, 322)
-        printingdgv.Name = "printingdgv"
-        printingdgv.Size = New Size(825, 150)
-        printingdgv.TabIndex = 13
-        ' 
-        ' dgvschedsum
-        ' 
-        dgvschedsum.BackgroundColor = Color.Beige
+        dgvschedsum.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        dgvschedsum.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = SystemColors.Control
-        DataGridViewCellStyle3.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle3.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle3.BackColor = SystemColors.Window
+        DataGridViewCellStyle3.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle3.ForeColor = SystemColors.ControlText
         DataGridViewCellStyle3.Padding = New Padding(5)
         DataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.True
-        dgvschedsum.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
-        dgvschedsum.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = SystemColors.Window
-        DataGridViewCellStyle4.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle4.ForeColor = SystemColors.ControlText
-        DataGridViewCellStyle4.Padding = New Padding(10)
-        DataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = DataGridViewTriState.True
-        dgvschedsum.DefaultCellStyle = DataGridViewCellStyle4
-        dgvschedsum.Location = New Point(53, 142)
+        dgvschedsum.DefaultCellStyle = DataGridViewCellStyle3
+        dgvschedsum.Location = New Point(36, 137)
         dgvschedsum.Name = "dgvschedsum"
         dgvschedsum.ReadOnly = True
-        dgvschedsum.Size = New Size(1363, 492)
+        dgvschedsum.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvschedsum.Size = New Size(1063, 492)
         dgvschedsum.TabIndex = 14
+        ' 
+        ' txtsearch
+        ' 
+        txtsearch.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtsearch.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        txtsearch.Location = New Point(36, 100)
+        txtsearch.Name = "txtsearch"
+        txtsearch.PlaceholderText = "Search"
+        txtsearch.Size = New Size(534, 31)
+        txtsearch.TabIndex = 15
         ' 
         ' Summary
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(1467, 717)
+        ClientSize = New Size(1136, 717)
+        Controls.Add(txtsearch)
         Controls.Add(dgvschedsum)
-        Controls.Add(printingdgv)
         Controls.Add(Printbtn)
         Controls.Add(Panel1)
         FormBorderStyle = FormBorderStyle.None
@@ -174,9 +162,9 @@ Partial Class Summary
         Text = "Summary"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
-        CType(printingdgv, ComponentModel.ISupportInitialize).EndInit()
         CType(dgvschedsum, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents Panel1 As Panel
@@ -184,7 +172,7 @@ Partial Class Summary
     Friend WithEvents Printbtn As Button
     Friend WithEvents printer As Printing.PrintDocument
     Friend WithEvents PrintPreviewDialog As PrintPreviewDialog
-    Friend WithEvents printingdgv As DataGridView
     Friend WithEvents dgvschedsum As DataGridView
     Friend WithEvents Label9 As Label
+    Friend WithEvents txtsearch As TextBox
 End Class

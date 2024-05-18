@@ -14,7 +14,7 @@ Public Class viewSection
     Public Shared Section As String = ""
 
 
-    Private Sub viewSection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub GetSections()
         Try
             DBCon()
             cmd.Connection = con
@@ -31,9 +31,9 @@ Public Class viewSection
                 btn.Font = New Font("Calibri", 20, Font.Style.Bold)
 
 
-                Dim imageFilePath As String = "C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\icons8-section-sign-key-80.png"
-                If System.IO.File.Exists(imageFilePath) Then
-                    btn.Image = Image.FromFile(imageFilePath)
+                Dim ImageLogo As Image = My.Resources.sectionlogo40
+                If ImageLogo IsNot Nothing Then
+                    btn.Image = ImageLogo
                     btn.ImageAlign = ContentAlignment.MiddleCenter
                     btn.TextImageRelation = TextImageRelation.ImageBeforeText
 
@@ -77,8 +77,8 @@ Public Class viewSection
 
     Private Sub backBtn_Click(sender As Object, e As EventArgs) Handles backBtn.Click
         Dashboard.Show()
-        Me.Hide()
-           txtsearch.Clear()
+        Me.Close()
+        txtsearch.Clear()
     End Sub
 
     Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged

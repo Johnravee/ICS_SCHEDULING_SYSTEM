@@ -236,6 +236,7 @@ Partial Class SchedListForm
         cbo_day.AutoCompleteMode = AutoCompleteMode.Suggest
         cbo_day.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_day.BackColor = Color.LightYellow
+        cbo_day.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_day.FlatStyle = FlatStyle.Flat
         cbo_day.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_day.FormattingEnabled = True

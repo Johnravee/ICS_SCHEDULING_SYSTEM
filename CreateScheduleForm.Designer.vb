@@ -114,9 +114,10 @@ Partial Class CreateScheduleForm
         ' 
         ' cbo_semester
         ' 
-        cbo_semester.AutoCompleteMode = AutoCompleteMode.Suggest
+        cbo_semester.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cbo_semester.AutoCompleteSource = AutoCompleteSource.ListItems
         cbo_semester.BackColor = Color.LightYellow
+        cbo_semester.DropDownStyle = ComboBoxStyle.DropDownList
         cbo_semester.FlatStyle = FlatStyle.Flat
         cbo_semester.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbo_semester.FormattingEnabled = True
@@ -149,9 +150,10 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_room
         ' 
-        cb_room.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_room.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cb_room.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_room.BackColor = Color.LightYellow
+        cb_room.DropDownStyle = ComboBoxStyle.DropDownList
         cb_room.FlatStyle = FlatStyle.Flat
         cb_room.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cb_room.FormattingEnabled = True
@@ -172,9 +174,10 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_day
         ' 
-        cb_day.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_day.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cb_day.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_day.BackColor = Color.LightYellow
+        cb_day.DropDownStyle = ComboBoxStyle.DropDownList
         cb_day.FlatStyle = FlatStyle.Flat
         cb_day.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cb_day.FormattingEnabled = True
@@ -196,9 +199,10 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_subject
         ' 
-        cb_subject.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_subject.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cb_subject.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_subject.BackColor = Color.LightYellow
+        cb_subject.DropDownStyle = ComboBoxStyle.DropDownList
         cb_subject.FlatStyle = FlatStyle.Flat
         cb_subject.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cb_subject.FormattingEnabled = True
@@ -219,9 +223,10 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_section
         ' 
-        cb_section.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_section.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cb_section.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_section.BackColor = Color.LightYellow
+        cb_section.DropDownStyle = ComboBoxStyle.DropDownList
         cb_section.FlatStyle = FlatStyle.Flat
         cb_section.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cb_section.FormattingEnabled = True
@@ -242,9 +247,10 @@ Partial Class CreateScheduleForm
         ' 
         ' cb_instructor
         ' 
-        cb_instructor.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_instructor.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cb_instructor.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_instructor.BackColor = Color.LightYellow
+        cb_instructor.DropDownStyle = ComboBoxStyle.DropDownList
         cb_instructor.FlatStyle = FlatStyle.Flat
         cb_instructor.Font = New Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cb_instructor.FormattingEnabled = True
@@ -488,7 +494,7 @@ Partial Class CreateScheduleForm
         ' Button1
         ' 
         Button1.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
-        Button1.BackgroundImage = My.Resources.Resources._434230529_948718966640697_2976062282803324491_n1
+        Button1.BackgroundImage = My.Resources.Resources.backBtn
         Button1.BackgroundImageLayout = ImageLayout.Stretch
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))

@@ -11,8 +11,10 @@ Public Class viewRooms
     Dim currentRow As Integer = 0
     Dim roomsTable As New DataTable()
     Public Shared ClickRoomNumber As String = ""
-    Private Sub viewRooms_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
+
+    Public Sub GetRooms()
         Try
             DBCon()
             cmd.Connection = con
@@ -29,10 +31,14 @@ Public Class viewRooms
                 btn.Font = New Font("Calibri", 20, Font.Style.Bold)
 
 
-                Dim imageFilePath As String = "C:\Users\ravem\OneDrive\Desktop\ICS_SCHEDULING_SYSTEM\Resources\434394242_336699002727228_7171667631377081297_n (1).png"
-                If System.IO.File.Exists(imageFilePath) Then
-                    btn.Image = Image.FromFile(imageFilePath)
-                    btn.ImageAlign = ContentAlignment.MiddleCenter ' Set image alignment to the left of the text
+                Dim roomImage As Image = My.Resources.room40
+
+
+
+                If roomImage IsNot Nothing Then
+                    btn.Image = roomImage
+                    btn.ImageAlign = ContentAlignment.MiddleRight
+                    ' Set image alignment to the left of the text
                     btn.TextImageRelation = TextImageRelation.ImageBeforeText ' Position image before text
 
                 End If
@@ -62,9 +68,8 @@ Public Class viewRooms
         Catch ex As Exception
             MessageBox.Show("An error occurred while loading instructor data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-
-
     End Sub
+
 
     Private Sub RoomButton(sender As Object, e As EventArgs)
         ClickRoomNumber = sender.Text
@@ -75,7 +80,7 @@ Public Class viewRooms
 
     Private Sub backBtn_Click(sender As Object, e As EventArgs) Handles backBtn.Click
         Dashboard.Show()
-        Me.Hide()
+        Me.Close()
         txtsearch.Clear()
     End Sub
 

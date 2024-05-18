@@ -22,11 +22,11 @@ Partial Class sectionSched
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(sectionSched))
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(sectionSched))
         Panel1 = New Panel()
         backbtn = New Button()
         Label1 = New Label()
@@ -52,7 +52,7 @@ Partial Class sectionSched
         ' 
         ' backbtn
         ' 
-        backbtn.BackgroundImage = My.Resources.Resources._434230529_948718966640697_2976062282803324491_n1
+        backbtn.BackgroundImage = My.Resources.Resources.backBtn
         backbtn.BackgroundImageLayout = ImageLayout.Stretch
         backbtn.FlatStyle = FlatStyle.Flat
         backbtn.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
@@ -78,7 +78,7 @@ Partial Class sectionSched
         Printbtn.FlatAppearance.BorderSize = 0
         Printbtn.FlatStyle = FlatStyle.Flat
         Printbtn.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Printbtn.Image = CType(resources.GetObject("Printbtn.Image"), Image)
+        Printbtn.Image = My.Resources.Resources.icons8_print_50
         Printbtn.Location = New Point(1152, 73)
         Printbtn.Name = "Printbtn"
         Printbtn.Size = New Size(142, 55)
@@ -89,6 +89,7 @@ Partial Class sectionSched
         ' 
         ' printingdgv
         ' 
+        printingdgv.AllowUserToAddRows = False
         DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = SystemColors.Control
         DataGridViewCellStyle1.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
@@ -136,9 +137,9 @@ Partial Class sectionSched
         DataGridViewCellStyle4.SelectionForeColor = Color.Transparent
         DataGridViewCellStyle4.WrapMode = DataGridViewTriState.True
         dgvSectionSched.DefaultCellStyle = DataGridViewCellStyle4
-        dgvSectionSched.Location = New Point(65, 134)
+        dgvSectionSched.Location = New Point(54, 134)
         dgvSectionSched.Name = "dgvSectionSched"
-        dgvSectionSched.Size = New Size(1229, 506)
+        dgvSectionSched.Size = New Size(1240, 506)
         dgvSectionSched.TabIndex = 11
         dgvSectionSched.TabStop = False
         ' 

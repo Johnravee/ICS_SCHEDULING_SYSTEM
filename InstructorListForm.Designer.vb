@@ -41,8 +41,6 @@ Partial Class InstructorListForm
         Label1 = New Label()
         Label2 = New Label()
         Label3 = New Label()
-        cbosuffix = New ComboBox()
-        Label4 = New Label()
         Label5 = New Label()
         Label6 = New Label()
         Label7 = New Label()
@@ -69,7 +67,7 @@ Partial Class InstructorListForm
         txtsurname.BorderStyle = BorderStyle.FixedSingle
         txtsurname.Font = New Font("Calibri", 15.75F, FontStyle.Bold)
         txtsurname.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtsurname.Location = New Point(539, 479)
+        txtsurname.Location = New Point(561, 479)
         txtsurname.Margin = New Padding(2)
         txtsurname.Name = "txtsurname"
         txtsurname.Size = New Size(228, 33)
@@ -81,7 +79,7 @@ Partial Class InstructorListForm
         txtmidname.BorderStyle = BorderStyle.FixedSingle
         txtmidname.Font = New Font("Calibri", 15.75F, FontStyle.Bold)
         txtmidname.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        txtmidname.Location = New Point(281, 479)
+        txtmidname.Location = New Point(292, 479)
         txtmidname.Margin = New Padding(2)
         txtmidname.Name = "txtmidname"
         txtmidname.Size = New Size(228, 33)
@@ -197,9 +195,10 @@ Partial Class InstructorListForm
         ' 
         ' cborole
         ' 
-        cborole.AutoCompleteMode = AutoCompleteMode.Suggest
+        cborole.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cborole.AutoCompleteSource = AutoCompleteSource.ListItems
         cborole.BackColor = Color.LightYellow
+        cborole.DropDownStyle = ComboBoxStyle.DropDownList
         cborole.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cborole.FormattingEnabled = True
         cborole.Items.AddRange(New Object() {"DEAN", "BSIT PROGRAM HEAD", "BScPE PROGRAM HEAD", "INSTRUCTOR"})
@@ -210,7 +209,10 @@ Partial Class InstructorListForm
         ' 
         ' cbworkstatus
         ' 
+        cbworkstatus.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cbworkstatus.AutoCompleteSource = AutoCompleteSource.ListItems
         cbworkstatus.BackColor = Color.LightYellow
+        cbworkstatus.DropDownStyle = ComboBoxStyle.DropDownList
         cbworkstatus.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cbworkstatus.FormattingEnabled = True
         cbworkstatus.Items.AddRange(New Object() {"FULL-TIMER", "PART-TIMER"})
@@ -233,7 +235,7 @@ Partial Class InstructorListForm
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(281, 454)
+        Label2.Location = New Point(292, 454)
         Label2.Name = "Label2"
         Label2.Size = New Size(111, 23)
         Label2.TabIndex = 32
@@ -243,34 +245,11 @@ Partial Class InstructorListForm
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(549, 454)
+        Label3.Location = New Point(571, 454)
         Label3.Name = "Label3"
         Label3.Size = New Size(80, 23)
         Label3.TabIndex = 33
         Label3.Text = "Surname"
-        ' 
-        ' cbosuffix
-        ' 
-        cbosuffix.AutoCompleteMode = AutoCompleteMode.Suggest
-        cbosuffix.AutoCompleteSource = AutoCompleteSource.ListItems
-        cbosuffix.BackColor = Color.LightYellow
-        cbosuffix.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        cbosuffix.FormattingEnabled = True
-        cbosuffix.Items.AddRange(New Object() {"N/A", "Jr.", "Sr.", "II", "III", "IV"})
-        cbosuffix.Location = New Point(799, 480)
-        cbosuffix.Name = "cbosuffix"
-        cbosuffix.Size = New Size(67, 32)
-        cbosuffix.TabIndex = 34
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label4.Location = New Point(799, 454)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(54, 23)
-        Label4.TabIndex = 35
-        Label4.Text = "Suffix"
         ' 
         ' Label5
         ' 
@@ -313,7 +292,7 @@ Partial Class InstructorListForm
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label8.Location = New Point(909, 454)
+        Label8.Location = New Point(826, 454)
         Label8.Name = "Label8"
         Label8.Size = New Size(69, 23)
         Label8.TabIndex = 41
@@ -321,15 +300,16 @@ Partial Class InstructorListForm
         ' 
         ' cb_gender
         ' 
-        cb_gender.AutoCompleteMode = AutoCompleteMode.Suggest
+        cb_gender.AutoCompleteMode = AutoCompleteMode.Append
         cb_gender.AutoCompleteSource = AutoCompleteSource.ListItems
         cb_gender.BackColor = Color.LightYellow
+        cb_gender.DropDownStyle = ComboBoxStyle.DropDownList
         cb_gender.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cb_gender.FormattingEnabled = True
         cb_gender.Items.AddRange(New Object() {"MALE", "FEMALE"})
-        cb_gender.Location = New Point(909, 480)
+        cb_gender.Location = New Point(826, 480)
         cb_gender.Name = "cb_gender"
-        cb_gender.Size = New Size(118, 32)
+        cb_gender.Size = New Size(201, 32)
         cb_gender.TabIndex = 40
         ' 
         ' InstructorListForm
@@ -344,8 +324,6 @@ Partial Class InstructorListForm
         Controls.Add(Label7)
         Controls.Add(Label6)
         Controls.Add(Label5)
-        Controls.Add(Label4)
-        Controls.Add(cbosuffix)
         Controls.Add(Label3)
         Controls.Add(Label2)
         Controls.Add(Label1)
@@ -386,8 +364,6 @@ Partial Class InstructorListForm
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents cbosuffix As ComboBox
-    Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label

@@ -135,7 +135,7 @@ Partial Class Dashboard
         btnManagement.FlatStyle = FlatStyle.Flat
         btnManagement.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnManagement.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnManagement.Image = CType(resources.GetObject("btnManagement.Image"), Image)
+        btnManagement.Image = My.Resources.Resources.icons8_information_50
         btnManagement.Location = New Point(736, 507)
         btnManagement.Name = "btnManagement"
         btnManagement.Size = New Size(591, 122)
@@ -155,7 +155,7 @@ Partial Class Dashboard
         btnViewSummary.FlatStyle = FlatStyle.Flat
         btnViewSummary.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnViewSummary.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnViewSummary.Image = CType(resources.GetObject("btnViewSummary.Image"), Image)
+        btnViewSummary.Image = My.Resources.Resources.summary80
         btnViewSummary.Location = New Point(68, 507)
         btnViewSummary.Name = "btnViewSummary"
         btnViewSummary.Size = New Size(591, 122)
@@ -175,7 +175,7 @@ Partial Class Dashboard
         btnViewSubject.FlatStyle = FlatStyle.Flat
         btnViewSubject.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnViewSubject.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnViewSubject.Image = CType(resources.GetObject("btnViewSubject.Image"), Image)
+        btnViewSubject.Image = My.Resources.Resources.subjectlogo
         btnViewSubject.Location = New Point(736, 350)
         btnViewSubject.Name = "btnViewSubject"
         btnViewSubject.Size = New Size(591, 103)
@@ -195,7 +195,7 @@ Partial Class Dashboard
         btnViewSection.FlatStyle = FlatStyle.Flat
         btnViewSection.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnViewSection.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnViewSection.Image = CType(resources.GetObject("btnViewSection.Image"), Image)
+        btnViewSection.Image = My.Resources.Resources.sectionlogo80
         btnViewSection.Location = New Point(68, 350)
         btnViewSection.Name = "btnViewSection"
         btnViewSection.Size = New Size(591, 103)
@@ -215,7 +215,7 @@ Partial Class Dashboard
         btnViewInstructor.FlatStyle = FlatStyle.Flat
         btnViewInstructor.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnViewInstructor.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnViewInstructor.Image = CType(resources.GetObject("btnViewInstructor.Image"), Image)
+        btnViewInstructor.Image = My.Resources.Resources.instructorlogo80
         btnViewInstructor.Location = New Point(736, 204)
         btnViewInstructor.Name = "btnViewInstructor"
         btnViewInstructor.Size = New Size(591, 103)
@@ -235,7 +235,7 @@ Partial Class Dashboard
         btnViewFacilities.FlatStyle = FlatStyle.Flat
         btnViewFacilities.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnViewFacilities.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnViewFacilities.Image = CType(resources.GetObject("btnViewFacilities.Image"), Image)
+        btnViewFacilities.Image = My.Resources.Resources.icons8_room_80
         btnViewFacilities.Location = New Point(68, 204)
         btnViewFacilities.Name = "btnViewFacilities"
         btnViewFacilities.Size = New Size(591, 103)
@@ -255,7 +255,7 @@ Partial Class Dashboard
         btnNewSched.FlatStyle = FlatStyle.Flat
         btnNewSched.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnNewSched.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnNewSched.Image = CType(resources.GetObject("btnNewSched.Image"), Image)
+        btnNewSched.Image = My.Resources.Resources.newschedlogo
         btnNewSched.Location = New Point(736, 51)
         btnNewSched.Name = "btnNewSched"
         btnNewSched.Size = New Size(591, 103)
@@ -275,7 +275,7 @@ Partial Class Dashboard
         btnNewInstructor.FlatStyle = FlatStyle.Flat
         btnNewInstructor.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnNewInstructor.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        btnNewInstructor.Image = CType(resources.GetObject("btnNewInstructor.Image"), Image)
+        btnNewInstructor.Image = My.Resources.Resources.icons8_add_user_80
         btnNewInstructor.Location = New Point(68, 51)
         btnNewInstructor.Name = "btnNewInstructor"
         btnNewInstructor.Size = New Size(591, 103)
