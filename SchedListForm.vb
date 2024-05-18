@@ -188,6 +188,10 @@ Public Class SchedListForm
 
     'Delete row
     Private Sub del_Click(sender As Object, e As EventArgs) Handles del.Click
+        If dgv.Rows.Count = 0 Then
+            MessageBox.Show("There is no data to delete.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
 
         If MsgBox("Are You Sure You Want to Delete This Record?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             Try
@@ -221,6 +225,7 @@ Public Class SchedListForm
             dgv.Refresh()
         End If
     End Sub
+
 
     'Update Schedule
     Private Sub upd_Click(sender As Object, e As EventArgs) Handles upd.Click
