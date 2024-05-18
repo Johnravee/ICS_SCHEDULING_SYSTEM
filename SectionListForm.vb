@@ -10,7 +10,6 @@ Public Class SectionListForm
     Private Sub GetSection()
         DBCon()
         Try
-
             cmd.Connection = con
             cmd.CommandText = "SELECT * FROM sections"
             table.Clear()
@@ -43,6 +42,11 @@ Public Class SectionListForm
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ' Check if a row is selected
+        If String.IsNullOrEmpty(txtsectionid.Text.Trim()) Then
+            MessageBox.Show("Please select a row to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
         ' Get the SectionID of the selected row
         Dim sectionID As Integer = Val(txtsectionid.Text)
@@ -56,37 +60,50 @@ Public Class SectionListForm
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@SectionID", sectionID)
 
-
-
             If cmd.ExecuteNonQuery() > 0 Then
                 DataGridView1.DataSource = Nothing
-                SectionTable.Columns.Clear()
-                SectionTable.Rows.Clear()
+                SectionTable.Clear()
                 GetSection()
                 txtprogram.Clear()
                 txtcode.Clear()
                 txtyear.Clear()
-                MessageBox.Show("Record deleted successfully!")
+                MessageBox.Show("Record deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 con.Close()
             Else
-                MessageBox.Show("No record found with the provided Section.")
-                txtprogram.Clear()
-                txtcode.Clear()
-                txtyear.Clear()
+                MessageBox.Show("No record found with the provided Section.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 con.Close()
             End If
         Catch ex As Exception
-            MessageBox.Show("Error deleting record: " & ex.Message)
+            MessageBox.Show("Error deleting record: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-
-
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ' Check if a row is selected
+        If String.IsNullOrEmpty(txtsectionid.Text.Trim()) Then
+            MessageBox.Show("Please select a row to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
         Try
             DBCon()
             cmd.Connection = con
+
+            ' Check if the section already exists
+            cmd.CommandText = "SELECT COUNT(*) FROM sections WHERE Section_Program = @sp AND Year = @yr AND Section_Code = @code AND SectionID != @SectionID"
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@sp", UCase(txtprogram.Text.Trim()))
+            cmd.Parameters.AddWithValue("@yr", UCase(txtyear.Text.Trim()))
+            cmd.Parameters.AddWithValue("@code", UCase(txtcode.Text.Trim()))
+            cmd.Parameters.AddWithValue("@SectionID", txtsectionid.Text.Trim())
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If count > 0 Then
+                MessageBox.Show("A section with the same program, year, and code already exists.", "Duplicate Section", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' If the section doesn't exist, proceed with update
             cmd.CommandText = "UPDATE sections SET Section_Code=@SectionCode, Year=@Year, Section_Program=@SectionProgram WHERE SectionID=@SectionID"
             ' Set parameter values
             cmd.Parameters.Clear()
@@ -95,12 +112,9 @@ Public Class SectionListForm
             cmd.Parameters.AddWithValue("@Year", txtyear.Text)
             cmd.Parameters.AddWithValue("@SectionProgram", txtprogram.Text)
 
-
-
             If cmd.ExecuteNonQuery() > 0 Then
                 DataGridView1.DataSource = Nothing
-                SectionTable.Columns.Clear()
-                SectionTable.Rows.Clear()
+                SectionTable.Clear()
                 GetSection()
                 txtprogram.Clear()
                 txtcode.Clear()
@@ -108,22 +122,40 @@ Public Class SectionListForm
                 con.Close()
                 MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
-                MessageBox.Show("No record found with the provided Section.")
-                txtprogram.Clear()
-                txtcode.Clear()
-                txtyear.Clear()
+                MessageBox.Show("No record found with the provided Section.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 con.Close()
             End If
         Catch ex As Exception
-            MessageBox.Show("Error updating record: " & ex.Message)
+            MessageBox.Show("Error updating record: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-
     End Sub
 
+
     Private Sub InsertBtn_Click(sender As Object, e As EventArgs) Handles InsertBtn.Click
+        ' Validate that all textboxes are filled
+        If String.IsNullOrEmpty(txtcode.Text.Trim()) OrElse String.IsNullOrEmpty(txtyear.Text.Trim()) OrElse String.IsNullOrEmpty(txtprogram.Text.Trim()) Then
+            MessageBox.Show("Please fill in all fields before inserting a new section.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         Try
             DBCon()
             cmd.Connection = con
+
+            ' Check if the section already exists
+            cmd.CommandText = "SELECT COUNT(*) FROM sections WHERE Section_Program = @sp AND Year = @yr AND Section_Code = @code"
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@sp", UCase(txtprogram.Text.Trim()))
+            cmd.Parameters.AddWithValue("@yr", UCase(txtyear.Text.Trim()))
+            cmd.Parameters.AddWithValue("@code", UCase(txtcode.Text.Trim()))
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If count > 0 Then
+                MessageBox.Show("A section with the same program, year, and code already exists.", "Duplicate Section", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' If the section doesn't exist, proceed with insertion
             cmd.CommandText = "INSERT INTO sections (Section_Program, Year, Section_Code) VALUES(@sp, @yr, @code)"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@code", UCase(txtcode.Text))
@@ -132,27 +164,24 @@ Public Class SectionListForm
 
             If cmd.ExecuteNonQuery() > 0 Then
                 DataGridView1.DataSource = Nothing
-                SectionTable.Columns.Clear()
-                SectionTable.Rows.Clear()
+                SectionTable.Clear()
                 GetSection()
                 MessageBox.Show("Section saved successfully.", "Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 txtprogram.Clear()
                 txtcode.Clear()
                 txtyear.Clear()
-                con.Close()
-
             Else
-                MessageBox.Show("Section saved failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtprogram.Clear()
-                txtcode.Clear()
-                txtyear.Clear()
-                con.Close()
+                MessageBox.Show("Section save failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
+            con.Close()
         Catch ex As Exception
             MsgBox(ex.Message())
+        Finally
+            con.Close()
         End Try
     End Sub
+
 
     'Search
     Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
