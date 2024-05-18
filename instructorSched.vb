@@ -222,7 +222,7 @@ Public Class instructorSched
 
 
 
-        If printingdgv.Rows.Count = 1 AndAlso dgvInstructorSched.Rows.Count = 0 Then
+        If printingdgv.Rows.Count <= 0 AndAlso dgvInstructorSched.Rows.Count <= 0 Then
             MessageBox.Show("Both the document and printing data are empty.", "Empty Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If

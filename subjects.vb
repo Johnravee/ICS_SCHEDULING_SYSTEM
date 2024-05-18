@@ -59,15 +59,32 @@
 
 
     Private Sub InsertBtn_Click(sender As Object, e As EventArgs) Handles InsertBtn.Click
+        If txtsubjectcode.Text = "" Or txtsubjectname.Text = "" Then
+            MessageBox.Show("Please fill in both the subject code and subject name.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "INSERT INTO subjects (subject_description, subject_code) VALUES(@name, @code)"
+            ' Check if the new subject code or description already exists
+            cmd.CommandText = "SELECT COUNT(*) FROM subjects WHERE subject_description = @description OR subject_code = @code"
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
+            cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
 
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If count > 0 Then
+                MessageBox.Show("Subject code or description already exists. Please choose a different one.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            ' If no duplicate found, proceed with the insertion
+            cmd.CommandText = "INSERT INTO subjects (subject_description, subject_code) VALUES(@name, @code)"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@name", txtsubjectname.Text)
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
-
 
             If cmd.ExecuteNonQuery() > 0 Then
                 dgvSubjectTable.DataSource = Nothing
@@ -88,12 +105,27 @@
         End Try
     End Sub
 
+
     Private Sub UpdateBtn_Click(sender As Object, e As EventArgs) Handles UpdateBtn.Click
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "UPDATE subjects SET subject_description = @description, subject_code = @code WHERE SubjectID = @subjectID"
+            ' Check if the new subject code or description already exists
+            cmd.CommandText = "SELECT COUNT(*) FROM subjects WHERE (subject_description = @description OR subject_code = @code) AND SubjectID <> @subjectID"
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
+            cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
+            cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
 
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If count > 0 Then
+                MessageBox.Show("Subject code or description already exists. Please choose a different one.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            ' If no duplicate found, proceed with the update
+            cmd.CommandText = "UPDATE subjects SET subject_description = @description, subject_code = @code WHERE SubjectID = @subjectID"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
@@ -102,25 +134,24 @@
             If cmd.ExecuteNonQuery() > 0 Then
                 dgvSubjectTable.DataSource = Nothing
                 getSubjects()
-                MessageBox.Show("Updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Subject updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
                 txtsubjectid.Clear()
             Else
                 dgvSubjectTable.DataSource = Nothing
                 getSubjects()
-                MessageBox.Show("Subject updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                txtsubjectcode.Clear()
+                MessageBox.Show("No records were updated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
                 txtsubjectid.Clear()
             End If
 
         Catch ex As Exception
-
-            MessageBox.Show("An error occurred while updating the subject. Please try again later..", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("An error occurred while updating the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
     Private Sub DeleteBtn_Click(sender As Object, e As EventArgs) Handles DeleteBtn.Click
         Try

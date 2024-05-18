@@ -200,7 +200,7 @@ Public Class roomSchedule
     'PRINT WHEN CLICK
     Private Sub Printbtn_Click(sender As Object, e As EventArgs) Handles Printbtn.Click
 
-        If dgvRoomSched.Rows.Count = 0 AndAlso printingdgv.Rows.Count = 1 Then
+        If dgvRoomSched.Rows.Count <= 0 AndAlso printingdgv.Rows.Count <= 0 Then
             MessageBox.Show("Both the document and printing data are empty.", "Empty Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
