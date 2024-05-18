@@ -188,6 +188,7 @@ Public Class SchedListForm
 
     'Delete row
     Private Sub del_Click(sender As Object, e As EventArgs) Handles del.Click
+
         If MsgBox("Are You Sure You Want to Delete This Record?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             Try
                 con.Open()
@@ -231,6 +232,18 @@ Public Class SchedListForm
 
         'Format duration
         Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
+
+        If String.IsNullOrWhiteSpace(txtScheduleID.Text) OrElse
+            cbo_instructor.SelectedItem Is Nothing OrElse
+            cbo_sec.SelectedItem Is Nothing OrElse
+            cbo_subject.SelectedItem Is Nothing OrElse
+            cbo_day.SelectedItem Is Nothing OrElse
+            cb_room.SelectedItem Is Nothing OrElse
+            cb_semester.SelectedItem Is Nothing OrElse
+            StartTime.Value = EndTime.Value Then
+            MessageBox.Show("Please select a row to update.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
 
 
 
@@ -379,6 +392,15 @@ Public Class SchedListForm
                 lamesa.Rows.Clear()
                 lamesa.Columns.Clear()
                 GetSchedules()
+                cbo_day.SelectedIndex = -1
+                cbo_instructor.SelectedIndex = -1
+                cbo_sec.SelectedIndex = -1
+                cbo_subject.SelectedIndex = -1
+                cb_room.SelectedIndex = -1
+                cbo_sec.SelectedIndex = -1
+                cb_semester.SelectedIndex = -1
+
+
 
                 con.Close()
             End If
