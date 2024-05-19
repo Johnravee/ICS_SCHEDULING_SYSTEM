@@ -88,7 +88,7 @@ Public Class Summary
 
             If isNewPage Then
                 row = dgvschedsum.Rows(rowIndexToPrint)
-                x = 10
+                x = 40
                 For Each cell As DataGridViewCell In row.Cells
                     If cell.Visible Then
 
@@ -113,7 +113,7 @@ Public Class Summary
             Dim dplay As Integer
             For dplay = rowIndexToPrint To dgvschedsum.RowCount - 1
                 row = dgvschedsum.Rows(dplay)
-                x = 10
+                x = 40
                 h = 0
 
                 For Each cell As DataGridViewCell In row.Cells

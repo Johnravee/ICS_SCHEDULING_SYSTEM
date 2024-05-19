@@ -108,7 +108,7 @@ Public Class instructorSched
 
             e.Graphics.DrawString($"Instructor:", New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(100, 200), StrFormat)
             e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(380, 210), StrFormat)
-            e.Graphics.DrawString(instructor, New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(220, 203), StrFormat)
+            e.Graphics.DrawString(instructor, New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(260, 203), StrFormat)
 
             Dim Format As New StringFormat(StringFormatFlags.LineLimit)
             Format.LineAlignment = StringAlignment.Center

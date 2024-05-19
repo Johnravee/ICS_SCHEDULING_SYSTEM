@@ -188,6 +188,13 @@ Public Class SchedListForm
 
     'Delete row
     Private Sub del_Click(sender As Object, e As EventArgs) Handles del.Click
+
+        If String.IsNullOrEmpty(txtScheduleID.Text) Then
+            MsgBox("Please select a row to delete.", MsgBoxStyle.Information, "Select Row")
+            Return
+        End If
+
+
         If dgv.Rows.Count = 0 Then
             MessageBox.Show("There is no data to delete.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return

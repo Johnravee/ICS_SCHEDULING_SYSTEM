@@ -154,27 +154,34 @@
 
 
     Private Sub DeleteBtn_Click(sender As Object, e As EventArgs) Handles DeleteBtn.Click
+
+        If txtsubjectid.Text = "" Then
+            MsgBox("Please select a row to delete.", MsgBoxStyle.Information, "Information")
+            Return
+        End If
+
+
         Try
-            DBCon()
-            cmd.Connection = con
-            cmd.CommandText = "DELETE FROM subjects WHERE SubjectID = @subjectID"
+                DBCon()
+                cmd.Connection = con
+                cmd.CommandText = "DELETE FROM subjects WHERE SubjectID = @subjectID"
 
-            cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
+                cmd.Parameters.Clear()
+                cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
 
-            If cmd.ExecuteNonQuery() > 0 Then
-                dgvSubjectTable.DataSource = Nothing
-                getSubjects()
-                MessageBox.Show("Subject deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                txtsubjectcode.Clear()
-                txtsubjectname.Clear()
-                txtsubjectid.Clear()
-            Else
-                MessageBox.Show("Delete failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
+                If cmd.ExecuteNonQuery() > 0 Then
+                    dgvSubjectTable.DataSource = Nothing
+                    getSubjects()
+                    MessageBox.Show("Subject deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    txtsubjectcode.Clear()
+                    txtsubjectname.Clear()
+                    txtsubjectid.Clear()
+                Else
+                    MessageBox.Show("Delete failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
 
-        Catch ex As Exception
-            MessageBox.Show("An error occurred while deleting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch ex As Exception
+                MessageBox.Show("An error occurred while deleting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
     End Sub

@@ -5,6 +5,7 @@ Public Class InstructorListForm
 
     Private Sub InstructorListForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_data()
+
     End Sub
 
     Private Sub Load_data()
