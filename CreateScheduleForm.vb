@@ -68,12 +68,12 @@ Public Class CreateScheduleForm
                 Return
             End If
 
-            ' Check if the schedule already exists
-            If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm"), cbo_semester.SelectedItem) Then
-                MessageBox.Show("The selected schedule conflicts with an existing one. Please choose a different time or room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
+            ' Check if the schedule already exists or conflicts with consecutive hours
+            If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm"), cbo_semester.SelectedItem, cb_subject.SelectedItem) Then
+                MessageBox.Show("The selected schedule conflicts with an existing one or has consecutive hours. Please choose a different time or room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
+
 
 
 
@@ -177,7 +177,7 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
-    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String, semester As String) As Boolean
+    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String, semester As String, subject As String) As Boolean
         Dim exists As Boolean = False
 
         Try
@@ -186,7 +186,7 @@ Public Class CreateScheduleForm
             End If
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))  AND Semester = @semester"
+            cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND Subject = @subject AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@RoomNumber", room)
@@ -194,10 +194,18 @@ Public Class CreateScheduleForm
             cmd.Parameters.AddWithValue("@starttime", StartTime)
             cmd.Parameters.AddWithValue("@endtime", EndTime)
             cmd.Parameters.AddWithValue("@semester", semester)
+            cmd.Parameters.AddWithValue("@subject", subject)
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
             If count > 0 Then
                 exists = True
+            End If
+
+            ' Check for consecutive hour conflict
+            If Not exists Then
+                If IsConsecutiveHour(day, room, StartTime, EndTime, semester, subject) Then
+                    exists = True
+                End If
             End If
         Catch ex As Exception
             MsgBox(ex.ToString())
@@ -209,6 +217,53 @@ Public Class CreateScheduleForm
 
         Return exists
     End Function
+
+    Private Function IsConsecutiveHour(day As String, room As String, StartTime As String, EndTime As String, semester As String, subject As String) As Boolean
+        Dim isConsecutive As Boolean = False
+
+        Try
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
+
+            cmd.Connection = con
+            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND Subject = @subject"
+
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@RoomNumber", room)
+            cmd.Parameters.AddWithValue("@Day", day)
+            cmd.Parameters.AddWithValue("@semester", semester)
+            cmd.Parameters.AddWithValue("@subject", subject)
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            While reader.Read()
+                Dim existingStartTime As DateTime = DateTime.Parse(reader("StartTime").ToString())
+                Dim existingEndTime As DateTime = DateTime.Parse(reader("EndTime").ToString())
+
+                Dim newStartTime As DateTime = DateTime.Parse(StartTime)
+                Dim newEndTime As DateTime = DateTime.Parse(EndTime)
+
+                ' Check for consecutive hour conflict
+                If existingEndTime = newStartTime OrElse existingStartTime = newEndTime Then
+                    isConsecutive = True
+                    Exit While
+                End If
+            End While
+
+            reader.Close()
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        Finally
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+        End Try
+
+        Return isConsecutive
+    End Function
+
+
 
     Private Sub txt_search_TextChanged(sender As Object, e As EventArgs) Handles txt_search.TextChanged
 
@@ -369,6 +424,9 @@ Public Class CreateScheduleForm
         Me.Hide()
         ResetForm()
     End Sub
+
+
+
 
 
 End Class

@@ -66,7 +66,7 @@ Public Class SectionListForm
                 GetSection()
                 txtprogram.Clear()
                 txtcode.Clear()
-                txtyear.Clear()
+
                 MessageBox.Show("Record deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 con.Close()
             Else
