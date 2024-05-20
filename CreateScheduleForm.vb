@@ -63,8 +63,8 @@ Public Class CreateScheduleForm
             End If
 
 
-            If issubjectExist(cb_subject.SelectedItem.ToString(), cb_section.SelectedItem.ToString()) Then
-                MessageBox.Show($"The subject {cb_subject.SelectedItem} is already assigned to the section {cb_section.SelectedItem}. Please consider adjusting the subject.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            If issubjectExist(cb_subject.SelectedItem.ToString(), cb_section.SelectedItem.ToString(), cb_day.SelectedItem.ToString(), cbo_semester.SelectedItem.ToString()) Then
+                MessageBox.Show($"The subject {cb_subject.SelectedItem} is already assigned to the section {cb_section.SelectedItem} ${cbo_semester.SelectedItem} at {cb_day.SelectedItem}. Please consider adjusting the subject.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 
@@ -432,17 +432,19 @@ Public Class CreateScheduleForm
     End Sub
 
 
-    Private Function issubjectExist(subject As String, section As String)
+    Private Function issubjectExist(subject As String, section As String, Day As String, semester As String)
 
         DBCon()
 
         Try
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules WHERE Section = @section AND Subject = @subject"
+            cmd.CommandText = "SELECT * FROM schedules WHERE Section = @section AND Subject = @subject AND DAY = @day AND Semester = @semester"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@section", section)
             cmd.Parameters.AddWithValue("@subject", subject)
+            cmd.Parameters.AddWithValue("@day", Day)
+            cmd.Parameters.AddWithValue("@semester", semester)
 
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
