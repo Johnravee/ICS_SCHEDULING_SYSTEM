@@ -170,7 +170,6 @@ Partial Class ScanRFIDLOGIN
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "ScanRFIDLOGIN"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "ScanRFIDLOGIN"
         Panel1.ResumeLayout(False)
         CType(closeBtn, ComponentModel.ISupportInitialize).EndInit()
         CType(Scan_Denied_Logo, ComponentModel.ISupportInitialize).EndInit()

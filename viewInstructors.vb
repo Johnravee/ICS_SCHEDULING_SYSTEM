@@ -15,7 +15,7 @@
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT CONCAT(Firstname,' ', Surname) AS Instructor FROM instructor"
+            cmd.CommandText = "SELECT CONCAT(Firstname,' ', Surname) AS Instructor FROM instructor ORDER BY Instructor ASC"
             dataReader.SelectCommand = cmd
             dataReader.Fill(roomsTable)
 
@@ -81,7 +81,7 @@
 
     Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
         Dim searchText As String = txtsearch.Text.Trim().ToLower()
-        Dim buttonFound As Boolean = False
+
         Dim visibleButtonCount As Integer = 0 ' Track the number of visible buttons
         ' Define constants for button grid layout
         Dim buttonWidth As Integer = 100 ' Width of each button
@@ -96,7 +96,7 @@
                 If searchText = "" OrElse button.Text.ToLower().Contains(searchText) Then
                     ' Show and position the button
                     button.Visible = True
-                    buttonFound = True
+
 
                     ' Calculate row and column based on visibleButtonCount
                     Dim row As Integer = visibleButtonCount \ buttonsPerRow

@@ -6,6 +6,7 @@ Public Class instructorSched
 
     Private Sub instructorSched_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
             ' Establish database connection
             DBCon()
 

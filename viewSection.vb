@@ -18,7 +18,7 @@ Public Class viewSection
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT CONCAT(Section_Program, '-', Year, '', Section_Code) AS Section FROM sections"
+            cmd.CommandText = "SELECT CONCAT(Section_Program, '-', Year, '', Section_Code) AS Section FROM sections ORDER BY Section ASC"
             dataReader.SelectCommand = cmd
             dataReader.Fill(roomsTable)
 
@@ -83,14 +83,14 @@ Public Class viewSection
 
     Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
         Dim searchText As String = txtsearch.Text.Trim().ToLower()
-        Dim buttonFound As Boolean = False
+
         Dim visibleButtonCount As Integer = 0 ' Track the number of visible buttons
         ' Define constants for button grid layout
         Dim buttonWidth As Integer = 100 ' Width of each button
         Dim buttonHeight As Integer = 30 ' Height of each button
-        Dim horizontalSpacing As Integer = 10 ' Horizontal spacing between buttons
-        Dim verticalSpacing As Integer = 10 ' Vertical spacing between buttons
-        Dim buttonsPerRow As Integer = Math.Max(panelbtns.Width \ (buttonWidth + horizontalSpacing), 1) ' Calculate buttons per row
+        Dim horizontalSpacing As Integer = 105
+        Dim verticalSpacing As Integer = 10
+        Dim buttonsPerRow As Integer = Math.Max(panelbtns.Width \ (buttonWidth + horizontalSpacing), 1)
 
         For Each ctrl As Control In panelbtns.Controls
             If TypeOf ctrl Is Button Then
@@ -98,15 +98,15 @@ Public Class viewSection
                 If searchText = "" OrElse button.Text.ToLower().Contains(searchText) Then
                     ' Show and position the button
                     button.Visible = True
-                    buttonFound = True
+
 
                     ' Calculate row and column based on visibleButtonCount
                     Dim row As Integer = visibleButtonCount \ buttonsPerRow
                     Dim col As Integer = visibleButtonCount Mod buttonsPerRow
 
                     ' Calculate button position with spacing
-                    Dim buttonX As Integer = col * (buttonWidth + horizontalSpacing * 12) + 40 ' Starting X position with left margin
-                    Dim buttonY As Integer = row * (buttonHeight + verticalSpacing) + 20  ' Starting Y position with top margin
+                    Dim buttonX As Integer = col * (buttonWidth + horizontalSpacing) + 40
+                    Dim buttonY As Integer = row * (buttonHeight + verticalSpacing * 9) + 20
 
                     ' Set the button location
                     button.Location = New Point(buttonX, buttonY)
@@ -127,10 +127,7 @@ Public Class viewSection
             Next
         End If
 
-        ' Display a message if no matching button was found
-        If Not buttonFound AndAlso searchText <> "" Then
-            MessageBox.Show("Button not found.")
-        End If
+
     End Sub
 
 End Class
