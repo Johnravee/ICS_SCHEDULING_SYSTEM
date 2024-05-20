@@ -454,7 +454,7 @@ Public Class CreateScheduleForm
 
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show("Sorry, we encountered an error while retrieving room information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
 
