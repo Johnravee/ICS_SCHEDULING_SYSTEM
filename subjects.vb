@@ -1,13 +1,18 @@
-﻿Public Class SubjectForm
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+
+Public Class SubjectForm
+
+
     Private Sub SubjectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         getSubjects()
     End Sub
 
+    Dim subjectTable As New DataTable
 
     Private Sub getSubjects()
         DBCon()
         Try
-            Dim subjectTable As New DataTable
+
             cmd.Connection = con
             cmd.CommandText = "SELECT * FROM subjects"
             table.Clear()
@@ -32,7 +37,7 @@
 
     Private Sub backBtn_Click(sender As Object, e As EventArgs) Handles backBtn.Click
         Dashboard.Show()
-        Me.Hide()
+        Me.Close()
 
     End Sub
 
@@ -68,7 +73,7 @@
             DBCon()
             cmd.Connection = con
             ' Check if the new subject code or description already exists
-            cmd.CommandText = "SELECT COUNT(*) FROM subjects WHERE subject_description = @description OR subject_code = @code"
+            cmd.CommandText = "SELECT * FROM subjects WHERE subject_description = @description AND subject_code = @code"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
@@ -110,12 +115,12 @@
         Try
             DBCon()
             cmd.Connection = con
-            ' Check if the new subject code or description already exists
-            cmd.CommandText = "SELECT COUNT(*) FROM subjects WHERE (subject_description = @description OR subject_code = @code) AND SubjectID <> @subjectID"
+
+            cmd.CommandText = "SELECT * FROM subjects WHERE subject_description = @description AND subject_code = @code"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
-            cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
+
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
@@ -162,29 +167,51 @@
 
 
         Try
-                DBCon()
-                cmd.Connection = con
-                cmd.CommandText = "DELETE FROM subjects WHERE SubjectID = @subjectID"
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "DELETE FROM subjects WHERE SubjectID = @subjectID"
 
-                cmd.Parameters.Clear()
-                cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
 
-                If cmd.ExecuteNonQuery() > 0 Then
-                    dgvSubjectTable.DataSource = Nothing
-                    getSubjects()
-                    MessageBox.Show("Subject deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    txtsubjectcode.Clear()
-                    txtsubjectname.Clear()
-                    txtsubjectid.Clear()
-                Else
-                    MessageBox.Show("Delete failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
+            If cmd.ExecuteNonQuery() > 0 Then
+                dgvSubjectTable.DataSource = Nothing
+                getSubjects()
+                MessageBox.Show("Subject deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                txtsubjectcode.Clear()
+                txtsubjectname.Clear()
+                txtsubjectid.Clear()
+            Else
+                MessageBox.Show("Delete failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
 
-            Catch ex As Exception
-                MessageBox.Show("An error occurred while deleting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show("An error occurred while deleting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
     End Sub
 
+    Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
+        Dim searchQuery As String = txtsearch.Text.Trim()
+        If Not String.IsNullOrEmpty(searchQuery) Then
+            Dim filteredData As New DataTable()
+            For Each column As DataColumn In subjectTable.Columns
+                filteredData.Columns.Add(column.ColumnName, column.DataType)
+            Next
+
+            For Each row As DataRow In subjectTable.Rows
+                For Each column As DataColumn In subjectTable.Columns
+                    If row(column.ColumnName).ToString().ToLower().Contains(searchQuery.ToLower()) Then
+                        filteredData.Rows.Add(row.ItemArray)
+                        Exit For
+                    End If
+                Next
+            Next
+
+            dgvSubjectTable.DataSource = filteredData
+        Else
+            dgvSubjectTable.DataSource = subjectTable
+        End If
+    End Sub
 
 End Class

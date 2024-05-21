@@ -80,13 +80,14 @@
     End Sub
 
     Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
+        panelbtns.VerticalScroll.Value = 0
         Dim searchText As String = txtsearch.Text.Trim().ToLower()
 
         Dim visibleButtonCount As Integer = 0 ' Track the number of visible buttons
         ' Define constants for button grid layout
         Dim buttonWidth As Integer = 100 ' Width of each button
         Dim buttonHeight As Integer = 30 ' Height of each button
-        Dim horizontalSpacing As Integer = 200
+        Dim horizontalSpacing As Integer = 210
         Dim verticalSpacing As Integer = 80
         Dim buttonsPerRow As Integer = Math.Max(panelbtns.Width \ (buttonWidth + horizontalSpacing), 1)
 
@@ -104,7 +105,7 @@
 
                     ' Calculate button position with spacing
                     Dim buttonX As Integer = col * (buttonWidth + horizontalSpacing) + 40
-                    Dim buttonY As Integer = row * (buttonHeight + verticalSpacing) + 20
+                    Dim buttonY As Integer = row * (buttonHeight + verticalSpacing) + 30
 
                     ' Set the button location
                     button.Location = New Point(buttonX, buttonY)

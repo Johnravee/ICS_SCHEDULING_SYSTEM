@@ -82,6 +82,8 @@ Public Class viewSection
     End Sub
 
     Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
+        panelbtns.VerticalScroll.Value = 0
+
         Dim searchText As String = txtsearch.Text.Trim().ToLower()
 
         Dim visibleButtonCount As Integer = 0 ' Track the number of visible buttons

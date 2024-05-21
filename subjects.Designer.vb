@@ -44,6 +44,7 @@ Partial Class SubjectForm
         Panel5 = New Panel()
         GroupBox1 = New GroupBox()
         dgvSubjectTable = New DataGridView()
+        txtsearch = New TextBox()
         Panel1.SuspendLayout()
         Panel3.SuspendLayout()
         Panel4.SuspendLayout()
@@ -269,12 +270,22 @@ Partial Class SubjectForm
         dgvSubjectTable.Size = New Size(557, 443)
         dgvSubjectTable.TabIndex = 30
         ' 
+        ' txtsearch
+        ' 
+        txtsearch.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtsearch.Location = New Point(805, 56)
+        txtsearch.Name = "txtsearch"
+        txtsearch.PlaceholderText = "Search"
+        txtsearch.Size = New Size(310, 27)
+        txtsearch.TabIndex = 37
+        ' 
         ' SubjectForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1173, 603)
+        Controls.Add(txtsearch)
         Controls.Add(GroupBox1)
         Controls.Add(Panel5)
         Controls.Add(txtsubjectid)
@@ -321,4 +332,5 @@ Partial Class SubjectForm
     Friend WithEvents Panel5 As Panel
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents dgvSubjectTable As DataGridView
+    Friend WithEvents txtsearch As TextBox
 End Class
