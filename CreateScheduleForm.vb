@@ -1,4 +1,4 @@
-﻿Imports System.IO
+﻿
 Imports MySql.Data.MySqlClient
 
 Public Class CreateScheduleForm
@@ -59,6 +59,12 @@ Public Class CreateScheduleForm
             ' Check if start time and end time are the same
             If StartTime.Value.ToString("hh:mm") = EndTIme.Value.ToString("hh:mm") Then
                 MessageBox.Show("The start time and end time cannot be the same. Please adjust the schedule accordingly.", "Invalid Schedule", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+
+            If issubjectExist(cb_subject.SelectedItem.ToString(), cb_section.SelectedItem.ToString(), cb_day.SelectedItem.ToString(), cbo_semester.SelectedItem.ToString()) Then
+                MessageBox.Show($"The subject {cb_subject.SelectedItem} is already assigned to the section {cb_section.SelectedItem} ${cbo_semester.SelectedItem} at {cb_day.SelectedItem}. Please consider adjusting the subject.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 
@@ -324,7 +330,7 @@ Public Class CreateScheduleForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT CONCAT(Firstname, ' ', Surname) AS FullName FROM instructor"
+            cmd.CommandText = "SELECT CONCAT(Firstname, ' ', Surname) AS FullName FROM instructor ORDER BY FullName ASC"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -350,7 +356,7 @@ Public Class CreateScheduleForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "Select CONCAT(Section_Program, '-', Year, '', Section_Code) AS Section from sections"
+            cmd.CommandText = "Select CONCAT(Section_Program, '-', Year, '', Section_Code) AS Section from sections ORDER BY Section ASC"
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
 
@@ -371,7 +377,7 @@ Public Class CreateScheduleForm
             Dim newtable As New DataTable()
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT CONCAT(subject_description, ' (', subject_code, ')') AS Subject FROM subjects
+            cmd.CommandText = "SELECT CONCAT(subject_description, ' (', subject_code, ')') AS Subject FROM subjects ORDER BY Subject ASC
 "
             dataReader.SelectCommand = cmd
             dataReader.Fill(newtable)
@@ -448,6 +454,33 @@ Public Class CreateScheduleForm
     End Sub
 
 
+    Private Function issubjectExist(subject As String, section As String, Day As String, semester As String)
+
+        DBCon()
+
+        Try
+            cmd.Connection = con
+            cmd.CommandText = "SELECT * FROM schedules WHERE Section = @section AND Subject = @subject AND DAY = @day AND Semester = @semester"
+
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@section", section)
+            cmd.Parameters.AddWithValue("@subject", subject)
+            cmd.Parameters.AddWithValue("@day", Day)
+            cmd.Parameters.AddWithValue("@semester", semester)
+
+
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+            If count > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+
+
+        Catch ex As Exception
+            MessageBox.Show("Sorry, we encountered an error while retrieving room information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Function
 
 
 

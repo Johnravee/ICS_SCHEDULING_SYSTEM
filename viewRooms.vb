@@ -18,7 +18,7 @@ Public Class viewRooms
         Try
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT Room FROM rooms"
+            cmd.CommandText = "SELECT Room FROM rooms ORDER BY Room ASC"
             dataReader.SelectCommand = cmd
             dataReader.Fill(roomsTable)
 
@@ -85,8 +85,10 @@ Public Class viewRooms
     End Sub
 
     Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
+        panelbtns.VerticalScroll.Value = 0
+
         Dim searchText As String = txtsearch.Text.Trim().ToLower()
-        Dim buttonFound As Boolean = False
+
         Dim visibleButtonCount As Integer = 0 ' Track the number of visible buttons
         ' Define constants for button grid layout
         Dim buttonWidth As Integer = 100 ' Width of each button
@@ -101,7 +103,7 @@ Public Class viewRooms
                 If searchText = "" OrElse button.Text.ToLower().Contains(searchText) Then
                     ' Show and position the button
                     button.Visible = True
-                    buttonFound = True
+
 
                     ' Calculate row and column based on visibleButtonCount
                     Dim row As Integer = visibleButtonCount \ buttonsPerRow
@@ -131,8 +133,5 @@ Public Class viewRooms
         End If
 
 
-        If Not buttonFound AndAlso searchText <> "" Then
-            MessageBox.Show("Button not found.")
-        End If
     End Sub
 End Class

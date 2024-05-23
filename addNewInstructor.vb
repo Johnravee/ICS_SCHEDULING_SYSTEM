@@ -117,4 +117,24 @@ Public Class addNewInstructor
         End If
 
     End Sub
+
+
+    'Prevent number
+    Private Sub txtfname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtfname.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtmname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtmname.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtsurname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtsurname.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
 End Class

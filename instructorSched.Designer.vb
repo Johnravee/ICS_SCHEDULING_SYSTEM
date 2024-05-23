@@ -119,6 +119,7 @@ Partial Class instructorSched
         ' 
         ' dgvInstructorSched
         ' 
+        dgvInstructorSched.AllowUserToAddRows = False
         dgvInstructorSched.BackgroundColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = SystemColors.Control
@@ -141,8 +142,10 @@ Partial Class instructorSched
         dgvInstructorSched.DefaultCellStyle = DataGridViewCellStyle4
         dgvInstructorSched.Location = New Point(54, 134)
         dgvInstructorSched.Name = "dgvInstructorSched"
+        dgvInstructorSched.ReadOnly = True
+        dgvInstructorSched.SelectionMode = DataGridViewSelectionMode.CellSelect
         dgvInstructorSched.Size = New Size(1240, 506)
-        dgvInstructorSched.TabIndex = 9
+        dgvInstructorSched.TabIndex = 0
         ' 
         ' PrintPreviewDialog
         ' 

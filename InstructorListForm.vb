@@ -197,4 +197,24 @@ Public Class InstructorListForm
             DataGridView1.Refresh()
         End If
     End Sub
+
+
+    'Prevent numbers
+    Private Sub txtFirtname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFirtname.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtmidname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtmidname.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtsurname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtsurname.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
 End Class
