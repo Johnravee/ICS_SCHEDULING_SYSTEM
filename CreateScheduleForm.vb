@@ -43,15 +43,15 @@ Public Class CreateScheduleForm
             Dim ind As DateTime = EndTIme.Value
             Dim duration As TimeSpan = ind - Start
 
-            'Format duration
+            ' Format duration
             Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
 
+            ' Check for missing fields
             If String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
-                    String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_room.SelectedItem) OrElse
-                String.IsNullOrEmpty(cbo_semester.SelectedItem) Then
+           String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
+           String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
+           String.IsNullOrEmpty(cb_room.SelectedItem) OrElse
+           String.IsNullOrEmpty(cbo_semester.SelectedItem) Then
                 MessageBox.Show("Please fill up all the fields.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
@@ -62,34 +62,48 @@ Public Class CreateScheduleForm
                 Return
             End If
 
-
+            ' Check for subject existence
             If issubjectExist(cb_subject.SelectedItem.ToString(), cb_section.SelectedItem.ToString(), cb_day.SelectedItem.ToString(), cbo_semester.SelectedItem.ToString()) Then
-                MessageBox.Show($"The subject {cb_subject.SelectedItem} is already assigned to the section {cb_section.SelectedItem} ${cbo_semester.SelectedItem} at {cb_day.SelectedItem}. Please consider adjusting the subject.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show($"The subject {cb_subject.SelectedItem} is already assigned to the section {cb_section.SelectedItem} {cbo_semester.SelectedItem} at {cb_day.SelectedItem}. Please consider adjusting the subject.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 
-            'Adjust nalang if needed
+            ' Check for valid duration
             If duration.Hours <= 0 Or duration.Hours > 8 Then
                 MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 
-            ' Check if the schedule already exists or conflicts with consecutive hours
+            ' Check for schedule conflicts
             If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm"), cbo_semester.SelectedItem, cb_subject.SelectedItem, cb_section.SelectedItem) Then
-                MessageBox.Show("This Section is already assign in particular day", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("This Section is already assigned on the particular day", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
+            ' Check for instructor conflicts
+            Dim instructorConflictQuery As String = "SELECT COUNT(*) FROM schedules WHERE InstructorName = @InstructorName AND Day = @Day AND StartTime < @EndTime AND EndTime > @StartTime"
+            cmd.CommandText = instructorConflictQuery
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@InstructorName", cb_instructor.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@Day", cb_day.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@StartTime", StartTime.Value.TimeOfDay)
+            cmd.Parameters.AddWithValue("@EndTime", EndTIme.Value.TimeOfDay)
 
+            ' Open connection
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
 
+            Dim instructorConflictCount As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
+            If instructorConflictCount > 0 Then
+                MessageBox.Show("The instructor cannot teach two sections at the same time on the same day. Please choose a different time or instructor.", "Instructor Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
 
-
-
-
+            ' Insert schedule
             cmd.Connection = con
             cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`,`Day`, `RoomNumber`, Semester, `Duration`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @semester, @duration)"
-
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@InstructorName", cb_instructor.SelectedItem)
@@ -105,15 +119,14 @@ Public Class CreateScheduleForm
             DBCon()
             cmd.ExecuteNonQuery()
             getSchedules()
-            con.Close()
 
+            ' Clear selection
             cbo_semester.SelectedIndex = -1
             cb_day.SelectedIndex = -1
             cb_instructor.SelectedIndex = -1
             cb_room.SelectedIndex = -1
             cb_section.SelectedIndex = -1
             cb_subject.SelectedIndex = -1
-
 
         Catch ex As Exception
             MessageBox.Show("An unexpected error occurred. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -124,6 +137,7 @@ Public Class CreateScheduleForm
             End If
         End Try
     End Sub
+
 
 
 

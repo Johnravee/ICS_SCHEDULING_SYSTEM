@@ -166,10 +166,10 @@ Public Class SchedulePopupForm
             Dim ind As DateTime = enTime.Value
             Dim duration As TimeSpan = ind - Start
 
-            'Format duration
+            ' Format duration
             Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
 
-            'Adjust nalang if needed
+            ' Check for valid duration
             If duration.Hours <= 0 Or duration.Hours > 8 Then
                 MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return False
@@ -183,16 +183,49 @@ Public Class SchedulePopupForm
             Dim endTime As String = enTime.Value.ToString("HH:mm:ss")
             Dim scheduleID As Integer = Convert.ToInt32(TXTid.Text)
 
+            ' Check for subject conflict
+            DBCon()
+            Dim subjectConflictQuery As String = "SELECT COUNT(*) FROM schedules WHERE Section = @Section AND Subject = @Subject AND Day = @Day"
+            cmd.CommandText = subjectConflictQuery
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@Section", cbo_section.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@Subject", cbo_subject.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@Day", cbo_day.SelectedItem.ToString())
+
+            Dim subjectConflictCount As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If subjectConflictCount > 0 Then
+                MessageBox.Show("The same subject cannot be scheduled twice in one day for the same section. Please choose a different subject or day.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                con.Close()
+                Return False
+            End If
+
+            ' Check for instructor conflict
+            Dim instructorConflictQuery As String = "SELECT COUNT(*) FROM schedules WHERE InstructorName = @InstructorName AND Day = @Day AND StartTime < @EndTime AND EndTime > @StartTime"
+            cmd.CommandText = instructorConflictQuery
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@InstructorName", cbo_instructor.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@Day", cbo_day.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@StartTime", StartTime1.Value.TimeOfDay)
+            cmd.Parameters.AddWithValue("@EndTime", enTime.Value.TimeOfDay)
+
+            Dim instructorConflictCount As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If instructorConflictCount > 0 Then
+                MessageBox.Show("The instructor cannot teach two sections at the same time on the same day. Please choose a different time or instructor.", "Instructor Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                con.Close()
+                Return False
+            End If
+
             ' Check for schedule conflicts
             Dim isConflict As Boolean = CheckScheduleConflict(day, room, startTime, endTime, scheduleID, cbo_semester.SelectedItem)
 
             If isConflict Then
                 MsgBox("Schedule conflict detected. Please choose a different time or room.", MsgBoxStyle.OkOnly Or MsgBoxStyle.Exclamation, "Schedule Conflict")
+                con.Close()
                 Return False
             Else
                 ' Proceed with updating the schedule
-                DBCon()
-                cmd.Connection = con
                 cmd.CommandText = "UPDATE schedules SET InstructorName = @Instructor, Section = @Section, Subject = @Subject, StartTime = @StartTime, EndTime = @EndTime, Day = @Day, RoomNumber = @Room, Semester = @semester, Duration = @duration WHERE ScheduleID = @ScheduleID"
                 cmd.Parameters.Clear()
 
@@ -208,17 +241,19 @@ Public Class SchedulePopupForm
                 cmd.Parameters.AddWithValue("@duration", FormatedDuration)
 
                 cmd.ExecuteNonQuery()
-
-
-
                 con.Close()
                 Return True
             End If
         Catch ex As Exception
             MsgBox("Error updating schedule: " & ex.Message)
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
             Return False
         End Try
     End Function
+
+
 
 
 
