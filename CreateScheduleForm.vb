@@ -43,15 +43,15 @@ Public Class CreateScheduleForm
             Dim ind As DateTime = EndTIme.Value
             Dim duration As TimeSpan = ind - Start
 
-            'Format duration
+            ' Format duration
             Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
 
+            ' Check for missing fields
             If String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
-                    String.IsNullOrEmpty(cb_section.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
-                String.IsNullOrEmpty(cb_room.SelectedItem) OrElse
-                String.IsNullOrEmpty(cbo_semester.SelectedItem) Then
+           String.IsNullOrEmpty(cb_subject.SelectedItem) OrElse
+           String.IsNullOrEmpty(cb_day.SelectedItem) OrElse
+           String.IsNullOrEmpty(cb_room.SelectedItem) OrElse
+           String.IsNullOrEmpty(cbo_semester.SelectedItem) Then
                 MessageBox.Show("Please fill up all the fields.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
@@ -62,32 +62,48 @@ Public Class CreateScheduleForm
                 Return
             End If
 
-
+            ' Check for subject existence
             If issubjectExist(cb_subject.SelectedItem.ToString(), cb_section.SelectedItem.ToString(), cb_day.SelectedItem.ToString(), cbo_semester.SelectedItem.ToString()) Then
-                MessageBox.Show($"The subject {cb_subject.SelectedItem} is already assigned to the section {cb_section.SelectedItem} ${cbo_semester.SelectedItem} at {cb_day.SelectedItem}. Please consider adjusting the subject.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show($"The subject {cb_subject.SelectedItem} is already assigned to the section {cb_section.SelectedItem} {cbo_semester.SelectedItem} at {cb_day.SelectedItem}. Please consider adjusting the subject.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 
-            'Adjust nalang if needed
+            ' Check for valid duration
             If duration.Hours <= 0 Or duration.Hours > 8 Then
                 MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 
-            ' Check if the schedule already exists or conflicts with consecutive hours
-            If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm"), cbo_semester.SelectedItem, cb_subject.SelectedItem) Then
-                MessageBox.Show("The selected schedule conflicts with an existing one or has consecutive hours. Please choose a different time or room.", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ' Check for schedule conflicts
+            If ScheduleExists(cb_day.SelectedItem, cb_room.SelectedItem, StartTime.Value.ToString("HH:mm"), EndTIme.Value.ToString("HH:mm"), cbo_semester.SelectedItem, cb_subject.SelectedItem, cb_section.SelectedItem) Then
+                MessageBox.Show("This Section is already assigned on the particular day", "Schedule Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
+            ' Check for instructor conflicts
+            Dim instructorConflictQuery As String = "SELECT COUNT(*) FROM schedules WHERE InstructorName = @InstructorName AND Day = @Day AND StartTime < @EndTime AND EndTime > @StartTime"
+            cmd.CommandText = instructorConflictQuery
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@InstructorName", cb_instructor.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@Day", cb_day.SelectedItem.ToString())
+            cmd.Parameters.AddWithValue("@StartTime", StartTime.Value.TimeOfDay)
+            cmd.Parameters.AddWithValue("@EndTime", EndTIme.Value.TimeOfDay)
 
+            ' Open connection
+            If con.State = ConnectionState.Closed Then
+                con.Open()
+            End If
 
+            Dim instructorConflictCount As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
+            If instructorConflictCount > 0 Then
+                MessageBox.Show("The instructor cannot teach two sections at the same time on the same day. Please choose a different time or instructor.", "Instructor Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
 
-
+            ' Insert schedule
             cmd.Connection = con
             cmd.CommandText = "INSERT INTO schedules(`InstructorName`, `Section`, `Subject`, `StartTime`, `EndTime`,`Day`, `RoomNumber`, Semester, `Duration`) VALUES (@InstructorName, @Section, @Subject, @StartTime, @EndTime, @Day, @RoomNumber, @semester, @duration)"
-
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@InstructorName", cb_instructor.SelectedItem)
@@ -103,15 +119,14 @@ Public Class CreateScheduleForm
             DBCon()
             cmd.ExecuteNonQuery()
             getSchedules()
-            con.Close()
 
+            ' Clear selection
             cbo_semester.SelectedIndex = -1
             cb_day.SelectedIndex = -1
             cb_instructor.SelectedIndex = -1
             cb_room.SelectedIndex = -1
             cb_section.SelectedIndex = -1
             cb_subject.SelectedIndex = -1
-
 
         Catch ex As Exception
             MessageBox.Show("An unexpected error occurred. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -122,6 +137,7 @@ Public Class CreateScheduleForm
             End If
         End Try
     End Sub
+
 
 
 
@@ -183,7 +199,7 @@ Public Class CreateScheduleForm
         End Try
     End Sub
 
-    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String, semester As String, subject As String) As Boolean
+    Private Function ScheduleExists(day As String, room As String, StartTime As String, EndTime As String, semester As String, subject As String, section As String) As Boolean
         Dim exists As Boolean = False
 
         Try
@@ -191,26 +207,42 @@ Public Class CreateScheduleForm
                 con.Open()
             End If
 
+            ' First, check if the section and subject are already assigned on the same day
             cmd.Connection = con
-            cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND Subject = @subject AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))"
+            cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE Section = @section AND Subject = @subject AND Day = @day AND Semester = @semester"
 
             cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@RoomNumber", room)
-            cmd.Parameters.AddWithValue("@Day", day)
-            cmd.Parameters.AddWithValue("@starttime", StartTime)
-            cmd.Parameters.AddWithValue("@endtime", EndTime)
-            cmd.Parameters.AddWithValue("@semester", semester)
+            cmd.Parameters.AddWithValue("@section", section)
             cmd.Parameters.AddWithValue("@subject", subject)
+            cmd.Parameters.AddWithValue("@day", day)
+            cmd.Parameters.AddWithValue("@semester", semester)
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
             If count > 0 Then
                 exists = True
             End If
 
-            ' Check for consecutive hour conflict
+            ' If no section-subject-day conflict, check for time conflicts
             If Not exists Then
-                If IsConsecutiveHour(day, room, StartTime, EndTime, semester, subject) Then
+                cmd.CommandText = "SELECT COUNT(*) FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND ((StartTime >= @starttime AND StartTime < @endtime) OR (EndTime > @starttime AND EndTime <= @endtime) OR (StartTime <= @starttime AND EndTime >= @endtime))"
+
+                cmd.Parameters.Clear()
+                cmd.Parameters.AddWithValue("@RoomNumber", room)
+                cmd.Parameters.AddWithValue("@Day", day)
+                cmd.Parameters.AddWithValue("@starttime", StartTime)
+                cmd.Parameters.AddWithValue("@endtime", EndTime)
+                cmd.Parameters.AddWithValue("@semester", semester)
+
+                count = Convert.ToInt32(cmd.ExecuteScalar())
+                If count > 0 Then
                     exists = True
+                End If
+
+                ' Check for consecutive hour conflict
+                If Not exists Then
+                    If IsConsecutiveHour(day, room, StartTime, EndTime, semester, subject, section) Then
+                        exists = True
+                    End If
                 End If
             End If
         Catch ex As Exception
@@ -224,7 +256,9 @@ Public Class CreateScheduleForm
         Return exists
     End Function
 
-    Private Function IsConsecutiveHour(day As String, room As String, StartTime As String, EndTime As String, semester As String, subject As String) As Boolean
+
+
+    Private Function IsConsecutiveHour(day As String, room As String, StartTime As String, EndTime As String, semester As String, subject As String, section As String) As Boolean
         Dim isConsecutive As Boolean = False
 
         Try
@@ -233,13 +267,14 @@ Public Class CreateScheduleForm
             End If
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND Subject = @subject"
+            cmd.CommandText = "SELECT * FROM schedules WHERE RoomNumber = @RoomNumber AND Day = @Day AND Semester = @semester AND Subject = @subject AND Section = @section"
 
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@RoomNumber", room)
             cmd.Parameters.AddWithValue("@Day", day)
             cmd.Parameters.AddWithValue("@semester", semester)
             cmd.Parameters.AddWithValue("@subject", subject)
+            cmd.Parameters.AddWithValue("@section", section)
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
@@ -268,6 +303,7 @@ Public Class CreateScheduleForm
 
         Return isConsecutive
     End Function
+
 
 
 

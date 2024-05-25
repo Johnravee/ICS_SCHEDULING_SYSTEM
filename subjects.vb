@@ -92,9 +92,9 @@ Public Class SubjectForm
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
 
             If cmd.ExecuteNonQuery() > 0 Then
-                dgvSubjectTable.DataSource = Nothing
-                getSubjects()
+
                 MessageBox.Show("Subject inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                refreshTable()
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
             Else
@@ -116,11 +116,12 @@ Public Class SubjectForm
             DBCon()
             cmd.Connection = con
 
-            cmd.CommandText = "SELECT * FROM subjects WHERE subject_description = @description AND subject_code = @code"
+            ' Check for duplicates excluding the current subject being updated
+            cmd.CommandText = "SELECT COUNT(*) FROM subjects WHERE subject_description = @description AND subject_code = @code AND SubjectID <> @subjectID"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
-
+            cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
 
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
@@ -129,7 +130,7 @@ Public Class SubjectForm
                 Return
             End If
 
-            ' If no duplicate found, proceed with the update
+            ' Update the subject
             cmd.CommandText = "UPDATE subjects SET subject_description = @description, subject_code = @code WHERE SubjectID = @subjectID"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
@@ -137,19 +138,14 @@ Public Class SubjectForm
             cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
 
             If cmd.ExecuteNonQuery() > 0 Then
-                dgvSubjectTable.DataSource = Nothing
-                getSubjects()
+
                 MessageBox.Show("Subject updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                refreshTable()
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
                 txtsubjectid.Clear()
             Else
-                dgvSubjectTable.DataSource = Nothing
-                getSubjects()
                 MessageBox.Show("No records were updated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                txtsubjectcode.Clear()
-                txtsubjectname.Clear()
-                txtsubjectid.Clear()
             End If
 
         Catch ex As Exception
@@ -157,14 +153,11 @@ Public Class SubjectForm
         End Try
     End Sub
 
-
     Private Sub DeleteBtn_Click(sender As Object, e As EventArgs) Handles DeleteBtn.Click
-
         If txtsubjectid.Text = "" Then
             MsgBox("Please select a row to delete.", MsgBoxStyle.Information, "Information")
             Return
         End If
-
 
         Try
             DBCon()
@@ -175,9 +168,9 @@ Public Class SubjectForm
             cmd.Parameters.AddWithValue("@subjectID", txtsubjectid.Text)
 
             If cmd.ExecuteNonQuery() > 0 Then
-                dgvSubjectTable.DataSource = Nothing
-                getSubjects()
+
                 MessageBox.Show("Subject deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                refreshTable()
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
                 txtsubjectid.Clear()
@@ -187,9 +180,10 @@ Public Class SubjectForm
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while deleting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
         End Try
     End Sub
+
+
 
     Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
         Dim searchQuery As String = txtsearch.Text.Trim()
@@ -213,5 +207,34 @@ Public Class SubjectForm
             dgvSubjectTable.DataSource = subjectTable
         End If
     End Sub
+
+    Private Sub refreshTable()
+        Try
+            subjectTable.Clear() ' Clear the existing data in the DataTable
+
+            ' Fetch fresh data from the database and fill the DataTable
+            DBCon()
+            cmd.Connection = con
+            cmd.CommandText = "SELECT * FROM subjects"
+            dataReader.SelectCommand = cmd
+            dataReader.Fill(subjectTable)
+
+            ' Set the DataGridView's DataSource to the updated DataTable
+            dgvSubjectTable.DataSource = subjectTable
+
+            ' Optionally, you can also reconfigure column settings here if needed
+            dgvSubjectTable.Columns("SubjectID").Visible = False
+            dgvSubjectTable.Columns("subject_description").HeaderText = "Description"
+            dgvSubjectTable.Columns("subject_code").HeaderText = "Code"
+            dgvSubjectTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            dgvSubjectTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            dgvSubjectTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            dgvSubjectTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+
+        Catch ex As Exception
+            MessageBox.Show("Sorry, we encountered an error while refreshing the subject information. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
 
 End Class
