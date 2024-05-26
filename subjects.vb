@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports MySql.Data.MySqlClient
 
 Public Class SubjectForm
 
@@ -64,7 +65,7 @@ Public Class SubjectForm
 
 
     Private Sub InsertBtn_Click(sender As Object, e As EventArgs) Handles InsertBtn.Click
-        If txtsubjectcode.Text = "" Or txtsubjectname.Text = "" Then
+        If String.IsNullOrWhiteSpace(txtsubjectcode.Text) OrElse String.IsNullOrWhiteSpace(txtsubjectname.Text) Then
             MessageBox.Show("Please fill in both the subject code and subject name.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -72,8 +73,9 @@ Public Class SubjectForm
         Try
             DBCon()
             cmd.Connection = con
+
             ' Check if the new subject code or description already exists
-            cmd.CommandText = "SELECT * FROM subjects WHERE subject_description = @description AND subject_code = @code"
+            cmd.CommandText = "SELECT COUNT(*) FROM subjects WHERE subject_description = @description OR subject_code = @code"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@description", txtsubjectname.Text)
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
@@ -81,7 +83,7 @@ Public Class SubjectForm
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
             If count > 0 Then
-                MessageBox.Show("Subject code or description already exists. Please choose a different one.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("The subject code or description already exists. Please choose a different one.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
             End If
 
@@ -92,23 +94,31 @@ Public Class SubjectForm
             cmd.Parameters.AddWithValue("@code", txtsubjectcode.Text)
 
             If cmd.ExecuteNonQuery() > 0 Then
-
                 MessageBox.Show("Subject inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 refreshTable()
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
             Else
-                dgvSubjectTable.DataSource = Nothing
-                getSubjects()
                 MessageBox.Show("Failed to insert subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 txtsubjectcode.Clear()
                 txtsubjectname.Clear()
             End If
 
+        Catch ex As MySqlException
+            ' Handle specific MySQL exception for duplicate entry error
+            If ex.Number = 1062 Then
+                MessageBox.Show("A subject with the same code or description already exists. Please enter unique values.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                MessageBox.Show("An error occurred while inserting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         Catch ex As Exception
-            MessageBox.Show("An error occurred while inserting the subject. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("An unexpected error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            con.Close()
         End Try
     End Sub
+
+
 
 
     Private Sub UpdateBtn_Click(sender As Object, e As EventArgs) Handles UpdateBtn.Click
@@ -236,5 +246,15 @@ Public Class SubjectForm
         End Try
     End Sub
 
+    Private Sub txtsubjectname_TextChanged(sender As Object, e As EventArgs) Handles txtsubjectname.TextChanged
+        If txtsubjectname.Text = "" Then
+            txtsubjectid.Text = ""
+        End If
+    End Sub
 
+    Private Sub txtsubjectcode_TextChanged(sender As Object, e As EventArgs) Handles txtsubjectcode.TextChanged
+        If txtsubjectcode.Text = "" Then
+            txtsubjectid.Text = ""
+        End If
+    End Sub
 End Class

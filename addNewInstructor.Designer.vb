@@ -103,7 +103,7 @@ Partial Class addNewInstructor
         Label8.AutoSize = True
         Label8.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label8.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label8.Location = New Point(421, 261)
+        Label8.Location = New Point(422, 178)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 23)
         Label8.TabIndex = 53
@@ -113,7 +113,7 @@ Partial Class addNewInstructor
         ' 
         Panel6.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel6.Controls.Add(cbworkstatus)
-        Panel6.Location = New Point(420, 287)
+        Panel6.Location = New Point(421, 204)
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(277, 42)
         Panel6.TabIndex = 52
@@ -131,7 +131,7 @@ Partial Class addNewInstructor
         cbworkstatus.Location = New Point(17, 7)
         cbworkstatus.Name = "cbworkstatus"
         cbworkstatus.Size = New Size(256, 27)
-        cbworkstatus.TabIndex = 6
+        cbworkstatus.TabIndex = 5
         ' 
         ' addbtn
         ' 
@@ -142,7 +142,7 @@ Partial Class addNewInstructor
         addbtn.Location = New Point(585, 370)
         addbtn.Name = "addbtn"
         addbtn.Size = New Size(113, 43)
-        addbtn.TabIndex = 7
+        addbtn.TabIndex = 6
         addbtn.Text = "ADD"
         addbtn.UseVisualStyleBackColor = False
         ' 
@@ -151,7 +151,7 @@ Partial Class addNewInstructor
         Label5.AutoSize = True
         Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(419, 178)
+        Label5.Location = New Point(415, 78)
         Label5.Name = "Label5"
         Label5.Size = New Size(53, 23)
         Label5.TabIndex = 50
@@ -194,7 +194,7 @@ Partial Class addNewInstructor
         ' 
         Panel9.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel9.Controls.Add(txtemail)
-        Panel9.Location = New Point(421, 204)
+        Panel9.Location = New Point(417, 104)
         Panel9.Name = "Panel9"
         Panel9.Size = New Size(277, 42)
         Panel9.TabIndex = 43
@@ -207,7 +207,7 @@ Partial Class addNewInstructor
         txtemail.Location = New Point(17, 11)
         txtemail.Name = "txtemail"
         txtemail.Size = New Size(244, 20)
-        txtemail.TabIndex = 5
+        txtemail.TabIndex = 4
         ' 
         ' Panel5
         ' 
@@ -226,7 +226,7 @@ Partial Class addNewInstructor
         txtsurname.Location = New Point(17, 11)
         txtsurname.Name = "txtsurname"
         txtsurname.Size = New Size(244, 20)
-        txtsurname.TabIndex = 3
+        txtsurname.TabIndex = 2
         ' 
         ' Panel3
         ' 
@@ -245,7 +245,7 @@ Partial Class addNewInstructor
         txtmname.Location = New Point(17, 11)
         txtmname.Name = "txtmname"
         txtmname.Size = New Size(244, 20)
-        txtmname.TabIndex = 2
+        txtmname.TabIndex = 1
         ' 
         ' Panel2
         ' 
@@ -264,14 +264,14 @@ Partial Class addNewInstructor
         txtfname.Location = New Point(17, 11)
         txtfname.Name = "txtfname"
         txtfname.Size = New Size(244, 20)
-        txtfname.TabIndex = 1
+        txtfname.TabIndex = 0
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
         Label9.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label9.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label9.Location = New Point(420, 89)
+        Label9.Location = New Point(423, 261)
         Label9.Name = "Label9"
         Label9.Size = New Size(69, 23)
         Label9.TabIndex = 56
@@ -281,7 +281,7 @@ Partial Class addNewInstructor
         ' 
         Panel7.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel7.Controls.Add(cb_gender)
-        Panel7.Location = New Point(419, 115)
+        Panel7.Location = New Point(422, 287)
         Panel7.Name = "Panel7"
         Panel7.Size = New Size(277, 42)
         Panel7.TabIndex = 55
@@ -299,7 +299,7 @@ Partial Class addNewInstructor
         cb_gender.Location = New Point(17, 7)
         cb_gender.Name = "cb_gender"
         cb_gender.Size = New Size(257, 27)
-        cb_gender.TabIndex = 7
+        cb_gender.TabIndex = 3
         ' 
         ' addNewInstructor
         ' 

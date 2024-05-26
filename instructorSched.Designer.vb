@@ -35,6 +35,7 @@ Partial Class instructorSched
         printingdgv = New DataGridView()
         dgvInstructorSched = New DataGridView()
         PrintPreviewDialog = New PrintPreviewDialog()
+        ch_changeView = New CheckBox()
         Panel1.SuspendLayout()
         CType(printingdgv, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgvInstructorSched, ComponentModel.ISupportInitialize).BeginInit()
@@ -93,6 +94,7 @@ Partial Class instructorSched
         ' printingdgv
         ' 
         printingdgv.AllowUserToAddRows = False
+        printingdgv.BackgroundColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = SystemColors.Control
         DataGridViewCellStyle1.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
@@ -104,17 +106,19 @@ Partial Class instructorSched
         printingdgv.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         printingdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = SystemColors.Window
-        DataGridViewCellStyle2.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.BackColor = Color.LightYellow
+        DataGridViewCellStyle2.Font = New Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
-        DataGridViewCellStyle2.Padding = New Padding(5)
+        DataGridViewCellStyle2.Padding = New Padding(4)
         DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
         printingdgv.DefaultCellStyle = DataGridViewCellStyle2
-        printingdgv.Location = New Point(240, 199)
+        printingdgv.Location = New Point(123, 134)
         printingdgv.Name = "printingdgv"
-        printingdgv.Size = New Size(1044, 150)
+        printingdgv.ReadOnly = True
+        printingdgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        printingdgv.Size = New Size(1068, 506)
         printingdgv.TabIndex = 8
         ' 
         ' dgvInstructorSched
@@ -157,12 +161,24 @@ Partial Class instructorSched
         PrintPreviewDialog.Name = "PrintPreviewDialog"
         PrintPreviewDialog.Visible = False
         ' 
+        ' ch_changeView
+        ' 
+        ch_changeView.AutoSize = True
+        ch_changeView.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        ch_changeView.Location = New Point(1126, 646)
+        ch_changeView.Name = "ch_changeView"
+        ch_changeView.Size = New Size(168, 23)
+        ch_changeView.TabIndex = 9
+        ch_changeView.Text = "Change table format"
+        ch_changeView.UseVisualStyleBackColor = True
+        ' 
         ' instructorSched
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(1359, 671)
+        Controls.Add(ch_changeView)
         Controls.Add(dgvInstructorSched)
         Controls.Add(printingdgv)
         Controls.Add(Printbtn)
@@ -188,4 +204,5 @@ Partial Class instructorSched
     Friend WithEvents printingdgv As DataGridView
     Friend WithEvents dgvInstructorSched As DataGridView
     Friend WithEvents PrintPreviewDialog As PrintPreviewDialog
+    Friend WithEvents ch_changeView As CheckBox
 End Class
