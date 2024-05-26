@@ -334,32 +334,64 @@ Public Class SchedListForm
 
 
 
+    Private selectedRow As DataGridViewRow
+
     Private Sub dgv_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv.CellClick
         If e.RowIndex >= 0 Then
-            Dim selectedRow As DataGridViewRow = dgv.Rows(e.RowIndex)
+            selectedRow = dgv.Rows(e.RowIndex)
 
-            txtScheduleID.Text = selectedRow.Cells("ScheduleID").Value.ToString()
-            cbo_instructor.SelectedItem = selectedRow.Cells("InstructorName").Value.ToString()
-            cbo_sec.SelectedItem = selectedRow.Cells("Section").Value.ToString()
-            cbo_subject.SelectedItem = selectedRow.Cells("Subject").Value.ToString()
-            cbo_day.SelectedItem = selectedRow.Cells("Day").Value.ToString()
-            cb_room.SelectedItem = selectedRow.Cells("RoomNumber").Value.ToString()
-            cb_semester.SelectedItem = selectedRow.Cells("Semester").Value.ToString()
-            StartTime.Value = DateTime.Parse(selectedRow.Cells("FormattedStart").Value.ToString())
-            EndTime.Value = DateTime.Parse(selectedRow.Cells("FormattedEnd").Value.ToString())
+            If selectedRow IsNot Nothing Then
+                If selectedRow.Cells("ScheduleID").Value IsNot Nothing Then
+                    txtScheduleID.Text = selectedRow.Cells("ScheduleID").Value.ToString()
+                End If
 
-            ' Store selected row data in temporary variables
-            tempName = cbo_instructor.SelectedItem.ToString()
-            tempSub = cbo_subject.SelectedItem.ToString()
-            tempDay = cbo_day.SelectedItem.ToString()
-            tempRoom = cb_room.SelectedItem.ToString()
-            tempSection = cbo_sec.SelectedItem.ToString()
-            tempSemester = cb_semester.SelectedItem.ToString()
-            tempStartTime = StartTime.Value.TimeOfDay.ToString()
-            tempEndTime = EndTime.Value.TimeOfDay.ToString()
-            tempDuration = selectedRow.Cells("Duration").Value.ToString()
+                If selectedRow.Cells("InstructorName").Value IsNot Nothing Then
+                    cbo_instructor.SelectedItem = selectedRow.Cells("InstructorName").Value.ToString()
+                End If
+
+                If selectedRow.Cells("Section").Value IsNot Nothing Then
+                    cbo_sec.SelectedItem = selectedRow.Cells("Section").Value.ToString()
+                End If
+
+                If selectedRow.Cells("Subject").Value IsNot Nothing Then
+                    cbo_subject.SelectedItem = selectedRow.Cells("Subject").Value.ToString()
+                End If
+
+                If selectedRow.Cells("Day").Value IsNot Nothing Then
+                    cbo_day.SelectedItem = selectedRow.Cells("Day").Value.ToString()
+                End If
+
+                If selectedRow.Cells("RoomNumber").Value IsNot Nothing Then
+                    cb_room.SelectedItem = selectedRow.Cells("RoomNumber").Value.ToString()
+                End If
+
+                If selectedRow.Cells("Semester").Value IsNot Nothing Then
+                    cb_semester.SelectedItem = selectedRow.Cells("Semester").Value.ToString()
+                End If
+
+                If selectedRow.Cells("FormattedStart").Value IsNot Nothing Then
+                    StartTime.Value = DateTime.Parse(selectedRow.Cells("FormattedStart").Value.ToString())
+                End If
+
+                If selectedRow.Cells("FormattedEnd").Value IsNot Nothing Then
+                    EndTime.Value = DateTime.Parse(selectedRow.Cells("FormattedEnd").Value.ToString())
+                End If
+
+                ' Store selected row data in temporary variables, ensuring they are not null before assignment
+                tempName = If(cbo_instructor.SelectedItem?.ToString(), String.Empty)
+                tempSub = If(cbo_subject.SelectedItem?.ToString(), String.Empty)
+                tempDay = If(cbo_day.SelectedItem?.ToString(), String.Empty)
+                tempRoom = If(cb_room.SelectedItem?.ToString(), String.Empty)
+                tempSection = If(cbo_sec.SelectedItem?.ToString(), String.Empty)
+                tempSemester = If(cb_semester.SelectedItem?.ToString(), String.Empty)
+                tempStartTime = If(StartTime.Value.TimeOfDay.ToString(), String.Empty)
+                tempEndTime = If(EndTime.Value.TimeOfDay.ToString(), String.Empty)
+                tempDuration = If(selectedRow.Cells("Duration")?.Value.ToString(), String.Empty)
+            End If
         End If
     End Sub
+
+
 
     Private Sub InsertScheduleOld()
         Try
