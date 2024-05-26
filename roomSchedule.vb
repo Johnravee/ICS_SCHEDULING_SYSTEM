@@ -4,13 +4,14 @@ Imports Google.Protobuf.WellKnownTypes
 
 Public Class roomSchedule
     Dim room As String
+
     Private Sub roomSchedule_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DBCon()
         room = viewRooms.ClickRoomNumber
         Try
             Label1.Text = $"ROOM: {room}"
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester FROM schedules WHERE RoomNumber = @roomnumber ORDER BY DAYOFWEEK(day) ASC;"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester, Duration FROM schedules WHERE RoomNumber = @roomnumber ORDER BY DAYOFWEEK(day) ASC;"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@roomnumber", room)
 
@@ -35,12 +36,13 @@ Public Class roomSchedule
                 Dim instructor As String = row("InstructorName").ToString().Trim()
                 Dim Subject As String = row("Subject").ToString().Trim()
                 Dim Semester As String = row("Semester").ToString.Trim()
+                Dim Duration As String = row("Duration").ToString.Trim()
 
                 Dim columnIndex As Integer = Array.IndexOf(daysOfWeek, day)
 
                 If columnIndex <> -1 AndAlso Not String.IsNullOrEmpty(section) Then
                     Dim rowIndex As Integer = dgvRoomSched.Rows.Add()
-                    Dim CellValue As String = $"Semester: {Semester}" & vbCrLf & $"Time: {TimeDuration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Section: {section}" & vbCrLf & $"Subject: {Subject}"
+                    Dim CellValue As String = $"Semester: {Semester}" & vbCrLf & $"Time: {TimeDuration}" & vbCrLf & $"Duration: {Duration}" & vbCrLf & $"Instructor: {instructor}" & vbCrLf & $"Section: {section}" & vbCrLf & $"Subject: {Subject}"
 
                     dgvRoomSched.Rows(rowIndex).Cells(columnIndex).Value = CellValue
                     dgvRoomSched.Rows(rowIndex).Cells(columnIndex).Style.BackColor = Color.Green
@@ -60,6 +62,15 @@ Public Class roomSchedule
             printingdgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             printingdgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             printingdgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+
+
+            printingdgv.Columns("InstructorName").HeaderText = "Instructor"
+            printingdgv.Columns("Subject").HeaderText = "Subject"
+            printingdgv.Columns("Time").HeaderText = "Time"
+            printingdgv.Columns("Day").HeaderText = "Day"
+            printingdgv.Columns("RoomNumber").HeaderText = "Room"
+            printingdgv.Columns("Semester").HeaderText = "Semester"
+            printingdgv.Columns("Duration").HeaderText = "Duration"
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while loading the room schedule. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -97,8 +108,8 @@ Public Class roomSchedule
             ' Draw headers
             e.Graphics.DrawString("Colegio De Montalban", New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, New PointF(570, 80), StrFormat)
             e.Graphics.DrawString("ICS Schedules", New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, New PointF(570, 100), StrFormat)
-            e.Graphics.DrawString($"Room: {room}", New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(80, 200), StrFormat)
-            e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(320, 210), StrFormat)
+            e.Graphics.DrawString($"Room: {room}", New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(130, 200), StrFormat)
+            e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(340, 210), StrFormat)
 
             ' Define format for data
             Dim Format As New StringFormat(StringFormatFlags.LineLimit)
@@ -112,40 +123,21 @@ Public Class roomSchedule
             Dim recta As Rectangle
             Dim row As DataGridViewRow
 
-            ' Print header row and rows
             If isNewPage Then
                 row = printingdgv.Rows(rowIndexToPrint)
-                x = 53
-
-                ' Print Header Row
+                x = 40
                 For Each cell As DataGridViewCell In row.Cells
                     If cell.Visible Then
                         recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                         e.Graphics.FillRectangle(Brushes.LightYellow, recta)
                         e.Graphics.DrawRectangle(Pens.Black, recta)
 
-                        Dim headerText As String = ""
-                        Select Case cell.ColumnIndex
-                            Case 0
-                                headerText = "Name"
-                            Case 1
-                                headerText = "Section"
-                            Case 2
-                                headerText = "Subject"
-                            Case 3
-                                headerText = "Time"
-                            Case 4
-                                headerText = "Day"
-                            Case 5
-                                headerText = "Room"
-                            Case 6
-                                headerText = "Semester"
-                        End Select
+                        ' Use custom header text
+                        Dim headerTexts As String() = {"Instructor", "Section", "Subject", "Time", "Day", "Room", "Semester", "Duration"}
+                        Dim columnIndex As Integer = cell.ColumnIndex
+                        Dim currentHeaderText As String = headerTexts(columnIndex)
 
-                        Dim centerHeaderFormat As New StringFormat(Format)
-                        centerHeaderFormat.Alignment = StringAlignment.Center
-
-                        e.Graphics.DrawString(headerText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, centerHeaderFormat)
+                        e.Graphics.DrawString(currentHeaderText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, Format)
 
                         x += recta.Width
                         h = Math.Max(h, recta.Height)
@@ -155,11 +147,10 @@ Public Class roomSchedule
             End If
 
             isNewPage = False
-
-            ' Print Rows
-            For dNow As Integer = rowIndexToPrint To printingdgv.RowCount - 1
-                row = printingdgv.Rows(dNow)
-                x = 53
+            Dim dplay As Integer
+            For dplay = rowIndexToPrint To printingdgv.RowCount - 1
+                row = printingdgv.Rows(dplay)
+                x = 40
                 h = 0
 
                 For Each cell As DataGridViewCell In row.Cells
@@ -169,17 +160,15 @@ Public Class roomSchedule
 
                         Format.Alignment = StringAlignment.Center
                         recta.Offset(5, 0)
-
-                        e.Graphics.DrawString(cell.FormattedValue.ToString(), New Font("Calibri", 12, FontStyle.Regular), Brushes.Black, recta, Format)
+                        e.Graphics.DrawString(cell.FormattedValue.ToString(), printingdgv.Font, Brushes.Black, recta, Format)
 
                         x += recta.Width
                         h = Math.Max(h, recta.Height)
                     End If
                 Next
-
                 y += h
-                rowIndexToPrint = dNow + 1
 
+                rowIndexToPrint = dplay + 1
                 If y + h > e.MarginBounds.Bottom Then
                     e.HasMorePages = True
                     isNewPage = True
@@ -215,5 +204,15 @@ Public Class roomSchedule
 
 
 
+    End Sub
+
+    Private Sub ch_changeView_CheckedChanged(sender As Object, e As EventArgs) Handles ch_changeView.CheckedChanged
+        If ch_changeView.Checked Then
+            printingdgv.Visible = True
+            dgvRoomSched.Visible = False
+        Else
+            printingdgv.Visible = False
+            dgvRoomSched.Visible = True
+        End If
     End Sub
 End Class

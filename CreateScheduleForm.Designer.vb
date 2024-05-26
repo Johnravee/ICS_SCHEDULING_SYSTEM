@@ -125,7 +125,7 @@ Partial Class CreateScheduleForm
         cbo_semester.Location = New Point(14, 8)
         cbo_semester.Name = "cbo_semester"
         cbo_semester.Size = New Size(214, 34)
-        cbo_semester.TabIndex = 36
+        cbo_semester.TabIndex = 7
         ' 
         ' Label6
         ' 
@@ -160,7 +160,7 @@ Partial Class CreateScheduleForm
         cb_room.Location = New Point(14, 8)
         cb_room.Name = "cb_room"
         cb_room.Size = New Size(214, 34)
-        cb_room.TabIndex = 36
+        cb_room.TabIndex = 6
         ' 
         ' Panel4
         ' 
@@ -185,7 +185,7 @@ Partial Class CreateScheduleForm
         cb_day.Location = New Point(14, 8)
         cb_day.Name = "cb_day"
         cb_day.Size = New Size(214, 34)
-        cb_day.TabIndex = 36
+        cb_day.TabIndex = 5
         ' 
         ' Panel3
         ' 
@@ -209,7 +209,7 @@ Partial Class CreateScheduleForm
         cb_subject.Location = New Point(14, 8)
         cb_subject.Name = "cb_subject"
         cb_subject.Size = New Size(548, 34)
-        cb_subject.TabIndex = 36
+        cb_subject.TabIndex = 2
         ' 
         ' Panel2
         ' 
@@ -233,7 +233,7 @@ Partial Class CreateScheduleForm
         cb_section.Location = New Point(14, 8)
         cb_section.Name = "cb_section"
         cb_section.Size = New Size(548, 34)
-        cb_section.TabIndex = 36
+        cb_section.TabIndex = 1
         ' 
         ' Panel5
         ' 
@@ -257,7 +257,7 @@ Partial Class CreateScheduleForm
         cb_instructor.Location = New Point(14, 8)
         cb_instructor.Name = "cb_instructor"
         cb_instructor.Size = New Size(548, 34)
-        cb_instructor.TabIndex = 36
+        cb_instructor.TabIndex = 0
         ' 
         ' EndTIme
         ' 
@@ -267,7 +267,7 @@ Partial Class CreateScheduleForm
         EndTIme.Name = "EndTIme"
         EndTIme.ShowUpDown = True
         EndTIme.Size = New Size(239, 48)
-        EndTIme.TabIndex = 35
+        EndTIme.TabIndex = 4
         EndTIme.Value = New Date(2024, 4, 22, 0, 0, 0, 0)
         ' 
         ' StartTime
@@ -280,7 +280,7 @@ Partial Class CreateScheduleForm
         StartTime.Name = "StartTime"
         StartTime.ShowUpDown = True
         StartTime.Size = New Size(239, 48)
-        StartTime.TabIndex = 34
+        StartTime.TabIndex = 3
         StartTime.Value = New Date(2024, 4, 22, 0, 0, 0, 0)
         ' 
         ' Panel10
@@ -303,7 +303,7 @@ Partial Class CreateScheduleForm
         txt_search.Name = "txt_search"
         txt_search.PlaceholderText = "SEARCH"
         txt_search.Size = New Size(547, 26)
-        txt_search.TabIndex = 0
+        txt_search.TabIndex = 9
         ' 
         ' Label8
         ' 
@@ -378,7 +378,7 @@ Partial Class CreateScheduleForm
         dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvSchedule.ShowEditingIcon = False
         dgvSchedule.Size = New Size(864, 425)
-        dgvSchedule.TabIndex = 28
+        dgvSchedule.TabIndex = 9999
         ' 
         ' Label7
         ' 

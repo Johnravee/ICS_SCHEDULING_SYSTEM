@@ -1,6 +1,7 @@
 ﻿Imports System.Globalization
 Imports System.Reflection
 Imports System.Runtime.CompilerServices
+Imports Google.Protobuf.WellKnownTypes
 
 Public Class sectionSched
     Dim Section As String
@@ -17,7 +18,7 @@ Public Class sectionSched
 
 
             cmd.Connection = con
-            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester FROM schedules WHERE Section = @section ORDER BY DAYOFWEEK(day) ASC"
+            cmd.CommandText = "SELECT InstructorName, Section, Subject, CONCAT(TIME_FORMAT(StartTime, '%h:%i %p'),'-',TIME_FORMAT(EndTime, '%h:%i %p')) AS Time, Day, RoomNumber, Semester, Duration FROM schedules WHERE Section = @section ORDER BY DAYOFWEEK(day) ASC"
 
             ' Clear parameters and add the section parameter
             cmd.Parameters.Clear()
@@ -67,6 +68,16 @@ Public Class sectionSched
             printingdgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             printingdgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
             printingdgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+
+            printingdgv.Columns("InstructorName").HeaderText = "Instructor"
+            printingdgv.Columns("Subject").HeaderText = "Subject"
+            printingdgv.Columns("Time").HeaderText = "Time"
+            printingdgv.Columns("Day").HeaderText = "Day"
+            printingdgv.Columns("RoomNumber").HeaderText = "Room"
+            printingdgv.Columns("Semester").HeaderText = "Semester"
+            printingdgv.Columns("Duration").HeaderText = "Duration"
+
+
 
         Catch ex As Exception
 
@@ -148,7 +159,8 @@ Public Class sectionSched
                                 headerText = "Room"
                             Case 6
                                 headerText = "Semester"
-
+                            Case 7
+                                headerText = "Duration"
                         End Select
 
                         Dim centerHeaderFormat As New StringFormat(Format)
@@ -236,5 +248,13 @@ Public Class sectionSched
 
     End Sub
 
-
+    Private Sub ch_changeView_CheckedChanged(sender As Object, e As EventArgs) Handles ch_changeView.CheckedChanged
+        If ch_changeView.Checked Then
+            printingdgv.Visible = True
+            dgvSectionSched.Visible = False
+        Else
+            printingdgv.Visible = False
+            dgvSectionSched.Visible = True
+        End If
+    End Sub
 End Class

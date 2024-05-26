@@ -99,7 +99,7 @@ Partial Class adminRegistration
         txtfname.Location = New Point(17, 11)
         txtfname.Name = "txtfname"
         txtfname.Size = New Size(244, 20)
-        txtfname.TabIndex = 1
+        txtfname.TabIndex = 0
         ' 
         ' Panel2
         ' 
@@ -127,7 +127,7 @@ Partial Class adminRegistration
         txtmname.Location = New Point(17, 11)
         txtmname.Name = "txtmname"
         txtmname.Size = New Size(244, 20)
-        txtmname.TabIndex = 2
+        txtmname.TabIndex = 1
         ' 
         ' Panel5
         ' 
@@ -146,7 +146,7 @@ Partial Class adminRegistration
         txtsurname.Location = New Point(17, 11)
         txtsurname.Name = "txtsurname"
         txtsurname.Size = New Size(244, 20)
-        txtsurname.TabIndex = 3
+        txtsurname.TabIndex = 2
         ' 
         ' Label1
         ' 
@@ -189,13 +189,13 @@ Partial Class adminRegistration
         txtemail.Location = New Point(17, 11)
         txtemail.Name = "txtemail"
         txtemail.Size = New Size(244, 20)
-        txtemail.TabIndex = 6
+        txtemail.TabIndex = 3
         ' 
         ' Panel9
         ' 
         Panel9.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel9.Controls.Add(txtemail)
-        Panel9.Location = New Point(420, 177)
+        Panel9.Location = New Point(28, 352)
         Panel9.Name = "Panel9"
         Panel9.Size = New Size(277, 42)
         Panel9.TabIndex = 6
@@ -213,13 +213,13 @@ Partial Class adminRegistration
         cbRole.Location = New Point(17, 7)
         cbRole.Name = "cbRole"
         cbRole.Size = New Size(257, 27)
-        cbRole.TabIndex = 7
+        cbRole.TabIndex = 5
         ' 
         ' Panel8
         ' 
         Panel8.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel8.Controls.Add(cbRole)
-        Panel8.Location = New Point(419, 268)
+        Panel8.Location = New Point(415, 96)
         Panel8.Name = "Panel8"
         Panel8.Size = New Size(277, 42)
         Panel8.TabIndex = 7
@@ -229,7 +229,7 @@ Partial Class adminRegistration
         Label5.AutoSize = True
         Label5.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label5.Location = New Point(420, 151)
+        Label5.Location = New Point(28, 326)
         Label5.Name = "Label5"
         Label5.Size = New Size(53, 23)
         Label5.TabIndex = 14
@@ -240,7 +240,7 @@ Partial Class adminRegistration
         Label6.AutoSize = True
         Label6.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label6.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label6.Location = New Point(420, 242)
+        Label6.Location = New Point(416, 70)
         Label6.Name = "Label6"
         Label6.Size = New Size(46, 23)
         Label6.TabIndex = 15
@@ -255,7 +255,7 @@ Partial Class adminRegistration
         nextbtn.Location = New Point(579, 359)
         nextbtn.Name = "nextbtn"
         nextbtn.Size = New Size(113, 43)
-        nextbtn.TabIndex = 8
+        nextbtn.TabIndex = 7
         nextbtn.Text = "NEXT"
         nextbtn.UseVisualStyleBackColor = False
         ' 
@@ -264,7 +264,7 @@ Partial Class adminRegistration
         Label8.AutoSize = True
         Label8.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label8.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label8.Location = New Point(28, 326)
+        Label8.Location = New Point(417, 159)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 23)
         Label8.TabIndex = 17
@@ -274,7 +274,7 @@ Partial Class adminRegistration
         ' 
         Panel6.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel6.Controls.Add(cbworkstatus)
-        Panel6.Location = New Point(27, 352)
+        Panel6.Location = New Point(416, 185)
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(278, 42)
         Panel6.TabIndex = 16
@@ -299,7 +299,7 @@ Partial Class adminRegistration
         Label9.AutoSize = True
         Label9.Font = New Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label9.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label9.Location = New Point(419, 70)
+        Label9.Location = New Point(416, 242)
         Label9.Name = "Label9"
         Label9.Size = New Size(69, 23)
         Label9.TabIndex = 19
@@ -309,7 +309,7 @@ Partial Class adminRegistration
         ' 
         Panel7.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(237))
         Panel7.Controls.Add(cb_gender)
-        Panel7.Location = New Point(418, 96)
+        Panel7.Location = New Point(415, 268)
         Panel7.Name = "Panel7"
         Panel7.Size = New Size(277, 42)
         Panel7.TabIndex = 18
@@ -327,7 +327,7 @@ Partial Class adminRegistration
         cb_gender.Location = New Point(17, 7)
         cb_gender.Name = "cb_gender"
         cb_gender.Size = New Size(257, 27)
-        cb_gender.TabIndex = 7
+        cb_gender.TabIndex = 6
         ' 
         ' adminRegistration
         ' 
