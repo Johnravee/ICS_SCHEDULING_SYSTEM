@@ -5,6 +5,7 @@ Imports Google.Protobuf.WellKnownTypes
 
 Public Class sectionSched
     Dim Section As String
+    Private WithEvents PrintDocument1 As New Printing.PrintDocument
     Private Sub sectionSched_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             ' Establish database connection
@@ -96,7 +97,6 @@ Public Class sectionSched
 
 
     Private rowIndexToPrint As Integer = 0 ' Track the index of the next row to print
-    Private isNewPage As Boolean = True
 
     Private Sub printer_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles printer.PrintPage
         Try
@@ -119,112 +119,80 @@ Public Class sectionSched
             e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(350, 210), StrFormat)
             e.Graphics.DrawString(Section, New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(165, 203), StrFormat)
 
+            ' Define format for data
             Dim Format As New StringFormat(StringFormatFlags.LineLimit)
             Format.LineAlignment = StringAlignment.Center
             Format.Trimming = StringTrimming.EllipsisCharacter
             Format.Alignment = StringAlignment.Center
 
-
             Dim y As Integer = 230
-            Dim x As Integer = 0
+            Dim x As Integer = 40 ' Start X position
             Dim h As Integer = 0
             Dim recta As Rectangle
             Dim row As DataGridViewRow
 
-            If isNewPage Then
-                row = printingdgv.Rows(rowIndexToPrint)
-                x = 53
-                'Print Header Row
-                For Each cell As DataGridViewCell In row.Cells
-                    If cell.Visible Then
+            ' Draw header row
+            x = 40 ' Reset X position for header row
+            For Each column As DataGridViewColumn In printingdgv.Columns
+                If column.Visible Then
+                    recta = New Rectangle(x, y, column.Width, printingdgv.ColumnHeadersHeight)
+                    e.Graphics.FillRectangle(Brushes.LightGray, recta)
+                    e.Graphics.DrawRectangle(Pens.Black, recta)
 
+                    ' Use column header text
+                    e.Graphics.DrawString(column.HeaderText, New Font("Calibri", 12, FontStyle.Bold), Brushes.Black, recta, Format)
 
-                        recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
-                        e.Graphics.FillRectangle(Brushes.LightYellow, recta)
-                        e.Graphics.DrawRectangle(Pens.Black, recta)
+                    x += recta.Width
+                    h = Math.Max(h, recta.Height)
+                End If
+            Next
 
-                        Dim headerText As String = ""
-                        Select Case cell.ColumnIndex
-                            Case 0
-                                headerText = "Name"
-                            Case 1
-                                headerText = "Section"
-                            Case 2
-                                headerText = "Subject"
-                            Case 3
-                                headerText = "Time"
-                            Case 4
-                                headerText = "Day"
-                            Case 5
-                                headerText = "Room"
-                            Case 6
-                                headerText = "Semester"
-                            Case 7
-                                headerText = "Duration"
-                        End Select
+            y += h
 
-                        Dim centerHeaderFormat As New StringFormat(Format)
-                        centerHeaderFormat.Alignment = StringAlignment.Center
+            ' Print printingdgv data rows
+            Dim rowsPerPage As Integer = CInt(e.MarginBounds.Height / printingdgv.Rows(0).Height)
 
-                        e.Graphics.DrawString(headerText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, centerHeaderFormat)
-
-
-                        x += recta.Width
-                        h = Math.Max(h, recta.Height)
-
-                    End If
-                Next
-                y += h
-            End If
-
-            isNewPage = False
-            Dim dNow As Integer
-
-            'Print Rows
-            For dNow = rowIndexToPrint To printingdgv.RowCount - 1
-                row = printingdgv.Rows(dNow)
-                x = 53
+            ' Print rows until the end of the page or there are no more rows
+            While rowIndexToPrint < printingdgv.Rows.Count AndAlso y + h <= e.MarginBounds.Bottom
+                Dim currentRow As DataGridViewRow = printingdgv.Rows(rowIndexToPrint)
+                x = 40 ' Reset X position for each row
                 h = 0
 
-                For Each cell As DataGridViewCell In row.Cells
+                For Each cell As DataGridViewCell In currentRow.Cells
                     If cell.Visible Then
                         recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                         e.Graphics.DrawRectangle(Pens.Black, recta)
 
                         Format.Alignment = StringAlignment.Center
                         recta.Offset(5, 0)
-
-
-
-
-
-                        e.Graphics.DrawString(cell.FormattedValue.ToString(), New Font("Calibri", 12, FontStyle.Regular), Brushes.Black, recta, Format)
-
+                        e.Graphics.DrawString(cell.FormattedValue.ToString(), printingdgv.Font, Brushes.Black, recta, Format)
 
                         x += recta.Width
                         h = Math.Max(h, recta.Height)
                     End If
                 Next
-
                 y += h
+                rowIndexToPrint += 1
+            End While
 
-                rowIndexToPrint = dNow + 1
-                If y + h > e.MarginBounds.Bottom Then
-                    e.HasMorePages = True
-                    isNewPage = True
-                    Return
-                End If
+            ' If there are more rows to print, set HasMorePages to true
+            If rowIndexToPrint < printingdgv.Rows.Count Then
+                e.HasMorePages = True
+            Else
+                ' Otherwise, no more rows to print, reset rowIndexToPrint
+                rowIndexToPrint = 0
+                e.HasMorePages = False
+            End If
 
-
-
-
-            Next
         Catch ex As Exception
             MessageBox.Show("An error occurred while printing the schedule. Please try again or contact support for assistance.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-
+    Private Sub PrintDocument1_BeginPrint(sender As Object, e As Printing.PrintEventArgs) Handles PrintDocument1.BeginPrint
+        ' Reset rowIndexToPrint when beginning to print
+        rowIndexToPrint = 0
+    End Sub
 
 
     'PRINT WHEN CLICK
@@ -253,7 +221,7 @@ Public Class sectionSched
             printingdgv.Visible = True
             dgvSectionSched.Visible = False
         Else
-            printingdgv.Visible = False
+            printingdgv.Visible = True
             dgvSectionSched.Visible = True
         End If
     End Sub

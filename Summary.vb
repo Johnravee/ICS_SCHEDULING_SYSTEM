@@ -1,6 +1,7 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 
 Public Class Summary
+    Private WithEvents PrintDocument1 As New Printing.PrintDocument
     Dim SummaryTable As New DataTable()
 
     Private Sub Summary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -74,49 +75,46 @@ Public Class Summary
             e.Graphics.DrawString($"Summary of Schedules", New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(550, 200), StrFormat)
 
 
-            Dim Format As StringFormat = New StringFormat(StringFormatFlags.LineLimit)
+            ' Define format for data
+            Dim Format As New StringFormat(StringFormatFlags.LineLimit)
             Format.LineAlignment = StringAlignment.Center
             Format.Trimming = StringTrimming.EllipsisCharacter
             Format.Alignment = StringAlignment.Center
 
-            Dim y As Integer = 300
-            Dim x As Integer = 10
+            Dim y As Integer = 230
+            Dim x As Integer = 40 ' Start X position
             Dim h As Integer = 0
             Dim recta As Rectangle
             Dim row As DataGridViewRow
 
+            ' Draw header row
+            x = 40 ' Reset X position for header row
+            For Each column As DataGridViewColumn In dgvschedsum.Columns
+                If column.Visible Then
+                    recta = New Rectangle(x, y, column.Width, dgvschedsum.ColumnHeadersHeight)
+                    e.Graphics.FillRectangle(Brushes.LightGray, recta)
+                    e.Graphics.DrawRectangle(Pens.Black, recta)
 
-            If isNewPage Then
-                row = dgvschedsum.Rows(rowIndexToPrint)
-                x = 40
-                For Each cell As DataGridViewCell In row.Cells
-                    If cell.Visible Then
+                    ' Use column header text
+                    e.Graphics.DrawString(column.HeaderText, New Font("Calibri", 12, FontStyle.Bold), Brushes.Black, recta, Format)
 
-                        recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
-                        e.Graphics.FillRectangle(Brushes.LightYellow, recta)
-                        e.Graphics.DrawRectangle(Pens.Black, recta)
+                    x += recta.Width
+                    h = Math.Max(h, recta.Height)
+                End If
+            Next
 
-                        e.Graphics.DrawString(dgvschedsum.Columns(cell.ColumnIndex).HeaderText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, Format)
+            y += h
 
-                        x += recta.Width
+            ' Print printingdgv data rows
+            Dim rowsPerPage As Integer = CInt(e.MarginBounds.Height / dgvschedsum.Rows(0).Height)
 
-                        h = Math.Max(h, recta.Height)
-
-
-                    End If
-                Next
-                y += h
-
-            End If
-
-            isNewPage = False
-            Dim dplay As Integer
-            For dplay = rowIndexToPrint To dgvschedsum.RowCount - 1
-                row = dgvschedsum.Rows(dplay)
-                x = 40
+            ' Print rows until the end of the page or there are no more rows
+            While rowIndexToPrint < dgvschedsum.Rows.Count AndAlso y + h <= e.MarginBounds.Bottom
+                Dim currentRow As DataGridViewRow = dgvschedsum.Rows(rowIndexToPrint)
+                x = 40 ' Reset X position for each row
                 h = 0
 
-                For Each cell As DataGridViewCell In row.Cells
+                For Each cell As DataGridViewCell In currentRow.Cells
                     If cell.Visible Then
                         recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                         e.Graphics.DrawRectangle(Pens.Black, recta)
@@ -127,27 +125,29 @@ Public Class Summary
 
                         x += recta.Width
                         h = Math.Max(h, recta.Height)
-
                     End If
                 Next
-
                 y += h
+                rowIndexToPrint += 1
+            End While
 
-                rowIndexToPrint = dplay + 1
-                If y + h > e.MarginBounds.Bottom Then
-                    e.HasMorePages = True
-                    isNewPage = True
-                    Return
-                End If
-            Next
+            ' If there are more rows to print, set HasMorePages to true
+            If rowIndexToPrint < dgvschedsum.Rows.Count Then
+                e.HasMorePages = True
+            Else
+                ' Otherwise, no more rows to print, reset rowIndexToPrint
+                rowIndexToPrint = 0
+                e.HasMorePages = False
+            End If
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while printing the schedule. Please try again or contact support for assistance.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
 
-
-
-
+    Private Sub PrintDocument1_BeginPrint(sender As Object, e As Printing.PrintEventArgs) Handles PrintDocument1.BeginPrint
+        ' Reset rowIndexToPrint when beginning to print
+        rowIndexToPrint = 0
     End Sub
 
 
@@ -167,11 +167,11 @@ Public Class Summary
 
     End Sub
 
-    Private Sub PrintPreviewDialog_FormClosed(sender As Object, e As FormClosedEventArgs) Handles PrintPreviewDialog.FormClosed
-        ' Create a new instance of the form and show it again after the print preview dialog is closed
-        Dim summaryForm As New Summary()
-        summaryForm.Show()
-    End Sub
+    'Private Sub PrintPreviewDialog_FormClosed(sender As Object, e As FormClosedEventArgs) Handles PrintPreviewDialog.FormClosed
+    '    ' Create a new instance of the form and show it again after the print preview dialog is closed
+    '    Dim summaryForm As New Summary()
+    '    summaryForm.Show()
+    'End Sub
 
     Private Sub backbtn_Click(sender As Object, e As EventArgs) Handles backbtn.Click
         Dashboard.Show()

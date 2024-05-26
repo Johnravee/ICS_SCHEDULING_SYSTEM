@@ -4,7 +4,7 @@ Imports Google.Protobuf.WellKnownTypes
 
 Public Class roomSchedule
     Dim room As String
-
+    Private WithEvents PrintDocument1 As New Printing.PrintDocument
     Private Sub roomSchedule_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DBCon()
         room = viewRooms.ClickRoomNumber
@@ -88,10 +88,7 @@ Public Class roomSchedule
     End Sub
 
 
-
-
     Private rowIndexToPrint As Integer = 0 ' Track the index of the next row to print
-    Private isNewPage As Boolean = True
 
     Private Sub printer_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles printer.PrintPage
         Try
@@ -118,42 +115,39 @@ Public Class roomSchedule
             Format.Alignment = StringAlignment.Center
 
             Dim y As Integer = 230
-            Dim x As Integer = 0
+            Dim x As Integer = 40 ' Start X position
             Dim h As Integer = 0
             Dim recta As Rectangle
             Dim row As DataGridViewRow
 
-            If isNewPage Then
-                row = printingdgv.Rows(rowIndexToPrint)
-                x = 40
-                For Each cell As DataGridViewCell In row.Cells
-                    If cell.Visible Then
-                        recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
-                        e.Graphics.FillRectangle(Brushes.LightYellow, recta)
-                        e.Graphics.DrawRectangle(Pens.Black, recta)
+            ' Draw header row
+            x = 40 ' Reset X position for header row
+            For Each column As DataGridViewColumn In printingdgv.Columns
+                If column.Visible Then
+                    recta = New Rectangle(x, y, column.Width, printingdgv.ColumnHeadersHeight)
+                    e.Graphics.FillRectangle(Brushes.LightGray, recta)
+                    e.Graphics.DrawRectangle(Pens.Black, recta)
 
-                        ' Use custom header text
-                        Dim headerTexts As String() = {"Instructor", "Section", "Subject", "Time", "Day", "Room", "Semester", "Duration"}
-                        Dim columnIndex As Integer = cell.ColumnIndex
-                        Dim currentHeaderText As String = headerTexts(columnIndex)
+                    ' Use column header text
+                    e.Graphics.DrawString(column.HeaderText, New Font("Calibri", 12, FontStyle.Bold), Brushes.Black, recta, Format)
 
-                        e.Graphics.DrawString(currentHeaderText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, Format)
+                    x += recta.Width
+                    h = Math.Max(h, recta.Height)
+                End If
+            Next
 
-                        x += recta.Width
-                        h = Math.Max(h, recta.Height)
-                    End If
-                Next
-                y += h
-            End If
+            y += h
 
-            isNewPage = False
-            Dim dplay As Integer
-            For dplay = rowIndexToPrint To printingdgv.RowCount - 1
-                row = printingdgv.Rows(dplay)
-                x = 40
+            ' Print printingdgv data rows
+            Dim rowsPerPage As Integer = CInt(e.MarginBounds.Height / printingdgv.Rows(0).Height)
+
+            ' Print rows until the end of the page or there are no more rows
+            While rowIndexToPrint < printingdgv.Rows.Count AndAlso y + h <= e.MarginBounds.Bottom
+                Dim currentRow As DataGridViewRow = printingdgv.Rows(rowIndexToPrint)
+                x = 40 ' Reset X position for each row
                 h = 0
 
-                For Each cell As DataGridViewCell In row.Cells
+                For Each cell As DataGridViewCell In currentRow.Cells
                     If cell.Visible Then
                         recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                         e.Graphics.DrawRectangle(Pens.Black, recta)
@@ -167,23 +161,27 @@ Public Class roomSchedule
                     End If
                 Next
                 y += h
+                rowIndexToPrint += 1
+            End While
 
-                rowIndexToPrint = dplay + 1
-                If y + h > e.MarginBounds.Bottom Then
-                    e.HasMorePages = True
-                    isNewPage = True
-                    Return
-                End If
-            Next
+            ' If there are more rows to print, set HasMorePages to true
+            If rowIndexToPrint < printingdgv.Rows.Count Then
+                e.HasMorePages = True
+            Else
+                ' Otherwise, no more rows to print, reset rowIndexToPrint
+                rowIndexToPrint = 0
+                e.HasMorePages = False
+            End If
+
         Catch ex As Exception
             MessageBox.Show("An error occurred while printing the schedule. Please try again or contact support for assistance.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Console.WriteLine(ex.ToString()) ' Log the exception for debugging purposes
         End Try
     End Sub
 
-
-
-
+    Private Sub PrintDocument1_BeginPrint(sender As Object, e As Printing.PrintEventArgs) Handles PrintDocument1.BeginPrint
+        ' Reset rowIndexToPrint when beginning to print
+        rowIndexToPrint = 0
+    End Sub
 
 
     'PRINT WHEN CLICK
@@ -211,7 +209,7 @@ Public Class roomSchedule
             printingdgv.Visible = True
             dgvRoomSched.Visible = False
         Else
-            printingdgv.Visible = False
+            printingdgv.Visible = True
             dgvRoomSched.Visible = True
         End If
     End Sub

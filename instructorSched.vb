@@ -3,6 +3,7 @@ Imports System.Globalization
 Imports Google.Protobuf.WellKnownTypes
 
 Public Class instructorSched
+    Private WithEvents PrintDocument1 As New Printing.PrintDocument
     Dim instructor As String
 
     Private Sub instructorSched_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -89,7 +90,6 @@ Public Class instructorSched
     End Sub
 
     Private rowIndexToPrint As Integer = 0 ' Track the index of the next row to print
-    Private isNewPage As Boolean = True
 
     Private Sub printer_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles printer.PrintPage
         Try
@@ -109,44 +109,46 @@ Public Class instructorSched
             e.Graphics.DrawString("___________________________________________________________________", New Font("Calibri", 10, FontStyle.Regular), Brushes.Black, New PointF(380, 210), StrFormat)
             e.Graphics.DrawString(instructor, New Font("Calibri", 16, FontStyle.Bold), Brushes.Black, New PointF(260, 203), StrFormat)
 
+            ' Define format for data
             Dim Format As New StringFormat(StringFormatFlags.LineLimit)
             Format.LineAlignment = StringAlignment.Center
-            Format.Trimming = StringTrimming.EllipsisWord
-
+            Format.Trimming = StringTrimming.EllipsisCharacter
             Format.Alignment = StringAlignment.Center
 
             Dim y As Integer = 230
-            Dim x As Integer = 0
+            Dim x As Integer = 40 ' Start X position
             Dim h As Integer = 0
             Dim recta As Rectangle
             Dim row As DataGridViewRow
 
-            If isNewPage Then
-                row = printingdgv.Rows(rowIndexToPrint)
-                x = 40
-                For Each cell As DataGridViewCell In row.Cells
-                    If cell.Visible Then
-                        recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
-                        e.Graphics.FillRectangle(Brushes.LightYellow, recta)
-                        e.Graphics.DrawRectangle(Pens.Black, recta)
+            ' Draw header row
+            x = 40 ' Reset X position for header row
+            For Each column As DataGridViewColumn In printingdgv.Columns
+                If column.Visible Then
+                    recta = New Rectangle(x, y, column.Width, printingdgv.ColumnHeadersHeight)
+                    e.Graphics.FillRectangle(Brushes.LightGray, recta)
+                    e.Graphics.DrawRectangle(Pens.Black, recta)
 
-                        e.Graphics.DrawString(printingdgv.Columns(cell.ColumnIndex).HeaderText, New Font("Calibri", 14, FontStyle.Bold), Brushes.Black, recta, Format)
+                    ' Use column header text
+                    e.Graphics.DrawString(column.HeaderText, New Font("Calibri", 12, FontStyle.Bold), Brushes.Black, recta, Format)
 
-                        x += recta.Width
-                        h = Math.Max(h, recta.Height)
-                    End If
-                Next
-                y += h
-            End If
+                    x += recta.Width
+                    h = Math.Max(h, recta.Height)
+                End If
+            Next
 
-            isNewPage = False
-            Dim dplay As Integer
-            For dplay = rowIndexToPrint To printingdgv.RowCount - 1
-                row = printingdgv.Rows(dplay)
-                x = 40
+            y += h
+
+            ' Print printingdgv data rows
+            Dim rowsPerPage As Integer = CInt(e.MarginBounds.Height / printingdgv.Rows(0).Height)
+
+            ' Print rows until the end of the page or there are no more rows
+            While rowIndexToPrint < printingdgv.Rows.Count AndAlso y + h <= e.MarginBounds.Bottom
+                Dim currentRow As DataGridViewRow = printingdgv.Rows(rowIndexToPrint)
+                x = 40 ' Reset X position for each row
                 h = 0
 
-                For Each cell As DataGridViewCell In row.Cells
+                For Each cell As DataGridViewCell In currentRow.Cells
                     If cell.Visible Then
                         recta = New Rectangle(x, y, cell.Size.Width, cell.Size.Height)
                         e.Graphics.DrawRectangle(Pens.Black, recta)
@@ -159,22 +161,29 @@ Public Class instructorSched
                         h = Math.Max(h, recta.Height)
                     End If
                 Next
-
                 y += h
+                rowIndexToPrint += 1
+            End While
 
-                rowIndexToPrint = dplay + 1
-                If y + h > e.MarginBounds.Bottom Then
-                    e.HasMorePages = True
-                    isNewPage = True
-                    Return
-                End If
-            Next
+            ' If there are more rows to print, set HasMorePages to true
+            If rowIndexToPrint < printingdgv.Rows.Count Then
+                e.HasMorePages = True
+            Else
+                ' Otherwise, no more rows to print, reset rowIndexToPrint
+                rowIndexToPrint = 0
+                e.HasMorePages = False
+            End If
+
         Catch ex As Exception
             MessageBox.Show("An error occurred while printing the schedule. Please try again or contact support for assistance.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    'PRINT WHEN CLICK
+    Private Sub PrintDocument1_BeginPrint(sender As Object, e As Printing.PrintEventArgs) Handles PrintDocument1.BeginPrint
+        ' Reset rowIndexToPrint when beginning to print
+        rowIndexToPrint = 0
+    End Sub
+
     Private Sub Printbtn_Click(sender As Object, e As EventArgs) Handles Printbtn.Click
         If printingdgv.Rows.Count <= 0 AndAlso dgvInstructorSched.Rows.Count <= 0 Then
             MessageBox.Show("Both the document and printing data are empty.", "Empty Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -195,7 +204,7 @@ Public Class instructorSched
             printingdgv.Visible = True
             dgvInstructorSched.Visible = False
         Else
-            printingdgv.Visible = False
+            printingdgv.Visible = True
             dgvInstructorSched.Visible = True
         End If
     End Sub
