@@ -30,7 +30,7 @@ Module Security
             Dim HashRFID As String = EncryptData(RFID)
             DBCon()
             cmd.Connection = con
-            cmd.CommandText = "SELECT RFID, CONCAT(Firstname, ' ' ,Surname) AS name FROM instructor WHERE RFID = @rfid AND Position IN ('DEAN', 'BSIT PROGRAM HEAD', 'BScPE PROGRAM HEAD' )"
+            cmd.CommandText = "SELECT RFID, CONCAT(Firstname, ' ' ,Surname) AS name FROM admins WHERE RFID = @rfid AND Position IN ('DEAN', 'BSIT PROGRAM HEAD', 'BScPE PROGRAM HEAD' )"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@rfid", HashRFID)
 

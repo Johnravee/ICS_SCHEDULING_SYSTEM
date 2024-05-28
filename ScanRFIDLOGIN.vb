@@ -85,4 +85,12 @@ Public Class ScanRFIDLOGIN
         ScanRFID_Logo.Visible = True
         hidelogos.Stop()
     End Sub
+
+    Private Sub linkforgot_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkforgot.LinkClicked
+        txtrfidlogin.Focus()
+        Me.Hide()
+        forgot.Show()
+
+
+    End Sub
 End Class

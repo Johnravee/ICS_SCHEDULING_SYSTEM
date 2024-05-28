@@ -36,6 +36,7 @@ Partial Class ScanRFIDLOGIN
         rfidlink = New LinkLabel()
         clearinputtimer = New Timer(components)
         hidelogos = New Timer(components)
+        linkforgot = New LinkLabel()
         Panel1.SuspendLayout()
         CType(closeBtn, ComponentModel.ISupportInitialize).BeginInit()
         CType(Scan_Denied_Logo, ComponentModel.ISupportInitialize).BeginInit()
@@ -79,7 +80,7 @@ Partial Class ScanRFIDLOGIN
         ' Scan_Denied_Logo
         ' 
         Scan_Denied_Logo.Image = CType(resources.GetObject("Scan_Denied_Logo.Image"), Image)
-        Scan_Denied_Logo.Location = New Point(122, 310)
+        Scan_Denied_Logo.Location = New Point(122, 292)
         Scan_Denied_Logo.Name = "Scan_Denied_Logo"
         Scan_Denied_Logo.Size = New Size(227, 163)
         Scan_Denied_Logo.SizeMode = PictureBoxSizeMode.Zoom
@@ -107,7 +108,7 @@ Partial Class ScanRFIDLOGIN
         ' ScanRFID_Logo
         ' 
         ScanRFID_Logo.Image = CType(resources.GetObject("ScanRFID_Logo.Image"), Image)
-        ScanRFID_Logo.Location = New Point(122, 310)
+        ScanRFID_Logo.Location = New Point(122, 292)
         ScanRFID_Logo.Name = "ScanRFID_Logo"
         ScanRFID_Logo.Size = New Size(227, 163)
         ScanRFID_Logo.SizeMode = PictureBoxSizeMode.Zoom
@@ -117,7 +118,7 @@ Partial Class ScanRFIDLOGIN
         ' lk1register
         ' 
         lk1register.AutoSize = True
-        lk1register.Location = New Point(211, 486)
+        lk1register.Location = New Point(211, 470)
         lk1register.Name = "lk1register"
         lk1register.Size = New Size(49, 15)
         lk1register.TabIndex = 19
@@ -136,7 +137,7 @@ Partial Class ScanRFIDLOGIN
         ' rfidlink
         ' 
         rfidlink.AutoSize = True
-        rfidlink.Location = New Point(133, 506)
+        rfidlink.Location = New Point(133, 490)
         rfidlink.Name = "rfidlink"
         rfidlink.Size = New Size(194, 15)
         rfidlink.TabIndex = 21
@@ -150,12 +151,24 @@ Partial Class ScanRFIDLOGIN
         ' 
         hidelogos.Interval = 3000
         ' 
+        ' linkforgot
+        ' 
+        linkforgot.AutoSize = True
+        linkforgot.Location = New Point(211, 515)
+        linkforgot.Name = "linkforgot"
+        linkforgot.Size = New Size(47, 15)
+        linkforgot.TabIndex = 22
+        linkforgot.TabStop = True
+        linkforgot.Text = "Forgot?"
+        linkforgot.TextAlign = ContentAlignment.MiddleCenter
+        ' 
         ' ScanRFIDLOGIN
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         ClientSize = New Size(472, 575)
+        Controls.Add(linkforgot)
         Controls.Add(rfidlink)
         Controls.Add(Panel2)
         Controls.Add(lk1register)
@@ -190,4 +203,5 @@ Partial Class ScanRFIDLOGIN
     Friend WithEvents rfidlink As LinkLabel
     Friend WithEvents clearinputtimer As Timer
     Friend WithEvents hidelogos As Timer
+    Friend WithEvents linkforgot As LinkLabel
 End Class

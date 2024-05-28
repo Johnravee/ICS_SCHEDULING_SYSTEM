@@ -189,11 +189,13 @@ Public Class SchedListForm
                     dgv.DataSource = Nothing
                     lamesa.Rows.Clear()
                     lamesa.Columns.Clear()
+                    ResetForm()
                     GetSchedules()
                     CreateScheduleForm.ResetForm()
                     MessageBox.Show("Record Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     dgv.DataSource = Nothing
+                    ResetForm()
                     lamesa.Rows.Clear()
                     lamesa.Columns.Clear()
                     GetSchedules()
@@ -233,7 +235,8 @@ Public Class SchedListForm
 
         ' Calculate duration
         Dim duration As TimeSpan = EndTime.Value.Subtract(StartTime.Value)
-        Dim durationStr As String = duration.ToString("hh\:mm\:ss")
+        ' Format duration
+        Dim FormatedDuration As String = duration.Hours.ToString() & "." & duration.Minutes.ToString()
 
         Try
             DBCon()
@@ -305,7 +308,7 @@ Public Class SchedListForm
             cmd.Parameters.AddWithValue("@Day", cbo_day.SelectedItem.ToString())
             cmd.Parameters.AddWithValue("@RoomNumber", cb_room.SelectedItem.ToString())
             cmd.Parameters.AddWithValue("@Semester", cb_semester.SelectedItem.ToString())
-            cmd.Parameters.AddWithValue("@Duration", durationStr)
+            cmd.Parameters.AddWithValue("@Duration", FormatedDuration)
             cmd.Parameters.AddWithValue("@ScheduleID", scheduleID)
 
             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
@@ -445,6 +448,33 @@ Public Class SchedListForm
         cb_semester.SelectedIndex = -1
         StartTime.Value = DateTime.Now
         EndTime.Value = DateTime.Now
+    End Sub
+
+    Private Sub ResetBtn_Click(sender As Object, e As EventArgs) Handles ResetBtn.Click
+        Dim result As DialogResult = MessageBox.Show("Are you sure you want to truncate the 'schedules' table?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If result = DialogResult.Yes Then
+            Try
+                DBCon()
+                cmd.Connection = con
+                cmd.CommandText = "TRUNCATE TABLE schedules"
+
+                cmd.ExecuteNonQuery()
+
+
+                dgv.DataSource = Nothing
+                lamesa.Clear()
+                ResetForm()
+                GetSchedules()
+
+                MessageBox.Show("Table 'schedules' has been truncated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Catch ex As Exception
+
+                MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End If
     End Sub
 
 End Class

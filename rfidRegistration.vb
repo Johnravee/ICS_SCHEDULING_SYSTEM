@@ -59,7 +59,7 @@ Public Class RFIDREGISTRATION
 
             If con.State = ConnectionState.Open Then
 
-                cmd.CommandText = "INSERT INTO instructor (RFID, Firstname, MiddleName, Surname, Gender, Position, WorkStatus, email) VALUES (@rfid, @fname, @mname, @surname, @gender,@position, @workstats, @email)"
+                cmd.CommandText = "INSERT INTO admins (RFID, Firstname, MiddleName, Surname, Gender, Position, WorkStatus, email) VALUES (@rfid, @fname, @mname, @surname, @gender,@position, @workstats, @email)"
 
 
                 cmd.Parameters.Clear()

@@ -18,7 +18,7 @@ Public Class InstructorListForm
         DataGridView1.DataSource = tab
 
         DataGridView1.Columns("InstructorID").Visible = False
-        DataGridView1.Columns("RFID").Visible = False
+
         DataGridView1.Columns("Position").HeaderText = "Role"
 
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.ColumnHeader
@@ -184,14 +184,14 @@ Public Class InstructorListForm
 
             ' Update text boxes with cell values
             txtinstructorid.Text = selectedRow.Cells(0).Value.ToString()
-            txtrfid.Text = selectedRow.Cells(1).Value.ToString()
-            txtFirtname.Text = selectedRow.Cells(2).Value.ToString()
-            txtmidname.Text = selectedRow.Cells(3).Value.ToString()
-            txtsurname.Text = selectedRow.Cells(4).Value.ToString()
-            cb_gender.Text = selectedRow.Cells(5).Value.ToString()
-            cborole.SelectedItem = selectedRow.Cells(6).Value.ToString()
-            cbworkstatus.SelectedItem = selectedRow.Cells(7).Value.ToString()
-            txtemail.Text = selectedRow.Cells(8).Value.ToString()
+
+            txtFirtname.Text = selectedRow.Cells(1).Value.ToString()
+            txtmidname.Text = selectedRow.Cells(2).Value.ToString()
+            txtsurname.Text = selectedRow.Cells(3).Value.ToString()
+            cb_gender.Text = selectedRow.Cells(4).Value.ToString()
+            cborole.SelectedItem = selectedRow.Cells(5).Value.ToString()
+            cbworkstatus.SelectedItem = selectedRow.Cells(6).Value.ToString()
+            txtemail.Text = selectedRow.Cells(7).Value.ToString()
 
             ' Refresh the DataGridView if needed
             DataGridView1.Refresh()

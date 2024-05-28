@@ -19,6 +19,9 @@
     <Compile Update="FacilityListForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="forgot.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="InstructorListForm.vb">
       <SubType>Form</SubType>
     </Compile>
