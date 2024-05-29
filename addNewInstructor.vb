@@ -34,6 +34,7 @@ Public Class addNewInstructor
                 ClearFields()
                 con.Close()
             Catch ex As MySqlException
+
                 If ex.Number = 1062 Then
                     ' MySQL error number 1062 indicates a duplicate entry .
                     MessageBox.Show("Account insertion failed: Duplicate entry found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
