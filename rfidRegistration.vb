@@ -97,6 +97,7 @@ Public Class RFIDREGISTRATION
 
 
         Catch ex As MySqlException
+
             If ex.Number = 1062 Then
                 If ex.Message.Contains("instructor_rfid_unique") Then
                     imgerror.Visible = True
@@ -115,6 +116,7 @@ Public Class RFIDREGISTRATION
             Else
                 imgerror.Visible = True
                 lblunxerror.Visible = True
+                lblemailerror.Text = ex.Message.ToString()
                 backtoregistrationTimer.Start()
             End If
 
