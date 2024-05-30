@@ -42,10 +42,12 @@ Partial Class RFIDREGISTRATION
         redirectionTimer = New Timer(components)
         backtoregistrationTimer = New Timer(components)
         createdsuccesstimer = New Timer(components)
+        Button1 = New Button()
         rfidscanpanel.SuspendLayout()
         CType(imgerror, ComponentModel.ISupportInitialize).BeginInit()
         CType(imgloading, ComponentModel.ISupportInitialize).BeginInit()
         CType(imgsuccess, ComponentModel.ISupportInitialize).BeginInit()
+        Panel2.SuspendLayout()
         CType(logo, ComponentModel.ISupportInitialize).BeginInit()
         CType(ScanRFID_Logo, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -75,8 +77,8 @@ Partial Class RFIDREGISTRATION
         ' lblunxerror
         ' 
         lblunxerror.AutoSize = True
-        lblunxerror.Font = New Font("Calibri", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
-        lblunxerror.ForeColor = Color.FromArgb(220, 76, 100)
+        lblunxerror.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblunxerror.ForeColor = Color.FromArgb(CByte(220), CByte(76), CByte(100))
         lblunxerror.Location = New Point(14, 250)
         lblunxerror.Name = "lblunxerror"
         lblunxerror.Size = New Size(398, 19)
@@ -87,8 +89,8 @@ Partial Class RFIDREGISTRATION
         ' lblduplicateentry
         ' 
         lblduplicateentry.AutoSize = True
-        lblduplicateentry.Font = New Font("Calibri", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
-        lblduplicateentry.ForeColor = Color.FromArgb(220, 76, 100)
+        lblduplicateentry.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblduplicateentry.ForeColor = Color.FromArgb(CByte(220), CByte(76), CByte(100))
         lblduplicateentry.Location = New Point(94, 250)
         lblduplicateentry.Name = "lblduplicateentry"
         lblduplicateentry.Size = New Size(241, 19)
@@ -99,8 +101,8 @@ Partial Class RFIDREGISTRATION
         ' lblrfiderror
         ' 
         lblrfiderror.AutoSize = True
-        lblrfiderror.Font = New Font("Calibri", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
-        lblrfiderror.ForeColor = Color.FromArgb(220, 76, 100)
+        lblrfiderror.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblrfiderror.ForeColor = Color.FromArgb(CByte(220), CByte(76), CByte(100))
         lblrfiderror.Location = New Point(73, 250)
         lblrfiderror.Name = "lblrfiderror"
         lblrfiderror.Size = New Size(286, 19)
@@ -111,8 +113,8 @@ Partial Class RFIDREGISTRATION
         ' lblemailerror
         ' 
         lblemailerror.AutoSize = True
-        lblemailerror.Font = New Font("Calibri", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
-        lblemailerror.ForeColor = Color.FromArgb(220, 76, 100)
+        lblemailerror.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblemailerror.ForeColor = Color.FromArgb(CByte(220), CByte(76), CByte(100))
         lblemailerror.Location = New Point(73, 250)
         lblemailerror.Name = "lblemailerror"
         lblemailerror.Size = New Size(293, 19)
@@ -134,7 +136,7 @@ Partial Class RFIDREGISTRATION
         ' lblsuccess
         ' 
         lblsuccess.AutoSize = True
-        lblsuccess.Font = New Font("Calibri", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        lblsuccess.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblsuccess.Location = New Point(107, 250)
         lblsuccess.Name = "lblsuccess"
         lblsuccess.Size = New Size(210, 19)
@@ -145,7 +147,7 @@ Partial Class RFIDREGISTRATION
         ' lblredirect
         ' 
         lblredirect.AutoSize = True
-        lblredirect.Font = New Font("Calibri", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        lblredirect.Font = New Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblredirect.Location = New Point(146, 250)
         lblredirect.Name = "lblredirect"
         lblredirect.Size = New Size(140, 19)
@@ -175,7 +177,8 @@ Partial Class RFIDREGISTRATION
         ' 
         ' Panel2
         ' 
-        Panel2.BackColor = Color.FromArgb(10, 55, 39)
+        Panel2.BackColor = Color.FromArgb(CByte(10), CByte(55), CByte(39))
+        Panel2.Controls.Add(Button1)
         Panel2.Cursor = Cursors.IBeam
         Panel2.Dock = DockStyle.Top
         Panel2.Location = New Point(0, 0)
@@ -213,7 +216,7 @@ Partial Class RFIDREGISTRATION
         ' Scan_Label
         ' 
         Scan_Label.AutoSize = True
-        Scan_Label.Font = New Font("Calibri", 18.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Scan_Label.Font = New Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Scan_Label.Location = New Point(104, 212)
         Scan_Label.Name = "Scan_Label"
         Scan_Label.Size = New Size(235, 29)
@@ -232,6 +235,19 @@ Partial Class RFIDREGISTRATION
         ' 
         createdsuccesstimer.Interval = 3000
         ' 
+        ' Button1
+        ' 
+        Button1.BackColor = Color.FromArgb(CByte(10), CByte(55), CByte(39))
+        Button1.BackgroundImage = My.Resources.Resources.backBtn
+        Button1.BackgroundImageLayout = ImageLayout.Stretch
+        Button1.FlatStyle = FlatStyle.Flat
+        Button1.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
+        Button1.Location = New Point(0, 0)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(41, 32)
+        Button1.TabIndex = 1
+        Button1.UseVisualStyleBackColor = False
+        ' 
         ' RFIDREGISTRATION
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -249,6 +265,7 @@ Partial Class RFIDREGISTRATION
         CType(imgerror, ComponentModel.ISupportInitialize).EndInit()
         CType(imgloading, ComponentModel.ISupportInitialize).EndInit()
         CType(imgsuccess, ComponentModel.ISupportInitialize).EndInit()
+        Panel2.ResumeLayout(False)
         CType(logo, ComponentModel.ISupportInitialize).EndInit()
         CType(ScanRFID_Logo, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -277,4 +294,5 @@ Partial Class RFIDREGISTRATION
     Friend WithEvents lblemailerror As Label
     Friend WithEvents imgerror As PictureBox
     Friend WithEvents lblunxerror As Label
+    Friend WithEvents Button1 As Button
 End Class

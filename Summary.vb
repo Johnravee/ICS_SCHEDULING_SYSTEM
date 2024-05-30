@@ -163,8 +163,6 @@ Public Class Summary
         PrintPreviewDialog.WindowState = WindowState.Maximized
         PrintPreviewDialog.Document = printer
         PrintPreviewDialog.ShowDialog()
-        Me.Close()
-
     End Sub
 
     'Private Sub PrintPreviewDialog_FormClosed(sender As Object, e As FormClosedEventArgs) Handles PrintPreviewDialog.FormClosed

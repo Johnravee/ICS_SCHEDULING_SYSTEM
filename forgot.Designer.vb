@@ -34,6 +34,8 @@ Partial Class forgot
         lblsuccess = New Label()
         lblredirect = New Label()
         Panel2 = New Panel()
+        Button2 = New Button()
+        Label1 = New Label()
         logo = New PictureBox()
         txtrfid = New TextBox()
         Scan_Label = New Label()
@@ -44,14 +46,13 @@ Partial Class forgot
         lblunexerror = New Label()
         lblemailnotif = New Label()
         Panel3 = New Panel()
+        Label7 = New Label()
         Button1 = New Button()
         PictureBox4 = New PictureBox()
         TextBox1 = New TextBox()
         existtimer = New Timer(components)
         redirectotlogintimer = New Timer(components)
         successtimer = New Timer(components)
-        Label7 = New Label()
-        Label1 = New Label()
         rfidscanpanel.SuspendLayout()
         CType(imgerror, ComponentModel.ISupportInitialize).BeginInit()
         CType(imgloading, ComponentModel.ISupportInitialize).BeginInit()
@@ -179,6 +180,7 @@ Partial Class forgot
         ' Panel2
         ' 
         Panel2.BackColor = Color.FromArgb(CByte(10), CByte(55), CByte(39))
+        Panel2.Controls.Add(Button2)
         Panel2.Controls.Add(Label1)
         Panel2.Cursor = Cursors.IBeam
         Panel2.Dock = DockStyle.Top
@@ -186,6 +188,30 @@ Partial Class forgot
         Panel2.Name = "Panel2"
         Panel2.Size = New Size(419, 32)
         Panel2.TabIndex = 28
+        ' 
+        ' Button2
+        ' 
+        Button2.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
+        Button2.BackgroundImage = My.Resources.Resources.backBtn
+        Button2.BackgroundImageLayout = ImageLayout.Stretch
+        Button2.FlatStyle = FlatStyle.Flat
+        Button2.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
+        Button2.Location = New Point(0, -1)
+        Button2.Name = "Button2"
+        Button2.Size = New Size(37, 33)
+        Button2.TabIndex = 5
+        Button2.UseVisualStyleBackColor = False
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.ForeColor = Color.WhiteSmoke
+        Label1.Location = New Point(220, 3)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(196, 26)
+        Label1.TabIndex = 4
+        Label1.Text = "ACCOUNT RECOVERY"
         ' 
         ' logo
         ' 
@@ -300,6 +326,17 @@ Partial Class forgot
         Panel3.Size = New Size(419, 32)
         Panel3.TabIndex = 28
         ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label7.ForeColor = Color.WhiteSmoke
+        Label7.Location = New Point(220, 3)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(196, 26)
+        Label7.TabIndex = 3
+        Label7.Text = "ACCOUNT RECOVERY"
+        ' 
         ' Button1
         ' 
         Button1.BackColor = Color.FromArgb(CByte(2), CByte(47), CByte(31))
@@ -336,33 +373,11 @@ Partial Class forgot
         ' 
         ' redirectotlogintimer
         ' 
-        redirectotlogintimer.Interval = 5000
+        redirectotlogintimer.Interval = 3000
         ' 
         ' successtimer
         ' 
         successtimer.Interval = 3000
-        ' 
-        ' Label7
-        ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label7.ForeColor = Color.WhiteSmoke
-        Label7.Location = New Point(220, 3)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(196, 26)
-        Label7.TabIndex = 3
-        Label7.Text = "ACCOUNT RECOVERY"
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.ForeColor = Color.WhiteSmoke
-        Label1.Location = New Point(220, 3)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(196, 26)
-        Label1.TabIndex = 4
-        Label1.Text = "ACCOUNT RECOVERY"
         ' 
         ' forgot
         ' 
@@ -372,7 +387,6 @@ Partial Class forgot
         Controls.Add(emailpanel)
         Controls.Add(rfidscanpanel)
         FormBorderStyle = FormBorderStyle.None
-        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "forgot"
         StartPosition = FormStartPosition.CenterScreen
         Text = "forgot"
@@ -424,4 +438,5 @@ Partial Class forgot
     Friend WithEvents Button1 As Button
     Friend WithEvents Label7 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents Button2 As Button
 End Class

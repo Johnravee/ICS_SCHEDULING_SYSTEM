@@ -275,8 +275,8 @@ Public Class SchedListForm
                 Return
             End If
 
-            If duration.Hours > 8 Then
-                MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            If duration.Hours > 6 Then
+                MessageBox.Show("Class time duration exceeds 6 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 

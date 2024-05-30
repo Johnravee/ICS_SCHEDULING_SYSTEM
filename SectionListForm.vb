@@ -85,6 +85,12 @@ Public Class SectionListForm
             Return
         End If
 
+        ' Validate that all textboxes are filled
+        If String.IsNullOrEmpty(txtcode.Text.Trim()) OrElse String.IsNullOrEmpty(txtyear.Text.Trim()) OrElse String.IsNullOrEmpty(txtprogram.Text.Trim()) Then
+            MessageBox.Show("Please fill in all fields before updating a new section.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         Try
             DBCon()
             cmd.Connection = con

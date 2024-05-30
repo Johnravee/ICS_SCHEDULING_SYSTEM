@@ -16,6 +16,7 @@ Public Class forgot
                     email = reader("email").ToString()
                     rfidscanpanel.Show()
                     emailpanel.Hide()
+                    txtemail.Clear()
                     txtrfid.Focus()
 
 
@@ -43,8 +44,10 @@ Public Class forgot
                 lblrfiderror.Visible = True
                 imgerror.Visible = True
                 existtimer.Start()
+                redirectotlogintimer.Start()
                 txtrfid.Clear()
                 txtrfid.Focus()
+
                 Return
             End If
 
@@ -63,6 +66,7 @@ Public Class forgot
                     lblsuccess.Visible = True
                     imgsuccess.Visible = True
                     redirectotlogintimer.Start()
+
                 End If
             Catch ex As Exception
                 MsgBox(ex.Message)
@@ -100,7 +104,7 @@ Public Class forgot
         End Try
     End Function
 
-    Private Sub existtimer_Tick(sender As Object, e As EventArgs) Handles existtimer.Tick
+    Private Sub existtimer_Tick(sender As Object, e As EventArgs)
         imgerror.Visible = False
         imgloading.Visible = True
         lblredirect.Visible = True
@@ -109,15 +113,21 @@ Public Class forgot
         existtimer.Stop()
     End Sub
 
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Close()
+        ScanRFIDLOGIN.Show()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        rfidscanpanel.Hide()
+        emailpanel.Show()
+    End Sub
+
     Private Sub redirectotlogintimer_Tick(sender As Object, e As EventArgs) Handles redirectotlogintimer.Tick
         imgerror.Visible = False
         ScanRFIDLOGIN.Show()
         Me.Close()
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        Me.Close()
-        ScanRFIDLOGIN.Show()
     End Sub
 End Class

@@ -69,7 +69,7 @@ Public Class CreateScheduleForm
             End If
 
             ' Check for valid duration
-            If duration.Hours > 8 Then
+            If duration.Hours > 6 Then
                 MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If

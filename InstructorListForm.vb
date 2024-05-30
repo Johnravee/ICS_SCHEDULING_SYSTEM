@@ -120,6 +120,10 @@ Public Class InstructorListForm
             Return
         End If
 
+        If Not EmailValidation(txtemail.Text) Then
+            MessageBox.Show("Invalid Email", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
         Try
             If con.State = ConnectionState.Closed Then
                 DBCon()

@@ -201,7 +201,7 @@ Partial Class InstructorListForm
         cborole.DropDownStyle = ComboBoxStyle.DropDownList
         cborole.Font = New Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cborole.FormattingEnabled = True
-        cborole.Items.AddRange(New Object() {"DEAN", "BSIT PROGRAM HEAD", "BScPE PROGRAM HEAD", "INSTRUCTOR"})
+        cborole.Items.AddRange(New Object() {"INSTRUCTOR"})
         cborole.Location = New Point(25, 565)
         cborole.Name = "cborole"
         cborole.Size = New Size(228, 32)

@@ -230,7 +230,7 @@ Public Class SchedulePopupForm
         cb_room.SelectedItem Is Nothing OrElse
         cbo_semester.SelectedItem Is Nothing OrElse
         StartTime1.Value = enTime.Value Then
-            MessageBox.Show("Please select a row to update.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Please select a values to update.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
@@ -285,8 +285,8 @@ Public Class SchedulePopupForm
                 Return
             End If
 
-            If duration.Hours > 8 Then
-                MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            If duration.Hours > 6 Then
+                MessageBox.Show("Class time duration exceeds 6 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
 

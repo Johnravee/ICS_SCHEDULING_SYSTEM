@@ -288,7 +288,7 @@ Partial Class CreateScheduleForm
         Panel10.BackColor = Color.LightYellow
         Panel10.BorderStyle = BorderStyle.FixedSingle
         Panel10.Controls.Add(txt_search)
-        Panel10.Location = New Point(691, 110)
+        Panel10.Location = New Point(668, 110)
         Panel10.Name = "Panel10"
         Panel10.Size = New Size(573, 50)
         Panel10.TabIndex = 33
@@ -321,11 +321,11 @@ Partial Class CreateScheduleForm
         GroupBox2.BackColor = Color.FromArgb(CByte(246), CByte(246), CByte(222))
         GroupBox2.Controls.Add(dgvSchedule)
         GroupBox2.Controls.Add(Label7)
-        GroupBox2.Location = New Point(689, 181)
+        GroupBox2.Location = New Point(664, 181)
         GroupBox2.Margin = New Padding(2)
         GroupBox2.Name = "GroupBox2"
         GroupBox2.Padding = New Padding(2)
-        GroupBox2.Size = New Size(868, 445)
+        GroupBox2.Size = New Size(893, 445)
         GroupBox2.TabIndex = 26
         GroupBox2.TabStop = False
         ' 
@@ -377,7 +377,7 @@ Partial Class CreateScheduleForm
         dgvSchedule.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvSchedule.ShowEditingIcon = False
-        dgvSchedule.Size = New Size(864, 425)
+        dgvSchedule.Size = New Size(889, 425)
         dgvSchedule.TabIndex = 9999
         ' 
         ' Label7
@@ -396,7 +396,7 @@ Partial Class CreateScheduleForm
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
-        Label2.Location = New Point(689, 80)
+        Label2.Location = New Point(666, 80)
         Label2.Name = "Label2"
         Label2.Size = New Size(70, 28)
         Label2.TabIndex = 23
@@ -498,7 +498,7 @@ Partial Class CreateScheduleForm
         Button1.BackgroundImageLayout = ImageLayout.Stretch
         Button1.FlatStyle = FlatStyle.Flat
         Button1.ForeColor = Color.FromArgb(CByte(1), CByte(81), CByte(54))
-        Button1.Location = New Point(11, 0)
+        Button1.Location = New Point(2, 1)
         Button1.Name = "Button1"
         Button1.Size = New Size(43, 38)
         Button1.TabIndex = 0
