@@ -52,7 +52,7 @@ Public Class InstructorListForm
         End If
 
         DataGridView1.Columns("InstructorID").Visible = False
-        DataGridView1.Columns("RFID").Visible = False
+
         DataGridView1.Columns("Position").HeaderText = "Role"
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
         DataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells

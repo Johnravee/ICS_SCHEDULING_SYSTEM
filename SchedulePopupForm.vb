@@ -285,7 +285,7 @@ Public Class SchedulePopupForm
                 Return
             End If
 
-            If duration.Hours <= 0 Or duration.Hours > 8 Then
+            If duration.Hours > 8 Then
                 MessageBox.Show("Class time duration exceeds 8 hours. Please consider adjusting the schedule.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Return
             End If
