@@ -23,10 +23,10 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
 
 ## Database Tables
 
-### `instructor` Table
+### `admins` Table
 - **Description**: Store information about instructors
 - **Fields**: 
-    - InstructorID (INT): Unique identifier for each instructor
+    - adminID (INT): Unique identifier for each instructor
     - RFID (VARCHAR(255)): RFID code for identification
     - Firstname (VARCHAR(100)): First name of the instructor
     - MiddleName (VARCHAR(100)): Middle name of the instructor
@@ -37,6 +37,20 @@ The ICS Scheduling System is a comprehensive platform designed to modernize and 
     - email (VARCHAR(255)): Email address of the instructor
 - **Constraints**: 
     - Unique constraint on RFID: `instructor_rfid_unique`
+    - Unique constraint on email: `instructor_email_unique`
+
+### `instructor` Table
+- **Description**: Store information about instructors
+- **Fields**: 
+    - InstructorID (INT): Unique identifier for each instructor
+    - Firstname (VARCHAR(100)): First name of the instructor
+    - MiddleName (VARCHAR(100)): Middle name of the instructor
+    - Surname (VARCHAR(100)): Last name of the instructor
+    - Gender (VARCHAR(10)): Gender of the instructor
+    - Position (VARCHAR(50)): Position or title of the instructor
+    - WorkStatus (VARCHAR(20)): Current work status of the instructor
+    - email (VARCHAR(255)): Email address of the instructor
+- **Constraints**: 
     - Unique constraint on email: `instructor_email_unique`
 
 ### `sections` Table
