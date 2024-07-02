@@ -1,6 +1,6 @@
 # ICS Scheduling System
 
-The ICS Scheduling System is a comprehensive platform designed to modernize and optimize the scheduling process for students, instructors, and administrative staff at Colegio De Montalban's Institute of Computer Studies.
+The ICS Scheduling System is a comprehensive platform designed to modernize and optimize the scheduling process for students, instructors, and administrative staff at Colegio de Montalban's Institute of Computer Studies.
 
 ## Features:
 
