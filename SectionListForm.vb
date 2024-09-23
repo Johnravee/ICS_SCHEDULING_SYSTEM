@@ -35,9 +35,9 @@ Public Class SectionListForm
         If index >= 0 AndAlso index < DataGridView1.Rows.Count Then
             Dim selectedRow = DataGridView1.Rows(index)
             txtsectionid.Text = selectedRow.Cells(0).Value.ToString()
-            txtcode.Text = selectedRow.Cells(3).Value.ToString()
+            txtcode.Text = selectedRow.Cells(1).Value.ToString()
             txtyear.Text = selectedRow.Cells(2).Value.ToString()
-            txtprogram.Text = selectedRow.Cells(1).Value.ToString()
+            txtprogram.Text = selectedRow.Cells(3).Value.ToString()
         End If
     End Sub
 
@@ -118,6 +118,7 @@ Public Class SectionListForm
             cmd.Parameters.AddWithValue("@Year", txtyear.Text)
             cmd.Parameters.AddWithValue("@SectionProgram", txtprogram.Text)
 
+
             If cmd.ExecuteNonQuery() > 0 Then
                 DataGridView1.DataSource = Nothing
                 SectionTable.Clear()
@@ -192,24 +193,39 @@ Public Class SectionListForm
     'Search
     Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
         Dim searchQuery As String = SearchTextBox.Text.Trim()
+
         If Not String.IsNullOrEmpty(searchQuery) Then
             Dim filteredData As New DataTable()
+
+            ' Clone the structure of SectionTable
             For Each column As DataColumn In SectionTable.Columns
                 filteredData.Columns.Add(column.ColumnName, column.DataType)
             Next
 
+            ' Specify which columns to search: Year, Section_Code, Section_Program
+            Dim columnsToSearch As New List(Of String) From {"Year", "Section_Code", "Section_Program"}
+
+            ' Iterate through each row in SectionTable
             For Each row As DataRow In SectionTable.Rows
-                For Each column As DataColumn In SectionTable.Columns
-                    If row(column.ColumnName).ToString().ToLower().Contains(searchQuery.ToLower()) Then
-                        filteredData.Rows.Add(row.ItemArray)
-                        Exit For
+                ' Iterate through each specified column for the current row
+                For Each columnName As String In columnsToSearch
+                    ' Check if the column value is not null and contains the search query (case-insensitive)
+                    If row(columnName) IsNot DBNull.Value AndAlso row(columnName).ToString().ToLower().Contains(searchQuery.ToLower()) Then
+                        filteredData.Rows.Add(row.ItemArray) ' Add the entire row to filteredData
+                        Exit For ' Move to the next row after a match is found
                     End If
                 Next
             Next
 
+            ' Bind the filtered data to the DataGridView
             DataGridView1.DataSource = filteredData
         Else
+            ' If the search query is empty, display all data
             DataGridView1.DataSource = SectionTable
         End If
     End Sub
+
+
+
+
 End Class
